@@ -1,7 +1,15 @@
 /* eslint-disable import/prefer-default-export */
-import { SGININ_SUCCESS } from './type';
+import {
+  SIGNIN_SUCCESS,
+  SIGNUP_SUCCESS,
+} from './type';
 
-export const signInSueccess = (user) => ({
-  type: SGININ_SUCCESS,
-  payload: user,
+export const signInSueccess = (data) => ({
+  type: SIGNIN_SUCCESS,
+  payload: data,
+});
+
+export const signUpSueccess = (data) => ({
+  type: SIGNUP_SUCCESS,
+  payload: data,
 });

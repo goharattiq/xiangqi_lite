@@ -20,12 +20,15 @@ const SignIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(signinUser(credentials));
+    setCredentials({
+      email: '',
+      password: '',
+    });
   };
 
   return (
     <Form className="w-50 form-position" onSubmit={handleSubmit}>
       <FloatingLabel
-        controlId="floatingInput"
         label="Email or Username"
         className="m-3"
       >
@@ -39,7 +42,6 @@ const SignIn = () => {
       </FloatingLabel>
 
       <FloatingLabel
-        controlId="floatingPassword"
         className="m-3"
         label="Password"
       >
@@ -51,7 +53,12 @@ const SignIn = () => {
           onChange={handleChange}
         />
       </FloatingLabel>
-      <Button className="position-relative form-button" type="submit">SIGNIN</Button>
+      <Button
+        className="position-relative form-button"
+        type="submit"
+      >
+        SIGNIN
+      </Button>
     </Form>
   );
 };

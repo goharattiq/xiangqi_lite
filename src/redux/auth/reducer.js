@@ -1,19 +1,19 @@
-import { SGININ_SUCCESS } from './type';
+import {
+  SIGNIN_SUCCESS,
+  SIGNUP_SUCCESS,
+} from './type';
 
 const initialState = {
-  isAuthenticated: false,
-  loading: true,
-  user: {},
+
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SGININ_SUCCESS:
+    case SIGNIN_SUCCESS:
+    case SIGNUP_SUCCESS:
       return {
         ...state,
-        isAuthenticated: true,
-        loading: false,
-        user: action.payload,
+        ...action.payload,
       };
     default:
       return state;
