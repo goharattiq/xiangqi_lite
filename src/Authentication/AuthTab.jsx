@@ -9,7 +9,7 @@ const AuthTab = ({ clickTabHandler, activeTab }) => (
     <Nav.Item>
       <Nav.Link
         id="signin"
-        className={`${activeTab ? 'active' : 'inactive'}`}
+        className={`border border-dark ${activeTab ? 'active' : 'inactive'}`}
         onClick={clickTabHandler}
       >
         SIGNIN
@@ -19,7 +19,7 @@ const AuthTab = ({ clickTabHandler, activeTab }) => (
     <Nav.Item>
       <Nav.Link
         id="signup"
-        className={`${!activeTab ? 'active' : 'inactive'}`}
+        className={`border border-dark ${!activeTab ? 'active' : 'inactive'}`}
         onClick={clickTabHandler}
       >
         SIGNUP
