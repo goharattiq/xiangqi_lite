@@ -1,0 +1,11 @@
+@import '../variables';
+
+.active{
+  background-color: $primary!important;
+  color: $background!important;
+}
+
+.inactive{
+  background-color: $background!important;
+  color: $compliment!important;
+}
