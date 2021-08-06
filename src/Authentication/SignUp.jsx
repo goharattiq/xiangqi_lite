@@ -1,6 +1,6 @@
 import React from 'react';
-import './SignUp.scss';
 import { Form, FloatingLabel } from 'react-bootstrap';
+import './SignUpIn.scss';
 
 const SignUP = () => (
   <div className="w-50 form-position">
