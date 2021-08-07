@@ -1,0 +1,13 @@
+@import '../variables';
+
+.active {
+  background-color: rgba($color: $background, $alpha: 0.5);
+}
+
+.bg-style {
+  background-color: $primary;
+}
+
+.nav-link, .navbar-brand {
+  color: $background!important;
+}
