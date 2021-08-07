@@ -26,7 +26,7 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Link id="play" to="/" className="nav-link active" onClick={handleActiveTab}>
+            <Link id="play" to="/lobby" className="nav-link active" onClick={handleActiveTab}>
               Play
             </Link>
             <Link id="spectate" to="/spectate" className="nav-link" onClick={handleActiveTab}>

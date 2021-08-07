@@ -1,0 +1,11 @@
+@import '../variables';
+
+.new-game, .new-game:hover, .new-game:focus {
+  background-color: $primary;
+  color: $background;
+  right: 5%;
+}
+
+.new-game:focus{
+  box-shadow: 0 0 0 0.25rem rgb(190,52,45/10%);
+}

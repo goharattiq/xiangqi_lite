@@ -2,7 +2,7 @@
 
 .active {
   background-color: rgba($color: $background, $alpha: 0.5);
-  border-radius: 5%;
+  border-radius: 10px;
 }
 
 .bg-style {
@@ -11,4 +11,5 @@
 
 .nav-link, .navbar-brand {
   color: $background!important;
+  padding-left: 10px!important;
 }
