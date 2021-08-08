@@ -24,7 +24,6 @@
   width: 90px;
   border-radius: 10px;
   margin: 0;
-  // margin-left: 20px;
 }
 
 .radio-buttons {
@@ -37,11 +36,10 @@ input[type="radio"]+label {
   left: 10px;
 }
 
-.form-check-input:checked{
+.form-check-input:checked {
   background-color: $primary;
   color: $background;
 }
-
 
 input[type="radio"]:checked + label {
   background-color: $primary;
@@ -53,15 +51,15 @@ input[type="radio"]:checked + label {
 }
 
 .time {
-  margin-left: -30px; 
+  margin-left: -30px;
 }
 
-input[name="move-time"], input[name="game-timer"] {
+input[name="moveTime"], input[name="gameTimer"] {
   height: 40px;
   width: 60px!important;
 }
 
-input[name="move-time"]+label, input[name="game-timer"]+label {
+input[name="moveTime"]+label, input[name="gameTimer"]+label {
   position: relative;
   top: -31px;
   left: 20px;

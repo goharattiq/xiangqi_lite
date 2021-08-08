@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const Field = ({
-  data, name, type, id, className,
+  data, name, type, id, className, handleChange,
 }) => (
   <>
     {
@@ -13,8 +13,12 @@ const Field = ({
         label={item}
         name={name}
         type={type}
+        // eslint-disable-next-line react/no-array-index-key
+        key={`${id}-${index}`}
         id={`${id}-${index}`}
         className={className}
+        onChange={handleChange}
+        value={item}
       />
     ))
 }
@@ -28,6 +32,7 @@ Field.propTypes = {
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default Field;
