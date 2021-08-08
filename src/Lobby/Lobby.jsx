@@ -4,14 +4,14 @@ import GameParams from './GameParams';
 import './Lobby.scss';
 
 const Lobby = () => {
-  const [gameParam, setGameParam] = useState(false);
+  const [overlayDiv, setOverlayDiv] = useState(false);
   return (
     <>
-      <Button className="position-absolute m-2 new-game" onClick={() => { setGameParam(!gameParam); }}>
+      <Button className="position-absolute m-2 new-game" onClick={() => { setOverlayDiv(!overlayDiv); }}>
         <i className="fas fa-plus pe-2" />
         New Game
       </Button>
-      {gameParam ? <GameParams /> : ''}
+      {overlayDiv ? <GameParams setOverlayDiv={setOverlayDiv} /> : ''}
     </>
   );
 };

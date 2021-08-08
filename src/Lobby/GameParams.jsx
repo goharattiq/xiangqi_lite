@@ -1,16 +1,20 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
 import Field from './Field';
 import './GameParams.scss';
 
-const GameParams = () => {
+const GameParams = ({ setOverlayDiv }) => {
   const GAME_TYPES = ['Public', 'Private'];
   const GAME_RATED = ['Rated', 'Unrated'];
   const GAME_TIMED = ['Timed', 'Nontimed'];
   const MOVE_TIMER = ['1', '2', '5', '10'];
   const GAME_TIMER = ['5', '10', '20', '30', '60'];
-  const SIDE = ['RED', 'RANDOM', 'BLACK'];
+  const SIDE = ['Red', 'Random', 'Black'];
   const [gameParams, setGameParams] = useState({
     gameType: '',
     gameRated: '',
@@ -54,8 +58,8 @@ const GameParams = () => {
     <div className="position-absolute w-100 h-100 overlay-div">
       <div className="position-absolute bg-white w-25 pt-4 game-params">
         <h2 className="text-center">Create game</h2>
-        <i className="fas fa-times" />
-        <Form onSubmit={handleSubmit}>
+        <i className="fas fa-times" onClick={() => { setOverlayDiv(false); }} />
+        <Form onSubmit={handleSubmit} className="form-scroll">
           <div className="d-flex ms-5">
             <Field
               data={GAME_TYPES}
@@ -144,7 +148,7 @@ const GameParams = () => {
             }
           </div>
           <Button
-            className="position-relative form-button"
+            className="position-relative m-3 form-button"
             type="submit"
           >
             Create Game
@@ -154,4 +158,9 @@ const GameParams = () => {
     </div>
   );
 };
+
+GameParams.propTypes = {
+  setOverlayDiv: PropTypes.func.isRequired,
+};
+
 export default GameParams;
