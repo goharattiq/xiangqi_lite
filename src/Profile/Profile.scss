@@ -1,0 +1,37 @@
+@import '../variables';
+
+.avatar {
+  background-color: gray;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.user-fullname {
+  color: $compliment;
+  position: relative;
+  left: 15%;
+  top: 50px;
+  height: 20px;
+  font-size: 2rem;
+}
+.user-username {
+  color: $compliment;
+  position: relative;
+  left: -21%;
+  top: 102px;
+  height: 20px;
+}
+
+.user-stats{
+  color: $compliment;
+  position: relative;
+  left: 5%;
+}
+
+.score {
+  background-color: rgba($color: gray, $alpha: 0.8);
+  width: 80px;
+  height: 70px;
+  border-radius: 23%!important;
+}
