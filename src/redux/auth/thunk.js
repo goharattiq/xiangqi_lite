@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
-import { signInSueccess, signUpSueccess } from './actions';
+import { signInSueccess, signOutSueccess, signUpSueccess } from './actions';
 
 export const signinUser = ({ email, password }) => (dispatch) => {
   const locale = navigator.language.slice(0, 2);
@@ -26,6 +26,23 @@ export const signupUser = ({ username, email, password }) => (dispatch) => {
     })
     .then((res) => {
       dispatch(signUpSueccess(res.data));
+    })
+    .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.log(err);
+    });
+};
+
+export const signOutUser = (token) => (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  axios
+    .post('/api/users/signout', null, config)
+    .then(() => {
+      dispatch(signOutSueccess());
     })
     .catch((err) => {
       // eslint-disable-next-line no-console

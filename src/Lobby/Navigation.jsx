@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import './Navigation.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { signOutUser } from '../redux/auth/thunk';
 
 const Navigation = () => {
   const activeNav = 'play';
   const className = 'active';
   const [previousActive, setPreviousActive] = useState(activeNav);
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const handleActiveTab = (event) => {
     document.getElementById(event.target.id).classList.add(className);
     if (previousActive !== event.target.id
@@ -38,7 +42,14 @@ const Navigation = () => {
             <Link id="profile" to="/profile" className="nav-link" onClick={handleActiveTab}>
               Profile
             </Link>
-            <Link id="logout" to="/" className="nav-link" onClick={handleActiveTab}>
+            <Link
+              id="logout"
+              to="/"
+              className="nav-link"
+              onClick={() => {
+                dispatch(signOutUser(auth.access_token));
+              }}
+            >
               Logout
             </Link>
           </Nav>

@@ -1,11 +1,10 @@
 import {
   SIGNIN_SUCCESS,
+  SIGNOUT_SUCCESS,
   SIGNUP_SUCCESS,
 } from './type';
 
-const initialState = {
-
-};
+const initialState = null;
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -15,6 +14,8 @@ const authReducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
       };
+    case SIGNOUT_SUCCESS:
+      return null;
     default:
       return state;
   }
