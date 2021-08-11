@@ -7,9 +7,10 @@ import './Profile.scss';
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const callback = useCallback((username) => fetchUserProfile(username));
   useEffect(() => {
-    dispatch(callback('goharattiq'));
+    dispatch(callback(auth.user.username));
   }, [callback]);
   const {
     username,
@@ -28,7 +29,13 @@ const Profile = () => {
     lossesCount: profile.losses_count,
     drawCount: profile.draw_count,
   }));
-
+  const stateList = [
+    { name: 'Games', score: gamesCount },
+    { name: 'Wins', score: winsCount },
+    { name: 'Losses', score: lossesCount },
+    { name: 'Draws', score: drawCount },
+    { name: 'Winning%', score: winsCount },
+  ];
   return (
     <Container className="bg-white w-75 mt-5">
       <div className="d-inline-flex user-profile mt-5 ms-5">
@@ -37,29 +44,14 @@ const Profile = () => {
         <p className="user-username">{username}</p>
       </div>
       <ul className="m-5 list-group list-group-horizontal user-stats">
-        <li className="score list-group-item m-2">
-          <h6 className="ps-2">{gamesCount}</h6>
-          <p>Games</p>
-        </li>
-        <li className="score list-group-item m-2">
-          <h6 className="ps-2">{winsCount}</h6>
-          <p>Wins</p>
-        </li>
-        <li className="score list-group-item m-2">
-          <h6 className="ps-2">{lossesCount}</h6>
-          <p>Losses</p>
-        </li>
-        <li className="score list-group-item m-2">
-          <h6 className="ps-2">{drawCount}</h6>
-          <p>Draws</p>
-        </li>
-        <li className="score list-group-item m-2">
-          <h6 className="ps-2">
-            {winsCount}
-            %
-          </h6>
-          <p>Winning</p>
-        </li>
+        {
+          stateList.map((state) => (
+            <li key={state.name} className="score list-group-item m-2">
+              <p className="m-0">{state.score}</p>
+              <p className="m-0">{state.name}</p>
+            </li>
+          ))
+        }
       </ul>
     </Container>
   );
