@@ -11,7 +11,7 @@ const Profile = () => {
   const callback = useCallback((username) => fetchUserProfile(username));
   useEffect(() => {
     dispatch(callback(auth.user.username));
-  }, [callback]);
+  }, []);
   const {
     username,
     firstName,
@@ -37,13 +37,13 @@ const Profile = () => {
     { name: 'Winning%', score: winsCount },
   ];
   return (
-    <Container className="bg-white w-75 mt-5">
+    <Container className="bg-white w-75 mt-5 pb-3">
       <div className="d-inline-flex user-profile mt-5 ms-5">
         <div className="avatar" />
         <p className="user-fullname">{`${firstName} ${lastName}`}</p>
         <p className="user-username">{username}</p>
       </div>
-      <ul className="m-5 list-group list-group-horizontal user-stats">
+      <ul className="list-group list-group-horizontal mt-5 mb-3 user-stats">
         {
           stateList.map((state) => (
             <li key={state.name} className="score list-group-item m-2">
