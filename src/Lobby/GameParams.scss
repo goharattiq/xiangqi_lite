@@ -1,0 +1,86 @@
+@import '../variables';
+
+.overlay-div {
+  color: $compliment;
+  background-color: rgba(150, 142, 142, 0.521);
+  z-index: 1000;
+  top: 0%;
+}
+
+.game-params {
+  border-radius: 10px;
+  left: 35%;
+  top: 5%;
+}
+
+.fa-times {
+  position: absolute;
+  right: 9%;
+  top: 4%;
+  cursor: pointer;
+}
+
+.form-check-input[type=radio] {
+  height: 40px;
+  width: 90px;
+  border-radius: 10px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.radio-buttons {
+  width: 90px;
+}
+
+input[type="radio"]+label {
+  position: relative;
+  top: -31px;
+  left: 10px;
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: $primary;
+  color: $background;
+}
+
+input[type="radio"]:checked + label {
+  background-color: $primary;
+  color: $background;
+  cursor: pointer;
+}
+
+.form-check-label:checked {
+  color: $background;
+}
+
+.time {
+  margin-left: -30px;
+}
+
+input[name="moveTime"], input[name="gameTimer"] {
+  height: 40px;
+  width: 60px!important;
+  cursor: pointer;
+}
+
+input[name="moveTime"]+label, input[name="gameTimer"]+label {
+  position: relative;
+  top: -31px;
+  left: 20px;
+  width: 20px;
+  cursor: pointer; 
+}
+
+.form-button, .form-button:hover, .form-button:focus {
+  left: 20%;
+  background-color: $primary;
+}
+
+.form-button:focus {
+  box-shadow: 0 0 0 0.25rem rgb(190,52,45/10%);
+}
+
+.form-scroll {
+  overflow-y: scroll;
+}
