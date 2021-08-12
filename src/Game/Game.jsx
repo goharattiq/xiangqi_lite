@@ -1,0 +1,10 @@
+import React from 'react';
+import Board from './Board/Board';
+
+const Game = () => (
+
+  <Board />
+
+);
+
+export default Game;

@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
@@ -147,12 +148,15 @@ const GameParams = ({ setOverlayDiv }) => {
                 ) : ''
             }
           </div>
-          <Button
-            className="position-relative m-3 form-button"
-            type="submit"
-          >
-            Create Game
-          </Button>
+          <Link to="/game/12345">
+            <Button
+              className="position-relative m-3 form-button"
+              type="submit"
+            >
+              Create Game
+            </Button>
+          </Link>
+
         </Form>
       </div>
     </div>
