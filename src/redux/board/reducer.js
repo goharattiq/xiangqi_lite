@@ -1,10 +1,11 @@
 import {
   INIT_BOARD,
 } from './type';
+import { initMatrix } from './utiles';
 
-const initialState = [10][9];
+const initialState = initMatrix(10, 9);
 
-const authReducer = (state = initialState, action) => {
+const boardReducer = (state = initialState, action) => {
   switch (action.type) {
     case INIT_BOARD:
       return {
@@ -15,4 +16,4 @@ const authReducer = (state = initialState, action) => {
   }
 };
 
-export default authReducer;
+export default boardReducer;
