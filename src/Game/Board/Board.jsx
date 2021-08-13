@@ -10,10 +10,6 @@ import './Board.scss';
 const Board = () => {
   const { board } = useSelector(({ game }) => ({ board: game.board }));
   const onDragEnd = () => { };
-  // eslint-disable-next-line prefer-const
-  let droppableID = 0;
-  // eslint-disable-next-line prefer-const
-  let dragableID = 0;
   return (
     <table className="col-8 border border-primary">
       <tbody>
@@ -22,12 +18,12 @@ const Board = () => {
         >
           {board.map((row, rowIndex) => (
             <tr
-              key={droppableID}
+              key={rowIndex}
             >
               {
                 row.map((cell, cellIndex) => (
                   <td>
-                    <Droppable droppableId={`droppable-${rowIndex + droppableID++}`} key={droppableID}>
+                    <Droppable droppableId={`droppable-${cell.id}`} key={cell.id}>
                       {(provided) => (
                         <div
                           {...provided.droppableProps}
@@ -35,12 +31,12 @@ const Board = () => {
                           className="droppable"
                         >
                           {
-                            cell !== '-'
+                            cell.item
                               ? (
                                 <Draggable
-                                  draggableId={`dragable-${cellIndex + dragableID++}`}
-                                  index={dragableID}
-                                  key={dragableID}
+                                  draggableId={`dragable-${cell.id}`}
+                                  index={cell.id}
+                                  key={cell.id}
                                 >
                                   {(provid) => (
                                     <div
