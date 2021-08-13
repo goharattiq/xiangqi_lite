@@ -25,6 +25,7 @@ const Board = () => {
           {
             board.map((row, rowIndex) => (
               <tr
+                className="border border-primary"
                 key={rowIndex}
               >
                 <Row row={row} key={rowIndex} />

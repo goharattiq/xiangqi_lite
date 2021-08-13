@@ -26,8 +26,7 @@ const cell = (id, item) => ({
 });
 
 export const onPieceMove = (result, previousState) => {
-  console.log(result);
-  // console.log()
+  // console.log(result);
   const { board } = previousState;
   const { source, destination } = result;
   if (source.droppableId !== destination.droppableId) {

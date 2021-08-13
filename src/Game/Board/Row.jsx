@@ -6,7 +6,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 const Row = ({ row }) => (
 
   row.map((cell, cellIndex) => (
-    <td key={`tr-${cellIndex}`}>
+    <td key={`tr-${cellIndex}`} className="border border-primary">
       <Droppable droppableId={`droppable-${cell.id}`} key={cell.id}>
         {(provided) => (
           <div
