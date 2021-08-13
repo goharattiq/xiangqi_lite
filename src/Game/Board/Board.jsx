@@ -3,25 +3,30 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import './Board.scss';
+import { pieceMove } from '../../redux/game/actions';
 
 const Board = () => {
   const { board } = useSelector(({ game }) => ({ board: game.board }));
-  const onDragEnd = () => { };
+  const dispatch = useDispatch();
+  const onDragEnd = (move) => {
+    dispatch(pieceMove(move));
+    // console.log(movesss);
+  };
   return (
     <table className="col-8 border border-primary">
       <tbody>
         <DragDropContext
-          onDragEnd={() => onDragEnd}
+          onDragEnd={(move) => onDragEnd(move)}
         >
           {board.map((row, rowIndex) => (
             <tr
               key={rowIndex}
             >
               {
-                row.map((cell, cellIndex) => (
+                row.map((cell) => (
                   <td>
                     <Droppable droppableId={`droppable-${cell.id}`} key={cell.id}>
                       {(provided) => (

@@ -24,3 +24,24 @@ const cell = (id, item) => ({
   id,
   item,
 });
+
+export const onPieceMove = (result, previousState) => {
+  console.log(result);
+  // console.log()
+  const { board } = previousState;
+  const { source, destination } = result;
+  if (source.droppableId !== destination.droppableId) {
+    const [sourceI, sourceJ] = indexGen(parseInt(source.droppableId.split('-')[1], 10));
+    const [destI, destJ] = indexGen(parseInt(destination.droppableId.split('-')[1], 10));
+    board[destI][destJ].item = board[sourceI][sourceJ].item;
+    board[sourceI][sourceJ].item = null;
+    console.log([sourceI, sourceJ]);
+    console.log([destI, destJ]);
+
+    return board;
+  }
+  return previousState.board;
+  // return initMatrix(10, 9);
+};
+
+const indexGen = (num) => [Math.floor(num / 9), Math.floor(num % 9)];

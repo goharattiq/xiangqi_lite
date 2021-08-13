@@ -1,7 +1,7 @@
 import {
-  INIT_BOARD,
+  INIT_BOARD, PIECE_MOVE,
 } from './type';
-import { initMatrix } from './utiles';
+import { initMatrix, onPieceMove } from './utiles';
 
 const initialState = {
   board: initMatrix(10, 9),
@@ -13,6 +13,12 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+    case PIECE_MOVE:
+      return {
+        ...state,
+        board: onPieceMove(action.payload, state),
+      };
+
     default:
       return state;
   }
