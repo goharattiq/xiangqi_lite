@@ -18,6 +18,35 @@ export const initMatrix = (row, col) => {
   return board;
 };
 
+export const onPieceMove = (action, previousState) => {
+  const { move, previousExpectedMove } = action;
+  const { board } = previousState;
+  const { source, destination } = move;
+  if (!destination) {
+    changeDroppableStyle(null, previousExpectedMove);
+    return previousState.board;
+  }
+  if (source.droppableId !== destination.droppableId) {
+    const [sourceI, sourceJ] = indexGen(parseInt(source.droppableId.split('-')[1], 10));
+    const [destI, destJ] = indexGen(parseInt(destination.droppableId.split('-')[1], 10));
+    board[destI][destJ].item = board[sourceI][sourceJ].item;
+    board[sourceI][sourceJ].item = null;
+    changeDroppableStyle(null, previousExpectedMove);
+    return board;
+  }
+  return previousState.board;
+};
+
+export const changeDroppableStyle = (expectedMove, previousExpectedMove) => {
+  if (previousExpectedMove && previousExpectedMove.destination) {
+    const previousBox = document.getElementById(previousExpectedMove.destination.droppableId);
+    previousBox.classList.remove('expected-move');
+  }
+  if (!expectedMove || !expectedMove.destination) return;
+  const box = document.getElementById(expectedMove.destination.droppableId);
+  box.classList.add('expected-move');
+};
+
 const cell = (id, item) => ({
   id,
   item,
@@ -27,22 +56,5 @@ const piece = (id, name) => ({
   id,
   name,
 });
-
-export const onPieceMove = (result, previousState) => {
-  const { board } = previousState;
-  const { source, destination } = result;
-  if (!destination) { return previousState.board; }
-  // console.log(result);
-  if (source.droppableId !== destination.droppableId) {
-    const [sourceI, sourceJ] = indexGen(parseInt(source.droppableId.split('-')[1], 10));
-    const [destI, destJ] = indexGen(parseInt(destination.droppableId.split('-')[1], 10));
-    // console.log(sourceI, sourceJ);
-    // console.log(destI, destJ);
-    board[destI][destJ].item = board[sourceI][sourceJ].item;
-    board[sourceI][sourceJ].item = null;
-    return board;
-  }
-  return previousState.board;
-};
 
 const indexGen = (num) => [Math.floor(num / 9), Math.floor(num % 9)];

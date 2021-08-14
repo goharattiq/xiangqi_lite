@@ -2,11 +2,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
+import './Row.scss';
 
 const Row = ({ row }) => (
-
   row.map((cell, cellIndex) => (
-    <td key={`tr-${cellIndex}`} className="border border-primary">
+    <td key={`tr-${cellIndex}`} className="border border-primary" id={`droppable-${cell.id}`}>
       <Droppable droppableId={`droppable-${cell.id}`} key={cell.id}>
         {(provided) => (
           <div

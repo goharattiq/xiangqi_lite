@@ -8,7 +8,7 @@ export const initBoard = () => ({
   type: INIT_BOARD,
 });
 
-export const pieceMove = (move) => ({
+export const pieceMove = (move, previousExpectedMove) => ({
   type: PIECE_MOVE,
-  payload: move,
+  payload: { move, previousExpectedMove },
 });
