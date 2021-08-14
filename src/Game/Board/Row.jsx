@@ -18,9 +18,9 @@ const Row = ({ row }) => (
                 cell.item
                   ? (
                     <Draggable
-                      draggableId={`dragable-${cell.id}`}
-                      index={cell.id}
-                      key={cell.id}
+                      draggableId={`dragable-${cell.item.id}`}
+                      index={cell.item.id}
+                      key={cell.item.id}
                     >
                       {(provid) => (
                         <div
@@ -28,7 +28,9 @@ const Row = ({ row }) => (
                           {...provid.draggableProps}
                           {...provid.dragHandleProps}
                           className="drag-div"
-                        />
+                        >
+                          {cell.item.name}
+                        </div>
                       )}
                     </Draggable>
                   ) : ''
