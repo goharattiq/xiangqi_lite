@@ -10,11 +10,11 @@ export const initMatrix = (row, col) => {
       id += 1;
     }
   }
-  board[3][0].item = piece(0, 'pawn');
-  board[3][2].item = piece(1, 'pawn');
-  board[3][4].item = piece(2, 'pawn');
-  board[3][6].item = piece(3, 'pawn');
-  board[3][8].item = piece(4, 'pawn');
+  board[3][0].piece = piece(0, 'p');
+  board[3][2].piece = piece(1, 'p');
+  board[3][4].piece = piece(2, 'P');
+  board[3][6].piece = piece(3, 'p');
+  board[3][8].piece = piece(4, 'P');
   return board;
 };
 
@@ -29,8 +29,8 @@ export const onPieceMove = (action, previousState) => {
   if (source.droppableId !== destination.droppableId) {
     const [sourceI, sourceJ] = indexGen(parseInt(source.droppableId.split('-')[1], 10));
     const [destI, destJ] = indexGen(parseInt(destination.droppableId.split('-')[1], 10));
-    board[destI][destJ].item = board[sourceI][sourceJ].item;
-    board[sourceI][sourceJ].item = null;
+    board[destI][destJ].piece = board[sourceI][sourceJ].piece;
+    board[sourceI][sourceJ].piece = null;
     changeDroppableStyle(null, previousExpectedMove);
     return board;
   }
@@ -47,9 +47,9 @@ export const changeDroppableStyle = (expectedMove, previousExpectedMove) => {
   box.classList.add('expected-move');
 };
 
-const cell = (id, item) => ({
+const cell = (id, piece) => ({
   id,
-  item,
+  piece,
 });
 
 const piece = (id, name) => ({

@@ -1,7 +1,10 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
+import {
+  Draggable, Droppable,
+} from 'react-beautiful-dnd';
+import Piece from '../Piece/Piece';
 import './Row.scss';
 
 const Row = ({ row }) => (
@@ -15,21 +18,20 @@ const Row = ({ row }) => (
             className="droppable"
           >
             {
-                cell.item
+                cell.piece
                   ? (
                     <Draggable
-                      draggableId={`dragable-${cell.item.id}`}
-                      index={cell.item.id}
-                      key={cell.item.id}
+                      draggableId={`dragable-${cell.piece.id}`}
+                      index={cell.piece.id}
+                      key={cell.piece.id}
                     >
                       {(provid) => (
                         <div
                           ref={provid.innerRef}
                           {...provid.draggableProps}
                           {...provid.dragHandleProps}
-                          className="drag-div"
                         >
-                          {cell.item.name}
+                          <Piece name={cell.piece.name} />
                         </div>
                       )}
                     </Draggable>
