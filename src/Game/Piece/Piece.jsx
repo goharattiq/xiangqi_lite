@@ -16,9 +16,10 @@ import { ReactComponent as Horse } from '../../static/img/horse.svg';
 import { ReactComponent as King } from '../../static/img/king.svg';
 import { ReactComponent as Pawn } from '../../static/img/pawn.svg';
 import './Piece.scss';
+import { isCapital } from '../../redux/game/utiles';
 
 const Piece = ({ name }) => {
-  const isCapital = (str) => /[A-Z]/.test(str.at(0));
+  // const isCapital = (str) => /[A-Z]/.test(str.at(0));
   const selectPiece = (piece) => {
     switch (piece.toLowerCase()) {
       case 'a':
