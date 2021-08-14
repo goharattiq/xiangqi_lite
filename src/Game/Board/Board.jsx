@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { pieceMove } from '../../redux/game/actions';
-import { changeDroppableStyle } from '../../redux/game/utiles';
+import { changeDroppableStyle, pieceAnimateStart } from '../../redux/game/utiles';
 import Row from './Row';
 import './Board.scss';
 
@@ -15,6 +15,7 @@ const Board = () => {
   const onDragUpdate = (expectedMove) => {
     if (!expectedMove.destination) return;
     changeDroppableStyle(expectedMove, previousExpectedMove);
+    pieceAnimateStart(expectedMove.draggableId);
     setPreviousExpectedMove(expectedMove);
   };
   const onDragEnd = (move) => {

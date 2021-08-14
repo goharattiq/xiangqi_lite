@@ -31,6 +31,7 @@ export const onPieceMove = (action, previousState) => {
     board[destI][destJ].piece = board[sourceI][sourceJ].piece;
     board[sourceI][sourceJ].piece = null;
     changeDroppableStyle(null, previousExpectedMove);
+    pieceAnimateEnd(move.draggableId);
     return board;
   }
   return previousState.board;
@@ -100,6 +101,16 @@ const setPiecePositions = (board) => {
     board[position][4].piece = piece(pieceID++, king);
   });
   return board;
+};
+
+export const pieceAnimateStart = (movingPieceID) => {
+  const pieceElement = document.getElementById(movingPieceID);
+  pieceElement.classList.add('animate');
+};
+
+export const pieceAnimateEnd = (movingPieceID) => {
+  const pieceElement = document.getElementById(movingPieceID);
+  pieceElement.classList.remove('animate');
 };
 
 const cell = (id, piece) => ({

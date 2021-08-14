@@ -9,8 +9,7 @@ import {
 } from './PiecesImport';
 import './Piece.scss';
 
-const Piece = ({ name }) => {
-  // const isCapital = (str) => /[A-Z]/.test(str.at(0));
+const Piece = ({ name, id }) => {
   const selectPiece = (piece) => {
     switch (piece.toLowerCase()) {
       case 'a':
@@ -32,7 +31,7 @@ const Piece = ({ name }) => {
     }
   };
   return (
-    <div className="piece">
+    <div className="piece" id={id}>
       <img src={isCapital(name) ? red : black} alt="Piece Background" />
       {selectPiece(name)}
     </div>
@@ -41,6 +40,7 @@ const Piece = ({ name }) => {
 
 Piece.propTypes = {
   name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default Piece;
