@@ -1,3 +1,11 @@
+@import '../../variables';
+table {
+  background-color: $background;
+  position: absolute;
+  left: 5%;
+  top: 15%;
+}
+
 tr {
   height: 70px;
 }

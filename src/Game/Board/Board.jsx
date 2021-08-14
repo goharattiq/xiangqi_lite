@@ -22,7 +22,7 @@ const Board = () => {
     dispatch(pieceMove(move, previousExpectedMove));
   };
   return (
-    <table className="col-8 border border-primary">
+    <table className="rounded">
       <tbody>
         <DragDropContext
           onDragEnd={(move) => onDragEnd(move)}
@@ -31,7 +31,6 @@ const Board = () => {
           {
             board.map((row, rowIndex) => (
               <tr
-                className="border border-primary"
                 key={rowIndex}
               >
                 <Row row={row} key={rowIndex} />

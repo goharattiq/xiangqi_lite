@@ -9,7 +9,7 @@ import './Row.scss';
 
 const Row = ({ row }) => (
   row.map((cell, cellIndex) => (
-    <td key={`tr-${cellIndex}`} className="border border-primary" id={`droppable-${cell.id}`}>
+    <td key={`tr-${cellIndex}`} id={`droppable-${cell.id}`}>
       <Droppable droppableId={`droppable-${cell.id}`} key={cell.id}>
         {(provided) => (
           <div
@@ -25,6 +25,7 @@ const Row = ({ row }) => (
                       index={cell.piece.id}
                       key={cell.piece.id}
                       id={`dragable-${cell.piece.id}`}
+                      className="cell"
                     >
                       {(provid) => (
                         <div
