@@ -175,7 +175,7 @@ const isValidMove = (move, board) => {
   }
   // Chariot + Cannon + King
   if (mapObject.orthogonal > 0 && mapObject.diagonal === 0
-    && (sourceI === destI || sourceJ === destJ)) {
+    && (sourceI === destI || sourceJ === destJ) && pieceName.toLowerCase() !== 'p') {
     let tempSourceI = sourceI;
     let tempSourceJ = sourceJ;
     newLocationI = sourceI === destI ? 0 : sourceI > destI ? -1 : 1;
@@ -217,6 +217,11 @@ const isValidMove = (move, board) => {
     let tempSourceJ = sourceJ;
     newLocationI = sourceI > destI ? -1 : 1;
     newLocationJ = sourceJ > destJ ? -1 : 1;
+    // elephant cannot cross river
+    if ((isCapital(pieceName) && destI > riverLocation)
+      || (!isCapital(pieceName) && destI < riverLocation)) {
+      return false;
+    }
     for (let index = mapObject.diagonal; index >= 0; index--) {
       tempSourceI += newLocationI;
       tempSourceJ += newLocationJ;
@@ -225,12 +230,33 @@ const isValidMove = (move, board) => {
         if (pieceName.toLowerCase() === 'a' && !isValidKingAdvisorRange(destI, destJ, isCapital(pieceName))) {
           return false;
         }
+
         return true;
       }
 
       if (isValidRange(tempSourceI, tempSourceJ) && board[tempSourceI][tempSourceJ].piece) {
         return false;
       }
+    }
+    return false;
+  }
+  // horse only
+  if (pieceName.toLowerCase() === 'h') {
+    let tempSourceI = sourceI;
+    let tempSourceJ = sourceJ;
+    newLocationI = sourceI > destI ? -1 : 1;
+    newLocationJ = sourceJ > destJ ? -2 : 2;
+    for (let index = 0; index < 2; index++) {
+      tempSourceI += newLocationI;
+      tempSourceJ += newLocationJ;
+      if (tempSourceI === destI && tempSourceJ === destJ) {
+        newLocationJ = sourceJ > destJ ? -1 : 1;
+        if (board[tempSourceI - newLocationI][tempSourceJ - newLocationJ].piece) {
+          return false;
+        }
+        return true;
+      }
+      newLocationJ = newLocationJ > 0 ? -1 : 1;
     }
     return false;
   }
