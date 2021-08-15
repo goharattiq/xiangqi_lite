@@ -160,8 +160,7 @@ const isValidMove = (move, board) => {
   const [sourceI, sourceJ] = indexGen(parseInt(source.droppableId.split('-')[1], 10));
   const [destI, destJ] = indexGen(parseInt(destination.droppableId.split('-')[1], 10));
   const riverLocation = isCapital(pieceName) ? 4 : 5;
-  const newLocationI = isCapital(pieceName) ? mapObject.orthogonal : -mapObject.orthogonal;
-
+  let newLocationI = isCapital(pieceName) ? mapObject.orthogonal : -mapObject.orthogonal;
   let newLocationJ;
   // Pawn only
   if (isCapital(pieceName)) {
@@ -175,10 +174,55 @@ const isValidMove = (move, board) => {
     return true;
   }
   // Chariot + Cannon + King
+  if (mapObject.orthogonal > 0 && mapObject.diagonal === 0
+    && (sourceI === destI || sourceJ === destJ)) {
+    let tempSourceI = sourceI;
+    let tempSourceJ = sourceJ;
+    newLocationI = sourceI === destI ? 0 : sourceI > destI ? -1 : 1;
+    newLocationJ = sourceJ === destJ ? 0 : sourceJ > destJ ? -1 : 1;
+    let canJump = mapObject.jump;
+    let index;
+    for (index = mapObject.orthogonal; index > 0; index--) {
+      tempSourceI += newLocationI;
+      tempSourceJ += newLocationJ;
+      if (tempSourceI === destI && tempSourceJ === destJ) {
+        // restriced area only for king
+        if (pieceName.toLowerCase() === 'k' && !isValidKingAdvisorRange(destI, destJ, isCapital(pieceName))) {
+          return false;
+        }
 
+        // cannon cannnot jump over and landed empty location
+        if (pieceName.toLowerCase() === 'c' && !canJump && !board[destI][destJ].piece) {
+          return false;
+        }
+        // cannon cannnot hit directly
+        if (pieceName.toLowerCase() === 'c' && canJump && board[destI][destJ].piece) {
+          return false;
+        }
+        return true;
+      }
+      if (isValidRange(tempSourceI, tempSourceJ) && board[tempSourceI][tempSourceJ].piece) {
+        if (canJump) {
+          canJump = false;
+          continue;
+        }
+        return false;
+      }
+    }
+    return false;
+  }
   // Advisor + Eelephant + Horses
   if (mapObject.diagonal > 0) { return false; }
   return false;
+};
+
+const isValidRange = (x, y) => (x >= 0 && x <= 9) && (y >= 0 && y <= 8);
+
+const isValidKingAdvisorRange = (x, y, side) => {
+  if (side) {
+    return (x >= 0 && x <= 2) && (y >= 3 && y <= 5);
+  }
+  return (x >= 7 && x <= 9) && (y >= 3 && y <= 5);
 };
 
 const moveMapping = {
