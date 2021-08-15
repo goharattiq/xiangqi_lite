@@ -3,7 +3,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
-import { isCapital } from '../../redux/game/utiles';
+import { isCapital } from '../../gameUtils';
 import {
   red, black, Advisor, Cannon, Chariot, Elephant, Horse, King, Pawn,
 } from './PiecesImport';
