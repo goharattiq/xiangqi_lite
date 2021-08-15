@@ -151,7 +151,7 @@ const indexGen = (num) => [Math.floor(num / 9), Math.floor(num % 9)];
 // => Chariot orthogoal
 
 const isValidMove = (move, board) => {
-  console.log(board);
+  // console.log(board);
   // console.log(moveMapping[move.draggableId.split('-')[0].toLowerCase()]);
   const { source, destination } = move;
   const [pieceName] = move.draggableId.split('-');
@@ -181,8 +181,7 @@ const isValidMove = (move, board) => {
     newLocationI = sourceI === destI ? 0 : sourceI > destI ? -1 : 1;
     newLocationJ = sourceJ === destJ ? 0 : sourceJ > destJ ? -1 : 1;
     let canJump = mapObject.jump;
-    let index;
-    for (index = mapObject.orthogonal; index > 0; index--) {
+    for (let index = mapObject.orthogonal; index > 0; index--) {
       tempSourceI += newLocationI;
       tempSourceJ += newLocationJ;
       if (tempSourceI === destI && tempSourceJ === destJ) {
@@ -199,6 +198,7 @@ const isValidMove = (move, board) => {
         if (pieceName.toLowerCase() === 'c' && canJump && board[destI][destJ].piece) {
           return false;
         }
+
         return true;
       }
       if (isValidRange(tempSourceI, tempSourceJ) && board[tempSourceI][tempSourceJ].piece) {
@@ -211,8 +211,29 @@ const isValidMove = (move, board) => {
     }
     return false;
   }
-  // Advisor + Eelephant + Horses
-  if (mapObject.diagonal > 0) { return false; }
+  // Advisor + Eelephant
+  if (mapObject.diagonal > 0 && pieceName.toLowerCase() !== 'h') {
+    let tempSourceI = sourceI;
+    let tempSourceJ = sourceJ;
+    newLocationI = sourceI > destI ? -1 : 1;
+    newLocationJ = sourceJ > destJ ? -1 : 1;
+    for (let index = mapObject.diagonal; index >= 0; index--) {
+      tempSourceI += newLocationI;
+      tempSourceJ += newLocationJ;
+      if (tempSourceI === destI && tempSourceJ === destJ && index === 1) {
+        // restriced area only for king
+        if (pieceName.toLowerCase() === 'a' && !isValidKingAdvisorRange(destI, destJ, isCapital(pieceName))) {
+          return false;
+        }
+        return true;
+      }
+
+      if (isValidRange(tempSourceI, tempSourceJ) && board[tempSourceI][tempSourceJ].piece) {
+        return false;
+      }
+    }
+    return false;
+  }
   return false;
 };
 
