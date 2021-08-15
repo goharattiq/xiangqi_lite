@@ -1,3 +1,5 @@
+/* eslint-disable no-continue */
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-mixed-operators */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-param-reassign */
@@ -21,8 +23,6 @@ export const onPieceMove = (action, previousState) => {
   const { move, previousExpectedMove } = action;
   const { board } = previousState;
   const { source, destination } = move;
-  const [sourceI, sourceJ] = indexGen(parseInt(source.droppableId.split('-')[1], 10));
-  const [destI, destJ] = indexGen(parseInt(destination.droppableId.split('-')[1], 10));
 
   // console.log(move);
   if (!destination) {
@@ -30,17 +30,23 @@ export const onPieceMove = (action, previousState) => {
     pieceAnimateEnd(move.draggableId);
     return previousState.board;
   }
+
+  const [sourceI, sourceJ] = indexGen(parseInt(source.droppableId.split('-')[1], 10));
+  const [destI, destJ] = indexGen(parseInt(destination.droppableId.split('-')[1], 10));
+
   // checking if source and destintation dropped location is not same and the
   // destination location if not empty then must not contain same side piece
   if ((source.droppableId !== destination.droppableId)
   && (!board[destI][destJ].piece || !(isCapital(board[destI][destJ].piece.name)
-  === isCapital(board[sourceI][sourceJ].piece.name)))) {
+  === isCapital(board[sourceI][sourceJ].piece.name))) && isValidMove(move, board)) {
+    // isValidMove(move, board);
     board[destI][destJ].piece = board[sourceI][sourceJ].piece;
     board[sourceI][sourceJ].piece = null;
     changeDroppableStyle(null, previousExpectedMove);
     pieceAnimateEnd(move.draggableId);
     return board;
   }
+
   changeDroppableStyle(null, previousExpectedMove);
   pieceAnimateEnd(move.draggableId);
   return previousState.board;
@@ -143,3 +149,72 @@ const indexGen = (num) => [Math.floor(num / 9), Math.floor(num % 9)];
 // => Elephant 2 diagonal
 // => Horses  1 orthogonal + 1 diagonal
 // => Chariot orthogoal
+
+const isValidMove = (move, board) => {
+  console.log(board);
+  // console.log(moveMapping[move.draggableId.split('-')[0].toLowerCase()]);
+  const { source, destination } = move;
+  const [pieceName] = move.draggableId.split('-');
+  // console.log(pieceID);
+  const mapObject = moveMapping[pieceName.toLowerCase()];
+  const [sourceI, sourceJ] = indexGen(parseInt(source.droppableId.split('-')[1], 10));
+  const [destI, destJ] = indexGen(parseInt(destination.droppableId.split('-')[1], 10));
+  const riverLocation = isCapital(pieceName) ? 4 : 5;
+  const newLocationI = isCapital(pieceName) ? mapObject.orthogonal : -mapObject.orthogonal;
+
+  let newLocationJ;
+  // Pawn only
+  if (isCapital(pieceName)) {
+    newLocationJ = sourceI > riverLocation ? mapObject.orthogonal : 0;
+  } else {
+    newLocationJ = sourceI < riverLocation ? mapObject.orthogonal : 0;
+  }
+  if (pieceName.toLowerCase() === 'p' && (sourceI + newLocationI === destI && sourceJ === destJ)
+    || (sourceI === destI && (sourceJ + newLocationJ === destJ
+      || sourceJ - newLocationJ === destJ))) {
+    return true;
+  }
+  // Chariot + Cannon + King
+
+  // Advisor + Eelephant + Horses
+  if (mapObject.diagonal > 0) { return false; }
+  return false;
+};
+
+const moveMapping = {
+  p: {
+    orthogonal: 1,
+    diagonal: 0,
+    jump: false,
+  },
+  c: {
+    orthogonal: Infinity,
+    diagonal: 0,
+    jump: true,
+  },
+  k: {
+    orthogonal: 1,
+    diagonal: 0,
+    jump: false,
+  },
+  a: {
+    orthogonal: 0,
+    diagonal: 1,
+    jump: false,
+  },
+  e: {
+    orthogonal: 0,
+    diagonal: 2,
+    jump: false,
+  },
+  h: {
+    orthogonal: 1,
+    diagonal: 1,
+    jump: false,
+  },
+  r: {
+    orthogonal: Infinity,
+    diagonal: 0,
+    jump: false,
+  },
+};
