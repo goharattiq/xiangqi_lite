@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/prefer-default-export */
@@ -18,22 +19,30 @@ export const initMatrix = (row, col) => {
 
 export const onPieceMove = (action, previousState) => {
   const { move, previousExpectedMove } = action;
-  // console.log(move);
   const { board } = previousState;
   const { source, destination } = move;
+  const [sourceI, sourceJ] = indexGen(parseInt(source.droppableId.split('-')[1], 10));
+  const [destI, destJ] = indexGen(parseInt(destination.droppableId.split('-')[1], 10));
+
+  // console.log(move);
   if (!destination) {
     changeDroppableStyle(null, previousExpectedMove);
+    pieceAnimateEnd(move.draggableId);
     return previousState.board;
   }
-  if (source.droppableId !== destination.droppableId) {
-    const [sourceI, sourceJ] = indexGen(parseInt(source.droppableId.split('-')[1], 10));
-    const [destI, destJ] = indexGen(parseInt(destination.droppableId.split('-')[1], 10));
+  // checking if source and destintation dropped location is not same and the
+  // destination location if not empty then must not contain same side piece
+  if ((source.droppableId !== destination.droppableId)
+  && (!board[destI][destJ].piece || !(isCapital(board[destI][destJ].piece.name)
+  === isCapital(board[sourceI][sourceJ].piece.name)))) {
     board[destI][destJ].piece = board[sourceI][sourceJ].piece;
     board[sourceI][sourceJ].piece = null;
     changeDroppableStyle(null, previousExpectedMove);
     pieceAnimateEnd(move.draggableId);
     return board;
   }
+  changeDroppableStyle(null, previousExpectedMove);
+  pieceAnimateEnd(move.draggableId);
   return previousState.board;
 };
 
@@ -43,6 +52,7 @@ export const changeDroppableStyle = (expectedMove, previousExpectedMove) => {
     previousBox.classList.remove('expected-move');
   }
   if (!expectedMove || !expectedMove.destination) return;
+
   const box = document.getElementById(expectedMove.destination.droppableId);
   box.classList.add('expected-move');
 };
@@ -124,3 +134,12 @@ const piece = (id, name) => ({
 });
 
 const indexGen = (num) => [Math.floor(num / 9), Math.floor(num % 9)];
+
+// pices moves
+// => Pawns move forward only
+// => Cannon orthogoal
+// => King  orthogonal
+// => Advisor diagonal
+// => Elephant 2 diagonal
+// => Horses  1 orthogonal + 1 diagonal
+// => Chariot orthogoal

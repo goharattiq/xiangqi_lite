@@ -3,7 +3,7 @@ table {
   background-color: $background;
   position: absolute;
   left: 5%;
-  top: 15%;
+  top: 10%;
 }
 
 tr {
@@ -12,9 +12,27 @@ tr {
 
 td {
   height: 70px;
-  width: 65px!important;
+  width: 65px;
 }
 
 .animate {
   zoom: 125%;
+}
+
+@media screen and (max-height : 950px ) {
+  table {
+    background-color: $background;
+    position: absolute;
+    left: 5%;
+    top: 18%;
+  }
+  
+  tr {
+    height: 55px;
+  }
+  
+  td {
+    height: 55px;
+    width: 45px;
+  }
 }

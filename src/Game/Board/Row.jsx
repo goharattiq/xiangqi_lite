@@ -21,10 +21,10 @@ const Row = ({ row }) => (
                 cell.piece
                   ? (
                     <Draggable
-                      draggableId={`dragable-${cell.piece.id}`}
+                      draggableId={`${cell.piece.name}-${cell.piece.id}`}
                       index={cell.piece.id}
                       key={cell.piece.id}
-                      id={`dragable-${cell.piece.id}`}
+                      id={`${cell.piece.name}-${cell.piece.id}`}
                       className="cell"
                     >
                       {(provid) => (
@@ -33,7 +33,7 @@ const Row = ({ row }) => (
                           {...provid.draggableProps}
                           {...provid.dragHandleProps}
                         >
-                          <Piece name={cell.piece.name} id={`dragable-${cell.piece.id}`} />
+                          <Piece name={cell.piece.name} id={`${cell.piece.name}-${cell.piece.id}`} />
                         </div>
                       )}
                     </Draggable>
