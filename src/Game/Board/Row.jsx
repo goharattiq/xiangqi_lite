@@ -6,6 +6,7 @@ import {
 } from 'react-beautiful-dnd';
 import Piece from '../Piece/Piece';
 import './Row.scss';
+import Spot from './Spot';
 
 const Row = ({ row }) => (
   row.map((cell, cellIndex) => (
@@ -37,7 +38,7 @@ const Row = ({ row }) => (
                         </div>
                       )}
                     </Draggable>
-                  ) : ''
+                  ) : <Spot />
               }
             {provided.placeholder}
           </div>
