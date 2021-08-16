@@ -18,8 +18,8 @@ const LeaderCard = () => {
         {
           stateList.map(() => (
             <Card.Text className="d-flex justify-content-center">
-              <p>Game</p>
-              <p>Score</p>
+              <p className="pe-5">Game</p>
+              <p className="ps-5">Score</p>
             </Card.Text>
           ))
         }
