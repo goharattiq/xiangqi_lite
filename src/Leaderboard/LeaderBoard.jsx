@@ -1,14 +1,21 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetechedLeaders } from '../redux/leaderboard/thunk';
 import LeaderCard from './LeaderCard';
 
 const LeaderBoard = () => {
-  const leader = ['Ali', 'Zubair', 'Imran'];
+  const dispatch = useDispatch();
+  const leaders = useSelector((state) => (state.leaders));
+  useEffect(() => {
+    dispatch(fetechedLeaders());
+  }, []);
   return (
     <div className="row justify-content-center m-5">
       {
-      leader.map(() => (
-        <LeaderCard />
-      ))
+          leaders ? Object.entries(leaders).map(([id, leader]) => (
+            <LeaderCard leader={leader} key={leader.id} />
+          )) : ''
     }
     </div>
   );
