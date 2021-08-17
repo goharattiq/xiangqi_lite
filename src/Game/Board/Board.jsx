@@ -10,12 +10,15 @@ import Row from './Row';
 import './Board.scss';
 import { isCapital } from '../../pieceMoveUtils';
 import HitPiece from './HitPiece';
+import History from './History';
 
 const Board = () => {
   const [previousExpectedMove, setPreviousExpectedMove] = useState(null);
-  const { board, hitPiece } = useSelector(({ game }) => ({
+  const [historyMode, setHistoryMode] = useState(false);
+  const { board, hitPiece, history } = useSelector(({ game }) => ({
     board: game.board,
     hitPiece: game.hitPiece,
+    history: game.history,
   }));
   const redHitPieces = hitPiece.filter((piece) => isCapital(piece.name));
   const blackHitPieces = hitPiece.filter((piece) => !isCapital(piece.name));
@@ -62,6 +65,7 @@ const Board = () => {
         </tbody>
       </table>
       <HitPiece hitPieces={blackHitPieces} />
+      <History history={history} clickHandler={clickHandler} setHistoryMode={setHistoryMode} />
     </>
 
   );
