@@ -1,6 +1,6 @@
 import {
   changeDroppableStyle,
-  pieceAnimateEnd, setPiecePositions, cell,
+  pieceAnimateEnd, setPiecePositions, cell, isValidMove,
 } from '../../gameUtils';
 import { indexGen, isCapital } from '../../pieceMoveUtils';
 
@@ -22,7 +22,7 @@ export const initMatrix = (row, col) => {
 
 export const onPieceMove = (action, previousState) => {
   const { move, previousExpectedMove } = action;
-  const { board } = previousState;
+  const { board, hints } = previousState;
   const { source, destination } = move;
 
   // console.log(move);
@@ -34,12 +34,12 @@ export const onPieceMove = (action, previousState) => {
 
   const [sourceI, sourceJ] = indexGen(parseInt(source.droppableId.split('-')[1], 10));
   const [destI, destJ] = indexGen(parseInt(destination.droppableId.split('-')[1], 10));
-
   // checking if source and destintation dropped location is not same and the
   // destination location if not empty then must not contain same side piece
   if ((source.droppableId !== destination.droppableId)
     && (!board[destI][destJ].piece || !(isCapital(board[destI][destJ].piece.name)
-    === isCapital(board[sourceI][sourceJ].piece.name)))) {
+    === isCapital(board[sourceI][sourceJ].piece.name)))
+    && isValidMove(move, hints)) {
     board[destI][destJ].piece = board[sourceI][sourceJ].piece;
     board[sourceI][sourceJ].piece = null;
     changeDroppableStyle(null, previousExpectedMove);

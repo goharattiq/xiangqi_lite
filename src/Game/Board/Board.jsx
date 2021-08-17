@@ -14,12 +14,19 @@ const Board = () => {
   const [previousExpectedMove, setPreviousExpectedMove] = useState(null);
   const onDragUpdate = (expectedMove) => {
     if (!expectedMove.destination) return;
-    const hintLocations = hintMoves(expectedMove.draggableId.split('-')[0],
-      expectedMove.source.droppableId.split('-')[1], board);
-    dispatch(hintMove(hintLocations));
+    // const hintLocations = hintMoves(expectedMove.draggableId.split('-')[0],
+    //   expectedMove.source.droppableId.split('-')[1], board);
+    // dispatch(hintMove(hintLocations));
+    console.log('onUpdate');
     changeDroppableStyle(expectedMove, previousExpectedMove);
     pieceAnimateStart(expectedMove.draggableId);
     setPreviousExpectedMove(expectedMove);
+  };
+  const onDragStart = (expectedMove) => {
+    console.log('onStart');
+    const hintLocations = hintMoves(expectedMove.draggableId.split('-')[0],
+      expectedMove.source.droppableId.split('-')[1], board);
+    dispatch(hintMove(hintLocations));
   };
   const onDragEnd = (move) => {
     dispatch(pieceMove(move, previousExpectedMove));
@@ -35,6 +42,7 @@ const Board = () => {
         <DragDropContext
           onDragEnd={(move) => onDragEnd(move)}
           onDragUpdate={(move) => onDragUpdate(move)}
+          onDragStart={(move) => onDragStart(move)}
         >
           {
             board.map((row, rowIndex) => (

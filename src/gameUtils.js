@@ -125,6 +125,11 @@ import {
 //   return false;
 // };
 
+export const isValidMove = (move, hints) => {
+  const cellLocation = move.destination.droppableId.split('-')[1];
+  return hints.includes(parseInt(cellLocation, 10));
+};
+
 export const setPiecePositions = (board) => {
   let pieceID = 0;
   // pawn index 0-4black 5-9red
