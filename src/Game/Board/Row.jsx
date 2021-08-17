@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
@@ -8,7 +10,7 @@ import Piece from '../Piece/Piece';
 import './Row.scss';
 import Spot from './Spot';
 
-const Row = ({ row }) => (
+const Row = ({ row, clickHandler }) => (
   row.map((cell, cellIndex) => (
     <td key={`tr-${cellIndex}`} id={`droppable-${cell.id}`}>
       <Droppable droppableId={`droppable-${cell.id}`} key={cell.id}>
@@ -33,12 +35,13 @@ const Row = ({ row }) => (
                           ref={provid.innerRef}
                           {...provid.draggableProps}
                           {...provid.dragHandleProps}
+                          onClick={() => { clickHandler(cell.piece.name, cell.id); }}
                         >
                           <Piece name={cell.piece.name} id={`${cell.piece.name}-${cell.piece.id}`} />
                         </div>
                       )}
                     </Draggable>
-                  ) : <Spot />
+                  ) : <Spot visiblity="hidden" id={`spot-${cell.id}`} />
               }
             {provided.placeholder}
           </div>

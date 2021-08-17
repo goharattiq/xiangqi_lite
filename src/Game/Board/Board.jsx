@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { pieceMove } from '../../redux/game/actions';
-import { changeDroppableStyle, pieceAnimateStart } from '../../gameUtils';
+import { changeDroppableStyle, hintMoves, pieceAnimateStart } from '../../gameUtils';
 import Row from './Row';
 import './Board.scss';
 
@@ -21,6 +21,17 @@ const Board = () => {
   const onDragEnd = (move) => {
     dispatch(pieceMove(move, previousExpectedMove));
   };
+  const clickHandler = (pieceName, location) => {
+    const hintLocations = hintMoves(pieceName, location, board);
+    console.log('expected locations', hintLocations);
+    hintLocations.forEach((hint) => {
+      // console.log(hint);
+      // eslint-disable-next-line no-unused-expressions
+      document.getElementById(`spot-${hint}`)
+        ? document.getElementById(`spot-${hint}`).style.visibility = 'visible' : '';
+    });
+  };
+
   return (
     <table className="rounded">
       <tbody>
@@ -33,7 +44,7 @@ const Board = () => {
               <tr
                 key={rowIndex}
               >
-                <Row row={row} key={rowIndex} />
+                <Row row={row} key={rowIndex} clickHandler={clickHandler} />
               </tr>
             ))
           }

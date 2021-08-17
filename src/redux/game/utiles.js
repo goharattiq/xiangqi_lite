@@ -1,7 +1,8 @@
 import {
   changeDroppableStyle,
-  indexGen, isCapital, isValidMove, pieceAnimateEnd, setPiecePositions, cell,
+  pieceAnimateEnd, setPiecePositions, cell,
 } from '../../gameUtils';
+import { indexGen, isCapital } from '../../pieceMoveUtils';
 
 /* eslint-disable import/prefer-default-export */
 export const initMatrix = (row, col) => {
@@ -38,7 +39,7 @@ export const onPieceMove = (action, previousState) => {
   // destination location if not empty then must not contain same side piece
   if ((source.droppableId !== destination.droppableId)
     && (!board[destI][destJ].piece || !(isCapital(board[destI][destJ].piece.name)
-    === isCapital(board[sourceI][sourceJ].piece.name))) && isValidMove(move, board)) {
+    === isCapital(board[sourceI][sourceJ].piece.name)))) {
     board[destI][destJ].piece = board[sourceI][sourceJ].piece;
     board[sourceI][sourceJ].piece = null;
     changeDroppableStyle(null, previousExpectedMove);
