@@ -1,11 +1,12 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { hintMove, pieceMove } from '../../redux/game/actions';
-import { changeDroppableStyle, hintMoves, pieceAnimateStart } from '../../gameUtils';
+import {
+  changeDroppableStyle, hintMoves, pieceAnimateEnd, pieceAnimateStart,
+} from '../../gameUtils';
 import Row from './Row';
 import './Board.scss';
 import { isCapital } from '../../pieceMoveUtils';
@@ -26,22 +27,26 @@ const Board = () => {
   const onDragUpdate = (expectedMove) => {
     if (!expectedMove.destination) return;
     changeDroppableStyle(expectedMove, previousExpectedMove);
-    pieceAnimateStart(expectedMove.draggableId);
     setPreviousExpectedMove(expectedMove);
   };
   const onDragStart = (expectedMove) => {
-    const hintLocations = hintMoves(expectedMove.draggableId.split('-')[0],
-      expectedMove.source.droppableId.split('-')[1], board);
+    pieceAnimateStart(expectedMove.draggableId);
+    const hintLocations = hintMoves(
+      expectedMove.draggableId.split('-')[0],
+      expectedMove.source.droppableId.split('-')[1], board,
+    );
     dispatch(hintMove(hintLocations));
   };
   const onDragEnd = (move) => {
-    dispatch(pieceMove(move, previousExpectedMove));
+    if (!historyMode) {
+      dispatch(pieceMove(move, previousExpectedMove));
+    }
+    changeDroppableStyle(null, previousExpectedMove);
+    pieceAnimateEnd(move.draggableId);
+    setPreviousExpectedMove(move);
     dispatch(hintMove([]));
   };
-  const clickHandler = (pieceName, location) => {
-    const hintLocations = hintMoves(pieceName, location, board);
-    dispatch(hintMove(hintLocations));
-  };
+
   return (
     <>
       <HitPiece hitPieces={redHitPieces} />
@@ -65,7 +70,7 @@ const Board = () => {
         </tbody>
       </table>
       <HitPiece hitPieces={blackHitPieces} />
-      <History history={history} clickHandler={clickHandler} setHistoryMode={setHistoryMode} />
+      <History history={history} clickHandler={historyHandler} setHistoryMode={setHistoryMode} />
     </>
 
   );

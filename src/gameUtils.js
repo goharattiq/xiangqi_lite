@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
 /* eslint-disable import/prefer-default-export */
-
 import {
   advisorMoves,
   cannonMoves,

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   changeDroppableStyle,
   pieceAnimateEnd, setPiecePositions, cell, isValidMove,
@@ -25,10 +26,7 @@ export const onPieceMove = (action, previousState) => {
   const { board, hints } = previousState;
   const { source, destination } = move;
 
-  // console.log(move);
   if (!destination) {
-    changeDroppableStyle(null, previousExpectedMove);
-    pieceAnimateEnd(move.draggableId);
     return { board, hitPiece: null, history: null };
   }
 
@@ -44,12 +42,7 @@ export const onPieceMove = (action, previousState) => {
     const hitPiece = board[destI][destJ].piece;
     board[destI][destJ].piece = board[sourceI][sourceJ].piece;
     board[sourceI][sourceJ].piece = null;
-    changeDroppableStyle(null, previousExpectedMove);
-    pieceAnimateEnd(move.draggableId);
     return { board, hitPiece, history: move };
   }
-
-  changeDroppableStyle(null, previousExpectedMove);
-  pieceAnimateEnd(move.draggableId);
   return { board, hitPiece: null, history: null };
 };
