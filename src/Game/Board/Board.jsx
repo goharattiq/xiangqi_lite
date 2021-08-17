@@ -46,7 +46,20 @@ const Board = () => {
     setPreviousExpectedMove(move);
     dispatch(hintMove([]));
   };
-
+  const clickHandler = (pieceName, location) => {
+    const hintLocations = hintMoves(pieceName, location, board);
+    dispatch(hintMove(hintLocations));
+  };
+  const historyHandler = (pointer, isNext) => {
+    // eslint-disable-next-line no-param-reassign
+    pointer = isNext ? pointer + 1 : pointer - 1;
+    // console.log(pointer, history.length);
+    if (pointer < history.length) {
+      setHistoryMode(true);
+    } else {
+      setHistoryMode(false);
+    }
+  };
   return (
     <>
       <HitPiece hitPieces={redHitPieces} />
