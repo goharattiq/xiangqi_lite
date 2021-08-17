@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable import/named */
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -9,7 +8,7 @@ import {
 } from './PiecesImport';
 import './Piece.scss';
 
-const Piece = ({ name, id }) => {
+const Piece = ({ name, id, hitStyle }) => {
   const selectPiece = (piece) => {
     switch (piece.toLowerCase()) {
       case 'a':
@@ -31,7 +30,11 @@ const Piece = ({ name, id }) => {
     }
   };
   return (
-    <div className="piece" id={id}>
+    <div
+      className="piece"
+      id={id}
+      style={hitStyle}
+    >
       <img src={isCapital(name) ? red : black} alt="Piece Background" />
       {selectPiece(name)}
     </div>
@@ -41,6 +44,8 @@ const Piece = ({ name, id }) => {
 Piece.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  hitStyle: PropTypes.object.isRequired,
 };
 
 export default Piece;

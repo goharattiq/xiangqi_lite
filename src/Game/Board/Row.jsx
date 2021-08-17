@@ -41,7 +41,11 @@ const Row = ({ row, clickHandler }) => {
                           {...provid.dragHandleProps}
                           onClick={() => { clickHandler(cell.piece.name, cell.id); }}
                         >
-                          <Piece name={cell.piece.name} id={`${cell.piece.name}-${cell.piece.id}`} />
+                          <Piece
+                            name={cell.piece.name}
+                            id={`${cell.piece.name}-${cell.piece.id}`}
+                            hitStyle={hints.includes(cell.id) ? { border: '2px solid red', borderRadius: '15px' } : {}}
+                          />
                         </div>
                       )}
                     </Draggable>
