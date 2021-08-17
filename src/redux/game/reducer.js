@@ -1,5 +1,8 @@
+/* eslint-disable no-case-declarations */
 import {
   HINT_MOVE,
+  HISTORY_MOVE_BACK,
+  HISTORY_MOVE_FORWARD,
   INIT_BOARD,
   PIECE_MOVE,
 } from './type';
@@ -13,14 +16,14 @@ const initialState = {
 };
 
 const gameReducer = (state = initialState, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case INIT_BOARD:
       return {
         ...state,
       };
     case PIECE_MOVE:
-      // eslint-disable-next-line no-case-declarations
-      const { board, hitPiece, history } = onPieceMove(action.payload, state);
+      const { board, hitPiece, history } = onPieceMove(payload, state, { mode: false });
       return {
         ...state,
         board,
@@ -30,7 +33,22 @@ const gameReducer = (state = initialState, action) => {
     case HINT_MOVE:
       return {
         ...state,
-        hints: action.payload,
+        hints: payload,
+      };
+    case HISTORY_MOVE_BACK:
+      // eslint-disable-next-line no-redeclare
+      const historyBack = onPieceMove(payload, state, { mode: true, type: HISTORY_MOVE_BACK });
+      return {
+        ...state,
+        board: historyBack.board,
+      };
+
+    case HISTORY_MOVE_FORWARD:
+      // eslint-disable-next-line no-redeclare
+      const historyFor = onPieceMove(payload, state, { mode: true, type: HISTORY_MOVE_FORWARD });
+      return {
+        ...state,
+        board: historyFor.board,
       };
 
     default:

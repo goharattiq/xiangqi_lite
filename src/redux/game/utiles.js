@@ -1,8 +1,4 @@
-/* eslint-disable no-unused-vars */
-import {
-  changeDroppableStyle,
-  pieceAnimateEnd, setPiecePositions, cell, isValidMove,
-} from '../../gameUtils';
+import { setPiecePositions, cell, isValidMove } from '../../gameUtils';
 import { indexGen, isCapital } from '../../pieceMoveUtils';
 
 /* eslint-disable import/prefer-default-export */
@@ -21,11 +17,12 @@ export const initMatrix = (row, col) => {
   return board;
 };
 
-export const onPieceMove = (action, previousState) => {
-  const { move, previousExpectedMove } = action;
+export const onPieceMove = (move, previousState, history) => {
   const { board, hints } = previousState;
-  const { source, destination } = move;
-
+  let { source, destination } = move;
+  if (history.mode && history.type === 'HISTORY_MOVE_BACK') {
+    [source, destination] = [destination, source];
+  }
   if (!destination) {
     return { board, hitPiece: null, history: null };
   }
@@ -38,7 +35,7 @@ export const onPieceMove = (action, previousState) => {
   if ((source.droppableId !== destination.droppableId)
     && (!board[destI][destJ].piece || !(isCapital(board[destI][destJ].piece.name)
     === isCapital(board[sourceI][sourceJ].piece.name)))
-    && isValidMove(move, hints)) {
+    && (isValidMove(move, hints) || history.mode)) {
     const hitPiece = board[destI][destJ].piece;
     board[destI][destJ].piece = board[sourceI][sourceJ].piece;
     board[sourceI][sourceJ].piece = null;
