@@ -148,6 +148,38 @@ export const cannonMoves = (pieceName, location, expectedLocations, board) => {
   return expectedLocations;
 };
 
+export const elephantMoves = (pieceName, location, expectedLocations, board) => {
+  const [sourceI, sourceJ] = indexGen(location);
+  const riverLocation = isCapital(pieceName) ? 4 : 5;
+  const direction = {
+    [NORTH]: setLocation(sourceI, sourceJ),
+    [SOUTH]: setLocation(sourceI, sourceJ),
+    [EAST]: setLocation(sourceI, sourceJ),
+    [WEST]: setLocation(sourceI, sourceJ),
+  };
+  let limitedMoves = 2;
+  while ((direction[NORTH] || direction[SOUTH] || direction[EAST] || direction[WEST])
+    && limitedMoves > 0) {
+    direction[NORTH] = direction[NORTH] ? decrementDiagonal(direction[NORTH], NORTH) : false;
+    direction[SOUTH] = direction[SOUTH] ? decrementDiagonal(direction[SOUTH], SOUTH) : false;
+    direction[EAST] = direction[EAST] ? decrementDiagonal(direction[EAST], EAST) : false;
+    direction[WEST] = direction[WEST] ? decrementDiagonal(direction[WEST], WEST) : false;
+    Object.entries(direction).forEach(([id, direct]) => {
+      if ((isValidRange(direct.x, direct.y)) && !(board[direct.x][direct.y].piece
+        && isCapital(board[direct.x][direct.y].piece.name) === isCapital(pieceName))) {
+        if ((limitedMoves === 1) && ((isCapital(pieceName) && direct.x <= riverLocation)
+          || ((!isCapital(pieceName) && direct.x >= riverLocation)))) {
+          expectedLocations.push(indexToID(direct.x, direct.y));
+        }
+      } else {
+        direction[id] = false;
+      }
+    });
+    limitedMoves -= 1;
+  }
+  return expectedLocations;
+};
+
 const decrementOrthogoanl = (obj, direction) => {
   switch (direction) {
     case 'NORTH':
