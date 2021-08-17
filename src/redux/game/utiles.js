@@ -29,7 +29,7 @@ export const onPieceMove = (action, previousState) => {
   if (!destination) {
     changeDroppableStyle(null, previousExpectedMove);
     pieceAnimateEnd(move.draggableId);
-    return { board, hitPiece: null };
+    return { board, hitPiece: null, history: null };
   }
 
   const [sourceI, sourceJ] = indexGen(parseInt(source.droppableId.split('-')[1], 10));
@@ -46,10 +46,10 @@ export const onPieceMove = (action, previousState) => {
     board[sourceI][sourceJ].piece = null;
     changeDroppableStyle(null, previousExpectedMove);
     pieceAnimateEnd(move.draggableId);
-    return { board, hitPiece };
+    return { board, hitPiece, history: move };
   }
 
   changeDroppableStyle(null, previousExpectedMove);
   pieceAnimateEnd(move.draggableId);
-  return { board, hitPiece: null };
+  return { board, hitPiece: null, history: null };
 };

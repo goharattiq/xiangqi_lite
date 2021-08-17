@@ -8,11 +8,10 @@ import {
 } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import Piece from '../Piece/Piece';
-import './Row.scss';
 import Spot from './Spot';
+import './Row.scss';
 
 const Row = ({ row, clickHandler }) => {
-  // eslint-disable-next-line no-unused-vars
   const hints = useSelector(({ game }) => (game.hints));
   return (
     row.map((cell, cellIndex) => (
