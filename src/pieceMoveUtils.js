@@ -98,6 +98,56 @@ export const chariotMoves = (pieceName, location, expectedLocations, board) => {
   return expectedLocations;
 };
 
+export const cannonMoves = (pieceName, location, expectedLocations, board) => {
+  const [sourceI, sourceJ] = indexGen(location);
+  const direction = {
+    [NORTH]: setLocation(sourceI, sourceJ),
+    [SOUTH]: setLocation(sourceI, sourceJ),
+    [EAST]: setLocation(sourceI, sourceJ),
+    [WEST]: setLocation(sourceI, sourceJ),
+  };
+  const directionJump = {
+    [NORTH]: true,
+    [SOUTH]: true,
+    [EAST]: true,
+    [WEST]: true,
+  };
+  const hit = {
+    [NORTH]: false,
+    [SOUTH]: false,
+    [EAST]: false,
+    [WEST]: false,
+  };
+  while (direction[NORTH] || direction[SOUTH] || direction[EAST] || direction[WEST]) {
+    direction[NORTH] = direction[NORTH] ? decrementOrthogoanl(direction[NORTH], NORTH) : false;
+    direction[SOUTH] = direction[SOUTH] ? decrementOrthogoanl(direction[SOUTH], SOUTH) : false;
+    direction[EAST] = direction[EAST] ? decrementOrthogoanl(direction[EAST], EAST) : false;
+    direction[WEST] = direction[WEST] ? decrementOrthogoanl(direction[WEST], WEST) : false;
+    Object.entries(direction).forEach(([id, direct]) => {
+      if (isValidRange(direct.x, direct.y)) {
+        // can landed empty cell before jump
+        if (directionJump[id] && direction[id] && !board[direct.x][direct.y].piece) {
+          expectedLocations.push(indexToID(direct.x, direct.y));
+        }
+        // cannot hit direct and if jump than cannot landed if jump can only hit once
+        if (!directionJump[id] && direction[id] && (board[direct.x][direct.y].piece
+          && isCapital(board[direct.x][direct.y].piece.name) !== isCapital(pieceName))
+          && !hit[id]) {
+          expectedLocations.push(indexToID(direct.x, direct.y));
+          hit[id] = true;
+        }
+        // if any piece than can jump
+        if (board[direct.x][direct.y].piece) {
+          directionJump[id] = false;
+        }
+      } else {
+        direction[id] = false;
+      }
+    });
+  }
+  return expectedLocations;
+};
+
 const decrementOrthogoanl = (obj, direction) => {
   switch (direction) {
     case 'NORTH':
