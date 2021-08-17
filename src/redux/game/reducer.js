@@ -8,6 +8,7 @@ import { initMatrix, onPieceMove } from './utiles';
 const initialState = {
   board: initMatrix(10, 9),
   hints: [],
+  hitPiece: [],
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -17,9 +18,12 @@ const gameReducer = (state = initialState, action) => {
         ...state,
       };
     case PIECE_MOVE:
+      // eslint-disable-next-line no-case-declarations
+      const { board, hitPiece } = onPieceMove(action.payload, state);
       return {
         ...state,
-        board: onPieceMove(action.payload, state),
+        board,
+        hitPiece: [...state.hitPiece, hitPiece].filter((piece) => (piece !== null)),
       };
     case HINT_MOVE:
       return {

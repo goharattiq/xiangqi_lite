@@ -29,25 +29,27 @@ export const onPieceMove = (action, previousState) => {
   if (!destination) {
     changeDroppableStyle(null, previousExpectedMove);
     pieceAnimateEnd(move.draggableId);
-    return previousState.board;
+    return { board, hitPiece: null };
   }
 
   const [sourceI, sourceJ] = indexGen(parseInt(source.droppableId.split('-')[1], 10));
   const [destI, destJ] = indexGen(parseInt(destination.droppableId.split('-')[1], 10));
   // checking if source and destintation dropped location is not same and the
   // destination location if not empty then must not contain same side piece
+  // and the piece has valid move
   if ((source.droppableId !== destination.droppableId)
     && (!board[destI][destJ].piece || !(isCapital(board[destI][destJ].piece.name)
     === isCapital(board[sourceI][sourceJ].piece.name)))
     && isValidMove(move, hints)) {
+    const hitPiece = board[destI][destJ].piece;
     board[destI][destJ].piece = board[sourceI][sourceJ].piece;
     board[sourceI][sourceJ].piece = null;
     changeDroppableStyle(null, previousExpectedMove);
     pieceAnimateEnd(move.draggableId);
-    return board;
+    return { board, hitPiece };
   }
 
   changeDroppableStyle(null, previousExpectedMove);
   pieceAnimateEnd(move.draggableId);
-  return previousState.board;
+  return { board, hitPiece: null };
 };

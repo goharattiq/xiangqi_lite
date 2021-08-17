@@ -9,9 +9,9 @@ import Row from './Row';
 import './Board.scss';
 
 const Board = () => {
+  const [previousExpectedMove, setPreviousExpectedMove] = useState(null);
   const { board } = useSelector(({ game }) => ({ board: game.board }));
   const dispatch = useDispatch();
-  const [previousExpectedMove, setPreviousExpectedMove] = useState(null);
   const onDragUpdate = (expectedMove) => {
     if (!expectedMove.destination) return;
     changeDroppableStyle(expectedMove, previousExpectedMove);
@@ -31,7 +31,6 @@ const Board = () => {
     const hintLocations = hintMoves(pieceName, location, board);
     dispatch(hintMove(hintLocations));
   };
-
   return (
     <table className="rounded">
       <tbody>
