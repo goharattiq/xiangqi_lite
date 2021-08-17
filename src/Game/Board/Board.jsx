@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { pieceMove } from '../../redux/game/actions';
+import { hintMove, pieceMove } from '../../redux/game/actions';
 import { changeDroppableStyle, hintMoves, pieceAnimateStart } from '../../gameUtils';
 import Row from './Row';
 import './Board.scss';
@@ -23,13 +23,7 @@ const Board = () => {
   };
   const clickHandler = (pieceName, location) => {
     const hintLocations = hintMoves(pieceName, location, board);
-    console.log('expected locations', hintLocations);
-    hintLocations.forEach((hint) => {
-      // console.log(hint);
-      // eslint-disable-next-line no-unused-expressions
-      document.getElementById(`spot-${hint}`)
-        ? document.getElementById(`spot-${hint}`).style.visibility = 'visible' : '';
-    });
+    dispatch(hintMove(hintLocations));
   };
 
   return (

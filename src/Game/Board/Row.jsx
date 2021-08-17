@@ -6,21 +6,25 @@ import React from 'react';
 import {
   Draggable, Droppable,
 } from 'react-beautiful-dnd';
+import { useSelector } from 'react-redux';
 import Piece from '../Piece/Piece';
 import './Row.scss';
 import Spot from './Spot';
 
-const Row = ({ row, clickHandler }) => (
-  row.map((cell, cellIndex) => (
-    <td key={`tr-${cellIndex}`} id={`droppable-${cell.id}`}>
-      <Droppable droppableId={`droppable-${cell.id}`} key={cell.id}>
-        {(provided) => (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            className="droppable"
-          >
-            {
+const Row = ({ row, clickHandler }) => {
+  // eslint-disable-next-line no-unused-vars
+  const hints = useSelector(({ game }) => (game.hints));
+  return (
+    row.map((cell, cellIndex) => (
+      <td key={`tr-${cellIndex}`} id={`droppable-${cell.id}`}>
+        <Droppable droppableId={`droppable-${cell.id}`} key={cell.id}>
+          {(provided) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className="droppable"
+            >
+              {
                 cell.piece
                   ? (
                     <Draggable
@@ -41,14 +45,16 @@ const Row = ({ row, clickHandler }) => (
                         </div>
                       )}
                     </Draggable>
-                  ) : <Spot visiblity="hidden" id={`spot-${cell.id}`} />
+                  ) : <Spot visiblity={hints.includes(cell.id) ? 'visible' : 'hidden'} id={`spot-${cell.id}`} />
+                  // ) : <Spot visiblity="vissible" id={`spot-${cell.id}`} />
               }
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </td>
-  ))
-);
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </td>
+    ))
+  );
+};
 
 export default Row;

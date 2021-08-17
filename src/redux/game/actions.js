@@ -2,6 +2,7 @@
 import {
   INIT_BOARD,
   PIECE_MOVE,
+  HINT_MOVE,
 } from './type';
 
 export const initBoard = () => ({
@@ -11,4 +12,9 @@ export const initBoard = () => ({
 export const pieceMove = (move, previousExpectedMove) => ({
   type: PIECE_MOVE,
   payload: { move, previousExpectedMove },
+});
+
+export const hintMove = (hints) => ({
+  type: HINT_MOVE,
+  payload: hints,
 });

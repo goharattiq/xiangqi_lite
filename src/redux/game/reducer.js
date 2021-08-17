@@ -1,10 +1,13 @@
 import {
-  INIT_BOARD, PIECE_MOVE,
+  HINT_MOVE,
+  INIT_BOARD,
+  PIECE_MOVE,
 } from './type';
 import { initMatrix, onPieceMove } from './utiles';
 
 const initialState = {
   board: initMatrix(10, 9),
+  hints: [],
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -17,6 +20,11 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         board: onPieceMove(action.payload, state),
+      };
+    case HINT_MOVE:
+      return {
+        ...state,
+        hints: action.payload,
       };
 
     default:
