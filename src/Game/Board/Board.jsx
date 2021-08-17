@@ -3,15 +3,17 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { hintMove, pieceMove } from '../../redux/game/actions';
+import {
+  hintMove, historyMoveBack, historyMoveForward, pieceMove,
+} from '../../redux/game/actions';
 import {
   changeDroppableStyle, hintMoves, pieceAnimateEnd, pieceAnimateStart,
 } from '../../gameUtils';
-import Row from './Row';
-import './Board.scss';
 import { isCapital } from '../../pieceMoveUtils';
+import Row from './Row';
 import HitPiece from './HitPiece';
 import History from './History';
+import './Board.scss';
 
 const Board = () => {
   const [previousExpectedMove, setPreviousExpectedMove] = useState(null);
@@ -39,7 +41,7 @@ const Board = () => {
   };
   const onDragEnd = (move) => {
     if (!historyMode) {
-      dispatch(pieceMove(move, previousExpectedMove));
+      dispatch(pieceMove(move));
     }
     changeDroppableStyle(null, previousExpectedMove);
     pieceAnimateEnd(move.draggableId);
@@ -53,9 +55,13 @@ const Board = () => {
   const historyHandler = (pointer, isNext) => {
     // eslint-disable-next-line no-param-reassign
     pointer = isNext ? pointer + 1 : pointer - 1;
-    // console.log(pointer, history.length);
+    console.log(pointer, history.length);
     if (pointer < history.length) {
       setHistoryMode(true);
+      console.log(history[pointer]);
+      // eslint-disable-next-line no-unused-expressions
+      isNext ? dispatch(historyMoveForward(history[pointer]))
+        : dispatch(historyMoveBack(history[pointer]));
     } else {
       setHistoryMode(false);
     }
