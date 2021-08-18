@@ -5,10 +5,16 @@ import { Button } from 'react-bootstrap';
 import './History.scss';
 
 const History = ({ history, clickHandler }) => {
-  const [pointer, setPointer] = useState(history.length);
-  const [historyType, setHistoryType] = useState(false);
+  const [historyManager, setHistoryManager] = useState({
+    pointer: history.length,
+    historyType: false,
+  });
+  const { pointer, historyType } = historyManager;
   useEffect(() => {
-    setPointer(history.length);
+    setHistoryManager({
+      ...historyManager,
+      pointer: history.length,
+    });
   }, [history]);
   useEffect(() => {
     clickHandler(pointer, historyType);
@@ -19,8 +25,10 @@ const History = ({ history, clickHandler }) => {
         className="custom-color me-2"
         onClick={() => {
           if (pointer > 0) {
-            setPointer(pointer - 1);
-            setHistoryType(false);
+            setHistoryManager({
+              pointer: pointer - 1,
+              historyType: false,
+            });
           }
         }}
       >
@@ -31,8 +39,10 @@ const History = ({ history, clickHandler }) => {
         className="btn custom-color ms-2"
         onClick={() => {
           if (pointer < history.length) {
-            setPointer(pointer + 1);
-            setHistoryType(true);
+            setHistoryManager({
+              pointer: pointer + 1,
+              historyType: true,
+            });
           }
         }}
       >
