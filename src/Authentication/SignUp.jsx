@@ -28,11 +28,10 @@ const SignUP = () => {
     });
   };
   return (
-    <Form className="w-50 form-position" onSubmit={handleSubmit}>
+    <Form className="sign-form" onSubmit={handleSubmit}>
 
       <FloatingLabel
         label="Username"
-        className="m-3"
       >
         <Form.Control
           name="username"
@@ -45,7 +44,6 @@ const SignUP = () => {
 
       <FloatingLabel
         label="Email"
-        className="m-3"
       >
         <Form.Control
           name="email"
@@ -58,7 +56,6 @@ const SignUP = () => {
 
       <FloatingLabel
         label="Password"
-        className="m-3"
       >
         <Form.Control
           name="password"
@@ -69,7 +66,7 @@ const SignUP = () => {
         />
       </FloatingLabel>
       <Button
-        className="position-relative form-button"
+        className="form-button"
         type="submit"
       >
         SIGNUP

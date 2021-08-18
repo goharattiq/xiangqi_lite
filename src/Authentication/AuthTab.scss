@@ -1,11 +1,16 @@
 @import '../variables';
 
-.active{
+.active {
   background-color: $primary!important;
   color: $background!important;
 }
 
-.inactive{
+.inactive {
   background-color: $background!important;
   color: $compliment!important;
+}
+
+.tabs {
+  padding-top: 16px;
+  height: 60px;
 }
