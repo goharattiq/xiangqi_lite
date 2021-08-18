@@ -11,7 +11,7 @@ import Game from '../Game/Game';
 
 const Render = () => {
   // const auth = useSelector((state) => state.auth);
-  const auth = false;
+  const auth = true;
   // loadUser();
   return (
     !auth

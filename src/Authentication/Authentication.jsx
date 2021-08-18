@@ -4,6 +4,7 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 
 const Authentication = () => {
+  document.body.style.backgroundColor = '#ede8e0';
   const SIGNIN = true;
   const [activeTab, setActiveTab] = useState(SIGNIN);
   const clickTabHandler = ({ target: { id } }) => {
