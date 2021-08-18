@@ -1,26 +1,22 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
 import Field from './Field';
+import {
+  MOVE_TIMER, GAME_TIMER, SIDE,
+} from '../utils/constants';
 import './GameParams.scss';
+import { PARAMETERS } from '../utils/paramsData';
 
 const GameParams = ({ setOverlayDiv }) => {
-  const GAME_TYPES = ['Public', 'Private'];
-  const GAME_RATED = ['Rated', 'Unrated'];
-  const GAME_TIMED = ['Timed', 'Nontimed'];
-  const MOVE_TIMER = ['1', '2', '5', '10'];
-  const GAME_TIMER = ['5', '10', '20', '30', '60'];
-  const SIDE = ['Red', 'Random', 'Black'];
   const [gameParams, setGameParams] = useState({
     gameType: '',
     gameRated: '',
     gameTimed: '',
-    moveTime: '',
+    moveTime: 1,
     gameTimer: '',
     side: '',
     challenge: false,
@@ -29,6 +25,7 @@ const GameParams = ({ setOverlayDiv }) => {
   const {
     gameTimed,
     challenge,
+    moveTime,
   } = gameParams;
   const handleChange = ({ target: { name, value } }) => {
     setGameParams({
@@ -57,46 +54,32 @@ const GameParams = ({ setOverlayDiv }) => {
   };
   return (
     <div className="position-absolute w-100 h-100 overlay-div">
-      <div className="position-absolute bg-white w-25 pt-4 game-params">
-        <h2 className="text-center">Create game</h2>
+      <div className="position-absolute bg-white pt-4 game-params">
+        <h2 className="text-center mb-3">Create game</h2>
         <i className="fas fa-times" onClick={() => { setOverlayDiv(false); }} />
         <Form onSubmit={handleSubmit} className="form-scroll">
-          <div className="d-flex ms-5">
-            <Field
-              data={GAME_TYPES}
-              name="gameType"
-              type="radio"
-              id="game-type"
-              className="text-center radio-buttons"
-              handleChange={handleChange}
-            />
-          </div>
-          <div className="d-flex ms-5">
-            <Field
-              data={GAME_RATED}
-              name="gameRated"
-              type="radio"
-              id="game-rate"
-              className="text-center radio-buttons"
-              handleChange={handleChange}
-            />
-          </div>
-          <div className="d-flex ms-5">
-            <Field
-              data={GAME_TIMED}
-              name="gameTimed"
-              type="radio"
-              id="game-timed"
-              className="text-center radio-buttons"
-              handleChange={handleChange}
-            />
-          </div>
+          {
+            PARAMETERS.map(({
+              data, name, type, id, className,
+            }) => (
+              <div className="d-flex justify-content-center" key={name}>
+                <Field
+                  data={data}
+                  name={name}
+                  type={type}
+                  id={id}
+                  className={className}
+                  handleChange={handleChange}
+                />
+              </div>
+            ))
+          }
           {
             gameTimed === 'Timed'
               ? (
                 <>
                   <h5 className="text-center">Move Timer (Minutes)</h5>
-                  <div className="d-flex ms-5">
+                  <div className="d-flex justify-content-center">
                     <Field
                       data={MOVE_TIMER}
                       name="moveTime"
@@ -107,9 +90,9 @@ const GameParams = ({ setOverlayDiv }) => {
                     />
                   </div>
                   <h5 className="text-center">Game Timer (Minutes)</h5>
-                  <div className="d-flex ms-5">
+                  <div className="d-flex justify-content-center ms-3">
                     <Field
-                      data={GAME_TIMER}
+                      data={GAME_TIMER[moveTime]}
                       name="gameTimer"
                       type="radio"
                       id="game-timer"
@@ -121,7 +104,7 @@ const GameParams = ({ setOverlayDiv }) => {
               ) : ''
           }
           <h5 className="text-center">Side</h5>
-          <div className="d-flex ms-3">
+          <div className="d-flex">
             <Field
               data={SIDE}
               name="side"
@@ -131,18 +114,19 @@ const GameParams = ({ setOverlayDiv }) => {
               handleChange={handleChange}
             />
           </div>
-          <div className="ms-5">
+          <div className="">
             <Form.Check
               name="challenge"
               type="checkbox"
               id="challenge"
               label="Cahllenge Someone?"
+              className="d-flex justify-content-center"
               onChange={handleCheckbox}
             />
             {
               challenge
                 ? (
-                  <Form.Group className="m-3 me-5" controlId="formBasicEmail">
+                  <Form.Group className="m-3" controlId="formBasicEmail">
                     <Form.Control type="text" placeholder="Search By Username" />
                   </Form.Group>
                 ) : ''
