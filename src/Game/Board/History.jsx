@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
@@ -7,18 +6,21 @@ import './History.scss';
 
 const History = ({ history, clickHandler }) => {
   const [pointer, setPointer] = useState(history.length);
-  // const history
+  const [historyType, setHistoryType] = useState(false);
   useEffect(() => {
     setPointer(history.length);
   }, [history]);
+  useEffect(() => {
+    clickHandler(pointer, historyType);
+  }, [pointer, historyType]);
   return (
     <div className="d-flex history-position">
       <Button
         className="custom-color me-2"
         onClick={() => {
           if (pointer > 0) {
-            setPointer((previousPointer) => previousPointer - 1);
-            clickHandler(pointer, false);
+            setPointer(pointer - 1);
+            setHistoryType(false);
           }
         }}
       >
@@ -30,7 +32,7 @@ const History = ({ history, clickHandler }) => {
         onClick={() => {
           if (pointer < history.length) {
             setPointer(pointer + 1);
-            clickHandler(pointer, true);
+            setHistoryType(true);
           }
         }}
       >
