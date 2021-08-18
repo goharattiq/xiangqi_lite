@@ -4,7 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Authentication from '../Authentication/Authentication';
 import Lobby from '../Lobby/Lobby';
 import Profile from '../Profile/Profile';
-import Navigation from '../Lobby/Navigation';
+import Navigation from './Navigation';
 import PrivateRoute from './PrivateRoute';
 import Game from '../Game/Game';
 // import { loadUser } from '../redux/auth/utiles';
