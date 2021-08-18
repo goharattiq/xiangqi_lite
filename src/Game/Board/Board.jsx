@@ -52,13 +52,14 @@ const Board = () => {
     const hintLocations = hintMoves(pieceName, location, board);
     dispatch(hintMove(hintLocations));
   };
+  // TODO: move forward miss one move, error on pointer variable does not start with zero
   const historyHandler = (pointer, isNext) => {
     // eslint-disable-next-line no-param-reassign
     pointer = isNext ? pointer + 1 : pointer - 1;
-    console.log(pointer, history.length);
+    // console.log(pointer, history.length);
     if (pointer < history.length) {
       setHistoryMode(true);
-      console.log(history[pointer]);
+      // console.log(history[pointer]);
       // eslint-disable-next-line no-unused-expressions
       isNext ? dispatch(historyMoveForward(history[pointer]))
         : dispatch(historyMoveBack(history[pointer]));

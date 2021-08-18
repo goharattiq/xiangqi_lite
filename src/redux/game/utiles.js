@@ -1,7 +1,6 @@
 import { setPiecePositions, cell, isValidMove } from '../../gameUtils';
 import { indexGen, isCapital } from '../../pieceMoveUtils';
 
-/* eslint-disable import/prefer-default-export */
 export const initMatrix = (row, col) => {
   let board = Array(row);
   let id = 0;
@@ -38,7 +37,9 @@ export const onPieceMove = (move, previousState, history) => {
     && (isValidMove(move, hints) || history.mode)) {
     const hitPiece = board[destI][destJ].piece;
     board[destI][destJ].piece = board[sourceI][sourceJ].piece;
-    board[sourceI][sourceJ].piece = null;
+    board[sourceI][sourceJ].piece = history.mode && history.type === 'HISTORY_MOVE_BACK' ? move.hit : null;
+    // eslint-disable-next-line no-param-reassign
+    move.hit = history.mode && history.type === 'HISTORY_MOVE_BACK' ? move.hit : hitPiece;
     return { board, hitPiece, history: move };
   }
   return { board, hitPiece: null, history: null };

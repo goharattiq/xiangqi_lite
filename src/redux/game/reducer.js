@@ -36,7 +36,6 @@ const gameReducer = (state = initialState, action) => {
         hints: payload,
       };
     case HISTORY_MOVE_BACK:
-      // eslint-disable-next-line no-redeclare
       const historyBack = onPieceMove(payload, state, { mode: true, type: HISTORY_MOVE_BACK });
       return {
         ...state,
@@ -44,7 +43,6 @@ const gameReducer = (state = initialState, action) => {
       };
 
     case HISTORY_MOVE_FORWARD:
-      // eslint-disable-next-line no-redeclare
       const historyFor = onPieceMove(payload, state, { mode: true, type: HISTORY_MOVE_FORWARD });
       return {
         ...state,
