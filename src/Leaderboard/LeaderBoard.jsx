@@ -11,12 +11,12 @@ const LeaderBoard = () => {
     dispatch(fetechedLeaders());
   }, []);
   return (
-    <div className="row justify-content-center m-5">
+    <div className="row justify-content-center leaderboard">
       {
-          leaders ? Object.entries(leaders).map(([id, leader]) => (
-            <LeaderCard leader={leader} key={leader.username} />
-          )) : ''
-    }
+        leaders ? Object.entries(leaders).map(([id, leader]) => (
+          <LeaderCard leader={leader} key={leader.username} />
+        )) : ''
+      }
     </div>
   );
 };
