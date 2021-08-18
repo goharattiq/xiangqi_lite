@@ -12,16 +12,16 @@ const LeaderCard = ({ leader }) => {
     'Winning%',
   ];
   return (
-    <Card className="col-2 m-3" key={leader.id}>
+    <Card className="col-2 m-3">
       <div className="avatar m-5" />
       <Card.Body>
         <Card.Title className="d-flex justify-content-center">{leader.username}</Card.Title>
         <Card.Text className="d-flex justify-content-center">{leader.rating}</Card.Text>
         {
           stateList.map((stat) => (
-            <Card.Text className="d-flex justify-content-center">
-              <p className="">{stat}</p>
-              <p className="ps-5">Score</p>
+            <Card.Text className="d-flex justify-content-center" key={stat}>
+              <span className="">{stat}</span>
+              <span className="ps-5">Score</span>
             </Card.Text>
           ))
         }

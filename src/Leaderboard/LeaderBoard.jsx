@@ -14,7 +14,7 @@ const LeaderBoard = () => {
     <div className="row justify-content-center m-5">
       {
           leaders ? Object.entries(leaders).map(([id, leader]) => (
-            <LeaderCard leader={leader} key={leader.id} />
+            <LeaderCard leader={leader} key={leader.username} />
           )) : ''
     }
     </div>
