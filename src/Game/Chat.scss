@@ -1,16 +1,30 @@
 @import '../variables';
 
 .chat {
-  background-color: $background;
-  height: 100%;
+  background-color: $compliment;
+  height: 620px;
   width: 50%;
+}
+
+.type_msg {
+  position: absolute;
+  bottom: 0;
+}
+
+.message-history {
+  height: 580px;
+  overflow-y: scroll;
 }
 
 @media screen and (max-width: 800px) {
   .chat {
-    position: inherit;
-    top: 16%;
-    width: 50%!important;
-    background-color: $compliment;
+    top: 55%;
+    left: 50%;
+    height: 400px;
+    background-color: rgba($color: $compliment, $alpha: 0.9);
+  }
+  .message-history {
+    height: 390px;
+    overflow-y: scroll;
   }
 }
