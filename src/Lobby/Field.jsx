@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -13,8 +13,7 @@ const Field = ({
         label={item}
         name={name}
         type={type}
-        // eslint-disable-next-line react/no-array-index-key
-        key={`${id}-${index}`}
+        key={item}
         id={`${id}-${index}`}
         className={className}
         onChange={handleChange}
@@ -26,7 +25,6 @@ const Field = ({
 );
 
 Field.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   data: PropTypes.array.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,

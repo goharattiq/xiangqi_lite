@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Form, FloatingLabel, Button } from 'react-bootstrap';
+import {
+  Form, FloatingLabel, Button,
+} from 'react-bootstrap';
 import { signinUser } from '../redux/auth/thunk';
 import './SignUpIn.scss';
 
@@ -25,24 +27,21 @@ const SignIn = () => {
       password: '',
     });
   };
-
   return (
-    <Form className="w-50 form-position" onSubmit={handleSubmit}>
+    <Form className="sign-form" onSubmit={handleSubmit}>
       <FloatingLabel
-        label="Email or Username"
-        className="m-3"
+        label="Username"
       >
         <Form.Control
           type="text"
           name="email"
           value={email}
-          placeholder="Email or Username"
+          placeholder="Username"
           onChange={handleChange}
         />
       </FloatingLabel>
 
       <FloatingLabel
-        className="m-3"
         label="Password"
       >
         <Form.Control
@@ -54,7 +53,7 @@ const SignIn = () => {
         />
       </FloatingLabel>
       <Button
-        className="position-relative form-button"
+        className="form-button"
         type="submit"
       >
         SIGNIN

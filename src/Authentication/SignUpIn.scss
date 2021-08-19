@@ -1,16 +1,39 @@
 @import '../variables';
 
-.form-position {
+.sign-form {
+  width: 30rem;
   position: absolute;
-  left: 28%;
+  left: 38%;
   top: 30%;
 }
 
 .form-button, .form-button:hover, .form-button:focus {
-  left: 42%;
   background-color: $primary;
+  margin-left: 180px;
+  margin-top: 20px;
 }
 
 .form-button:focus{
   box-shadow: 0 0 0 0.25rem rgb(190,52,45/10%);
 }
+
+@media screen and (max-width: 980px) {
+  .sign-form {
+    left: 35%;
+    width: 15rem;
+  }
+  .form-button, .form-button:hover, .form-button:focus {
+    margin-left: 80px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .sign-form {
+    left: 25%;
+    width: 12rem;
+  }
+  .form-button, .form-button:hover, .form-button:focus {
+    margin-left: 50px;
+  }
+}
+

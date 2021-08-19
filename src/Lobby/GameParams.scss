@@ -5,9 +5,11 @@
   background-color: rgba(150, 142, 142, 0.521);
   z-index: 1000;
   top: 0%;
+  height: 100%;
 }
 
 .game-params {
+  width: 315px;
   border-radius: 10px;
   left: 35%;
   top: 5%;
@@ -18,6 +20,10 @@
   right: 9%;
   top: 4%;
   cursor: pointer;
+}
+
+.form-check {
+  padding-left: 1rem;
 }
 
 .form-check-input[type=radio] {
@@ -81,6 +87,17 @@ input[name="moveTime"]+label, input[name="gameTimer"]+label {
   box-shadow: 0 0 0 0.25rem rgb(190,52,45/10%);
 }
 
-.form-scroll {
-  overflow-y: scroll;
+@media screen and (max-width: 550px) {
+  .game-params {
+    left: 20%;
+  }
+}
+
+@media screen and (max-width: 435px) {
+  .game-params {
+    left: 1%;
+  }
+  .overlay-div {
+    height: 1vh;
+  }
 }
