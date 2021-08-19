@@ -7,6 +7,10 @@
   border-radius: 50%;
 }
 
+.user-profile {
+  display: inline-flex;
+}
+
 .user-fullname {
   color: $compliment;
   position: relative;
@@ -15,10 +19,11 @@
   height: 20px;
   font-size: 2rem;
 }
+
 .user-username {
   color: $compliment;
   position: relative;
-  left: -12%;
+  left: -127px;
   top: 102px;
   height: 20px;
 }
@@ -27,6 +32,7 @@
   color: $compliment;
   position: relative;
   left: 18%;
+  flex-direction: row;
 }
 
 .score {
@@ -34,4 +40,34 @@
   width: 80px;
   height: 70px;
   border-radius: 23%!important;
+}
+
+@media screen and (max-width: 850px) {
+  .user-stats{
+    flex-direction: column; 
+    left: 40%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .user-profile {
+    display: block;
+  }
+  .avatar { 
+    position: relative;
+    left: 9px;
+    top: 20px;
+  }  
+  .user-fullname {
+    font-size: 1.6rem;
+  }
+  .user-username {
+    text-align: center;
+    top: 49px;
+    left: 0px;
+    height: 20px;
+  }
+  .user-stats{
+    top: 10px;
+  }
 }

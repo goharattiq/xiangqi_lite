@@ -40,12 +40,12 @@ const Profile = () => {
   const userFullName = firstName ? `${firstName} ${lastName}` : 'Fill Your Name';
   return (
     <Container className="bg-white w-75 mt-5 pb-3">
-      <div className="d-inline-flex user-profile mt-5 ms-5">
+      <div className="user-profile mt-5 ms-5">
         <div className="avatar" />
         <p className="user-fullname">{userFullName}</p>
         <p className="user-username">{username}</p>
       </div>
-      <ul className="list-group list-group-horizontal mt-5 mb-3 user-stats">
+      <ul className="list-group mt-5 mb-3 user-stats">
         {
           stateList.map((state) => (
             <li key={state.name} className="score list-group-item m-2">
