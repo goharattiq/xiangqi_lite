@@ -1,9 +1,10 @@
 @import '../../variables';
-table {
+
+.board {
   background-color: $background;
-  position: absolute;
-  left: 5%;
-  top: 10%;
+  // position: absolute;
+  // left: 5%;
+  // top: 10%;
 }
 
 tr {

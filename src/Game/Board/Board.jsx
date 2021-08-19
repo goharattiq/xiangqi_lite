@@ -1,32 +1,28 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
-import {
-  hintMove, historyMoveBack, historyMoveForward, pieceMove,
-} from '../../redux/game/actions';
-import {
-  changeDroppableStyle, hintMoves, pieceAnimateEnd, pieceAnimateStart,
-} from '../../gameUtils';
-import { isCapital } from '../../pieceMoveUtils';
+import { hintMove, pieceMove } from '../../redux/game/actions';
 import Row from './Row';
-import HitPiece from './HitPiece';
-import History from './History';
+import {
+  changeDroppableStyle,
+  hintMoves,
+  pieceAnimateEnd,
+  pieceAnimateStart,
+} from '../../gameUtils';
+
 import './Board.scss';
 
-const Board = () => {
+const Board = ({ historyMode }) => {
   const [previousExpectedMove, setPreviousExpectedMove] = useState(null);
-  const [historyMode, setHistoryMode] = useState(false);
-  const { board, hitPiece, history } = useSelector(({ game }) => ({
+  const dispatch = useDispatch();
+  const { board } = useSelector(({ game }) => ({
     board: game.board,
     hitPiece: game.hitPiece,
     history: game.history,
   }));
-  const redHitPieces = hitPiece.filter((piece) => isCapital(piece.name));
-  const blackHitPieces = hitPiece.filter((piece) => !isCapital(piece.name));
-  const dispatch = useDispatch();
   const onDragUpdate = (expectedMove) => {
     if (!expectedMove.destination) return;
     changeDroppableStyle(expectedMove, previousExpectedMove);
@@ -53,30 +49,15 @@ const Board = () => {
     const hintLocations = hintMoves(pieceName, location, board);
     dispatch(hintMove(hintLocations));
   };
-  const historyHandler = (pointer, isNext) => {
-    if (pointer < history.length || (isNext && historyMode)) {
-      setHistoryMode(true);
-      // eslint-disable-next-line no-unused-expressions
-      isNext ? dispatch(historyMoveForward(history[pointer - 1]))
-        : dispatch(historyMoveBack(history[pointer]));
-      if (pointer === history.length) {
-        setHistoryMode(false);
-      }
-    } else {
-      setHistoryMode(false);
-    }
-  };
   return (
-    <>
-      <HitPiece hitPieces={redHitPieces} />
-      <table className="rounded">
-        <tbody>
-          <DragDropContext
-            onDragEnd={(move) => onDragEnd(move)}
-            onDragUpdate={(move) => onDragUpdate(move)}
-            onDragStart={(move) => onDragStart(move)}
-          >
-            {
+    <table className="rounded board">
+      <tbody>
+        <DragDropContext
+          onDragEnd={(move) => onDragEnd(move)}
+          onDragUpdate={(move) => onDragUpdate(move)}
+          onDragStart={(move) => onDragStart(move)}
+        >
+          {
             board.map((row, rowIndex) => (
               <tr
                 key={rowIndex}
@@ -85,14 +66,14 @@ const Board = () => {
               </tr>
             ))
           }
-          </DragDropContext>
-        </tbody>
-      </table>
-      <HitPiece hitPieces={blackHitPieces} />
-      <History history={history} clickHandler={historyHandler} setHistoryMode={setHistoryMode} />
-    </>
-
+        </DragDropContext>
+      </tbody>
+    </table>
   );
+};
+
+Board.propTypes = {
+  historyMode: PropTypes.bool.isRequired,
 };
 
 export default Board;

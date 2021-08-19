@@ -1,11 +1,20 @@
 import React from 'react';
-import Board from './Board/Board';
+import Chat from './Chat';
+import PlayArea from './PlayArea';
 import './Game.scss';
 
-const Game = () => (
-
-  <Board />
-
-);
+const Game = () => {
+  document.body.style.backgroundColor = '#be342d';
+  return (
+    <div className="row">
+      <div className="col">
+        <PlayArea />
+      </div>
+      <div className="col">
+        <Chat />
+      </div>
+    </div>
+  );
+};
 
 export default Game;
