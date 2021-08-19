@@ -9,3 +9,12 @@ export const GAME_TIMER = {
   10: ['30', '60'],
 };
 export const SIDE = ['Red', 'Random', 'Black'];
+export const MAP = {
+  p: 'Pawn',
+  r: 'Chariot',
+  h: 'Horse',
+  e: 'Elephant',
+  a: 'Advisor',
+  k: 'King',
+  c: 'Cannon',
+};

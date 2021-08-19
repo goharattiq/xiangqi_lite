@@ -19,6 +19,20 @@ svg {
   height: $svg-xl;
 }
 
+.piece-name {
+  visibility: hidden;
+}
+
+.piece:hover .piece-name {
+  visibility: visible;
+  background-color: $compliment;
+  color: $background;
+  padding: 5px;
+  position: relative;
+  top: -26px;
+  z-index: 1;
+}
+
 @media screen and (max-width : 600px ) {
   img {
     width: $screen-sm;

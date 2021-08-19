@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable import/named */
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -7,6 +8,7 @@ import {
   red, black, Advisor, Cannon, Chariot, Elephant, Horse, King, Pawn,
 } from './PiecesImport';
 import './Piece.scss';
+import { MAP } from '../../utils/constants';
 
 const Piece = ({ name, id, hitStyle }) => {
   const selectPiece = (piece) => {
@@ -37,6 +39,7 @@ const Piece = ({ name, id, hitStyle }) => {
     >
       <img src={isCapital(name) ? red : black} alt="Piece Background" />
       {selectPiece(name)}
+      <span className="piece-name">{MAP[name.toLowerCase()]}</span>
     </div>
   );
 };
@@ -44,7 +47,6 @@ const Piece = ({ name, id, hitStyle }) => {
 Piece.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   hitStyle: PropTypes.object.isRequired,
 };
 
