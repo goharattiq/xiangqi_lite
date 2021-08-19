@@ -5,3 +5,12 @@
   height: 100%;
   width: 50%;
 }
+
+@media screen and (max-width: 800px) {
+  .chat {
+    position: inherit;
+    top: 16%;
+    width: 50%!important;
+    background-color: $compliment;
+  }
+}
