@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
+import { fetechedLeaderStats } from '../redux/leaderboard/thunk';
 import './LeaderBoard.scss';
 
 const LeaderCard = ({ leader }) => {
-  const stateList = [
-    'Games',
-    'Wins',
-    'Losses',
-    'Draws',
-    'Winning%',
-  ];
+  const dispatch = useDispatch();
+  const stats = useSelector(({ leaderBoard }) => leaderBoard.stats);
+  const profile = stats ? stats[leader.username] : null;
+  useEffect(() => {
+    dispatch(fetechedLeaderStats(leader.username));
+  }, []);
+  const stateList = {
+    games_played_count: 'Games',
+    wins_count: 'Wins',
+    losses_count: 'Losses',
+    draw_count: 'Draws',
+    winning_percentage: 'Winning%',
+  };
   return (
     <Card className="col-lg-2 col-md-4 col-sm-3 col-5 m-3">
       <div className="avatar m-2" />
@@ -21,13 +29,14 @@ const LeaderCard = ({ leader }) => {
         <table className="d-flex justify-content-center">
           <tbody>
             {
-          stateList.map((stat) => (
-            <tr key={stat}>
-              <td>{stat}</td>
-              <td>Score</td>
-            </tr>
-          ))
-        }
+              profile
+                ? Object.entries(stateList).map(([id, stat]) => (
+                  <tr key={stat}>
+                    <td>{stat}</td>
+                    <td>{profile[id]}</td>
+                  </tr>
+                )) : null
+            }
           </tbody>
         </table>
       </Card.Body>

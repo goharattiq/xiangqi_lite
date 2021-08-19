@@ -3,18 +3,30 @@
   width: 10rem;
   height: 10rem;
   border-radius: 50%;
-  margin-left: 20px;
+  position: relative;
+  left: 15%;
 }
 
 .leaderboard {
   margin-top: 5%;
 }
 
-@media screen and (max-width: 950px){
+@media screen and (max-width: 1200px){
   .avatar {
-    background-color: gray;
+    left: 1%;
+  }
+}
+
+@media screen and (max-width: 980px){
+  .avatar {
     width: 7rem;
     height: 7rem;
-    border-radius: 50%;
+    left: 20%;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .avatar {
+    left: 6%;
   }
 }
