@@ -1,16 +1,18 @@
-/* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
-
+import { useDispatch } from 'react-redux';
 import {
-  Button, Form, FormControl, InputGroup,
+  Button,
+  Form,
+  FormControl,
+  InputGroup,
 } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
 import { messageSend } from '../redux/chat/actions';
 import './Chat.scss';
+import ChatHistory from './ChatHistory';
 
 const Chat = () => {
   const dispatch = useDispatch();
-  const chat = useSelector((state) => state.chat);
+
   const [message, setMessage] = useState({
     content: '',
     author: '',
@@ -33,21 +35,7 @@ const Chat = () => {
   };
   return (
     <div className="chat position-relative">
-      <div className="message-history">
-        {
-          // eslint-disable-next-line no-shadow
-          chat.length !== 0 ? chat.map(({ content, author }, index) => (
-            <div className="message" key={index}>
-              <p>
-                {content}
-              </p>
-              <span className="author">
-                {author}
-              </span>
-            </div>
-          )) : ''
-        }
-      </div>
+      <ChatHistory />
       <Form onSubmit={handleSubmit}>
         <InputGroup className="type_msg mb-3">
           <FormControl
@@ -57,7 +45,7 @@ const Chat = () => {
             onChange={handleChange}
             placeholder="Type a message"
           />
-          <Button className="btn btn-primary" id="basic-addon1" type="submit"><i className="fas fa-paper-plane" /></Button>
+          <Button className="btn-send" type="submit"><i className="fas fa-paper-plane" /></Button>
         </InputGroup>
       </Form>
     </div>
