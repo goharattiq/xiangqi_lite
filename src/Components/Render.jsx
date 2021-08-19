@@ -7,6 +7,7 @@ import Profile from '../Profile/Profile';
 import Navigation from './Navigation';
 // import PrivateRoute from './PrivateRoute';
 import Game from '../Game/Game';
+import LeaderBoard from '../Leaderboard/LeaderBoard';
 // import { loadUser } from '../redux/auth/utiles';
 
 const Render = () => {
@@ -24,6 +25,7 @@ const Render = () => {
             <Route exact path="/lobby" component={Lobby} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/game/:gameId" component={Game} />
+            <Route exact path="/leaderboard" component={LeaderBoard} />
           </Switch>
         </>
       )

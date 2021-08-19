@@ -1,0 +1,32 @@
+.avatar {
+  background-color: gray;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  position: relative;
+  left: 15%;
+}
+
+.leaderboard {
+  margin-top: 5%;
+}
+
+@media screen and (max-width: 1200px){
+  .avatar {
+    left: 1%;
+  }
+}
+
+@media screen and (max-width: 980px){
+  .avatar {
+    width: 7rem;
+    height: 7rem;
+    left: 20%;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .avatar {
+    left: 6%;
+  }
+}
