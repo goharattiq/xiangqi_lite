@@ -1,7 +1,5 @@
 /* eslint-disable no-loop-func */
 /* eslint-disable no-unused-vars */
-/* eslint-disable import/prefer-default-export */
-
 const NORTH = 'NORTH';
 const SOUTH = 'SOUTH';
 const EAST = 'EAST';

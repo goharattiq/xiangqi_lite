@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import {
   SIGNIN_SUCCESS,
   SIGNOUT_SUCCESS,

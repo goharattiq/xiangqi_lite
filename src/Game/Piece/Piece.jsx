@@ -1,9 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
-/* eslint-disable import/named */
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
-import { isCapital } from '../../pieceMoveUtils';
+import { isCapital } from '../../utils/pieceMove';
 import {
   red, black, Advisor, Cannon, Chariot, Elephant, Horse, King, Pawn,
 } from './PiecesImport';

@@ -1,12 +1,13 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable no-unused-expressions */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
 import Board from './Board/Board';
 import HitPiece from './Board/HitPiece';
 import History from './Board/History';
-import { isCapital } from '../pieceMoveUtils';
+import { isCapital } from '../utils/pieceMove';
 import './PlayArea.scss';
 
 const PlayArea = () => {
@@ -22,7 +23,6 @@ const PlayArea = () => {
   const historyHandler = (pointer, isNext) => {
     if (pointer < history.length || (isNext && historyMode)) {
       setHistoryMode(true);
-      // eslint-disable-next-line no-unused-expressions
       isNext ? dispatch(historyMoveForward(history[pointer - 1]))
         : dispatch(historyMoveBack(history[pointer]));
       if (pointer === history.length) {

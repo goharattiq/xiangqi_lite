@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import {
   INIT_BOARD,
   PIECE_MOVE,

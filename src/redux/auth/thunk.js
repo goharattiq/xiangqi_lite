@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import { signInSueccess, signOutSueccess, signUpSueccess } from './actions';
 
@@ -9,7 +8,6 @@ export const signinUser = ({ email, password }) => (dispatch) => {
       email, password, locale,
     })
     .then((res) => {
-      // console.log(res.data);
       dispatch(signInSueccess(res.data));
     })
     .catch((err) => {

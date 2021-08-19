@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { GET_LEADERS, GET_LEADERS_STATS } from './type';
 
 export const getLeaders = (data) => ({

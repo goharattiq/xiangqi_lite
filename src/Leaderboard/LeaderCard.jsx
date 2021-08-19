@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,7 +45,6 @@ const LeaderCard = ({ leader }) => {
 };
 
 LeaderCard.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   leader: PropTypes.object.isRequired,
 };
 

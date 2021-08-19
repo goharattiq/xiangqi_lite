@@ -1,5 +1,5 @@
-import { setPiecePositions, cell, isValidMove } from '../../gameUtils';
-import { indexGen, isCapital } from '../../pieceMoveUtils';
+import { setPiecePositions, cell, isValidMove } from '../../utils/game';
+import { indexGen, isCapital } from '../../utils/pieceMove';
 
 export const initMatrix = (row, col) => {
   let board = Array(row);

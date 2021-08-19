@@ -1,11 +1,10 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
-/* eslint-disable import/prefer-default-export */
 import {
   advisorMoves,
   cannonMoves,
   chariotMoves, elephantMoves, horseMoves, isCapital, kingMoves, pawnMoves,
-} from './pieceMoveUtils';
+} from './pieceMove';
 
 // pices moves
 // => Pawns move forward only

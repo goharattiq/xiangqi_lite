@@ -1,5 +1,4 @@
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +10,7 @@ import {
   hintMoves,
   pieceAnimateEnd,
   pieceAnimateStart,
-} from '../../gameUtils';
+} from '../../utils/game';
 import './Board.scss';
 
 const Board = ({ historyMode }) => {
