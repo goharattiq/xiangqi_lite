@@ -16,7 +16,10 @@ const Row = ({ row, clickHandler }) => {
   return (
     row.map((cell, cellIndex) => (
       <td key={`tr-${cellIndex}`} id={`droppable-${cell.id}`}>
-        <Droppable droppableId={`droppable-${cell.id}`} key={cell.id}>
+        <Droppable
+          droppableId={`droppable-${cell.id}`}
+          key={cell.id}
+        >
           {(provided) => (
             <div
               {...provided.droppableProps}
@@ -48,7 +51,12 @@ const Row = ({ row, clickHandler }) => {
                         </div>
                       )}
                     </Draggable>
-                  ) : <Spot visiblity={hints.includes(cell.id) ? 'visible' : 'hidden'} id={`spot-${cell.id}`} />
+                  ) : (
+                    <Spot
+                      visiblity={hints.includes(cell.id) ? 'visible' : 'hidden'}
+                      id={`spot-${cell.id}`}
+                    />
+                  )
               }
               {provided.placeholder}
             </div>

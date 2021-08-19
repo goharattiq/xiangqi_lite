@@ -65,7 +65,11 @@ const Board = ({ historyMode }) => {
               <tr
                 key={rowIndex}
               >
-                <Row row={row} key={rowIndex} clickHandler={clickHandler} />
+                <Row
+                  row={row}
+                  key={rowIndex}
+                  clickHandler={clickHandler}
+                />
               </tr>
             ))
           }

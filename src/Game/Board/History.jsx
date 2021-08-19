@@ -1,5 +1,5 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { useState, useEffect } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './History.scss';
@@ -53,7 +53,6 @@ const History = ({ history, clickHandler }) => {
 };
 
 History.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   history: PropTypes.array.isRequired,
   clickHandler: PropTypes.func.isRequired,
 };

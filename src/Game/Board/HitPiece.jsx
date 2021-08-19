@@ -1,22 +1,26 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import Piece from '../Piece/Piece';
+import './HitPiece.scss';
 
 const HitPiece = ({ hitPieces }) => (
-  <>
+  <ul className="list-group list-group-horizontal hit-piece">
     {
       hitPieces.map((piece) => (
-        <Piece
-          name={piece.name}
-          id={`hit-${piece.name}-${piece.id}`}
+        <li
+          className="list-group-item items"
           key={`hit-${piece.name}-${piece.id}`}
-          hitStyle={{}}
-        />
+        >
+          <Piece
+            name={piece.name}
+            id={`hit-${piece.name}-${piece.id}`}
+            hitStyle={{}}
+          />
+        </li>
       ))
     }
-  </>
+  </ul>
 );
 
 HitPiece.propTypes = {
