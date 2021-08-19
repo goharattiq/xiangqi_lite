@@ -6,5 +6,5 @@ import profileReducer from './profile/redux';
 export default combineReducers({
   auth: authReducer,
   profile: profileReducer,
-  leaders: leaderReducer,
+  leaderBoard: leaderReducer,
 });
