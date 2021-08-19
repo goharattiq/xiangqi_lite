@@ -7,6 +7,7 @@ import Board from './Board/Board';
 import HitPiece from './Board/HitPiece';
 import History from './Board/History';
 import { isCapital } from '../pieceMoveUtils';
+import './PlayArea.scss';
 
 const PlayArea = () => {
   const [historyMode, setHistoryMode] = useState(false);
@@ -32,13 +33,12 @@ const PlayArea = () => {
     }
   };
   return (
-    <div className="play-area">
+    <div className="rounded play-area">
       <HitPiece hitPieces={redHitPieces} />
       <Board historyMode={historyMode} />
       <HitPiece hitPieces={blackHitPieces} />
       <History history={history} clickHandler={historyHandler} setHistoryMode={setHistoryMode} />
     </div>
-
   );
 };
 

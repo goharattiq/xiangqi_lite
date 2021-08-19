@@ -7,10 +7,10 @@ const Game = () => {
   document.body.style.backgroundColor = '#be342d';
   return (
     <div className="row">
-      <div className="col">
+      <div className="col-md-8 col-sm-12 col-xs-12">
         <PlayArea />
       </div>
-      <div className="col">
+      <div className="col-md-4 chat-area">
         <Chat />
       </div>
     </div>
