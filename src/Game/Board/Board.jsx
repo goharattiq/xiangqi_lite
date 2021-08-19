@@ -12,7 +12,6 @@ import {
   pieceAnimateEnd,
   pieceAnimateStart,
 } from '../../gameUtils';
-
 import './Board.scss';
 
 const Board = ({ historyMode }) => {
@@ -30,24 +29,28 @@ const Board = ({ historyMode }) => {
   };
   const onDragStart = (expectedMove) => {
     pieceAnimateStart(expectedMove.draggableId);
-    const hintLocations = hintMoves(
-      expectedMove.draggableId.split('-')[0],
-      expectedMove.source.droppableId.split('-')[1], board,
-    );
-    dispatch(hintMove(hintLocations));
+    if (!historyMode) {
+      const hintLocations = hintMoves(
+        expectedMove.draggableId.split('-')[0],
+        expectedMove.source.droppableId.split('-')[1], board,
+      );
+      dispatch(hintMove(hintLocations));
+    }
   };
   const onDragEnd = (move) => {
     if (!historyMode) {
       dispatch(pieceMove(move));
+      dispatch(hintMove([]));
     }
     changeDroppableStyle(null, previousExpectedMove);
     pieceAnimateEnd(move.draggableId);
     setPreviousExpectedMove(move);
-    dispatch(hintMove([]));
   };
   const clickHandler = (pieceName, location) => {
-    const hintLocations = hintMoves(pieceName, location, board);
-    dispatch(hintMove(hintLocations));
+    if (!historyMode) {
+      const hintLocations = hintMoves(pieceName, location, board);
+      dispatch(hintMove(hintLocations));
+    }
   };
   return (
     <table className="rounded board">
