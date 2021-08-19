@@ -4,6 +4,7 @@ import GameParams from './GameParams';
 import './Lobby.scss';
 
 const Lobby = () => {
+  document.body.style.backgroundColor = '#ede8e0';
   const [overlayDiv, setOverlayDiv] = useState(false);
   return (
     <>

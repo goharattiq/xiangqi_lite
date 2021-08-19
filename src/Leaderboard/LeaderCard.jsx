@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';

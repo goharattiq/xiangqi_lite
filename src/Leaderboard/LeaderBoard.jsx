@@ -4,6 +4,7 @@ import { fetechedLeaders } from '../redux/leaderboard/thunk';
 import LeaderCard from './LeaderCard';
 
 const LeaderBoard = () => {
+  document.body.style.backgroundColor = '#ede8e0';
   const dispatch = useDispatch();
   const leaders = useSelector((state) => (state.leaderBoard.leaders));
   useEffect(() => {
