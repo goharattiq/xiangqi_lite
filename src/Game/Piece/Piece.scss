@@ -1,18 +1,40 @@
+@import '../../variables';
+
 img {
-  width: 50px;
-  height: 50px;
+  width: $screen-xl;
+  height: $screen-xl;
 }
 
 .piece {
-  width: 50px;
-  height: 50px;
+  width: $screen-xl;
+  height: $screen-xl;
   margin-left: 2px;
 }
 
 svg {
   position: relative;
-  left: 11px;
-  bottom: 42px;
-  width: 30px;
-  height: 30px;
+  left: 13px;
+  bottom: 45px;
+  width: $svg-xl;
+  height: $svg-xl;
+}
+
+@media screen and (max-width : 600px ) {
+  img {
+    width: $screen-sm;
+    height: $screen-sm;
+  }
+  
+  .piece {
+    width: $screen-sm;
+    height: $screen-sm;
+    margin-left: 2px;
+  }
+  
+  svg {
+    left: 8px;
+    bottom: 37px;
+    width: $svg-sm;
+    height: $svg-sm;
+  }
 }

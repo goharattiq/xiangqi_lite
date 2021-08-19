@@ -1,40 +1,52 @@
 @import '../../variables';
-table {
-  background-color: $background;
-  position: absolute;
-  left: 5%;
-  top: 10%;
+
+.board {
+  background-color: $compliment;
+  position: relative;
+  left: 15%;
 }
 
 tr {
-  height: 70px;
+  height: $screen-xl;
 }
 
 td {
-  height: 70px;
-  width: 65px;
+  height: $screen-xl;
+  width: $screen-xl;
 }
 
 .animate {
   zoom: 125%;
 }
 
-@media screen and (max-height : 950px ) {
-  table {
-    background-color: $background;
-    position: absolute;
-    left: 5%;
-    top: 18%;
-    // transform: rotate(180deg);
+@media screen and (max-width : 1250px ) {
+  .board {
+    left: 13%;
   }
-  
+}
+
+@media screen and (max-width : 960px ) {
+  .board {
+    left: 5%;
+  }
+}
+
+@media screen and (max-width : 600px ) {
+  .board {
+    left: 15%;
+  }
   tr {
-    height: 55px;
+    height: $screen-sm;
   }
   
   td {
-    height: 55px;
-    width: 45px;
-    // transform: rotate(180deg);
+    height: $screen-sm;
+    width: $screen-sm;
+  }
+}
+
+@media screen and (max-width : 500px ) {
+  .board {
+    left: 5%;
   }
 }
