@@ -6,11 +6,8 @@ import './Profile.scss';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
+  // const auth = useSelector((state) => state.auth);
   const callback = useCallback((username) => fetchUserProfile(username));
-  useEffect(() => {
-    dispatch(callback(auth.user.username));
-  }, []);
   const {
     username,
     firstName,
@@ -30,6 +27,9 @@ const Profile = () => {
     drawCount: profile.draw_count,
     winningPercentage: profile.winning_percentage,
   }));
+  useEffect(() => {
+    dispatch(callback('goharattiq'));
+  }, []);
   const stateList = [
     { name: 'Games', score: gamesCount },
     { name: 'Wins', score: winsCount },

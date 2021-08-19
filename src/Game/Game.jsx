@@ -6,7 +6,6 @@ import PlayArea from './PlayArea';
 import './Game.scss';
 
 const Game = () => {
-  // eslint-disable-next-line no-unused-vars
   const isTablet = useMediaQuery({ query: '(max-width: 880px)' });
   document.body.style.backgroundColor = '#be342d';
   return (
