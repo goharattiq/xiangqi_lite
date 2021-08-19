@@ -1,6 +1,14 @@
 @import '../../variables';
 
 .custom-color {
-  background-color: $primary!important;
+  background-color: rgba($color: $background, $alpha: 0);
+  color: $compliment;
+  border: 0;
 }
 
+.custom-color, .custom-color:hover, .custom-color:focus .custom-color:active {
+  background-color: $background;
+  box-shadow: $background;
+  border-color: $background;
+  color: $compliment;
+}
