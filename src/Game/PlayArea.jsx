@@ -7,7 +7,7 @@ import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
 import Board from './Board/Board';
 import HitPiece from './Board/HitPiece';
 import History from './Board/History';
-import { isCapital } from '../utils/pieceMove';
+import { whichSide } from '../utils/pieceMove';
 import './PlayArea.scss';
 
 const PlayArea = () => {
@@ -16,8 +16,8 @@ const PlayArea = () => {
     hitPiece: game.hitPiece,
     history: game.history,
   }));
-  const redHitPieces = hitPiece.filter((piece) => isCapital(piece.name));
-  const blackHitPieces = hitPiece.filter((piece) => !isCapital(piece.name));
+  const redHitPieces = hitPiece.filter((piece) => whichSide(piece.name));
+  const blackHitPieces = hitPiece.filter((piece) => !whichSide(piece.name));
   const dispatch = useDispatch();
 
   const historyHandler = (pointer, isNext) => {

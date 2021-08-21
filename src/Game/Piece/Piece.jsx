@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isCapital } from '../../utils/pieceMove';
+import { whichSide } from '../../utils/pieceMove';
 import {
   red, black, Advisor, Cannon, Chariot, Elephant, Horse, King, Pawn,
 } from './PiecesImport';
@@ -35,7 +35,7 @@ const Piece = ({ name, id, hitStyle }) => {
       id={id}
       style={hitStyle}
     >
-      <img src={isCapital(name) ? red : black} alt="Piece Background" />
+      <img src={whichSide(name) ? red : black} alt="Piece Background" />
       {selectPiece(name)}
       <span className="piece-name">{MAP[name.toLowerCase()]}</span>
     </div>

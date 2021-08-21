@@ -1,37 +1,34 @@
-/* eslint-disable no-loop-func */
 /* eslint-disable no-unused-vars */
-const NORTH = 'NORTH';
-const SOUTH = 'SOUTH';
-const EAST = 'EAST';
-const WEST = 'WEST';
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-loop-func */
+import {
+  BLACK, EAST, MAP, NORTH, RED, SOUTH, WEST,
+} from './constants';
 
-export const pawnMoves = (pieceName, location, expectedLocations, board) => {
-  const [sourceI, sourceJ] = indexGen(location);
-  const direction = {
-    [NORTH]: setLocation(sourceI, sourceJ),
-    [SOUTH]: setLocation(sourceI, sourceJ),
-    [EAST]: setLocation(sourceI, sourceJ),
-    [WEST]: setLocation(sourceI, sourceJ),
-  };
-  const riverLocation = isCapital(pieceName) ? 4 : 5;
+export const kingPawnMoves = (pieceName, indexLocation, expectedLocations, board) => {
+  const [sourceI, sourceJ] = matrixPosition(indexLocation);
+  let location = setInitalPosition(sourceI, sourceJ);
+  const riverLocation = whichSide(pieceName) ? 4 : 5;
   let limitedMoves = 1;
-  while ((direction[NORTH] || direction[SOUTH] || direction[EAST] || direction[WEST])
+  while ((location[NORTH] || location[SOUTH] || location[EAST] || location[WEST])
   && limitedMoves > 0) {
-    direction[NORTH] = direction[NORTH] ? decrementOrthogoanl(direction[NORTH], NORTH) : false;
-    direction[SOUTH] = direction[SOUTH] ? decrementOrthogoanl(direction[SOUTH], SOUTH) : false;
-    direction[EAST] = direction[EAST] ? decrementOrthogoanl(direction[EAST], EAST) : false;
-    direction[WEST] = direction[WEST] ? decrementOrthogoanl(direction[WEST], WEST) : false;
-    Object.entries(direction).forEach(([id, direct]) => {
+    location = movePiece(location, true);
+    Object.entries(location).forEach(([id, direct]) => {
       if ((isValidRange(direct.x, direct.y)) && !(board[direct.x][direct.y].piece
-        && isCapital(board[direct.x][direct.y].piece.name) === isCapital(pieceName))) {
-        if (isCapital(pieceName)
+        && whichSide(board[direct.x][direct.y].piece.name) === whichSide(pieceName))) {
+        if (MAP[pieceName.toLowerCase()] === MAP.p && whichSide(pieceName)
           && (id === SOUTH || (direct.x > riverLocation && (id === WEST || id === EAST)))) {
           // if red pawn and cross river or not
-          expectedLocations.push(indexToID(direct.x, direct.y));
-        } else if (!isCapital(pieceName)
+          expectedLocations.push(indexPosition(direct.x, direct.y));
+        } else if (MAP[pieceName.toLowerCase()] === MAP.p && !whichSide(pieceName)
           && (id === NORTH || (direct.x < riverLocation && (id === WEST || id === EAST)))) {
           // if red pawn and cross river or not
-          expectedLocations.push(indexToID(direct.x, direct.y));
+          expectedLocations.push(indexPosition(direct.x, direct.y));
+        }
+        // king
+        if (MAP[pieceName.toLowerCase()] === MAP.k
+          && isValidKingAdvisorRange(direct.x, direct.y, whichSide(pieceName))) {
+          expectedLocations.push(indexPosition(direct.x, direct.y));
         }
       }
     });
@@ -40,70 +37,30 @@ export const pawnMoves = (pieceName, location, expectedLocations, board) => {
   return expectedLocations;
 };
 
-export const kingMoves = (pieceName, location, expectedLocations, board) => {
-  const [sourceI, sourceJ] = indexGen(location);
-  const direction = {
-    [NORTH]: setLocation(sourceI, sourceJ),
-    [SOUTH]: setLocation(sourceI, sourceJ),
-    [EAST]: setLocation(sourceI, sourceJ),
-    [WEST]: setLocation(sourceI, sourceJ),
-  };
-  let limitedMoves = 1;
-  while ((direction[NORTH] || direction[SOUTH] || direction[EAST] || direction[WEST])
-  && limitedMoves > 0) {
-    direction[NORTH] = direction[NORTH] ? decrementOrthogoanl(direction[NORTH], NORTH) : false;
-    direction[SOUTH] = direction[SOUTH] ? decrementOrthogoanl(direction[SOUTH], SOUTH) : false;
-    direction[EAST] = direction[EAST] ? decrementOrthogoanl(direction[EAST], EAST) : false;
-    direction[WEST] = direction[WEST] ? decrementOrthogoanl(direction[WEST], WEST) : false;
-    Object.entries(direction).forEach(([id, direct]) => {
+export const chariotMoves = (pieceName, indexLocation, expectedLocations, board) => {
+  const [sourceI, sourceJ] = matrixPosition(indexLocation);
+  let location = setInitalPosition(sourceI, sourceJ);
+  while (location[NORTH] || location[SOUTH] || location[EAST] || location[WEST]) {
+    location = movePiece(location, true);
+    Object.entries(location).forEach(([id, direct]) => {
       if ((isValidRange(direct.x, direct.y)) && !(board[direct.x][direct.y].piece
-        && isCapital(board[direct.x][direct.y].piece.name) === isCapital(pieceName))
-        && isValidKingAdvisorRange(direct.x, direct.y, isCapital(pieceName))) {
-        expectedLocations.push(indexToID(direct.x, direct.y));
-      }
-    });
-    limitedMoves -= 1;
-  }
-  return expectedLocations;
-};
-
-export const chariotMoves = (pieceName, location, expectedLocations, board) => {
-  const [sourceI, sourceJ] = indexGen(location);
-  const direction = {
-    [NORTH]: setLocation(sourceI, sourceJ),
-    [SOUTH]: setLocation(sourceI, sourceJ),
-    [EAST]: setLocation(sourceI, sourceJ),
-    [WEST]: setLocation(sourceI, sourceJ),
-  };
-  while (direction[NORTH] || direction[SOUTH] || direction[EAST] || direction[WEST]) {
-    direction[NORTH] = direction[NORTH] ? decrementOrthogoanl(direction[NORTH], NORTH) : false;
-    direction[SOUTH] = direction[SOUTH] ? decrementOrthogoanl(direction[SOUTH], SOUTH) : false;
-    direction[EAST] = direction[EAST] ? decrementOrthogoanl(direction[EAST], EAST) : false;
-    direction[WEST] = direction[WEST] ? decrementOrthogoanl(direction[WEST], WEST) : false;
-    Object.entries(direction).forEach(([id, direct]) => {
-      if ((isValidRange(direct.x, direct.y)) && !(board[direct.x][direct.y].piece
-        && isCapital(board[direct.x][direct.y].piece.name) === isCapital(pieceName))) {
-        expectedLocations.push(indexToID(direct.x, direct.y));
+        && whichSide(board[direct.x][direct.y].piece.name) === whichSide(pieceName))) {
+        expectedLocations.push(indexPosition(direct.x, direct.y));
         if (board[direct.x][direct.y].piece
-          && isCapital(board[direct.x][direct.y].piece.name) !== pieceName) {
-          direction[id] = false;
+          && whichSide(board[direct.x][direct.y].piece.name) !== pieceName) {
+          location[id] = false;
         }
       } else {
-        direction[id] = false;
+        location[id] = false;
       }
     });
   }
   return expectedLocations;
 };
 
-export const cannonMoves = (pieceName, location, expectedLocations, board) => {
-  const [sourceI, sourceJ] = indexGen(location);
-  const direction = {
-    [NORTH]: setLocation(sourceI, sourceJ),
-    [SOUTH]: setLocation(sourceI, sourceJ),
-    [EAST]: setLocation(sourceI, sourceJ),
-    [WEST]: setLocation(sourceI, sourceJ),
-  };
+export const cannonMoves = (pieceName, indexLocation, expectedLocations, board) => {
+  const [sourceI, sourceJ] = matrixPosition(indexLocation);
+  let location = setInitalPosition(sourceI, sourceJ);
   const directionJump = {
     [NORTH]: true,
     [SOUTH]: true,
@@ -116,22 +73,19 @@ export const cannonMoves = (pieceName, location, expectedLocations, board) => {
     [EAST]: false,
     [WEST]: false,
   };
-  while (direction[NORTH] || direction[SOUTH] || direction[EAST] || direction[WEST]) {
-    direction[NORTH] = direction[NORTH] ? decrementOrthogoanl(direction[NORTH], NORTH) : false;
-    direction[SOUTH] = direction[SOUTH] ? decrementOrthogoanl(direction[SOUTH], SOUTH) : false;
-    direction[EAST] = direction[EAST] ? decrementOrthogoanl(direction[EAST], EAST) : false;
-    direction[WEST] = direction[WEST] ? decrementOrthogoanl(direction[WEST], WEST) : false;
-    Object.entries(direction).forEach(([id, direct]) => {
+  while (location[NORTH] || location[SOUTH] || location[EAST] || location[WEST]) {
+    location = movePiece(location, true);
+    Object.entries(location).forEach(([id, direct]) => {
       if (isValidRange(direct.x, direct.y)) {
         // can landed empty cell before jump
-        if (directionJump[id] && direction[id] && !board[direct.x][direct.y].piece) {
-          expectedLocations.push(indexToID(direct.x, direct.y));
+        if (directionJump[id] && location[id] && !board[direct.x][direct.y].piece) {
+          expectedLocations.push(indexPosition(direct.x, direct.y));
         }
         // cannot hit direct and if jump than cannot landed if jump can only hit once
-        if (!directionJump[id] && direction[id] && (board[direct.x][direct.y].piece
-          && isCapital(board[direct.x][direct.y].piece.name) !== isCapital(pieceName))
+        if (!directionJump[id] && location[id] && (board[direct.x][direct.y].piece
+          && whichSide(board[direct.x][direct.y].piece.name) !== whichSide(pieceName))
           && !hit[id]) {
-          expectedLocations.push(indexToID(direct.x, direct.y));
+          expectedLocations.push(indexPosition(direct.x, direct.y));
           hit[id] = true;
         }
         // if any piece than can jump
@@ -139,38 +93,33 @@ export const cannonMoves = (pieceName, location, expectedLocations, board) => {
           directionJump[id] = false;
         }
       } else {
-        direction[id] = false;
+        location[id] = false;
       }
     });
   }
   return expectedLocations;
 };
 
-export const elephantMoves = (pieceName, location, expectedLocations, board) => {
-  const [sourceI, sourceJ] = indexGen(location);
-  const riverLocation = isCapital(pieceName) ? 4 : 5;
-  const direction = {
-    [NORTH]: setLocation(sourceI, sourceJ),
-    [SOUTH]: setLocation(sourceI, sourceJ),
-    [EAST]: setLocation(sourceI, sourceJ),
-    [WEST]: setLocation(sourceI, sourceJ),
-  };
+export const advisorElephantMoves = (pieceName, indexLocation, expectedLocations, board) => {
+  const [sourceI, sourceJ] = matrixPosition(indexLocation);
+  const riverLocation = whichSide(pieceName) ? 4 : 5;
+  let location = setInitalPosition(sourceI, sourceJ);
   let limitedMoves = 2;
-  while ((direction[NORTH] || direction[SOUTH] || direction[EAST] || direction[WEST])
+  while ((location[NORTH] || location[SOUTH] || location[EAST] || location[WEST])
     && limitedMoves > 0) {
-    direction[NORTH] = direction[NORTH] ? decrementDiagonal(direction[NORTH], NORTH) : false;
-    direction[SOUTH] = direction[SOUTH] ? decrementDiagonal(direction[SOUTH], SOUTH) : false;
-    direction[EAST] = direction[EAST] ? decrementDiagonal(direction[EAST], EAST) : false;
-    direction[WEST] = direction[WEST] ? decrementDiagonal(direction[WEST], WEST) : false;
-    Object.entries(direction).forEach(([id, direct]) => {
+    location = movePiece(location, false);
+    Object.entries(location).forEach(([id, direct]) => {
       if ((isValidRange(direct.x, direct.y)) && !(board[direct.x][direct.y].piece
-        && isCapital(board[direct.x][direct.y].piece.name) === isCapital(pieceName))) {
-        if ((limitedMoves === 1) && ((isCapital(pieceName) && direct.x <= riverLocation)
-          || ((!isCapital(pieceName) && direct.x >= riverLocation)))) {
-          expectedLocations.push(indexToID(direct.x, direct.y));
+        && whichSide(board[direct.x][direct.y].piece.name) === whichSide(pieceName))) {
+        if (MAP[pieceName.toLowerCase()] === MAP.e && (limitedMoves === 1)
+          && ((whichSide(pieceName) && direct.x <= riverLocation)
+          || ((!whichSide(pieceName) && direct.x >= riverLocation)))) {
+          expectedLocations.push(indexPosition(direct.x, direct.y));
         }
-      } else {
-        direction[id] = false;
+        if (MAP[pieceName.toLowerCase()] === MAP.a && (limitedMoves === 2)
+          && isValidKingAdvisorRange(direct.x, direct.y, whichSide(pieceName))) {
+          expectedLocations.push(indexPosition(direct.x, direct.y));
+        }
       }
     });
     limitedMoves -= 1;
@@ -178,93 +127,54 @@ export const elephantMoves = (pieceName, location, expectedLocations, board) => 
   return expectedLocations;
 };
 
-export const advisorMoves = (pieceName, location, expectedLocations, board) => {
-  const [sourceI, sourceJ] = indexGen(location);
-  const direction = {
-    [NORTH]: setLocation(sourceI, sourceJ),
-    [SOUTH]: setLocation(sourceI, sourceJ),
-    [EAST]: setLocation(sourceI, sourceJ),
-    [WEST]: setLocation(sourceI, sourceJ),
-  };
-  let limitedMoves = 1;
-  while ((direction[NORTH] || direction[SOUTH] || direction[EAST] || direction[WEST])
-    && limitedMoves > 0) {
-    direction[NORTH] = direction[NORTH] ? decrementDiagonal(direction[NORTH], NORTH) : false;
-    direction[SOUTH] = direction[SOUTH] ? decrementDiagonal(direction[SOUTH], SOUTH) : false;
-    direction[EAST] = direction[EAST] ? decrementDiagonal(direction[EAST], EAST) : false;
-    direction[WEST] = direction[WEST] ? decrementDiagonal(direction[WEST], WEST) : false;
-    Object.entries(direction).forEach(([id, direct]) => {
-      if ((isValidRange(direct.x, direct.y)) && !(board[direct.x][direct.y].piece
-        && isCapital(board[direct.x][direct.y].piece.name) === isCapital(pieceName))
-        && isValidKingAdvisorRange(direct.x, direct.y, isCapital(pieceName))) {
-        expectedLocations.push(indexToID(direct.x, direct.y));
-      } else {
-        direction[id] = false;
-      }
-    });
-    limitedMoves -= 1;
-  }
-  return expectedLocations;
-};
-
-export const horseMoves = (pieceName, location, expectedLocations, board) => {
-  const [sourceI, sourceJ] = indexGen(location);
-  const direction = {
-    [NORTH]: setLocation(sourceI, sourceJ),
-    [SOUTH]: setLocation(sourceI, sourceJ),
-    [EAST]: setLocation(sourceI, sourceJ),
-    [WEST]: setLocation(sourceI, sourceJ),
-  };
+export const horseMoves = (pieceName, indexLocation, expectedLocations, board) => {
+  const [sourceI, sourceJ] = matrixPosition(indexLocation);
+  let location = setInitalPosition(sourceI, sourceJ);
   const paring = {
     [NORTH]: WEST,
     [SOUTH]: EAST,
     [EAST]: NORTH,
     [WEST]: SOUTH,
   };
-  direction[NORTH] = direction[NORTH] ? decrementOrthogoanl(direction[NORTH], NORTH) : false;
-  direction[SOUTH] = direction[SOUTH] ? decrementOrthogoanl(direction[SOUTH], SOUTH) : false;
-  direction[EAST] = direction[EAST] ? decrementOrthogoanl(direction[EAST], EAST) : false;
-  direction[WEST] = direction[WEST] ? decrementOrthogoanl(direction[WEST], WEST) : false;
-  Object.entries(direction).forEach(([id, direct]) => {
+  location = movePiece(location, true);
+  Object.entries(location).forEach(([id, direct]) => {
     if (direct && (isValidRange(direct.x, direct.y)) && !(board[direct.x][direct.y].piece)) {
-      const diagonalOne = decrementDiagonal(direct, id);
-      const diagonalTwo = decrementDiagonal(direct, paring[id]);
+      const diagonalOne = moveDiagonal(direct, id);
+      const diagonalTwo = moveDiagonal(direct, paring[id]);
       const diagonalArray = [diagonalOne, diagonalTwo];
       diagonalArray.forEach((diagonal) => {
         if ((isValidRange(diagonal.x, diagonal.y)) && !(board[diagonal.x][diagonal.y].piece
-          && isCapital(board[diagonal.x][diagonal.y].piece.name) === isCapital(pieceName))) {
-          expectedLocations.push(indexToID(diagonal.x, diagonal.y));
+          && whichSide(board[diagonal.x][diagonal.y].piece.name) === whichSide(pieceName))) {
+          expectedLocations.push(indexPosition(diagonal.x, diagonal.y));
         }
       });
-    } else {
-      direction[id] = false;
     }
   });
 
   return expectedLocations;
 };
 
-const decrementOrthogoanl = (obj, direction) => {
+const moveOrthogoanl = (location, direction) => {
   switch (direction) {
-    case 'NORTH':
+    case NORTH:
       return {
-        ...obj,
-        x: obj.x - 1,
+        ...location,
+        x: location.x - 1,
       };
-    case 'SOUTH':
+    case SOUTH:
       return {
-        ...obj,
-        x: obj.x + 1,
+        ...location,
+        x: location.x + 1,
       };
-    case 'EAST':
+    case EAST:
       return {
-        ...obj,
-        y: obj.y + 1,
+        ...location,
+        y: location.y + 1,
       };
-    case 'WEST':
+    case WEST:
       return {
-        ...obj,
-        y: obj.y - 1,
+        ...location,
+        y: location.y - 1,
       };
 
     default:
@@ -272,27 +182,27 @@ const decrementOrthogoanl = (obj, direction) => {
   }
 };
 
-const decrementDiagonal = (obj, direction) => {
+const moveDiagonal = (location, direction) => {
   switch (direction) {
-    case 'NORTH':
+    case NORTH:
       return {
-        x: obj.x - 1,
-        y: obj.y + 1,
+        x: location.x - 1,
+        y: location.y + 1,
       };
-    case 'SOUTH':
+    case SOUTH:
       return {
-        x: obj.x + 1,
-        y: obj.y - 1,
+        x: location.x + 1,
+        y: location.y - 1,
       };
-    case 'EAST':
+    case EAST:
       return {
-        x: obj.x + 1,
-        y: obj.y + 1,
+        x: location.x + 1,
+        y: location.y + 1,
       };
-    case 'WEST':
+    case WEST:
       return {
-        x: obj.x - 1,
-        y: obj.y - 1,
+        x: location.x - 1,
+        y: location.y - 1,
       };
 
     default:
@@ -307,7 +217,30 @@ const isValidKingAdvisorRange = (x, y, side) => {
   }
   return (x >= 7 && x <= 9) && (y >= 3 && y <= 5);
 };
-const indexToID = (x, y) => (x * 9 + y);
+const indexPosition = (x, y) => (x * 9 + y);
 const setLocation = (x, y) => ({ x, y });
-export const isCapital = (str) => /[A-Z]/.test(str.at(0));
-export const indexGen = (num) => [Math.floor(num / 9), Math.floor(num % 9)];
+export const whichSide = (piece) => (/[A-Z]/.test(piece.at(0)) ? RED : BLACK);
+export const matrixPosition = (num) => [Math.floor(num / 9), Math.floor(num % 9)];
+
+const setInitalPosition = (sourceI, sourceJ) => ({
+  [NORTH]: setLocation(sourceI, sourceJ),
+  [SOUTH]: setLocation(sourceI, sourceJ),
+  [EAST]: setLocation(sourceI, sourceJ),
+  [WEST]: setLocation(sourceI, sourceJ),
+});
+
+const movePiece = (location, isOrthogonal) => {
+  const directions = [NORTH, SOUTH, EAST, WEST];
+  if (isOrthogonal) {
+    directions.forEach((direction) => {
+      location[direction] = location[direction]
+        ? moveOrthogoanl(location[direction], direction) : false;
+    });
+  } else {
+    directions.forEach((direction) => {
+      location[direction] = location[direction]
+        ? moveDiagonal(location[direction], direction) : false;
+    });
+  }
+  return location;
+};

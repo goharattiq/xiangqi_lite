@@ -1,10 +1,14 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
 import {
-  advisorMoves,
   cannonMoves,
-  chariotMoves, elephantMoves, horseMoves, isCapital, kingMoves, pawnMoves,
+  chariotMoves,
+  horseMoves,
+  advisorElephantMoves,
+  kingPawnMoves,
+  whichSide,
 } from './pieceMove';
+import { MAP } from './constants';
 
 // pices moves
 // => Pawns move forward only
@@ -26,7 +30,7 @@ export const setPiecePositions = (board) => {
 
   const pawns = ['p', 'P'];
   pawns.forEach((pawn) => {
-    const position = isCapital(pawn) ? 3 : 6;
+    const position = whichSide(pawn) ? 3 : 6;
     for (let index = 0; index < 5; index += 1) {
       board[position][index * 2].piece = setPiece(pieceID++, pawn);
     }
@@ -35,7 +39,7 @@ export const setPiecePositions = (board) => {
   // cannon index 10-11black 12-13red
   const cannons = ['c', 'C'];
   cannons.forEach((cannon) => {
-    const position = isCapital(cannon) ? 2 : 7;
+    const position = whichSide(cannon) ? 2 : 7;
     board[position][1].piece = setPiece(pieceID++, cannon);
     board[position][7].piece = setPiece(pieceID++, cannon);
   });
@@ -43,7 +47,7 @@ export const setPiecePositions = (board) => {
   // chariot index 14-15black 16-17red
   const chariots = ['r', 'R'];
   chariots.forEach((chariot) => {
-    const position = isCapital(chariot) ? 0 : 9;
+    const position = whichSide(chariot) ? 0 : 9;
     board[position][0].piece = setPiece(pieceID++, chariot);
     board[position][8].piece = setPiece(pieceID++, chariot);
   });
@@ -51,7 +55,7 @@ export const setPiecePositions = (board) => {
   // horses index 18-19black 20-21red
   const horses = ['h', 'H'];
   horses.forEach((horse) => {
-    const position = isCapital(horse) ? 0 : 9;
+    const position = whichSide(horse) ? 0 : 9;
     board[position][1].piece = setPiece(pieceID++, horse);
     board[position][7].piece = setPiece(pieceID++, horse);
   });
@@ -59,7 +63,7 @@ export const setPiecePositions = (board) => {
   // elephants index 22-23black 24-25red
   const elephants = ['e', 'E'];
   elephants.forEach((elephant) => {
-    const position = isCapital(elephant) ? 0 : 9;
+    const position = whichSide(elephant) ? 0 : 9;
     board[position][2].piece = setPiece(pieceID++, elephant);
     board[position][6].piece = setPiece(pieceID++, elephant);
   });
@@ -67,7 +71,7 @@ export const setPiecePositions = (board) => {
   // adviors index 26-27black 28-29red
   const adviors = ['a', 'A'];
   adviors.forEach((advior) => {
-    const position = isCapital(advior) ? 0 : 9;
+    const position = whichSide(advior) ? 0 : 9;
     board[position][3].piece = setPiece(pieceID++, advior);
     board[position][5].piece = setPiece(pieceID++, advior);
   });
@@ -75,7 +79,7 @@ export const setPiecePositions = (board) => {
   // king index 30black 31red
   const kings = ['k', 'K'];
   kings.forEach((king) => {
-    const position = isCapital(king) ? 0 : 9;
+    const position = whichSide(king) ? 0 : 9;
     board[position][4].piece = setPiece(pieceID++, king);
   });
   return board;
@@ -114,26 +118,22 @@ export const cell = (id, piece) => ({
 
 export const hintMoves = (pieceName, location, board) => {
   let expectedLocations = [];
-  switch (pieceName.toLowerCase()) {
-    case 'p':
-      expectedLocations = pawnMoves(pieceName, location, expectedLocations, board);
+  switch (MAP[pieceName.toLowerCase()]) {
+    case MAP.p:
+    case MAP.k:
+      expectedLocations = kingPawnMoves(pieceName, location, expectedLocations, board);
       break;
-    case 'k':
-      expectedLocations = kingMoves(pieceName, location, expectedLocations, board);
-      break;
-    case 'r':
+    case MAP.r:
       expectedLocations = chariotMoves(pieceName, location, expectedLocations, board);
       break;
-    case 'c':
+    case MAP.c:
       expectedLocations = cannonMoves(pieceName, location, expectedLocations, board);
       break;
-    case 'e':
-      expectedLocations = elephantMoves(pieceName, location, expectedLocations, board);
+    case MAP.e:
+    case MAP.a:
+      expectedLocations = advisorElephantMoves(pieceName, location, expectedLocations, board);
       break;
-    case 'a':
-      expectedLocations = advisorMoves(pieceName, location, expectedLocations, board);
-      break;
-    case 'h':
+    case MAP.h:
       expectedLocations = horseMoves(pieceName, location, expectedLocations, board);
       break;
 

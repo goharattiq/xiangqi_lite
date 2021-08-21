@@ -1,5 +1,5 @@
 import { setPiecePositions, cell, isValidMove } from '../../utils/game';
-import { indexGen, isCapital } from '../../utils/pieceMove';
+import { matrixPosition, whichSide } from '../../utils/pieceMove';
 
 export const initMatrix = (row, col) => {
   let board = Array(row);
@@ -26,14 +26,14 @@ export const onPieceMove = (move, previousState, history) => {
     return { board, hitPiece: null, history: null };
   }
 
-  const [sourceI, sourceJ] = indexGen(parseInt(source.droppableId.split('-')[1], 10));
-  const [destI, destJ] = indexGen(parseInt(destination.droppableId.split('-')[1], 10));
+  const [sourceI, sourceJ] = matrixPosition(parseInt(source.droppableId.split('-')[1], 10));
+  const [destI, destJ] = matrixPosition(parseInt(destination.droppableId.split('-')[1], 10));
   // checking if source and destintation dropped location is not same and the
   // destination location if not empty then must not contain same side piece
   // and the piece has valid move
   if ((source.droppableId !== destination.droppableId)
-    && (!board[destI][destJ].piece || !(isCapital(board[destI][destJ].piece.name)
-    === isCapital(board[sourceI][sourceJ].piece.name)))
+    && (!board[destI][destJ].piece || !(whichSide(board[destI][destJ].piece.name)
+    === whichSide(board[sourceI][sourceJ].piece.name)))
     && (isValidMove(move, hints) || history.mode)) {
     const hitPiece = board[destI][destJ].piece;
     board[destI][destJ].piece = board[sourceI][sourceJ].piece;

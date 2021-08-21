@@ -18,3 +18,11 @@ export const MAP = {
   k: 'King',
   c: 'Cannon',
 };
+
+export const NORTH = 'NORTH';
+export const SOUTH = 'SOUTH';
+export const EAST = 'EAST';
+export const WEST = 'WEST';
+
+export const RED = 1;
+export const BLACK = 0;
