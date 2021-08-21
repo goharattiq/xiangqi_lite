@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -14,6 +15,8 @@ import {
   pieceAnimationEnd,
   pieceAnimationStart,
 } from '../../utils/game';
+import moveAudio from '../../static/audio/move.ogg';
+import hitAudio from '../../static/audio/hit.ogg';
 import './Board.scss';
 
 const Board = ({ historyMode }) => {
@@ -53,14 +56,17 @@ const Board = ({ historyMode }) => {
     }
   };
   return (
-    <table className="rounded board">
-      <tbody>
-        <DragDropContext
-          onDragEnd={(move) => onDragEnd(move)}
-          onDragUpdate={(move) => onDragUpdate(move)}
-          onDragStart={(move) => onDragStart(move)}
-        >
-          {
+    <>
+      <audio id="move-audio" src={moveAudio} />
+      <audio id="hit-audio" src={hitAudio} />
+      <table className="rounded board">
+        <tbody>
+          <DragDropContext
+            onDragEnd={(move) => onDragEnd(move)}
+            onDragUpdate={(move) => onDragUpdate(move)}
+            onDragStart={(move) => onDragStart(move)}
+          >
+            {
             board.map((row, rowIndex) => (
               <tr
                 key={rowIndex}
@@ -73,9 +79,10 @@ const Board = ({ historyMode }) => {
               </tr>
             ))
           }
-        </DragDropContext>
-      </tbody>
-    </table>
+          </DragDropContext>
+        </tbody>
+      </table>
+    </>
   );
 };
 
