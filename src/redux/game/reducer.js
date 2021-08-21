@@ -6,6 +6,7 @@ import {
   HISTORY_MOVE_FORWARD,
   INIT_BOARD,
   PIECE_MOVE,
+  SET_GAME_PARAMS,
 } from './type';
 import { initMatrix, onPieceMove } from './utiles';
 import { getHintMoves } from '../../utils/game';
@@ -16,6 +17,7 @@ const initialState = {
   hints: [],
   hitPiece: [],
   history: [],
+  params: null,
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -35,7 +37,7 @@ const gameReducer = (state = initialState, action) => {
         history: [...state.history, history].filter((back) => (back !== null)),
       };
     case HINT_MOVE:
-      const { pieceName, location } = action.payload;
+      const { pieceName, location } = payload;
       return {
         ...state,
         hints: getHintMoves(pieceName, location, state.board),
@@ -57,6 +59,11 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         board: historyFor.board,
+      };
+    case SET_GAME_PARAMS:
+      return {
+        ...state,
+        params: payload,
       };
 
     default:

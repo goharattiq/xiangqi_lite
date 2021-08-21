@@ -2,7 +2,7 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-
+// checkField === `${id}-${index}`
 const Field = ({
   data, name, type, id, className, handleChange,
 }) => (

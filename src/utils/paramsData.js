@@ -10,6 +10,7 @@ export const PARAMETERS = [
     type: 'radio',
     id: 'game-type',
     className: 'text-center radio-buttons',
+    checkField: 'game-type-0',
   },
   {
     data: GAME_RATED,
@@ -17,6 +18,7 @@ export const PARAMETERS = [
     type: 'radio',
     id: 'game-rated',
     className: 'text-center radio-buttons',
+    checkField: 'game-rated-0',
   },
   {
     data: GAME_TIMED,
@@ -24,5 +26,6 @@ export const PARAMETERS = [
     type: 'radio',
     id: 'game-timed',
     className: 'text-center radio-buttons',
+    checkField: 'game-timed-0',
   },
 ];

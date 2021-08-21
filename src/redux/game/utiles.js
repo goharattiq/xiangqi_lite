@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 import { setPiecePositions, createCell, isValidMove } from '../../utils/game';
 import { matrixPosition, whichSide } from '../../utils/pieceMove';
 
@@ -44,3 +45,8 @@ export const onPieceMove = (move, previousState, history) => {
   }
   return { board, hitPiece: null, history: null };
 };
+
+export const isValidGameParams = (params) => (!(params.gameType === '') && !(params.gameRated === '')
+                                          && !(params.gameTimed === '') && !(params.side === '')
+                                          && (params.challenge && !(params.username === '')))
+                                          && (params.gameTimed === 'Timed' && !(params.gameTimer === 0));

@@ -1,23 +1,30 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
+import { gameParamsAct } from '../redux/game/actions';
+import { isValidGameParams } from '../redux/game/utiles';
 import Field from './Field';
 import {
   MOVE_TIMER, GAME_TIMER, SIDE,
 } from '../utils/constants';
-import './GameParams.scss';
 import { PARAMETERS } from '../utils/paramsData';
+import './GameParams.scss';
 
 const GameParams = ({ setOverlayDiv }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [gameParams, setGameParams] = useState({
     gameType: '',
     gameRated: '',
     gameTimed: '',
     moveTime: 1,
-    gameTimer: '',
+    gameTimer: 0,
     side: '',
     challenge: false,
     username: '',
@@ -26,6 +33,7 @@ const GameParams = ({ setOverlayDiv }) => {
     gameTimed,
     challenge,
     moveTime,
+    username,
   } = gameParams;
   const handleChange = ({ target: { name, value } }) => {
     setGameParams({
@@ -41,16 +49,20 @@ const GameParams = ({ setOverlayDiv }) => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    setGameParams({
-      gameType: '',
-      gameRatd: '',
-      gameTime: '',
-      moveTimer: '',
-      gameTimer: '',
-      side: '',
-      challenge: false,
-      username: '',
-    });
+    if (isValidGameParams(gameParams)) {
+      dispatch(gameParamsAct(gameParams));
+      setGameParams({
+        gameType: '',
+        gameRatd: '',
+        gameTime: '',
+        moveTime: 1,
+        gameTimer: 0,
+        side: '',
+        challenge: true,
+        username: '',
+      });
+      history.push('/game/1234');
+    }
   };
   return (
     <div className="position-absolute w-100 h-100 overlay-div">
@@ -87,6 +99,7 @@ const GameParams = ({ setOverlayDiv }) => {
                       id="move-time"
                       className="time radio-buttons"
                       handleChange={handleChange}
+                      checkField="move-time-1"
                     />
                   </div>
                   <h5 className="text-center">Game Timer (Minutes)</h5>
@@ -98,6 +111,7 @@ const GameParams = ({ setOverlayDiv }) => {
                       id="game-timer"
                       className="time radio-buttons"
                       handleChange={handleChange}
+                      checkField="game-timer-1"
                     />
                   </div>
                 </>
@@ -112,6 +126,7 @@ const GameParams = ({ setOverlayDiv }) => {
               id="side"
               className="text-center radio-buttons"
               handleChange={handleChange}
+              checkField="side-1"
             />
           </div>
           <div className="">
@@ -127,20 +142,23 @@ const GameParams = ({ setOverlayDiv }) => {
               challenge
                 ? (
                   <Form.Group className="m-3" controlId="formBasicEmail">
-                    <Form.Control type="text" placeholder="Search By Username" />
+                    <Form.Control
+                      type="text"
+                      placeholder="Search By Username"
+                      name="username"
+                      value={username}
+                      onChange={handleChange}
+                    />
                   </Form.Group>
                 ) : ''
             }
           </div>
-          <Link to="/game/12345">
-            <Button
-              className="position-relative m-3 form-button"
-              type="submit"
-            >
-              Create Game
-            </Button>
-          </Link>
-
+          <Button
+            className="position-relative m-3 form-button"
+            type="submit"
+          >
+            Create Game
+          </Button>
         </Form>
       </div>
     </div>
