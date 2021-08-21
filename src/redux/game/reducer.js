@@ -1,5 +1,6 @@
 /* eslint-disable no-case-declarations */
 import {
+  CLEAR_HINT_MOVE,
   HINT_MOVE,
   HISTORY_MOVE_BACK,
   HISTORY_MOVE_FORWARD,
@@ -7,9 +8,11 @@ import {
   PIECE_MOVE,
 } from './type';
 import { initMatrix, onPieceMove } from './utiles';
+import { getHintMoves } from '../../utils/game';
+import { COLS, ROWS } from '../../utils/constants';
 
 const initialState = {
-  board: initMatrix(10, 9),
+  board: initMatrix(ROWS, COLS),
   hints: [],
   hitPiece: [],
   history: [],
@@ -21,6 +24,7 @@ const gameReducer = (state = initialState, action) => {
     case INIT_BOARD:
       return {
         ...state,
+        board: initMatrix(ROWS, COLS),
       };
     case PIECE_MOVE:
       const { board, hitPiece, history } = onPieceMove(payload, state, { mode: false });
@@ -31,9 +35,15 @@ const gameReducer = (state = initialState, action) => {
         history: [...state.history, history].filter((back) => (back !== null)),
       };
     case HINT_MOVE:
+      const { pieceName, location } = action.payload;
       return {
         ...state,
-        hints: payload,
+        hints: getHintMoves(pieceName, location, state.board),
+      };
+    case CLEAR_HINT_MOVE:
+      return {
+        ...state,
+        hints: [],
       };
     case HISTORY_MOVE_BACK:
       const historyBack = onPieceMove(payload, state, { mode: true, type: HISTORY_MOVE_BACK });

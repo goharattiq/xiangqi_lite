@@ -3,13 +3,16 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { hintMove, pieceMove } from '../../redux/game/actions';
+import {
+  hintMove,
+  pieceMove,
+  clearHintMove,
+} from '../../redux/game/actions';
 import Row from './Row';
 import {
   changeDroppableStyle,
-  hintMoves,
-  pieceAnimateEnd,
-  pieceAnimateStart,
+  pieceAnimationEnd,
+  pieceAnimationStart,
 } from '../../utils/game';
 import './Board.scss';
 
@@ -27,28 +30,26 @@ const Board = ({ historyMode }) => {
     setPreviousExpectedMove(expectedMove);
   };
   const onDragStart = (expectedMove) => {
-    pieceAnimateStart(expectedMove.draggableId);
+    pieceAnimationStart(expectedMove.draggableId);
     if (!historyMode) {
-      const hintLocations = hintMoves(
+      dispatch(hintMove(
         expectedMove.draggableId.split('-')[0],
-        expectedMove.source.droppableId.split('-')[1], board,
-      );
-      dispatch(hintMove(hintLocations));
+        expectedMove.source.droppableId.split('-')[1],
+      ));
     }
   };
   const onDragEnd = (move) => {
     if (!historyMode) {
       dispatch(pieceMove(move));
-      dispatch(hintMove([]));
+      dispatch(clearHintMove());
     }
     changeDroppableStyle(null, previousExpectedMove);
-    pieceAnimateEnd(move.draggableId);
+    pieceAnimationEnd(move.draggableId);
     setPreviousExpectedMove(move);
   };
   const clickHandler = (pieceName, location) => {
     if (!historyMode) {
-      const hintLocations = hintMoves(pieceName, location, board);
-      dispatch(hintMove(hintLocations));
+      dispatch(hintMove(pieceName, location));
     }
   };
   return (

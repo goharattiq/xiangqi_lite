@@ -4,6 +4,7 @@ import {
   HINT_MOVE,
   HISTORY_MOVE_BACK,
   HISTORY_MOVE_FORWARD,
+  CLEAR_HINT_MOVE,
 } from './type';
 
 export const initBoard = () => ({
@@ -15,9 +16,13 @@ export const pieceMove = (move) => ({
   payload: move,
 });
 
-export const hintMove = (hints) => ({
+export const hintMove = (pieceName, location) => ({
   type: HINT_MOVE,
-  payload: hints,
+  payload: { pieceName, location },
+});
+
+export const clearHintMove = () => ({
+  type: CLEAR_HINT_MOVE,
 });
 
 export const historyMoveBack = (move) => ({

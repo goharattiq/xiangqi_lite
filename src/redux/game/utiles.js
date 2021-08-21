@@ -1,4 +1,4 @@
-import { setPiecePositions, cell, isValidMove } from '../../utils/game';
+import { setPiecePositions, createCell, isValidMove } from '../../utils/game';
 import { matrixPosition, whichSide } from '../../utils/pieceMove';
 
 export const initMatrix = (row, col) => {
@@ -8,7 +8,7 @@ export const initMatrix = (row, col) => {
     board[i] = Array(col);
     const rowArray = board[i];
     for (let j = 0; j < rowArray.length; j += 1) {
-      rowArray[j] = cell(id, null);
+      rowArray[j] = createCell(id, null);
       id += 1;
     }
   }

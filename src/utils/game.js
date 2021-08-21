@@ -32,7 +32,7 @@ export const setPiecePositions = (board) => {
   pawns.forEach((pawn) => {
     const position = whichSide(pawn) ? 3 : 6;
     for (let index = 0; index < 5; index += 1) {
-      board[position][index * 2].piece = setPiece(pieceID++, pawn);
+      board[position][index * 2].piece = createPiece(pieceID++, pawn);
     }
   });
 
@@ -40,52 +40,52 @@ export const setPiecePositions = (board) => {
   const cannons = ['c', 'C'];
   cannons.forEach((cannon) => {
     const position = whichSide(cannon) ? 2 : 7;
-    board[position][1].piece = setPiece(pieceID++, cannon);
-    board[position][7].piece = setPiece(pieceID++, cannon);
+    board[position][1].piece = createPiece(pieceID++, cannon);
+    board[position][7].piece = createPiece(pieceID++, cannon);
   });
 
   // chariot index 14-15black 16-17red
   const chariots = ['r', 'R'];
   chariots.forEach((chariot) => {
     const position = whichSide(chariot) ? 0 : 9;
-    board[position][0].piece = setPiece(pieceID++, chariot);
-    board[position][8].piece = setPiece(pieceID++, chariot);
+    board[position][0].piece = createPiece(pieceID++, chariot);
+    board[position][8].piece = createPiece(pieceID++, chariot);
   });
 
   // horses index 18-19black 20-21red
   const horses = ['h', 'H'];
   horses.forEach((horse) => {
     const position = whichSide(horse) ? 0 : 9;
-    board[position][1].piece = setPiece(pieceID++, horse);
-    board[position][7].piece = setPiece(pieceID++, horse);
+    board[position][1].piece = createPiece(pieceID++, horse);
+    board[position][7].piece = createPiece(pieceID++, horse);
   });
 
   // elephants index 22-23black 24-25red
   const elephants = ['e', 'E'];
   elephants.forEach((elephant) => {
     const position = whichSide(elephant) ? 0 : 9;
-    board[position][2].piece = setPiece(pieceID++, elephant);
-    board[position][6].piece = setPiece(pieceID++, elephant);
+    board[position][2].piece = createPiece(pieceID++, elephant);
+    board[position][6].piece = createPiece(pieceID++, elephant);
   });
 
   // adviors index 26-27black 28-29red
   const adviors = ['a', 'A'];
   adviors.forEach((advior) => {
     const position = whichSide(advior) ? 0 : 9;
-    board[position][3].piece = setPiece(pieceID++, advior);
-    board[position][5].piece = setPiece(pieceID++, advior);
+    board[position][3].piece = createPiece(pieceID++, advior);
+    board[position][5].piece = createPiece(pieceID++, advior);
   });
 
   // king index 30black 31red
   const kings = ['k', 'K'];
   kings.forEach((king) => {
     const position = whichSide(king) ? 0 : 9;
-    board[position][4].piece = setPiece(pieceID++, king);
+    board[position][4].piece = createPiece(pieceID++, king);
   });
   return board;
 };
 
-export const setPiece = (id, name) => ({
+export const createPiece = (id, name) => ({
   id,
   name,
 });
@@ -101,22 +101,22 @@ export const changeDroppableStyle = (expectedMove, previousExpectedMove) => {
   box.classList.add('expected-move');
 };
 
-export const pieceAnimateStart = (movingPieceID) => {
+export const pieceAnimationStart = (movingPieceID) => {
   const pieceElement = document.getElementById(movingPieceID);
   pieceElement.classList.add('animate');
 };
 
-export const pieceAnimateEnd = (movingPieceID) => {
+export const pieceAnimationEnd = (movingPieceID) => {
   const pieceElement = document.getElementById(movingPieceID);
   pieceElement.classList.remove('animate');
 };
 
-export const cell = (id, piece) => ({
+export const createCell = (id, piece) => ({
   id,
   piece,
 });
 
-export const hintMoves = (pieceName, location, board) => {
+export const getHintMoves = (pieceName, location, board) => {
   let expectedLocations = [];
   switch (MAP[pieceName.toLowerCase()]) {
     case MAP.p:
@@ -142,5 +142,3 @@ export const hintMoves = (pieceName, location, board) => {
   }
   return expectedLocations;
 };
-
-export const indexToID = (x, y) => (x * 9 + y);

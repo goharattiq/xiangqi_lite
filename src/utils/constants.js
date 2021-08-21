@@ -26,3 +26,6 @@ export const WEST = 'WEST';
 
 export const RED = 1;
 export const BLACK = 0;
+
+export const ROWS = 10;
+export const COLS = 9;
