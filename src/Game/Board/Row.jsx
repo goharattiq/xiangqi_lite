@@ -41,7 +41,11 @@ const Row = ({ row, clickHandler }) => {
                           ref={provid.innerRef}
                           {...provid.draggableProps}
                           {...provid.dragHandleProps}
-                          onClick={() => { clickHandler(cell.piece.name, cell.id); }}
+                          onClick={() => { clickHandler(cell.piece.id, cell.piece.name, cell.id); }}
+                          onMouseOver={() => {
+                            clickHandler(cell.piece.id, cell.piece.name, cell.id);
+                          }}
+                          onFocus={() => { clickHandler(cell.piece.id, cell.piece.name, cell.id); }}
                         >
                           <Piece
                             name={cell.piece.name}

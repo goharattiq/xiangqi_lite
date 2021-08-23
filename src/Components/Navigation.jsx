@@ -31,16 +31,18 @@ const Navigation = () => {
             <Link id="profile" to="/profile" className="nav-link-custom">
               Profile
             </Link>
-            <Link
-              id="logout"
-              to="/"
-              className="nav-link-custom"
-              onClick={() => {
-                dispatch(signOutUser(auth.access_token));
-              }}
-            >
-              Logout
-            </Link>
+            {auth ? (
+              <Link
+                id="logout"
+                to="/"
+                className="nav-link-custom"
+                onClick={() => {
+                  dispatch(signOutUser(auth.access_token));
+                }}
+              >
+                Logout
+              </Link>
+            ) : ''}
           </Nav>
         </Navbar.Collapse>
       </Container>

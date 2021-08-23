@@ -53,7 +53,6 @@ export const onPieceMove = (move, previousState, history) => {
   return { board, hitPiece: null, history: null };
 };
 
-export const isValidGameParams = (params) => (!(params.gameType === '') && !(params.gameRated === '')
-                                          && !(params.gameTimed === '') && !(params.side === '')
-                                          && (params.challenge && !(params.username === '')))
-                                          && (params.gameTimed === 'Timed' && !(params.gameTimer === 0));
+export const isValidGameParams = (params) => ((params.gameType !== '') && (params.gameRated !== '')
+                                        && (params.gameTimed !== '') && (params.side !== '')
+                                        && (!params.challenge || (params.challenge && params.username !== '')));

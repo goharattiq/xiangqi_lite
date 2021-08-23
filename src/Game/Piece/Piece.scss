@@ -8,7 +8,6 @@ img {
 .piece {
   width: $screen-xl;
   height: $screen-xl;
-  margin-left: 2px;
 }
 
 svg {
@@ -31,6 +30,12 @@ svg {
   position: relative;
   top: -26px;
   z-index: 1;
+  transition-delay: 1s;
+}
+
+.piece:hover {
+  border-radius: 50%;
+  border: 3px dashed #E99600;
 }
 
 @media screen and (max-width : 600px ) {

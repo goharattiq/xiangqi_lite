@@ -4,7 +4,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
 import { gameParamsAct } from '../redux/game/actions';
@@ -53,7 +52,7 @@ const GameParams = ({ setOverlayDiv }) => {
       dispatch(gameParamsAct(gameParams));
       setGameParams({
         gameType: '',
-        gameRatd: '',
+        gameRated: '',
         gameTime: '',
         moveTime: 1,
         gameTimer: 0,

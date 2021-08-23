@@ -102,11 +102,13 @@ export const changeDroppableStyle = (expectedMove, previousExpectedMove) => {
 };
 
 export const pieceAnimationStart = (movingPieceID) => {
+  // console.log(movingPieceID);
   const pieceElement = document.getElementById(movingPieceID);
   pieceElement.classList.add('animate');
 };
 
 export const pieceAnimationEnd = (movingPieceID) => {
+  // console.log(movingPieceID);
   const pieceElement = document.getElementById(movingPieceID);
   pieceElement.classList.remove('animate');
 };
