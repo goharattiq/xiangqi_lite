@@ -9,10 +9,10 @@ import './SignUpIn.scss';
 const SignIn = () => {
   const dispatch = useDispatch();
   const [credentials, setCredentials] = useState({
-    email: '',
+    username: '',
     password: '',
   });
-  const { email, password } = credentials;
+  const { username, password } = credentials;
   const handleChange = ({ target: { name, value } }) => {
     setCredentials({
       ...credentials,
@@ -23,7 +23,7 @@ const SignIn = () => {
     event.preventDefault();
     dispatch(signinUser(credentials));
     setCredentials({
-      email: '',
+      username: '',
       password: '',
     });
   };
@@ -34,8 +34,8 @@ const SignIn = () => {
       >
         <Form.Control
           type="text"
-          name="email"
-          value={email}
+          name="username"
+          value={username}
           placeholder="Username"
           onChange={handleChange}
         />

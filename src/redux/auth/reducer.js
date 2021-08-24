@@ -11,12 +11,12 @@ const initialState = null;
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case SIGNIN_SUCCESS:
-    case SIGNUP_SUCCESS:
       // localStorage.setItem('access_token', action.payload.access_token);
       return {
         ...state,
         ...action.payload,
       };
+    case SIGNUP_SUCCESS:
     case SIGNOUT_SUCCESS:
       return null;
     default:

@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { signInSueccess, signOutSueccess, signUpSueccess } from './actions';
 
-export const signinUser = ({ email, password }) => (dispatch) => {
-  const locale = navigator.language.slice(0, 2);
+export const signinUser = ({ username, password }) => (dispatch) => {
   axios
-    .post('/api/users/signin', {
-      email, password, locale,
+    .post('/api/accounts/signin/', {
+      username, password,
     })
     .then((res) => {
       dispatch(signInSueccess(res.data));
@@ -17,13 +16,14 @@ export const signinUser = ({ email, password }) => (dispatch) => {
 };
 
 export const signupUser = ({ username, email, password }) => (dispatch) => {
-  const locale = navigator.language.slice(0, 2);
   axios
-    .post('/api/users/signup', {
-      username, email, password, locale,
+    .post('/api/accounts/signup/', {
+      username, email, password,
     })
     .then((res) => {
-      dispatch(signUpSueccess(res.data));
+      // eslint-disable-next-line
+      console.log(res);
+      dispatch(signUpSueccess());
     })
     .catch((err) => {
       // eslint-disable-next-line no-console
@@ -38,7 +38,7 @@ export const signOutUser = (token) => (dispatch) => {
     },
   };
   axios
-    .post('/api/users/signout', null, config)
+    .post('/api/accounts/signout/', null, config)
     .then(() => {
       dispatch(signOutSueccess());
     })
