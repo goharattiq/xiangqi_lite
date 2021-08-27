@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import  RetrieveProfile, CreateProfile
-# RetrieveUpdateProfile,
+from .views import RetrieveProfile, CreateProfile
 
 urlpatterns = [
     path('', CreateProfile.as_view()),
