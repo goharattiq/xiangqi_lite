@@ -3,7 +3,7 @@ import { signInSueccess, signOutSueccess, signUpSueccess } from './actions';
 
 export const signinUser = ({ username, password }) => (dispatch) => {
   axios
-    .post('/api/accounts/signin/', {
+    .post('/api/auth/login/', {
       username, password,
     })
     .then((res) => {
@@ -17,8 +17,8 @@ export const signinUser = ({ username, password }) => (dispatch) => {
 
 export const signupUser = ({ username, email, password }) => (dispatch) => {
   axios
-    .post('/api/accounts/signup/', {
-      username, email, password,
+    .post('/api/auth/signup/', {
+      username, email, password1: password, password2: password,
     })
     .then((res) => {
       // eslint-disable-next-line
@@ -38,7 +38,7 @@ export const signOutUser = (token) => (dispatch) => {
     },
   };
   axios
-    .post('/api/accounts/signout/', null, config)
+    .post('/api/auth/logout/', null, config)
     .then(() => {
       dispatch(signOutSueccess());
     })
