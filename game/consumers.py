@@ -12,8 +12,6 @@ app = socketio.ASGIApp(sio)
 async def piece_move(sid, data):
     # TODO store in db
     # TODO player Turn
-    # move.hit -> hitpiece
-    # move -> history
     await update_game(data)
     await sio.emit('game.move_success', data=data['move'], room=str(data['gameID']), skip_sid=sid)
 
@@ -28,15 +26,14 @@ async def send_game_params(sid, game_params):
 @sio.on('game.enter')
 async def enter_game(sid, game_id):
     instance = await get_game(game_id)
-    # print(instance)
     await join_room(sid, game_id)
     await sio.emit('game.send_params', data=instance, room=str(game_id))
 
 
 @sio.on('connect')
 async def connect(sid, environ):
-    print(sid, 'connect')
-
+    if environ['asgi.scope']['user'].is_anonymous:
+        return False
 
 @sio.on('disconnect')
 def disconnect(sid):

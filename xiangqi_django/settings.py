@@ -178,7 +178,6 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTH_USER_MODEL = 'user_profile.Profile'
 ACCOUNT_EMAIL_VERIFICATION = "none"
 CORS_ALLOW_ALL_ORIGINS = True
 SITE_ID = 1
