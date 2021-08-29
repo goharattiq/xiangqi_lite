@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { io } from 'socket.io-client';
-import { initBoard } from '../redux/game/actions';
+import { clearHintMove, initBoard, pieceMove } from '../redux/game/actions';
 import { SOCKET_URL } from '../utils/constants';
 
 let socket;
@@ -26,6 +26,11 @@ export const useSockets = (
 
   socket.on('game.success', (gameParams) => {
     initGame(setGameParams, history, gameParams);
+  });
+
+  socket.on('game.move_success', (move) => {
+    dispatch(pieceMove(move, true));
+    dispatch(clearHintMove());
   });
 
   return () => {
