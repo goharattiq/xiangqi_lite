@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth.registration',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'xiangqi_django.wsgi.application'
-
+ASGI_APPLICATION = 'xiangqi_django.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -183,3 +184,4 @@ CORS_ALLOW_ALL_ORIGINS = True
 SITE_ID = 1
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'access_token'
+ALLOWED_HOSTS = '*'
