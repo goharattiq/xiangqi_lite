@@ -1,8 +1,10 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import JSONField
 from django.utils.translation import gettext_lazy as _
 from django.contrib.postgres.fields import ArrayField
+# from rest_framework.fields import JSONField
 
 
 class Game(models.Model):
@@ -17,9 +19,11 @@ class Game(models.Model):
     is_timed = models.BooleanField(_('is_timed'), default=True)
     move_timer = models.IntegerField(_('move_timer'), default=1)
     game_timer = models.IntegerField(_('game_timer'), default=30)
-    player_1 = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, related_name='player_1')
-    player_2 = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, related_name='player_2')
-    game_board = ArrayField(ArrayField(models.CharField(max_length=1, default=''), size=10), size=9)
+    side = models.CharField(_('side'), max_length=10, blank=True)
+    player_1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='player_1', null=True)
+    player_2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='player_2', null=True)
+    game_board = ArrayField(ArrayField(JSONField(), size=9, default=list, blank=True),
+                            size=10, default=list, blank=True)
 
     def clean(self):
         if self.player_1 == self.player_2:
