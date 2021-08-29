@@ -8,6 +8,14 @@ sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
 app = socketio.ASGIApp(sio)
 
 
+@sio.on('game.piece_move')
+async def piece_move(sid, data):
+    # TODO store in db
+    # TODO player Turn
+    await update_game(data['board'])
+    await sio.emit('game.move_success', data=data['move'], room=str(data['gameID']), skip_sid=sid)
+
+
 @sio.on('game.set_params')
 async def send_game_params(sid, game_params):
     instance = await create_game(game_params)
@@ -56,3 +64,10 @@ def create_game(game_params):
     )
     game.save()
     return GameSerializer(game).data
+
+
+@sync_to_async
+def update_game(board):
+    Game.objects.update(
+        game_board=board
+    )
