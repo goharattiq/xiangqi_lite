@@ -26,10 +26,12 @@ const gameReducer = (state = initialState, action) => {
     case INIT_BOARD:
       return {
         ...state,
-        board: initMatrix(ROWS, COLS),
+        board: payload,
       };
     case PIECE_MOVE:
-      const { board, hitPiece, history } = onPieceMove(payload, state, { mode: false });
+      const { board, hitPiece, history } = onPieceMove(
+        payload.move, state, { mode: false }, payload.fromSockets,
+      );
       return {
         ...state,
         board,
@@ -55,7 +57,9 @@ const gameReducer = (state = initialState, action) => {
       };
 
     case HISTORY_MOVE_FORWARD:
-      const historyFor = onPieceMove(payload, state, { mode: true, type: HISTORY_MOVE_FORWARD });
+      const historyFor = onPieceMove(
+        payload, state, { mode: true, type: HISTORY_MOVE_FORWARD },
+      );
       return {
         ...state,
         board: historyFor.board,

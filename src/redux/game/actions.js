@@ -8,13 +8,14 @@ import {
   SET_GAME_PARAMS,
 } from './type';
 
-export const initBoard = () => ({
+export const initBoard = (board) => ({
   type: INIT_BOARD,
+  payload: board,
 });
 
-export const pieceMove = (move) => ({
+export const pieceMove = (move, fromSockets) => ({
   type: PIECE_MOVE,
-  payload: move,
+  payload: { move, fromSockets },
 });
 
 export const hintMove = (pieceName, location) => ({
