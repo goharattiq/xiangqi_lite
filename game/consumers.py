@@ -12,7 +12,9 @@ app = socketio.ASGIApp(sio)
 async def piece_move(sid, data):
     # TODO store in db
     # TODO player Turn
-    await update_game(data['board'])
+    # move.hit -> hitpiece
+    # move -> history
+    await update_game(data)
     await sio.emit('game.move_success', data=data['move'], room=str(data['gameID']), skip_sid=sid)
 
 
@@ -26,6 +28,7 @@ async def send_game_params(sid, game_params):
 @sio.on('game.enter')
 async def enter_game(sid, game_id):
     instance = await get_game(game_id)
+    # print(instance)
     await join_room(sid, game_id)
     await sio.emit('game.send_params', data=instance, room=str(game_id))
 
@@ -60,14 +63,29 @@ def create_game(game_params):
         game_timer=game_params['gameTimer'],
         side=game_params['side'],
         player_1=User.objects.filter(id=game_params['player_1']).first(),
-        player_2=User.objects.filter(id=game_params['player_2']).first()
+        player_2=User.objects.filter(id=game_params['player_2']).first(),
+        game_board=game_params['game_board']
     )
     game.save()
     return GameSerializer(game).data
 
 
 @sync_to_async
-def update_game(board):
-    Game.objects.update(
-        game_board=board
+def update_game(data):
+    previous_instance = Game.objects.get(pk=data['gameID'])
+    print(previous_instance)
+    hit_pieces = previous_instance.hit_pieces
+    history = previous_instance.history
+    print(hit_pieces)
+    hit_pieces.append(data['move']['hit'])
+    hit_pieces = list(filter(None, hit_pieces))
+    print(hit_pieces)
+
+    history.append(data['move'])
+    history = list(filter(None, history))
+
+    Game.objects.filter(pk=data['gameID']).update(
+        game_board=data['board'],
+        history=history,
+        hit_pieces=hit_pieces,
     )
