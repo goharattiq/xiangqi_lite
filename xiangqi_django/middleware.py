@@ -10,7 +10,7 @@ def get_user(access_token):
     try:
         user_id = jwt.decode(access_token, SECRET_KEY, algorithms=[SIMPLE_JWT['ALGORITHM']]).get(
             SIMPLE_JWT['USER_ID_CLAIM'])
-        return User.objects.get(id=12)
+        return User.objects.get(id=user_id)
     except User.DoesNotExist:
         return AnonymousUser()
 
@@ -20,7 +20,7 @@ class TokenAuthMiddleware:
         self.app = app
 
     async def __call__(self, scope, receive, send):
-        access_token = scope['headers'][10][1].decode().split(';')[1].split('=')[1]
+        access_token = scope['query_string'].decode().split('access_token=')[1].split('&')[0]
         scope['user'] = AnonymousUser() if access_token is None else await get_user(access_token)
         return await self.app(scope, receive, send)
 
