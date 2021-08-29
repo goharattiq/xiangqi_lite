@@ -6,6 +6,7 @@ import {
   HISTORY_MOVE_FORWARD,
   INIT_BOARD,
   PIECE_MOVE,
+  PLAYER_TURN,
   SET_GAME_PARAMS,
 } from './type';
 import { onPieceMove } from './utiles';
@@ -25,10 +26,14 @@ const gameReducer = (state = initialState, action) => {
     case INIT_BOARD:
       return {
         ...state,
-        board: payload,
+        board: payload.board,
+        hitPiece: payload.hitPiece,
+        history: payload.history,
       };
     case PIECE_MOVE:
-      const { board, hitPiece, history } = onPieceMove(
+      const {
+        board, hitPiece, history, turnChanged,
+      } = onPieceMove(
         payload.move, state, { mode: false }, payload.fromSockets,
       );
       return {
@@ -36,6 +41,10 @@ const gameReducer = (state = initialState, action) => {
         board,
         hitPiece: [...state.hitPiece, hitPiece].filter((piece) => (piece !== null)),
         history: [...state.history, history].filter((back) => (back !== null)),
+        params: {
+          ...state.params,
+          player_turn: turnChanged ? state.params.player_turn : false,
+        },
       };
     case HINT_MOVE:
       const { pieceName, location } = payload;
@@ -67,6 +76,14 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         params: payload,
+      };
+    case PLAYER_TURN:
+      return {
+        ...state,
+        params: {
+          ...state.params,
+          player_turn: payload,
+        },
       };
 
     default:

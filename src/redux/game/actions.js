@@ -6,11 +6,12 @@ import {
   HISTORY_MOVE_FORWARD,
   CLEAR_HINT_MOVE,
   SET_GAME_PARAMS,
+  PLAYER_TURN,
 } from './type';
 
-export const initBoard = (board) => ({
+export const initBoard = (board, hitPiece, history) => ({
   type: INIT_BOARD,
-  payload: board,
+  payload: { board, hitPiece, history },
 });
 
 export const pieceMove = (move, fromSockets) => ({
@@ -40,4 +41,9 @@ export const historyMoveForward = (move) => ({
 export const gameParamsAct = (params) => ({
   type: SET_GAME_PARAMS,
   payload: params,
+});
+
+export const playerTurn = (changePlayerTurn) => ({
+  type: PLAYER_TURN,
+  payload: changePlayerTurn,
 });
