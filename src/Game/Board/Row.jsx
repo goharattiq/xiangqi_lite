@@ -14,10 +14,17 @@ import { whichSide } from '../../utils/pieceMove';
 import { BLACK, RED } from '../../utils/constants';
 
 const Row = ({ row, clickHandler }) => {
-  const { hints, gameParams, username } = useSelector(({ game, auth }) => (
-    { hints: game.hints, gameParams: game.params, username: auth.user.username }));
-  const disable = ![gameParams.player_name_1, gameParams.player_name_2].includes(username);
+  const {
+    playerTurn, hints, gameParams, user,
+  } = useSelector(({ game, auth }) => ({
+    hints: game.hints,
+    gameParams: game.params,
+    user: auth.user,
+    playerTurn: game.params.player_turn,
+  }));
+  const disable = ![gameParams.player_name_1, gameParams.player_name_2].includes(user.username);
   const canMove = (pieceName) => !(whichSide(pieceName) === (gameParams.side === 'Red' ? RED : BLACK));
+  const haveTurn = (turn) => (turn === user.pk);
   return (
     row.map((cell, cellIndex) => (
       <td key={`tr-${cellIndex}`} id={`droppable-${cell.id}`}>
@@ -35,7 +42,7 @@ const Row = ({ row, clickHandler }) => {
                 cell.piece
                   ? (
                     <Draggable
-                      isDragDisabled={canMove(cell.piece.name) || disable}
+                      isDragDisabled={canMove(cell.piece.name) || !haveTurn(playerTurn) || disable}
                       draggableId={`${cell.piece.name}-${cell.piece.id}`}
                       index={cell.piece.id}
                       key={cell.piece.id}

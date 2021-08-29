@@ -24,8 +24,6 @@ const Board = ({ historyMode }) => {
   const dispatch = useDispatch();
   const { board } = useSelector(({ game }) => ({
     board: game.board,
-    hitPiece: game.hitPiece,
-    history: game.history,
   }));
   const onDragUpdate = (expectedMove) => {
     if (!expectedMove.destination) return;

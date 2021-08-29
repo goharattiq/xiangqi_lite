@@ -10,8 +10,8 @@ import './Lobby.scss';
 const Lobby = () => {
   document.body.style.backgroundColor = '#ede8e0';
   const [overlayDiv, setOverlayDiv] = useState(false);
-  const { user } = useSelector(({ auth }) => (
-    { user: auth.user }));
+  const { user, accessToken } = useSelector(({ auth }) => (
+    { user: auth.user, accessToken: auth.access_token }));
   const dispatch = useDispatch();
 
   const setGameParams = (params) => {
@@ -21,7 +21,7 @@ const Lobby = () => {
   useEffect(() => {
     // const disconnectSocket = useSockets(SOCKET_URL, 'opop', setGameParams);
     useSockets(
-      'opop', setGameParams, history, user.username, dispatch,
+      accessToken, setGameParams, history, user.username, dispatch,
     );
     // return () => {
     //   disconnectSocket();
