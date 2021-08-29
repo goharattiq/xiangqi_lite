@@ -27,6 +27,7 @@ class Game(models.Model):
                             size=10, default=list, blank=True)
     hit_pieces = ArrayField(JSONField(),default=list)
     history = ArrayField(JSONField(),default=list)
+    player_turn = models.IntegerField(_('player_turn'),default=-1)
 
     def clean(self):
         if self.player_1 == self.player_2:
