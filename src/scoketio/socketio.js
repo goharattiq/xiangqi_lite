@@ -52,6 +52,14 @@ export const socketSetGameParams = (params) => {
   });
 };
 
+export const socketSendMoves = (gameID, move, board) => {
+  socket.emit('game.piece_move', {
+    gameID,
+    move,
+    board,
+  });
+};
+
 const initGame = (setGameParams, history, gameParams, username, dispatch) => {
   // eslint-disable-next-line prefer-const
   let { game_board, ...newGameParams } = gameParams;
