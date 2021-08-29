@@ -40,6 +40,10 @@ export const useSockets = (
   };
 };
 
+export const socketEnterGame = (gameID) => {
+  socket.emit('game.enter', gameID);
+};
+
 export const socketSetGameParams = (params) => {
   socket.emit('game.set_params', {
     ...params,
