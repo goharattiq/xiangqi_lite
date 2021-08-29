@@ -3,7 +3,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
 import { gameParamsAct } from '../redux/game/actions';
@@ -14,16 +13,16 @@ import {
 } from '../utils/constants';
 import { PARAMETERS } from '../utils/paramsData';
 import './GameParams.scss';
+import { socketSetGameParams } from '../scoketio/socketio';
 
 const GameParams = ({ setOverlayDiv }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const [gameParams, setGameParams] = useState({
     gameType: '',
     gameRated: '',
     gameTimed: '',
     moveTime: 1,
-    gameTimer: 0,
+    gameTimer: 30,
     side: '',
     challenge: false,
     username: '',
@@ -50,17 +49,17 @@ const GameParams = ({ setOverlayDiv }) => {
     event.preventDefault();
     if (isValidGameParams(gameParams)) {
       dispatch(gameParamsAct(gameParams));
+      socketSetGameParams(gameParams);
       setGameParams({
         gameType: '',
         gameRated: '',
         gameTime: '',
         moveTime: 1,
-        gameTimer: 0,
+        gameTimer: 30,
         side: '',
         challenge: true,
         username: '',
       });
-      history.push('/game/1234');
     }
   };
   return (
