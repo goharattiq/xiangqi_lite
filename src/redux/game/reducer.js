@@ -8,12 +8,11 @@ import {
   PIECE_MOVE,
   SET_GAME_PARAMS,
 } from './type';
-import { initMatrix, onPieceMove } from './utiles';
+import { onPieceMove } from './utiles';
 import { getHintMoves } from '../../utils/game';
-import { COLS, ROWS } from '../../utils/constants';
 
 const initialState = {
-  board: initMatrix(ROWS, COLS),
+  board: null,
   hints: [],
   hitPiece: [],
   history: [],

@@ -19,6 +19,21 @@ import { MAP } from './constants';
 // => Horses  1 orthogonal + 1 diagonal
 // => Chariot orthogoal
 
+export const initMatrix = (row, col) => {
+  let board = Array(row);
+  let id = 0;
+  for (let i = 0; i < board.length; i += 1) {
+    board[i] = Array(col);
+    const rowArray = board[i];
+    for (let j = 0; j < rowArray.length; j += 1) {
+      rowArray[j] = createCell(id, null);
+      id += 1;
+    }
+  }
+  board = setPiecePositions(board);
+  return board;
+};
+
 export const isValidMove = (move, hints) => {
   const cellLocation = move.destination.droppableId.split('-')[1];
   return hints.includes(parseInt(cellLocation, 10));
