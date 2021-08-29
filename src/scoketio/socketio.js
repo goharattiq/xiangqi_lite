@@ -1,15 +1,16 @@
 /* eslint-disable camelcase */
 import { io } from 'socket.io-client';
-import { clearHintMove, initBoard, pieceMove } from '../redux/game/actions';
-import { COLS, ROWS, SOCKET_URL } from '../utils/constants';
+import {
+  clearHintMove, initBoard, pieceMove, playerTurn,
+} from '../redux/game/actions';
 import { initMatrix } from '../utils/game';
+import { COLS, ROWS, SOCKET_URL } from '../utils/constants';
 
 let socket;
 
 export const useSockets = (
   accessToken, setGameParams, history, username, dispatch,
 ) => {
-  // const dispatch = useDispatch();
   socket = io(SOCKET_URL, {
     transports: ['websocket'],
     query: {
@@ -26,13 +27,17 @@ export const useSockets = (
   });
 
   socket.on('game.success', (gameParams) => {
-    // gameParams.game_board ;
     initGame(setGameParams, history, gameParams, username, dispatch);
   });
 
-  socket.on('game.move_success', (move) => {
-    dispatch(pieceMove(move, true));
+  socket.on('game.move_success', (data) => {
+    dispatch(playerTurn(data.playerTurn));
+    dispatch(pieceMove(data.move, true));
     dispatch(clearHintMove());
+  });
+
+  socket.on('connect_error', () => {
+    socket.disconnect();
   });
 
   return () => {
@@ -47,8 +52,10 @@ export const socketEnterGame = (gameID) => {
 };
 
 export const socketSetGameParams = (params) => {
+  const newParams = params;
+  newParams.side = newParams.side === 'Random' ? ['Red', 'Black'][Math.round(Math.random())] : newParams.side;
   socket.emit('game.set_params', {
-    ...params,
+    ...newParams,
     game_board: initMatrix(ROWS, COLS),
     player_1: 2,
     player_2: 3,
@@ -63,11 +70,12 @@ export const socketSendMoves = (gameID, move, board) => {
   });
 };
 
-const initGame = (setGameParams, history, gameParams, username, dispatch) => {
-  // eslint-disable-next-line prefer-const
-  let { game_board, ...newGameParams } = gameParams;
-  dispatch(initBoard(game_board));
-  newGameParams.side = newGameParams.side === 'Random' ? ['Red', 'Black'][Math.round(Math.random())] : newGameParams.side;
+const initGame = (setGameParams, historyUrl, gameParams, username, dispatch) => {
+  let {
+    // eslint-disable-next-line prefer-const
+    game_board, hit_pieces, history, ...newGameParams
+  } = gameParams;
+  dispatch(initBoard(game_board, hit_pieces, history));
 
   if (newGameParams.player_name_2 === username) {
     newGameParams = {
@@ -76,5 +84,5 @@ const initGame = (setGameParams, history, gameParams, username, dispatch) => {
     };
   }
   setGameParams(newGameParams);
-  history.push(`/game/${newGameParams.id}`);
+  historyUrl.push(`/game/${newGameParams.id}`);
 };
