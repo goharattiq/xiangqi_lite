@@ -1,4 +1,5 @@
 /* eslint-disable no-mixed-operators */
+import { socketSendMoves } from '../../scoketio/socketio';
 import { setPiecePositions, createCell, isValidMove } from '../../utils/game';
 import { matrixPosition, whichSide } from '../../utils/pieceMove';
 
@@ -17,7 +18,7 @@ export const initMatrix = (row, col) => {
   return board;
 };
 
-export const onPieceMove = (move, previousState, history) => {
+export const onPieceMove = (move, previousState, history, fromSockets) => {
   const { board, hints } = previousState;
   let { source, destination } = move;
   if (history.mode && history.type === 'HISTORY_MOVE_BACK') {
@@ -36,8 +37,7 @@ export const onPieceMove = (move, previousState, history) => {
   if ((source.droppableId !== destination.droppableId)
     && (!board[destI][destJ].piece || !(whichSide(board[destI][destJ].piece.name)
     === whichSide(board[sourceI][sourceJ].piece.name)))
-    && (isValidMove(move, hints) || history.mode)) {
-    // moveAudioTag.play();
+    && (isValidMove(move, hints) || history.mode || fromSockets)) {
     const hitPiece = board[destI][destJ].piece;
     board[destI][destJ].piece = board[sourceI][sourceJ].piece;
     board[sourceI][sourceJ].piece = history.mode && history.type === 'HISTORY_MOVE_BACK' ? move.hit : null;
@@ -47,6 +47,9 @@ export const onPieceMove = (move, previousState, history) => {
       moveAudioTag.play();
     } else {
       hitAudioTag.play();
+    }
+    if (!history.mode && !fromSockets) {
+      socketSendMoves(previousState.params.id, move, board);
     }
     return { board, hitPiece, history: move };
   }
