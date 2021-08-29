@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
 import { io } from 'socket.io-client';
 import { clearHintMove, initBoard, pieceMove } from '../redux/game/actions';
-import { SOCKET_URL } from '../utils/constants';
+import { COLS, ROWS, SOCKET_URL } from '../utils/constants';
+import { initMatrix } from '../utils/game';
 
 let socket;
 
@@ -25,7 +26,8 @@ export const useSockets = (
   });
 
   socket.on('game.success', (gameParams) => {
-    initGame(setGameParams, history, gameParams);
+    // gameParams.game_board ;
+    initGame(setGameParams, history, gameParams, username, dispatch);
   });
 
   socket.on('game.move_success', (move) => {
@@ -47,6 +49,7 @@ export const socketEnterGame = (gameID) => {
 export const socketSetGameParams = (params) => {
   socket.emit('game.set_params', {
     ...params,
+    game_board: initMatrix(ROWS, COLS),
     player_1: 2,
     player_2: 3,
   });
