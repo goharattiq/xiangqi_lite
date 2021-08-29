@@ -24,6 +24,10 @@ export const useSockets = (
     initGame(setGameParams, history, gameParams, username, dispatch);
   });
 
+  socket.on('game.success', (gameParams) => {
+    initGame(setGameParams, history, gameParams);
+  });
+
   return () => {
     socket.disconnect(() => {
       // console.log('disconnected');
