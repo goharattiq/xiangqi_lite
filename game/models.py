@@ -19,11 +19,14 @@ class Game(models.Model):
     is_timed = models.BooleanField(_('is_timed'), default=True)
     move_timer = models.IntegerField(_('move_timer'), default=1)
     game_timer = models.IntegerField(_('game_timer'), default=30)
+    is_active = models.BooleanField(_('is_active'), default=True)
     side = models.CharField(_('side'), max_length=10, blank=True)
     player_1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='player_1', null=True)
     player_2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='player_2', null=True)
     game_board = ArrayField(ArrayField(JSONField(), size=9, default=list, blank=True),
                             size=10, default=list, blank=True)
+    hit_pieces = ArrayField(JSONField(),default=list)
+    history = ArrayField(JSONField(),default=list)
 
     def clean(self):
         if self.player_1 == self.player_2:
