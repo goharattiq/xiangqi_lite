@@ -43,7 +43,7 @@ const Board = ({ historyMode }) => {
   };
   const onDragEnd = (move) => {
     if (!historyMode) {
-      dispatch(pieceMove(move));
+      dispatch(pieceMove(move, false));
       dispatch(clearHintMove());
     }
     changeDroppableStyle(null, previousExpectedMove);
@@ -55,6 +55,7 @@ const Board = ({ historyMode }) => {
       dispatch(hintMove(pieceName, location));
     }
   };
+
   return (
     <>
       <audio id="move-audio" src={moveAudio} />

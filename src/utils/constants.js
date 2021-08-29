@@ -29,3 +29,5 @@ export const BLACK = 0;
 
 export const ROWS = 10;
 export const COLS = 9;
+
+export const SOCKET_URL = 'http://192.168.1.6:8000';
