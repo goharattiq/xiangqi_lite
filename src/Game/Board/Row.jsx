@@ -10,9 +10,14 @@ import { useSelector } from 'react-redux';
 import Piece from '../Piece/Piece';
 import Spot from './Spot';
 import './Row.scss';
+import { whichSide } from '../../utils/pieceMove';
+import { BLACK, RED } from '../../utils/constants';
 
 const Row = ({ row, clickHandler }) => {
-  const hints = useSelector(({ game }) => (game.hints));
+  const { hints, gameParams, username } = useSelector(({ game, auth }) => (
+    { hints: game.hints, gameParams: game.params, username: auth.user.username }));
+  const disable = ![gameParams.player_name_1, gameParams.player_name_2].includes(username);
+  const canMove = (pieceName) => !(whichSide(pieceName) === (gameParams.side === 'Red' ? RED : BLACK));
   return (
     row.map((cell, cellIndex) => (
       <td key={`tr-${cellIndex}`} id={`droppable-${cell.id}`}>
@@ -30,6 +35,7 @@ const Row = ({ row, clickHandler }) => {
                 cell.piece
                   ? (
                     <Draggable
+                      isDragDisabled={canMove(cell.piece.name) || disable}
                       draggableId={`${cell.piece.name}-${cell.piece.id}`}
                       index={cell.piece.id}
                       key={cell.piece.id}
@@ -41,11 +47,16 @@ const Row = ({ row, clickHandler }) => {
                           ref={provid.innerRef}
                           {...provid.draggableProps}
                           {...provid.dragHandleProps}
-                          onClick={() => { clickHandler(cell.piece.id, cell.piece.name, cell.id); }}
-                          onMouseOver={() => {
-                            clickHandler(cell.piece.id, cell.piece.name, cell.id);
+                          onClick={() => {
+                            // eslint-disable-next-line no-unused-expressions
+                            !disable
+                            && clickHandler(cell.piece.id, cell.piece.name, cell.id);
                           }}
-                          onFocus={() => { clickHandler(cell.piece.id, cell.piece.name, cell.id); }}
+                          // onMouseOver={() => {
+                          //   clickHandler(cell.piece.id, cell.piece.name, cell.id);
+                          // }}
+                          // eslint-disable-next-line max-len
+                          // onFocus={() => { clickHandler(cell.piece.id, cell.piece.name, cell.id); }}
                         >
                           <Piece
                             name={cell.piece.name}
@@ -57,7 +68,7 @@ const Row = ({ row, clickHandler }) => {
                     </Draggable>
                   ) : (
                     <Spot
-                      visiblity={hints.includes(cell.id) ? 'visible' : 'hidden'}
+                      visiblity={hints.includes(cell.id) && !disable ? 'visible' : 'hidden'}
                       id={`spot-${cell.id}`}
                     />
                   )
