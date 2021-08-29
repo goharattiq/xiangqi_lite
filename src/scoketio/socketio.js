@@ -40,6 +40,14 @@ export const useSockets = (
   };
 };
 
+export const socketSetGameParams = (params) => {
+  socket.emit('game.set_params', {
+    ...params,
+    player_1: 2,
+    player_2: 3,
+  });
+};
+
 const initGame = (setGameParams, history, gameParams, username, dispatch) => {
   // eslint-disable-next-line prefer-const
   let { game_board, ...newGameParams } = gameParams;
