@@ -15,6 +15,13 @@ async def send_game_params(sid, game_params):
     await sio.emit('game.success', data=instance, room=str(instance['id']))
 
 
+@sio.on('game.enter')
+async def enter_game(sid, game_id):
+    instance = await get_game(game_id)
+    await join_room(sid, game_id)
+    await sio.emit('game.send_params', data=instance, room=str(game_id))
+
+
 @sio.on('connect')
 async def connect(sid, environ):
     print(sid, 'connect')
@@ -28,6 +35,12 @@ def disconnect(sid):
 @sync_to_async
 def join_room(sid, game_id):
     sio.enter_room(sid, str(game_id))
+
+
+@sync_to_async
+def get_game(game_id):
+    return GameSerializer(Game.objects.filter(id=game_id).first()).data
+
 
 @sync_to_async
 def create_game(game_params):
