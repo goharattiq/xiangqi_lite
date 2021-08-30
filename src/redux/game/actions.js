@@ -8,6 +8,8 @@ import {
   SET_GAME_PARAMS,
   PLAYER_TURN,
   SEARCH_NAME,
+  ACTIVE_GAMES,
+  SPECTATE_GAMES,
 } from './type';
 
 export const initBoard = (board, hitPiece, history) => ({
@@ -52,4 +54,14 @@ export const playerTurn = (changePlayerTurn) => ({
 export const searchUsername = (searchedUsers) => ({
   type: SEARCH_NAME,
   payload: searchedUsers,
+});
+
+export const activeGames = (games) => ({
+  type: ACTIVE_GAMES,
+  payload: games,
+});
+
+export const spectateGames = (games) => ({
+  type: SPECTATE_GAMES,
+  payload: games,
 });

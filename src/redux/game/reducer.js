@@ -1,5 +1,6 @@
 /* eslint-disable no-case-declarations */
 import {
+  ACTIVE_GAMES,
   CLEAR_HINT_MOVE,
   HINT_MOVE,
   HISTORY_MOVE_BACK,
@@ -9,6 +10,7 @@ import {
   PLAYER_TURN,
   SEARCH_NAME,
   SET_GAME_PARAMS,
+  SPECTATE_GAMES,
 } from './type';
 import { onPieceMove } from './utiles';
 import { getHintMoves } from '../../utils/game';
@@ -20,6 +22,8 @@ const initialState = {
   history: [],
   params: null,
   searchNames: [],
+  activeGames: [],
+  spectateGames: [],
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -91,6 +95,18 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         searchNames: payload,
+      };
+
+    case ACTIVE_GAMES:
+      return {
+        ...state,
+        activeGames: payload,
+      };
+
+    case SPECTATE_GAMES:
+      return {
+        ...state,
+        spectateGames: payload,
       };
 
     default:
