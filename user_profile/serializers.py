@@ -31,3 +31,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         validated_data.pop('user')
         Profile.objects.update(user_id=user_id, **validated_data)
         return Profile.objects.filter(user_id=user_id).first()
+
+
+class UserSearchSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['id', 'username']
