@@ -16,13 +16,23 @@ export const signinUser = ({ username, password }) => (dispatch) => {
 };
 
 export const signupUser = ({ username, email, password }) => (dispatch) => {
+  let signUpData;
   axios
     .post('/api/auth/signup/', {
       username, email, password1: password, password2: password,
     })
     .then((res) => {
-      // eslint-disable-next-line
-      console.log(res);
+      signUpData = res.data;
+      axios
+        .post('/api/profile/', { id: signUpData.user.pk })
+        .then((resData) => {
+          // eslint-disable-next-line no-console
+          console.log(resData.data);
+        })
+        .catch((err) => {
+          // eslint-disable-next-line no-console
+          console.log(err);
+        });
       dispatch(signUpSueccess());
     })
     .catch((err) => {

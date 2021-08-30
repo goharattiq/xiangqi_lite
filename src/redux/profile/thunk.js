@@ -2,9 +2,9 @@
 import axios from 'axios';
 import { getProfile } from './actions';
 
-export const fetchUserProfile = (username) => (dispatch) => {
+export const fetchUserProfile = (userId) => (dispatch) => {
   axios
-    .get(`/api/users/account/${username}`)
+    .get(`/api/profile/${userId}`)
     .then((res) => {
       dispatch(getProfile(res.data));
     })
