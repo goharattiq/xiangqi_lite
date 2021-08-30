@@ -11,7 +11,10 @@ app = socketio.ASGIApp(sio)
 @sio.on('game.piece_move')
 async def piece_move(sid, data):
     player_turn = await update_game(data)
-    await sio.emit('game.move_success', data={'move': data['move'], 'playerTurn': player_turn}, room=str(data['gameID']), skip_sid=sid)
+    await sio.emit('game.move_success',
+                   data={'move': data['move'], 'playerTurn': player_turn},
+                   room=str(data['gameID']),
+                   skip_sid=sid)
 
 
 @sio.on('game.set_params')
