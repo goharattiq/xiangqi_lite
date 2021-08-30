@@ -52,4 +52,4 @@ export const onPieceMove = (move, previousState, history, fromSockets) => {
 
 export const isValidGameParams = (params) => ((params.gameType !== '') && (params.gameRated !== '')
                                         && (params.gameTimed !== '') && (params.side !== '')
-                                        && (!params.challenge || (params.challenge && params.username !== '')));
+                                        && (params.challenge && params.username !== ''));

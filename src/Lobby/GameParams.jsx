@@ -1,22 +1,23 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
 import { gameParamsAct } from '../redux/game/actions';
 import { isValidGameParams } from '../redux/game/utiles';
+import { socketSetGameParams } from '../scoketio/socketio';
+import { fetechedSearchUsernames } from '../redux/game/thunk';
+import { PARAMETERS } from '../utils/paramsData';
 import Field from './Field';
 import {
   MOVE_TIMER, GAME_TIMER, SIDE,
 } from '../utils/constants';
-import { PARAMETERS } from '../utils/paramsData';
 import './GameParams.scss';
-import { socketSetGameParams } from '../scoketio/socketio';
 
 const GameParams = ({ setOverlayDiv }) => {
   const dispatch = useDispatch();
+  const searchNames = useSelector(({ game }) => (game.searchNames));
   const [gameParams, setGameParams] = useState({
     gameType: '',
     gameRated: '',
@@ -29,7 +30,7 @@ const GameParams = ({ setOverlayDiv }) => {
   });
   const {
     gameTimed,
-    challenge,
+    // challenge,
     moveTime,
     username,
   } = gameParams;
@@ -39,11 +40,14 @@ const GameParams = ({ setOverlayDiv }) => {
       [name]: value,
     });
   };
-  const handleCheckbox = ({ target: { name, checked } }) => {
+  const handleNameBox = ({ target: { name, value } }) => {
     setGameParams({
       ...gameParams,
-      [name]: checked,
+      [name]: value,
     });
+    if (value !== '') {
+      dispatch(fetechedSearchUsernames(value));
+    }
   };
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -128,28 +132,28 @@ const GameParams = ({ setOverlayDiv }) => {
             />
           </div>
           <div className="">
-            <Form.Check
-              name="challenge"
-              type="checkbox"
-              id="challenge"
-              label="Cahllenge Someone?"
-              className="d-flex justify-content-center"
-              onChange={handleCheckbox}
-            />
-            {
-              challenge
-                ? (
-                  <Form.Group className="m-3" controlId="formBasicEmail">
-                    <Form.Control
-                      type="text"
-                      placeholder="Search By Username"
-                      name="username"
-                      value={username}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                ) : ''
-            }
+            <Form.Group className="m-3" controlId="formBasicEmail">
+              <Form.Control
+                type="text"
+                placeholder="Search By Username"
+                name="username"
+                value={username}
+                onChange={handleNameBox}
+                list="search-names"
+                autoComplete="off"
+              />
+            </Form.Group>
+            <datalist id="search-names">
+              {
+
+                searchNames.length !== 0
+                  ? searchNames.map((user) => (
+                    <option key={user.id} value={user.username} label={user.username} />
+                  ))
+                  : <p>Nothing Found</p>
+
+                }
+            </datalist>
           </div>
           <Button
             className="position-relative m-3 form-button"
