@@ -22,9 +22,9 @@ const Navigation = () => {
             <Link id="play" to="/lobby" className="nav-link-custom">
               Play
             </Link>
-            <Link id="spectate" to="/spectate" className="nav-link-custom">
+            {/* <Link id="spectate" to="/spectate" className="nav-link-custom">
               Spectate
-            </Link>
+            </Link> */}
             <Link id="leaderboard" to="/leaderboard" className="nav-link-custom">
               LeaderBoard
             </Link>

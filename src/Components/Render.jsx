@@ -23,7 +23,7 @@ const Render = () => {
           <Redirect to="/lobby" />
           <Switch>
             <PrivateRoute exact path="/lobby" component={Lobby} />
-            <PrivateRoute exact path="/spectate" component={Lobby} />
+            {/* <PrivateRoute exact path="/spectate" component={Lobby} /> */}
             <PrivateRoute exact path="/profile" component={Profile} />
             <PrivateRoute exact path="/game/:gameId" component={Game} />
             <PrivateRoute exact path="/leaderboard" component={LeaderBoard} />
