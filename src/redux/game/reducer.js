@@ -7,6 +7,7 @@ import {
   INIT_BOARD,
   PIECE_MOVE,
   PLAYER_TURN,
+  SEARCH_NAME,
   SET_GAME_PARAMS,
 } from './type';
 import { onPieceMove } from './utiles';
@@ -18,6 +19,7 @@ const initialState = {
   hitPiece: [],
   history: [],
   params: null,
+  searchNames: [],
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -84,6 +86,11 @@ const gameReducer = (state = initialState, action) => {
           ...state.params,
           player_turn: payload,
         },
+      };
+    case SEARCH_NAME:
+      return {
+        ...state,
+        searchNames: payload,
       };
 
     default:

@@ -7,6 +7,7 @@ import {
   CLEAR_HINT_MOVE,
   SET_GAME_PARAMS,
   PLAYER_TURN,
+  SEARCH_NAME,
 } from './type';
 
 export const initBoard = (board, hitPiece, history) => ({
@@ -46,4 +47,9 @@ export const gameParamsAct = (params) => ({
 export const playerTurn = (changePlayerTurn) => ({
   type: PLAYER_TURN,
   payload: changePlayerTurn,
+});
+
+export const searchUsername = (searchedUsers) => ({
+  type: SEARCH_NAME,
+  payload: searchedUsers,
 });
