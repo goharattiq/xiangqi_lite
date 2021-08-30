@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Button, FloatingLabel, Form } from 'react-bootstrap';
-import GameParams from './GameParams';
+import { Button } from 'react-bootstrap';
+import { fetechedActiveGames, fetechedSpectateGames } from '../redux/game/thunk';
 import { gameParamsAct } from '../redux/game/actions';
-import { socketEnterGame, useSockets } from '../scoketio/socketio';
+import { useSockets } from '../scoketio/socketio';
+import GameParams from './GameParams';
+import ActiveGame from './ActiveGame';
 import './Lobby.scss';
+import SpectateGame from './SpectateGame';
 
 const Lobby = () => {
   document.body.style.backgroundColor = '#ede8e0';
@@ -23,20 +26,22 @@ const Lobby = () => {
     useSockets(
       accessToken, setGameParams, history, user.username, dispatch,
     );
+    dispatch(fetechedActiveGames());
+    dispatch(fetechedSpectateGames());
     // return () => {
     //   disconnectSocket();
     // };
   }, [useSockets]);
 
-  const [gameId, setGameID] = useState('');
-  const handleChange = ({ target: { value } }) => {
-    setGameID(value);
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    socketEnterGame(gameId);
-    setGameID('');
-  };
+  // const [gameId, setGameID] = useState('');
+  // const handleChange = ({ target: { value } }) => {
+  //   setGameID(value);
+  // };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   socketEnterGame(gameId);
+  //   setGameID('');
+  // };
   return (
     <>
       <Button className="position-absolute m-2 new-game" onClick={() => { setOverlayDiv(!overlayDiv); }}>
@@ -45,7 +50,7 @@ const Lobby = () => {
       </Button>
       {overlayDiv ? <GameParams setOverlayDiv={setOverlayDiv} /> : ''}
 
-      <Form className="sign-form" onSubmit={handleSubmit}>
+      {/* <Form className="sign-form" onSubmit={handleSubmit}>
         <FloatingLabel
           label="game ID"
         >
@@ -63,7 +68,9 @@ const Lobby = () => {
         >
           Enter Game
         </Button>
-      </Form>
+      </Form> */}
+      <ActiveGame />
+      <SpectateGame />
     </>
   );
 };
