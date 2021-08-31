@@ -57,7 +57,7 @@ const Row = ({ row, clickHandler }) => {
                           onClick={() => {
                             // eslint-disable-next-line no-unused-expressions
                             !disable
-                            && clickHandler(cell.piece.id, cell.piece.name, cell.id);
+                            && clickHandler(cell.piece.name, cell.id);
                           }}
                           // onMouseOver={() => {
                           //   clickHandler(cell.piece.id, cell.piece.name, cell.id);

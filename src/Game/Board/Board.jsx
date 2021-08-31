@@ -48,7 +48,7 @@ const Board = ({ historyMode }) => {
     pieceAnimationEnd(move.draggableId);
     setPreviousExpectedMove(move);
   };
-  const clickHandler = (pieceID, pieceName, location) => {
+  const clickHandler = (pieceName, location) => {
     if (!historyMode) {
       dispatch(hintMove(pieceName, location));
     }
