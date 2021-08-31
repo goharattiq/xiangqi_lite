@@ -51,14 +51,14 @@ export const socketEnterGame = (gameID) => {
   socket.emit('game.enter', gameID);
 };
 
-export const socketSetGameParams = (params) => {
+export const socketSetGameParams = (params, owner) => {
   const newParams = params;
   newParams.side = newParams.side === 'Random' ? ['Red', 'Black'][Math.round(Math.random())] : newParams.side;
   socket.emit('game.set_params', {
     ...newParams,
     game_board: initMatrix(ROWS, COLS),
-    player_1: 2,
-    player_2: 3,
+    player_1: owner,
+    player_2: params.username,
   });
 };
 

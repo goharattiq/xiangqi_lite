@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
 import { gameParamsAct } from '../redux/game/actions';
+import { fetechedSearchUsernames } from '../redux/game/thunk';
 import { isValidGameParams } from '../redux/game/utiles';
 import { socketSetGameParams } from '../scoketio/socketio';
-import { fetechedSearchUsernames } from '../redux/game/thunk';
 import { PARAMETERS } from '../utils/paramsData';
 import Field from './Field';
 import {
@@ -17,7 +17,10 @@ import './GameParams.scss';
 
 const GameParams = ({ setOverlayDiv }) => {
   const dispatch = useDispatch();
-  const searchNames = useSelector(({ game }) => (game.searchNames));
+  const { searchNames, owner } = useSelector(({ game, auth }) => ({
+    searchNames: game.searchNames,
+    owner: auth.user.username,
+  }));
   const [gameParams, setGameParams] = useState({
     gameType: '',
     gameRated: '',
@@ -25,12 +28,10 @@ const GameParams = ({ setOverlayDiv }) => {
     moveTime: 1,
     gameTimer: 30,
     side: '',
-    challenge: false,
     username: '',
   });
   const {
     gameTimed,
-    // challenge,
     moveTime,
     username,
   } = gameParams;
@@ -39,21 +40,15 @@ const GameParams = ({ setOverlayDiv }) => {
       ...gameParams,
       [name]: value,
     });
-  };
-  const handleNameBox = ({ target: { name, value } }) => {
-    setGameParams({
-      ...gameParams,
-      [name]: value,
-    });
-    if (value !== '') {
+    if (name === 'username' && value !== '') {
       dispatch(fetechedSearchUsernames(value));
     }
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (isValidGameParams(gameParams)) {
+    if (isValidGameParams(gameParams, searchNames)) {
       dispatch(gameParamsAct(gameParams));
-      socketSetGameParams(gameParams);
+      socketSetGameParams(gameParams, owner);
       setGameParams({
         gameType: '',
         gameRated: '',
@@ -61,7 +56,6 @@ const GameParams = ({ setOverlayDiv }) => {
         moveTime: 1,
         gameTimer: 30,
         side: '',
-        challenge: true,
         username: '',
       });
     }
@@ -138,7 +132,7 @@ const GameParams = ({ setOverlayDiv }) => {
                 placeholder="Search By Username"
                 name="username"
                 value={username}
-                onChange={handleNameBox}
+                onChange={handleChange}
                 list="search-names"
                 autoComplete="off"
               />
