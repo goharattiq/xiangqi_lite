@@ -12,8 +12,13 @@ const ActiveGame = () => {
       {
         activeGames.length !== 0
           ? activeGames.map((game) => (
-            <div key={game.id} onClick={() => { socketEnterGame(game.id); }}>
-              <p>{game.side}</p>
+            <div
+              key={game.id}
+              onClick={() => {
+                socketEnterGame(game.id);
+              }}
+            >
+              <p>{game.id}</p>
             </div>
           ))
           : <p>No Active Games</p>

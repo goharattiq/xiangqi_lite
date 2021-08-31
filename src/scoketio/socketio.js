@@ -77,7 +77,7 @@ const initGame = (setGameParams, historyUrl, gameParams, username, dispatch) => 
   } = gameParams;
   dispatch(initBoard(game_board, hit_pieces, history));
 
-  if (newGameParams.player_name_2 === username) {
+  if (newGameParams.player_2.user.username === username) {
     newGameParams = {
       ...newGameParams,
       side: newGameParams.side === 'Red' ? 'Black' : 'Red',

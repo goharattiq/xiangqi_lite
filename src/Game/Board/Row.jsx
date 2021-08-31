@@ -22,7 +22,8 @@ const Row = ({ row, clickHandler }) => {
     user: auth.user,
     playerTurn: game.params.player_turn,
   }));
-  const disable = ![gameParams.player_name_1, gameParams.player_name_2].includes(user.username);
+  const disable = ![gameParams.player_1.user.username, gameParams.player_2.user.username]
+    .includes(user.username);
   const canMove = (pieceName) => !(whichSide(pieceName) === (gameParams.side === 'Red' ? RED : BLACK));
   const haveTurn = (turn) => (turn === user.pk);
   return (

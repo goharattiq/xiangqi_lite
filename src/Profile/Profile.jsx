@@ -8,28 +8,26 @@ const Profile = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const callback = useCallback((id) => fetchUserProfile(id));
+  useEffect(() => {
+    // console.log('useEffect');
+    dispatch(callback(auth.user.pk));
+  }, [auth]);
   const {
-    username,
-    firstName,
-    lastName,
+    user,
     gamesCount,
     winsCount,
     lossesCount,
     drawCount,
     winningPercentage,
   } = useSelector(({ profile }) => ({
-    username: profile.username,
-    firstName: profile.first_name,
-    lastName: profile.last_name,
+    user: profile.user,
     gamesCount: profile.games_played_count,
     winsCount: profile.wins_count,
     lossesCount: profile.losses_count,
     drawCount: profile.draw_count,
     winningPercentage: profile.winning_percentage,
   }));
-  useEffect(() => {
-    dispatch(callback(auth.user.pk));
-  }, []);
+
   const stateList = [
     { name: 'Games', score: gamesCount },
     { name: 'Wins', score: winsCount },
@@ -37,13 +35,13 @@ const Profile = () => {
     { name: 'Draws', score: drawCount },
     { name: 'Winning%', score: winningPercentage },
   ];
-  const userFullName = firstName ? `${firstName} ${lastName}` : 'Fill Your Name';
+  const userFullName = user ? `${user.first_name} ${user.first_name}` : 'Fill Your Name';
   return (
     <Container className="bg-white w-75 mt-5 pb-3">
       <div className="user-profile mt-5 ms-5">
         <div className="avatar" />
         <p className="user-fullname">{userFullName}</p>
-        <p className="user-username">{username}</p>
+        <p className="user-username">{user ? user.username : ''}</p>
       </div>
       <ul className="list-group mt-5 mb-3 user-stats">
         {
