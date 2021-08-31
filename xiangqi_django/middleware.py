@@ -25,5 +25,5 @@ class TokenAuthMiddleware:
         return await self.app(scope, receive, send)
 
 
-def JsonTokenAuthMiddlewareStack(inner):
+def TokenAuthMiddlewareStack(inner):
     return TokenAuthMiddleware(AuthMiddlewareStack(inner))

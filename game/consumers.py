@@ -53,7 +53,8 @@ def get_game(game_id):
 
 @sync_to_async
 def create_game(game_params):
-    user_instance = User.objects.filter(id=game_params['player_1']).first()
+    user_owner = User.objects.filter(username=game_params['player_1']).first()
+    user_invitee = User.objects.filter(username=game_params['player_2']).first()
     game = Game.objects.create(
         is_public=True if game_params['gameType'] == 'Public' else False,
         is_rated=True if game_params['gameRated'] == 'Rated' else False,
@@ -61,10 +62,10 @@ def create_game(game_params):
         move_timer=game_params['moveTime'],
         game_timer=game_params['gameTimer'],
         side=game_params['side'],
-        player_1=user_instance,
-        player_2=User.objects.filter(id=game_params['player_2']).first(),
+        player_1=user_owner,
+        player_2=user_invitee,
         game_board=game_params['game_board'],
-        player_turn=user_instance.id
+        player_turn=user_owner.id
     )
     game.save()
     return GameSerializer(game).data

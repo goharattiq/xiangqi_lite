@@ -12,13 +12,13 @@ class RetrieveProfile(RetrieveUpdateAPIView):
     serializer_class = ProfileSerializer
 
     def get_object(self, queryset=None, **kwargs):
-        item = self.kwargs.get('pk')
-        return get_object_or_404(Profile, user_id=item)
+        id = self.kwargs.get('pk')
+        return get_object_or_404(Profile, user_id=id)
 
 
 class CreateProfile(CreateAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Profile.objects.all()
+    # queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
 

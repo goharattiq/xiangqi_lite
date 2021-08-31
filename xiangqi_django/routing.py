@@ -10,10 +10,10 @@ import game.routing
 #         )
 #     ),
 # })
-from xiangqi_django.middleware import JsonTokenAuthMiddlewareStack
+from xiangqi_django.middleware import TokenAuthMiddlewareStack
 
 application = ProtocolTypeRouter({
-    "websocket": JsonTokenAuthMiddlewareStack(
+    "websocket": TokenAuthMiddlewareStack(
         URLRouter(
             game.routing.websocket_urlpatterns
         ),
