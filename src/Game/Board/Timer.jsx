@@ -1,15 +1,18 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { socketEndGame } from '../../scoketio/socketio';
 import './Timer.scss';
 
 const Timer = ({
-  moveTimer, gameTimer, isPause, style,
+  moveTimer, gameTimer, isPause, style, userID,
 }) => {
   const [timer, setTimer] = useState({
     moveInterval: moveTimer * 60,
     gameInterval: gameTimer * 60,
   });
+  const gameParams = useSelector(({ game }) => (game.params));
   const { moveInterval, gameInterval } = timer;
   const pauseTimer = (interval) => {
     clearInterval(interval);
@@ -22,11 +25,16 @@ const Timer = ({
         gameInterval: gameInterval - 1,
       });
     }, 1000);
-    if (moveInterval === 0) {
-      setTimer({
-        ...timer,
-      });
+    if (!isPause && (moveInterval === 0 || gameInterval === 0)) {
       pauseTimer(timeInterval);
+      if (gameParams.player_turn === userID) {
+      // eslint-disable-next-line camelcase
+        const { player_1, player_2 } = gameParams;
+        socketEndGame(gameParams.id, {
+          player_1,
+          player_2,
+        }, gameParams.player_turn, 'END_TIME', gameParams.is_rated);
+      }
     }
     if (isPause) {
       setTimer({
@@ -59,6 +67,7 @@ Timer.propTypes = {
   gameTimer: PropTypes.number.isRequired,
   isPause: PropTypes.bool.isRequired,
   style: PropTypes.object.isRequired,
+  userID: PropTypes.number.isRequired,
 };
 
 export default Timer;

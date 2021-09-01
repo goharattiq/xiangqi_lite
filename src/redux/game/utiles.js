@@ -1,10 +1,10 @@
 /* eslint-disable no-mixed-operators */
-import { socketSendMoves } from '../../scoketio/socketio';
+import { socketSendMoves, socketEndGame } from '../../scoketio/socketio';
 import { isValidMove } from '../../utils/game';
 import { matrixPosition, whichSide } from '../../utils/pieceMove';
 
 export const onPieceMove = (move, previousState, history, fromSockets) => {
-  const { board, hints } = previousState;
+  const { board, hints, params } = previousState;
   let { source, destination } = move;
   if (history.mode && history.type === 'HISTORY_MOVE_BACK') {
     [source, destination] = [destination, source];
@@ -37,6 +37,13 @@ export const onPieceMove = (move, previousState, history, fromSockets) => {
     }
     if (!history.mode && !fromSockets) {
       socketSendMoves(previousState.params.id, move, board);
+    }
+    if (!history.mode && !fromSockets && hitPiece && (hitPiece.name === 'k' || hitPiece.name === 'K')) {
+      // eslint-disable-next-line camelcase
+      const { player_1, player_2 } = params;
+      const side = whichSide(hitPiece.name) ? 'Red' : 'Black';
+      const looser = side === player_1.side ? player_1.user.pk : player_2.user.pk;
+      socketEndGame(params.id, { player_1, player_2 }, looser, 'KING_DIED', params.is_rated);
     }
     return {
       board, hitPiece, history: move, turnChanged: true,
