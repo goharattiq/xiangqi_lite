@@ -12,12 +12,13 @@ import Player from './Board/Player';
 const PlayArea = () => {
   const [historyMode, setHistoryMode] = useState(false);
   const {
-    hitPiece, history, gameParams, playerTurn,
-  } = useSelector(({ game }) => ({
+    hitPiece, history, gameParams, playerTurn, userID,
+  } = useSelector(({ game, auth }) => ({
     hitPiece: game.hitPiece,
     history: game.history,
     gameParams: game.params,
     playerTurn: game.params.player_turn,
+    userID: auth.user.pk,
   }));
   const redHitPieces = hitPiece.filter((piece) => whichSide(piece.name));
   const blackHitPieces = hitPiece.filter((piece) => !whichSide(piece.name));
@@ -54,6 +55,7 @@ const PlayArea = () => {
             gameTimer={gameParams.game_timer}
             isPause={!(haveTurn(redPlayer.user.pk))}
             style={{ bottom: '40px' }}
+            userID={userID}
           />
         ) : ''
       }
@@ -69,6 +71,7 @@ const PlayArea = () => {
               gameTimer={gameParams.game_timer}
               isPause={!(haveTurn(blackPlayer.user.pk))}
               style={{ bottom: '60px' }}
+              userID={userID}
             />
           ) : ''
         }
