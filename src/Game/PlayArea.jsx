@@ -1,6 +1,3 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-unused-expressions */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
@@ -10,6 +7,7 @@ import History from './Board/History';
 import { whichSide } from '../utils/pieceMove';
 import './PlayArea.scss';
 import Timer from './Board/Timer';
+import Player from './Board/Player';
 
 const PlayArea = () => {
   const [historyMode, setHistoryMode] = useState(false);
@@ -28,6 +26,7 @@ const PlayArea = () => {
   const historyHandler = (pointer, isNext) => {
     if (pointer < history.length || (isNext && historyMode)) {
       setHistoryMode(true);
+      // eslint-disable-next-line no-unused-expressions
       isNext ? dispatch(historyMoveForward(history[pointer - 1]))
         : dispatch(historyMoveBack(history[pointer]));
       if (pointer === history.length) {
@@ -42,10 +41,11 @@ const PlayArea = () => {
   const blackPlayer = gameParams.player_1.side === 'Black' ? gameParams.player_1 : gameParams.player_2;
   return (
     <div className="rounded play-area">
-      {
+      {/* {
         (haveTurn(redPlayer.user.pk))
           ? <i className="fas fa-arrow-right" /> : ''
-      }
+      } */}
+      <Player style={{ top: '110px' }} />
       {
         gameParams.is_timed ? (
           <Timer
@@ -69,10 +69,11 @@ const PlayArea = () => {
           />
         ) : ''
       }
-      {
+      {/* {
         (haveTurn(blackPlayer.user.pk))
           ? <i className="fas fa-arrow-right" /> : ''
-      }
+      } */}
+      <Player style={{ bottom: '105px' }} />
       <History history={history} clickHandler={historyHandler} setHistoryMode={setHistoryMode} />
     </div>
   );
