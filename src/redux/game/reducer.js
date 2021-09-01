@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-case-declarations */
 import {
   ACTIVE_GAMES,
@@ -49,7 +50,11 @@ const gameReducer = (state = initialState, action) => {
         history: [...state.history, history].filter((back) => (back !== null)),
         params: {
           ...state.params,
-          player_turn: turnChanged ? state.params.player_turn : false,
+          player_turn: turnChanged && state.params.player_turn === state.params.player_1.user.pk
+            ? state.params.player_2.user.pk
+            : turnChanged && state.params.player_turn === state.params.player_2.user.pk
+              ? state.params.player_1.user.pk
+              : state.params.player_turn,
         },
       };
     case HINT_MOVE:

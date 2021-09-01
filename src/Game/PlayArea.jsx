@@ -14,12 +14,11 @@ import Timer from './Board/Timer';
 const PlayArea = () => {
   const [historyMode, setHistoryMode] = useState(false);
   const {
-    hitPiece, history, gameParams, user, playerTurn,
-  } = useSelector(({ game, auth }) => ({
+    hitPiece, history, gameParams, playerTurn,
+  } = useSelector(({ game }) => ({
     hitPiece: game.hitPiece,
     history: game.history,
     gameParams: game.params,
-    user: auth.user,
     playerTurn: game.params.player_turn,
   }));
   const redHitPieces = hitPiece.filter((piece) => whichSide(piece.name));
@@ -38,11 +37,13 @@ const PlayArea = () => {
       setHistoryMode(false);
     }
   };
-  const haveTurn = (turn) => (turn === user.pk);
+  const haveTurn = (turn) => (turn === playerTurn);
+  const redPlayer = gameParams.player_1.side === 'Red' ? gameParams.player_1 : gameParams.player_2;
+  const blackPlayer = gameParams.player_1.side === 'Black' ? gameParams.player_1 : gameParams.player_2;
   return (
     <div className="rounded play-area">
       {
-        (gameParams.side === 'Red' && haveTurn(playerTurn)) || (gameParams.side === 'Black' && !haveTurn(playerTurn))
+        (haveTurn(redPlayer.user.pk))
           ? <i className="fas fa-arrow-right" /> : ''
       }
       {
@@ -50,8 +51,7 @@ const PlayArea = () => {
           <Timer
             moveTimer={gameParams.move_timer}
             gameTimer={gameParams.game_timer}
-            isPause={(gameParams.side === 'Red' && !haveTurn(playerTurn))
-              || (gameParams.side === 'Black' && haveTurn(playerTurn))}
+            isPause={!(haveTurn(redPlayer.user.pk))}
             style={{ top: '60px' }}
           />
         ) : ''
@@ -64,14 +64,13 @@ const PlayArea = () => {
           <Timer
             moveTimer={gameParams.move_timer}
             gameTimer={gameParams.game_timer}
-            isPause={(gameParams.side === 'Red' && haveTurn(playerTurn))
-              || (gameParams.side === 'Black' && !haveTurn(playerTurn))}
+            isPause={!(haveTurn(blackPlayer.user.pk))}
             style={{ bottom: '60px' }}
           />
         ) : ''
       }
       {
-        (gameParams.side === 'Red' && !haveTurn(playerTurn)) || (gameParams.side === 'Black' && haveTurn(playerTurn))
+        (haveTurn(blackPlayer.user.pk))
           ? <i className="fas fa-arrow-right" /> : ''
       }
       <History history={history} clickHandler={historyHandler} setHistoryMode={setHistoryMode} />

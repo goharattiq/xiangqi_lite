@@ -11,7 +11,7 @@ export const onPieceMove = (move, previousState, history, fromSockets) => {
   }
   if (!destination) {
     return {
-      board, hitPiece: null, history: null, turnChanged: true,
+      board, hitPiece: null, history: null, turnChanged: false,
     };
   }
   const moveAudioTag = document.getElementById('move-audio');
@@ -37,9 +37,6 @@ export const onPieceMove = (move, previousState, history, fromSockets) => {
     }
     if (!history.mode && !fromSockets) {
       socketSendMoves(previousState.params.id, move, board);
-      return {
-        board, hitPiece, history: move, turnChanged: false,
-      };
     }
     return {
       board, hitPiece, history: move, turnChanged: true,

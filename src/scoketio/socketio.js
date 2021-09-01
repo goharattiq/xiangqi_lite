@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { io } from 'socket.io-client';
 import {
-  clearHintMove, initBoard, pieceMove, playerTurn,
+  clearHintMove, initBoard, pieceMove,
 } from '../redux/game/actions';
 import { initMatrix } from '../utils/game';
 import { COLS, ROWS, SOCKET_URL } from '../utils/constants';
@@ -31,7 +31,7 @@ export const useSockets = (
   });
 
   socket.on('game.move_success', (data) => {
-    dispatch(playerTurn(data.playerTurn));
+    // dispatch(playerTurn(data.playerTurn));
     dispatch(pieceMove(data.move, true));
     dispatch(clearHintMove());
   });
