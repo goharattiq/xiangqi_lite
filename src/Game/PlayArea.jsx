@@ -45,35 +45,39 @@ const PlayArea = () => {
         (haveTurn(redPlayer.user.pk))
           ? <i className="fas fa-arrow-right" /> : ''
       } */}
-      <Player style={{ top: '110px' }} />
-      {
+      <div className="top-bar">
+        <Player style={{ top: '20px' }} />
+        {
         gameParams.is_timed ? (
           <Timer
             moveTimer={gameParams.move_timer}
             gameTimer={gameParams.game_timer}
             isPause={!(haveTurn(redPlayer.user.pk))}
-            style={{ top: '60px' }}
+            style={{ bottom: '40px' }}
           />
         ) : ''
       }
-      <HitPiece hitPieces={redHitPieces} />
+        <HitPiece hitPieces={redHitPieces} style={{ bottom: '100px' }} />
+      </div>
       <Board historyMode={historyMode} />
-      <HitPiece hitPieces={blackHitPieces} />
-      {
-        gameParams.is_timed ? (
-          <Timer
-            moveTimer={gameParams.move_timer}
-            gameTimer={gameParams.game_timer}
-            isPause={!(haveTurn(blackPlayer.user.pk))}
-            style={{ bottom: '60px' }}
-          />
-        ) : ''
-      }
-      {/* {
+      <div className="bottom-bar">
+        <HitPiece hitPieces={blackHitPieces} style={{ top: '5px' }} />
+        {
+          gameParams.is_timed ? (
+            <Timer
+              moveTimer={gameParams.move_timer}
+              gameTimer={gameParams.game_timer}
+              isPause={!(haveTurn(blackPlayer.user.pk))}
+              style={{ bottom: '60px' }}
+            />
+          ) : ''
+        }
+        {/* {
         (haveTurn(blackPlayer.user.pk))
           ? <i className="fas fa-arrow-right" /> : ''
       } */}
-      <Player style={{ bottom: '105px' }} />
+        <Player style={{ bottom: '105px' }} />
+      </div>
       <History history={history} clickHandler={historyHandler} setHistoryMode={setHistoryMode} />
     </div>
   );
