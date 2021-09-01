@@ -70,6 +70,16 @@ export const socketSendMoves = (gameID, move, board) => {
   });
 };
 
+export const socketEndGame = (gameID, players, looser, type, isRated) => {
+  socket.emit('game.end', {
+    gameID,
+    players,
+    looser,
+    type,
+    isRated,
+  });
+};
+
 const initGame = (setGameParams, historyUrl, gameParams, username, dispatch) => {
   let {
     // eslint-disable-next-line prefer-const
