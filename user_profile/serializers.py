@@ -4,16 +4,18 @@ from rest_framework import serializers
 from .models import Profile
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['pk', 'username', 'email', 'first_name', 'last_name']
+
+
 class ProfileSerializer(serializers.ModelSerializer):
-    id = serializers.CharField(source='user.id')
-    username = serializers.CharField(source='user.username', read_only=True)
-    email = serializers.CharField(source='user.email', read_only=True)
-    first_name = serializers.CharField(source='user.first_name', required=False)
-    last_name = serializers.CharField(source='user.last_name', required=False)
+    user = UserSerializer()
 
     class Meta:
         model = Profile
-        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'bio', 'rating', 'games_played_count',
+        fields = ['user', 'bio', 'rating', 'games_played_count',
                   'wins_count',
                   'losses_count', 'draw_count', 'winning_percentage']
 
@@ -34,7 +36,14 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class UserSearchSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = User
         fields = ['id', 'username']
+
+
+class ProfileGameSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = Profile
+        fields = ['user', 'rating' ]

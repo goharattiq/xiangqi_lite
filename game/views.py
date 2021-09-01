@@ -10,7 +10,7 @@ class ListMyActiveGames(ListAPIView):
     serializer_class = ListGameSerializer
 
     def get_queryset(self):
-        return Game.objects.filter(Q(player_1=self.request.user.pk) | Q(player_2=self.request.user.pk), is_active=True)
+        return Game.objects.filter(Q(player_1__user_id=self.request.user.pk) | Q(player_2__user_id=self.request.user.pk), is_active=True)
 
 
 class ListSpectateGames(ListAPIView):
@@ -18,4 +18,4 @@ class ListSpectateGames(ListAPIView):
     serializer_class = ListGameSerializer
 
     def get_queryset(self):
-        return Game.objects.filter(~Q(player_1=self.request.user.pk), ~Q(player_2=self.request.user.pk), is_active=True)
+        return Game.objects.filter(~Q(player_1__user_id=self.request.user.pk), ~Q(player_2__user_id=self.request.user.pk), is_active=True)
