@@ -1,8 +1,10 @@
 import socketio
 from asgiref.sync import sync_to_async
-from django.contrib.auth.models import User
+from django.db.models import F
+
 from game.models import Game
 from game.serializers import GameSerializer
+from user_profile.models import Profile
 
 sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
 app = socketio.ASGIApp(sio)
@@ -28,7 +30,20 @@ async def send_game_params(sid, game_params):
 async def enter_game(sid, game_id):
     instance = await get_game(game_id)
     await join_room(sid, game_id)
+    instance['player_1']['side'] = instance['side']
+    instance['player_2']['side'] = 'Black' \
+        if instance['side'] == 'Red' else 'Red'
     await sio.emit('game.send_params', data=instance, room=str(game_id))
+
+
+@sio.on('game.end')
+async def end_game(sid, data):
+    print(data['gameID'])
+    print(data['players'])
+    print(data['looser'])
+    print(data['type'])
+    print(data['isRated'])
+    await end_game_update(data)
 
 
 @sio.on('connect')
@@ -40,6 +55,7 @@ async def connect(sid, environ):
 @sio.on('disconnect')
 def disconnect(sid):
     print(sid, 'Client disconnected')
+
 
 @sync_to_async
 def join_room(sid, game_id):
@@ -53,8 +69,8 @@ def get_game(game_id):
 
 @sync_to_async
 def create_game(game_params):
-    user_owner = User.objects.filter(username=game_params['player_1']).first()
-    user_invitee = User.objects.filter(username=game_params['player_2']).first()
+    user_owner = Profile.objects.filter(user__username=game_params['player_1']).first()
+    user_invitee = Profile.objects.filter(user__username=game_params['player_2']).first()
     game = Game.objects.create(
         is_public=True if game_params['gameType'] == 'Public' else False,
         is_rated=True if game_params['gameRated'] == 'Rated' else False,
@@ -65,7 +81,7 @@ def create_game(game_params):
         player_1=user_owner,
         player_2=user_invitee,
         game_board=game_params['game_board'],
-        player_turn=user_owner.id
+        player_turn=user_owner.user.id
     )
     game.save()
     return GameSerializer(game).data
@@ -79,8 +95,8 @@ def update_game(data):
     history = previous_instance.history
     player_turn = previous_instance.player_turn
 
-    player_turn = previous_instance.player_2.id \
-        if previous_instance.player_1.id == player_turn else previous_instance.player_1.id
+    player_turn = previous_instance.player_2.user_id \
+        if previous_instance.player_1.user_id == player_turn else previous_instance.player_1.user_id
 
     hit_pieces.append(data['move']['hit'])
     hit_pieces = list(filter(None, hit_pieces))
@@ -95,3 +111,35 @@ def update_game(data):
         player_turn=player_turn
     )
     return player_turn
+
+
+@sync_to_async
+def end_game_update(data):
+    player_1 = data['players']['player_1']
+    player_2 = data['players']['player_2']
+    looser = data['looser']
+    points = 25 if data['type'] == 'END_TIME' and data['isRated'] else 50 if data['isRated'] else 0
+
+    Game.objects.filter(pk=data['gameID']).update(
+        is_active=False,
+    )
+    print(player_1)
+    print(player_1['user'])
+    winning = player_1['user']['pk'] if player_2['user']['pk'] == looser else player_2['user']['pk']
+
+    looser_instance = Profile.objects.filter(user_id=looser)
+    winning_instance = Profile.objects.filter(user_id=winning)
+
+    looser_instance.update(
+        games_played_count=F('games_played_count') + 1,
+        losses_count=F('losses_count') + 1,
+        rating=F('rating') + (-points),
+        winning_percentage=F('wins_count') / (F('games_played_count') + 1) * 100,
+    )
+
+    winning_instance.update(
+        games_played_count=F('games_played_count') + 1,
+        wins_count=F('wins_count') + 1,
+        rating=F('rating') + points,
+        winning_percentage=(F('wins_count') + 1) / (F('games_played_count') + 1) * 100,
+    )
