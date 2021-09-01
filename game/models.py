@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db.models import JSONField
 from django.utils.translation import gettext_lazy as _
 from django.contrib.postgres.fields import ArrayField
-# from rest_framework.fields import JSONField
+from user_profile.models import Profile
 
 
 class Game(models.Model):
@@ -21,13 +21,13 @@ class Game(models.Model):
     game_timer = models.IntegerField(_('game_timer'), default=30)
     is_active = models.BooleanField(_('is_active'), default=True)
     side = models.CharField(_('side'), max_length=10, blank=True)
-    player_1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='player_1', null=True)
-    player_2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='player_2', null=True)
+    player_1 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='player_1', null=True)
+    player_2 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='player_2', null=True)
     game_board = ArrayField(ArrayField(JSONField(), size=9, default=list, blank=True),
                             size=10, default=list, blank=True)
     hit_pieces = ArrayField(JSONField(),default=list)
     history = ArrayField(JSONField(),default=list)
-    player_turn = models.IntegerField(_('player_turn'),default=-1)
+    player_turn = models.IntegerField(_('player_turn'), default=-1)
 
     def clean(self):
         if self.player_1 == self.player_2:
