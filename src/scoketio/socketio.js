@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { io } from 'socket.io-client';
 import {
+  clearGame,
   clearHintMove, initBoard, pieceMove,
 } from '../redux/game/actions';
 import { initMatrix } from '../utils/game';
@@ -31,7 +32,6 @@ export const useSockets = (
   });
 
   socket.on('game.move_success', (data) => {
-    // dispatch(playerTurn(data.playerTurn));
     dispatch(pieceMove(data.move, true));
     dispatch(clearHintMove());
   });
@@ -78,6 +78,11 @@ export const socketEndGame = (gameID, players, looser, type, isRated) => {
     type,
     isRated,
   });
+};
+
+export const socketLeaveGame = (gameID, dispatch) => {
+  socket.emit('game.leave', gameID);
+  dispatch(clearGame());
 };
 
 const initGame = (setGameParams, historyUrl, gameParams, username, dispatch) => {

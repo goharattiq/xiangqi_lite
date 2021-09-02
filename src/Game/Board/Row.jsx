@@ -43,7 +43,8 @@ const Row = ({ row, clickHandler }) => {
                 cell.piece
                   ? (
                     <Draggable
-                      isDragDisabled={canMove(cell.piece.name) || !haveTurn(playerTurn) || disable}
+                      isDragDisabled={canMove(cell.piece.name) || !haveTurn(playerTurn)
+                        || disable || gameParams.connected_player < 2}
                       draggableId={`${cell.piece.name}-${cell.piece.id}`}
                       index={cell.piece.id}
                       key={cell.piece.id}

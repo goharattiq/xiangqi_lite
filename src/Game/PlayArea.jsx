@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
 import Board from './Board/Board';
@@ -8,6 +8,7 @@ import { whichSide } from '../utils/pieceMove';
 import './PlayArea.scss';
 import Timer from './Board/Timer';
 import Player from './Board/Player';
+import { socketLeaveGame } from '../scoketio/socketio';
 
 const PlayArea = () => {
   const [historyMode, setHistoryMode] = useState(false);
@@ -23,7 +24,9 @@ const PlayArea = () => {
   const redHitPieces = hitPiece.filter((piece) => whichSide(piece.name));
   const blackHitPieces = hitPiece.filter((piece) => !whichSide(piece.name));
   const dispatch = useDispatch();
-
+  useEffect(() => () => {
+    socketLeaveGame(gameParams.id, dispatch);
+  }, []);
   const historyHandler = (pointer, isNext) => {
     if (pointer < history.length || (isNext && historyMode)) {
       setHistoryMode(true);
@@ -53,7 +56,7 @@ const PlayArea = () => {
           <Timer
             moveTimer={gameParams.move_timer}
             gameTimer={gameParams.game_timer}
-            isPause={!(haveTurn(redPlayer.user.pk))}
+            isPause={!(haveTurn(redPlayer.user.pk)) || gameParams.connected_player < 2}
             style={{ bottom: '40px' }}
             userID={userID}
           />
@@ -69,7 +72,7 @@ const PlayArea = () => {
             <Timer
               moveTimer={gameParams.move_timer}
               gameTimer={gameParams.game_timer}
-              isPause={!(haveTurn(blackPlayer.user.pk))}
+              isPause={!(haveTurn(blackPlayer.user.pk)) || gameParams.connected_player < 2}
               style={{ bottom: '60px' }}
               userID={userID}
             />
