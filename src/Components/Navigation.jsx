@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import './Navigation.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { signOutUser } from '../redux/auth/thunk';
+import './Navigation.scss';
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const Navigation = () => {
                 to="/"
                 className="nav-link-custom"
                 onClick={() => {
-                  dispatch(signOutUser(auth.access_token));
+                  dispatch(signOutUser());
                 }}
               >
                 Logout

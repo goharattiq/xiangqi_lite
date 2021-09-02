@@ -1,4 +1,5 @@
 import {
+  GET_USER,
   SIGNIN_SUCCESS,
   SIGNOUT_SUCCESS,
   SIGNUP_SUCCESS,
@@ -16,4 +17,9 @@ export const signUpSueccess = (data) => ({
 
 export const signOutSueccess = () => ({
   type: SIGNOUT_SUCCESS,
+});
+
+export const getUser = (data) => ({
+  type: GET_USER,
+  payload: data,
 });

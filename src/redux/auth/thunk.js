@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { signInSueccess, signOutSueccess, signUpSueccess } from './actions';
+import {
+  getUser, signInSueccess, signOutSueccess, signUpSueccess,
+} from './actions';
 
 export const signinUser = ({ username, password }) => (dispatch) => {
   axios
@@ -41,16 +43,25 @@ export const signupUser = ({ username, email, password }) => (dispatch) => {
     });
 };
 
-export const signOutUser = (token) => (dispatch) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+export const signOutUser = () => (dispatch) => {
   axios
-    .post('/api/auth/logout/', null, config)
+    .post('/api/auth/logout/', null)
     .then(() => {
       dispatch(signOutSueccess());
+    })
+    .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.log(err);
+    });
+};
+
+export const fetechedUser = () => (dispatch) => {
+  axios
+    .get('/api/auth/user/', {
+      headers: { Cookie: `access_token=${localStorage.getItem('access_token')}` },
+    })
+    .then((res) => {
+      dispatch(getUser(res.data));
     })
     .catch((err) => {
       // eslint-disable-next-line no-console
