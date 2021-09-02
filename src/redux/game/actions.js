@@ -10,6 +10,7 @@ import {
   SEARCH_NAME,
   ACTIVE_GAMES,
   SPECTATE_GAMES,
+  CLEAR_GAME,
 } from './type';
 
 export const initBoard = (board, hitPiece, history) => ({
@@ -64,4 +65,8 @@ export const activeGames = (games) => ({
 export const spectateGames = (games) => ({
   type: SPECTATE_GAMES,
   payload: games,
+});
+
+export const clearGame = () => ({
+  type: CLEAR_GAME,
 });

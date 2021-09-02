@@ -9,3 +9,4 @@ export const PLAYER_TURN = 'PLAYER_TURN';
 export const SEARCH_NAME = 'SEARCH_NAME';
 export const ACTIVE_GAMES = 'ACTIVE_GAMES';
 export const SPECTATE_GAMES = 'SPECTATE_GAMES';
+export const CLEAR_GAME = 'CLEAR_GAME';

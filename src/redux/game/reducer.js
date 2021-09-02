@@ -12,6 +12,7 @@ import {
   SEARCH_NAME,
   SET_GAME_PARAMS,
   SPECTATE_GAMES,
+  CLEAR_GAME,
 } from './type';
 import { onPieceMove } from './utiles';
 import { getHintMoves } from '../../utils/game';
@@ -113,7 +114,8 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         spectateGames: payload,
       };
-
+    case CLEAR_GAME:
+      return initialState;
     default:
       return state;
   }
