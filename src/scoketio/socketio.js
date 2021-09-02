@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { io } from 'socket.io-client';
 import {
+  announceWinner,
   clearGame,
   clearHintMove, initBoard, pieceMove,
 } from '../redux/game/actions';
@@ -38,6 +39,10 @@ export const useSockets = (
 
   socket.on('connect_error', () => {
     socket.disconnect();
+  });
+
+  socket.on('game.announce_winner', (winner) => {
+    dispatch(announceWinner(winner));
   });
 
   return () => {

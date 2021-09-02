@@ -9,14 +9,16 @@ import './PlayArea.scss';
 import Timer from './Board/Timer';
 import Player from './Board/Player';
 import { socketLeaveGame } from '../scoketio/socketio';
+import AnnounceWinner from './Board/AnnounceWinner';
 
 const PlayArea = () => {
   const [historyMode, setHistoryMode] = useState(false);
   const {
-    hitPiece, history, gameParams, playerTurn, userID,
+    hitPiece, history, gameParams, playerTurn, userID, winner,
   } = useSelector(({ game, auth }) => ({
     hitPiece: game.hitPiece,
     history: game.history,
+    winner: game.winner,
     gameParams: game.params,
     playerTurn: game.params.player_turn,
     userID: auth.user.pk,
@@ -85,6 +87,14 @@ const PlayArea = () => {
         <Player style={{ bottom: '105px' }} />
       </div>
       <History history={history} clickHandler={historyHandler} setHistoryMode={setHistoryMode} />
+      {
+        winner ? (
+          <AnnounceWinner
+            // eslint-disable-next-line no-nested-ternary
+            player={winner === userID ? {} : winner === redPlayer.user.pk ? redPlayer : blackPlayer}
+          />
+        ) : ''
+      }
     </div>
   );
 };
