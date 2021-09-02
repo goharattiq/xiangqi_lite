@@ -54,7 +54,7 @@ const PlayArea = () => {
       <div className="top-bar">
         <Player style={{ top: '20px' }} />
         {
-        gameParams.is_timed ? (
+        gameParams.is_timed && gameParams.is_active ? (
           <Timer
             moveTimer={gameParams.move_timer}
             gameTimer={gameParams.game_timer}
@@ -70,7 +70,7 @@ const PlayArea = () => {
       <div className="bottom-bar">
         <HitPiece hitPieces={blackHitPieces} style={{ top: '5px' }} />
         {
-          gameParams.is_timed ? (
+          gameParams.is_timed && gameParams.is_active ? (
             <Timer
               moveTimer={gameParams.move_timer}
               gameTimer={gameParams.game_timer}

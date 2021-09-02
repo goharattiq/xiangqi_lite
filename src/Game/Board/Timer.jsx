@@ -39,7 +39,7 @@ const Timer = ({
     if (isPause) {
       setTimer({
         ...timer,
-        moveInterval: moveTimer * 60,
+        moveInterval: gameInterval < moveTimer ? gameInterval : moveTimer * 60,
       });
       pauseTimer(timeInterval);
     }
