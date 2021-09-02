@@ -13,6 +13,7 @@ import {
   SET_GAME_PARAMS,
   SPECTATE_GAMES,
   CLEAR_GAME,
+  ANNOUNCE_WINNER,
 } from './type';
 import { onPieceMove } from './utiles';
 import { getHintMoves } from '../../utils/game';
@@ -26,6 +27,7 @@ const initialState = {
   searchNames: [],
   activeGames: [],
   spectateGames: [],
+  winner: null,
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -113,6 +115,11 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         spectateGames: payload,
+      };
+    case ANNOUNCE_WINNER:
+      return {
+        ...state,
+        winner: payload,
       };
     case CLEAR_GAME:
       return initialState;

@@ -11,6 +11,7 @@ import {
   ACTIVE_GAMES,
   SPECTATE_GAMES,
   CLEAR_GAME,
+  ANNOUNCE_WINNER,
 } from './type';
 
 export const initBoard = (board, hitPiece, history) => ({
@@ -65,6 +66,11 @@ export const activeGames = (games) => ({
 export const spectateGames = (games) => ({
   type: SPECTATE_GAMES,
   payload: games,
+});
+
+export const announceWinner = (winner) => ({
+  type: ANNOUNCE_WINNER,
+  payload: winner,
 });
 
 export const clearGame = () => ({
