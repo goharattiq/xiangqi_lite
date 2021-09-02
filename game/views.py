@@ -18,4 +18,9 @@ class ListSpectateGames(ListAPIView):
     serializer_class = ListGameSerializer
 
     def get_queryset(self):
-        return Game.objects.filter(~Q(player_1__user_id=self.request.user.pk), ~Q(player_2__user_id=self.request.user.pk), is_active=True)
+        return Game.objects.filter(
+            ~Q(player_1__user_id=self.request.user.pk),
+            ~Q(player_2__user_id=self.request.user.pk),
+            is_active=True,
+            is_public=True
+        )
