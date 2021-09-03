@@ -5,19 +5,25 @@ import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
 import Board from './Board/Board';
 import HitPiece from './Board/HitPiece';
 import History from './Board/History';
-import { whichSide } from '../utils/pieceMove';
-import './PlayArea.scss';
 import Timer from './Board/Timer';
 import Player from './Board/Player';
-import { socketLeaveGame } from '../scoketio/gameSocketio';
 import AnnounceWinner from './Board/AnnounceWinner';
+import { socketLeaveGame } from '../scoketio/gameSocketio';
+import { whichSide } from '../utils/pieceMove';
+import './PlayArea.scss';
 
 const PlayArea = () => {
   // eslint-disable-next-line no-unused-vars
   const URLHistory = useHistory();
+  const dispatch = useDispatch();
   const [historyMode, setHistoryMode] = useState(false);
   const {
-    hitPiece, history, gameParams, playerTurn, userID, winner,
+    hitPiece,
+    history,
+    gameParams,
+    playerTurn,
+    userID,
+    winner,
   } = useSelector(({ game, auth }) => ({
     hitPiece: game.hitPiece,
     history: game.history,
@@ -26,7 +32,6 @@ const PlayArea = () => {
     playerTurn: game.params ? game.params.playerTurn : 0,
     userID: auth.user.pk,
   }));
-  const dispatch = useDispatch();
   useEffect(() => {
     if (!localStorage.getItem('gameID')) {
       localStorage.setItem('gameID', gameParams.id);

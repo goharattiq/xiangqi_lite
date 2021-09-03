@@ -30,4 +30,5 @@ export const BLACK = 0;
 export const ROWS = 10;
 export const COLS = 9;
 
-export const SOCKET_URL = 'http://192.168.1.6:8000';
+export const SOCKET_URL = 'http://192.168.1.4:8000';
+// export const SOCKET_URL = 'http://172.16.11.238:8000';

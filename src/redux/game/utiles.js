@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-operators */
-import { socketSendMoves, socketEndGame } from '../../scoketio/socketio';
+import { socketSendMoves, socketEndGame } from '../../scoketio/gameSocketio';
 import { isValidMove } from '../../utils/game';
 import { matrixPosition, whichSide } from '../../utils/pieceMove';
 

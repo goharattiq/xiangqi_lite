@@ -39,6 +39,7 @@ const gameReducer = (state = initialState, action) => {
         board: payload.board,
         hitPiece: payload.hitPiece,
         history: payload.history,
+        params: payload.gameParams,
       };
     case PIECE_MOVE:
       const {

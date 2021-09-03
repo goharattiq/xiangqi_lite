@@ -14,9 +14,11 @@ import {
   ANNOUNCE_WINNER,
 } from './type';
 
-export const initBoard = (board, hitPiece, history) => ({
+export const initBoard = (board, hitPiece, history, gameParams) => ({
   type: INIT_BOARD,
-  payload: { board, hitPiece, history },
+  payload: {
+    board, hitPiece, history, gameParams,
+  },
 });
 
 export const pieceMove = (move, fromSockets) => ({

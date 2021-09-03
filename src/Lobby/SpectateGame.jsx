@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { socketEnterGame } from '../scoketio/socketio';
+import { socketEnterGame } from '../scoketio/gameSocketio';
 
 const SpectateGame = () => {
   const spectateGames = useSelector(({ game }) => (game.spectateGames));
