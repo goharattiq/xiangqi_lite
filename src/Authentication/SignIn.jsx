@@ -38,6 +38,7 @@ const SignIn = () => {
           value={username}
           placeholder="Username"
           onChange={handleChange}
+          required
         />
       </FloatingLabel>
 
@@ -50,6 +51,7 @@ const SignIn = () => {
           value={password}
           placeholder="Password"
           onChange={handleChange}
+          required
         />
       </FloatingLabel>
       <Button

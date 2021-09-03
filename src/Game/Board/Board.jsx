@@ -66,7 +66,7 @@ const Board = ({ historyMode }) => {
             onDragStart={(move) => onDragStart(move)}
           >
             {
-            board.map((row, rowIndex) => (
+            board && board.map((row, rowIndex) => (
               <tr
                 key={rowIndex}
               >

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
 import Board from './Board/Board';
 import HitPiece from './Board/HitPiece';
@@ -8,10 +9,12 @@ import { whichSide } from '../utils/pieceMove';
 import './PlayArea.scss';
 import Timer from './Board/Timer';
 import Player from './Board/Player';
-import { socketLeaveGame } from '../scoketio/socketio';
+import { socketLeaveGame } from '../scoketio/gameSocketio';
 import AnnounceWinner from './Board/AnnounceWinner';
 
 const PlayArea = () => {
+  // eslint-disable-next-line no-unused-vars
+  const URLHistory = useHistory();
   const [historyMode, setHistoryMode] = useState(false);
   const {
     hitPiece, history, gameParams, playerTurn, userID, winner,
@@ -20,14 +23,21 @@ const PlayArea = () => {
     history: game.history,
     winner: game.winner,
     gameParams: game.params,
-    playerTurn: game.params.player_turn,
+    playerTurn: game.params ? game.params.playerTurn : 0,
     userID: auth.user.pk,
   }));
-  const redHitPieces = hitPiece.filter((piece) => whichSide(piece.name));
-  const blackHitPieces = hitPiece.filter((piece) => !whichSide(piece.name));
   const dispatch = useDispatch();
-  useEffect(() => () => {
-    socketLeaveGame(gameParams.id, dispatch);
+  useEffect(() => {
+    if (!localStorage.getItem('gameID')) {
+      localStorage.setItem('gameID', gameParams.id);
+    }
+    if (!gameParams) {
+      socketLeaveGame(localStorage.getItem('gameID'), dispatch);
+      URLHistory.push('/lobby');
+    }
+    return () => {
+      socketLeaveGame(gameParams.id, dispatch);
+    };
   }, []);
   const historyHandler = (pointer, isNext) => {
     if (pointer < history.length || (isNext && historyMode)) {
@@ -43,8 +53,10 @@ const PlayArea = () => {
     }
   };
   const haveTurn = (turn) => (turn === playerTurn);
-  const redPlayer = gameParams.player_1.side === 'Red' ? gameParams.player_1 : gameParams.player_2;
-  const blackPlayer = gameParams.player_1.side === 'Black' ? gameParams.player_1 : gameParams.player_2;
+  const redHitPieces = hitPiece.filter((piece) => whichSide(piece.name));
+  const blackHitPieces = hitPiece.filter((piece) => !whichSide(piece.name));
+  const redPlayer = gameParams && (gameParams.player_1.side === 'Red' ? gameParams.player_1 : gameParams.player_2);
+  const blackPlayer = gameParams && (gameParams.player_1.side === 'Black' ? gameParams.player_1 : gameParams.player_2);
   return (
     <div className="rounded play-area">
       {/* {
@@ -54,7 +66,7 @@ const PlayArea = () => {
       <div className="top-bar">
         <Player style={{ top: '20px' }} />
         {
-        gameParams.is_timed && gameParams.is_active ? (
+        gameParams && gameParams.is_timed && gameParams.is_active ? (
           <Timer
             moveTimer={gameParams.move_timer}
             gameTimer={gameParams.game_timer}
@@ -70,7 +82,7 @@ const PlayArea = () => {
       <div className="bottom-bar">
         <HitPiece hitPieces={blackHitPieces} style={{ top: '5px' }} />
         {
-          gameParams.is_timed && gameParams.is_active ? (
+          gameParams && gameParams.is_timed && gameParams.is_active ? (
             <Timer
               moveTimer={gameParams.move_timer}
               gameTimer={gameParams.game_timer}

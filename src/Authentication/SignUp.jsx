@@ -39,6 +39,7 @@ const SignUP = () => {
           type="text"
           placeholder="Username"
           onChange={handleChange}
+          required
         />
       </FloatingLabel>
 
@@ -51,6 +52,7 @@ const SignUP = () => {
           type="email"
           placeholder="Email"
           onChange={handleChange}
+          required
         />
       </FloatingLabel>
 
@@ -63,6 +65,7 @@ const SignUP = () => {
           type="password"
           placeholder="Password"
           onChange={handleChange}
+          required
         />
       </FloatingLabel>
       <Button

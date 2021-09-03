@@ -15,8 +15,11 @@ const Authentication = () => {
     if (id === 'signin') setActiveTab(SIGNIN);
     else setActiveTab(!SIGNIN);
   };
+
   useEffect(() => {
-    dispatch(fetechedUser());
+    if (localStorage.getItem('access_token')) {
+      dispatch(fetechedUser());
+    }
   }, []);
   return (
     <>

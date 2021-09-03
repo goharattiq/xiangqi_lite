@@ -55,11 +55,12 @@ export const signOutUser = () => (dispatch) => {
     });
 };
 
+// {
+//   headers: { Cookie: `access_token=${localStorage.getItem('access_token')}` },
+// }
 export const fetechedUser = () => (dispatch) => {
   axios
-    .get('/api/auth/user/', {
-      headers: { Cookie: `access_token=${localStorage.getItem('access_token')}` },
-    })
+    .get('/api/auth/user/')
     .then((res) => {
       dispatch(getUser(res.data));
     })
