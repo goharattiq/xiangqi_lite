@@ -1,14 +1,11 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { fetechedActiveGames, fetechedSpectateGames } from '../redux/game/thunk';
 import GameParams from './GameParams';
 import ActiveGame from './ActiveGame';
-import './Lobby.scss';
 import SpectateGame from './SpectateGame';
-import { registerSocketsEvent } from '../scoketio/gameSocketio';
+import './Lobby.scss';
 
 const Lobby = () => {
   document.body.style.backgroundColor = '#ede8e0';

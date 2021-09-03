@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
   Form,
@@ -9,10 +9,14 @@ import {
 import { messageSend } from '../redux/chat/actions';
 import './Chat.scss';
 import ChatHistory from './ChatHistory';
+import { socketSendMessage } from '../scoketio/chatSokcetio';
 
 const Chat = () => {
   const dispatch = useDispatch();
-
+  const { username, gameID } = useSelector(({ auth, game }) => ({
+    username: auth.user.username,
+    gameID: game.params.id,
+  }));
   const [message, setMessage] = useState({
     content: '',
     author: '',
@@ -22,12 +26,13 @@ const Chat = () => {
     setMessage({
       ...message,
       [name]: value,
-      author: 'goharattiq',
+      author: username,
     });
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(messageSend(message));
+    socketSendMessage(message, gameID);
     setMessage({
       content: '',
       author: '',
