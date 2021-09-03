@@ -11,7 +11,6 @@ import Game from '../Game/Game';
 import LeaderBoard from '../Leaderboard/LeaderBoard';
 import { useSockets } from '../scoketio/socketio';
 import { registerSocketsEvent } from '../scoketio/gameSocketio';
-// import { loadUser } from '../redux/auth/utiles';
 
 const Render = () => {
   const auth = useSelector((state) => state.auth);
