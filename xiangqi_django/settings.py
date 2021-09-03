@@ -135,10 +135,8 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
-SECRET_KEY = 'xiangqi-lite'
-
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5*60),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'ALGORITHM': 'HS256',
     'SIGNING_KEY': SECRET_KEY,
 
@@ -183,4 +181,5 @@ CORS_ALLOW_ALL_ORIGINS = True
 SITE_ID = 1
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'access_token'
+JWT_AUTH_REFRESH_COOKIE = 'refresh_token'
 ALLOWED_HOSTS = '*'

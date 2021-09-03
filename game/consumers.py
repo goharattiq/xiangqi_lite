@@ -10,6 +10,15 @@ sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
 app = socketio.ASGIApp(sio)
 
 
+@sio.on('chat.send')
+async def send_message(sid, data):
+    print(data['message'])
+    await sio.emit('chat.recevied',
+                   data=data['message'],
+                   room=str(data['gameID']),
+                   skip_sid=sid)
+
+
 @sio.on('game.piece_move')
 async def piece_move(sid, data):
     player_turn = await update_game(data)
