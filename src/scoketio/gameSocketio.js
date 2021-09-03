@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable camelcase */
 import {
   clearGame,
@@ -48,7 +49,7 @@ export const socketLeaveGame = (gameID, dispatch) => {
   dispatch(clearGame());
 };
 
-export const registerSocketsEvent = (history, username, dispatch) => {
+export const subscribeGameSockets = (history, username, dispatch) => {
   if (socket) {
     socket.on('game.send_params', (gameParams) => {
       initGame(history, gameParams, username, dispatch);
@@ -82,5 +83,5 @@ const initGame = (historyUrl, gameParams, username, dispatch) => {
     };
   }
   dispatch(initBoard(game_board, hit_pieces, history, newGameParams));
-  historyUrl.push(`/game/${newGameParams.id}`);
+  historyUrl.location.pathname !== `/game/${newGameParams.id}` && historyUrl.push(`/game/${newGameParams.id}`);
 };
