@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { fetechedActiveGames, fetechedSpectateGames } from '../redux/game/thunk';
 import GameParams from './GameParams';
-import ActiveGame from './ActiveGame';
-import SpectateGame from './SpectateGame';
+import GameList from './GameList';
 import './Lobby.scss';
 
 const Lobby = () => {
   document.body.style.backgroundColor = '#ede8e0';
+  const { activeGames, spectateGames, username } = useSelector(({ game, auth }) => ({
+    activeGames: game.activeGames,
+    spectateGames: game.spectateGames,
+    username: auth.user.username,
+  }));
   const dispatch = useDispatch();
   const [overlayDiv, setOverlayDiv] = useState(false);
   useEffect(() => {
@@ -22,8 +26,8 @@ const Lobby = () => {
         New Game
       </Button>
       {overlayDiv ? <GameParams setOverlayDiv={setOverlayDiv} /> : ''}
-      <ActiveGame />
-      <SpectateGame />
+      <GameList type="Active" games={activeGames} username={username} />
+      <GameList type="Spectate" games={spectateGames} username={username} />
     </>
   );
 };
