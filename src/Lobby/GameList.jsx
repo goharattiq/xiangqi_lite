@@ -5,7 +5,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { socketEnterGame } from '../scoketio/gameSocketio';
+import { socketEnterGame } from '../socketio/gameSocketio';
 import './GameList.scss';
 
 const GameList = ({ type, games, username }) => {

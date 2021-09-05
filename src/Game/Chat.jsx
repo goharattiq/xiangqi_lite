@@ -9,7 +9,7 @@ import {
 import { messageSend } from '../redux/chat/actions';
 import './Chat.scss';
 import ChatHistory from './ChatHistory';
-import { socketSendMessage } from '../scoketio/chatSokcetio';
+import { socketSendMessage } from '../socketio/chatSocketio';
 
 const Chat = () => {
   const dispatch = useDispatch();

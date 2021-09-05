@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
-import { socketLeaveGame } from '../scoketio/gameSocketio';
+import { socketLeaveGame } from '../socketio/gameSocketio';
 import { whichSide } from '../utils/pieceMove';
 import Board from './Board/Board';
 import HitPiece from './Board/HitPiece';

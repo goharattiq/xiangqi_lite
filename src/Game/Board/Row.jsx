@@ -7,11 +7,11 @@ import {
   Draggable, Droppable,
 } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
+import { whichSide } from '../../utils/pieceMove';
 import Piece from '../Piece/Piece';
 import Spot from './Spot';
-import './Row.scss';
-import { whichSide } from '../../utils/pieceMove';
 import { BLACK, RED } from '../../utils/constants';
+import './Row.scss';
 
 const Row = ({ row, clickHandler }) => {
   const {

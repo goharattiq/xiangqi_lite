@@ -7,7 +7,7 @@ import { Button, Form } from 'react-bootstrap';
 import { gameParamsAct } from '../redux/game/actions';
 import { fetechedSearchUsernames } from '../redux/game/thunk';
 import { isValidGameParams } from '../redux/game/utiles';
-import { socketSetGameParams } from '../scoketio/gameSocketio';
+import { socketSetGameParams } from '../socketio/gameSocketio';
 import { PARAMETERS } from '../utils/paramsData';
 import Field from './Field';
 import {

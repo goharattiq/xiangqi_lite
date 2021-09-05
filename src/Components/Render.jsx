@@ -11,9 +11,9 @@ import Navigation from './Navigation';
 import PrivateRoute from './PrivateRoute';
 import Game from '../Game/Game';
 import LeaderBoard from '../Leaderboard/LeaderBoard';
-import { useSockets } from '../scoketio/socketio';
-import { subscribeGameSockets } from '../scoketio/gameSocketio';
-import { subscribeChatSocketsEvent } from '../scoketio/chatSokcetio';
+import { useSockets } from '../socketio/socketio';
+import { subscribeGameSockets } from '../socketio/gameSocketio';
+import { subscribeChatSocketsEvent } from '../socketio/chatSocketio';
 
 const Render = () => {
   const auth = useSelector((state) => state.auth);
