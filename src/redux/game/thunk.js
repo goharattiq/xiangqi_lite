@@ -3,7 +3,7 @@ import { activeGames, searchUsername, spectateGames } from './actions';
 
 export const fetechedSearchUsernames = (queryString) => (dispatch) => {
   axios
-    .get(`/api/profile/search/${queryString}`)
+    .get(`/api/profile/search/${queryString}/`)
     .then((res) => {
       dispatch(searchUsername(res.data));
     })
@@ -15,7 +15,7 @@ export const fetechedSearchUsernames = (queryString) => (dispatch) => {
 
 export const fetechedActiveGames = () => (dispatch) => {
   axios
-    .get('/api/game/my_game/')
+    .get('/api/game/active/')
     .then((res) => {
       dispatch(activeGames(res.data));
     })

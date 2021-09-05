@@ -1,9 +1,10 @@
 import {
+  GET_ALLTIME_GAMES,
   GET_PROFILE,
 } from './type';
 
 const initialState = {
-
+  games: [],
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -12,6 +13,11 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
+      };
+    case GET_ALLTIME_GAMES:
+      return {
+        ...state,
+        games: [...action.payload],
       };
     default:
       return state;
