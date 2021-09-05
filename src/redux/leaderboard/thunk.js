@@ -3,9 +3,9 @@ import { getLeaders, getLeadersStats } from './actions';
 
 export const fetechedLeaders = () => (dispatch) => {
   axios
-    .get('/api/leader_board/leaders')
+    .get('/api/profile/leaderboard/')
     .then((res) => {
-      dispatch(getLeaders(res.data.data.top_leaders));
+      dispatch(getLeaders(res.data));
     })
     .catch((err) => {
       // eslint-disable-next-line no-console

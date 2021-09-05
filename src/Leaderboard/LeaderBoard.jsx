@@ -14,7 +14,7 @@ const LeaderBoard = () => {
     <div className="row justify-content-center leaderboard">
       {
         leaders.length !== 0 ? leaders.map((leader) => (
-          <LeaderCard leader={leader} key={leader.username} />
+          <LeaderCard leader={leader} key={leader.user.username} />
         )) : ''
       }
     </div>

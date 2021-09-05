@@ -1,18 +1,10 @@
 /* eslint-disable react/forbid-prop-types */
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
-import { fetechedLeaderStats } from '../redux/leaderboard/thunk';
 import './LeaderBoard.scss';
 
 const LeaderCard = ({ leader }) => {
-  const dispatch = useDispatch();
-  const stats = useSelector(({ leaderBoard }) => leaderBoard.stats);
-  const profile = stats ? stats[leader.username] : null;
-  useEffect(() => {
-    dispatch(fetechedLeaderStats(leader.username));
-  }, []);
   const stateList = {
     games_played_count: 'Games',
     wins_count: 'Wins',
@@ -24,18 +16,17 @@ const LeaderCard = ({ leader }) => {
     <Card className="col-lg-2 col-md-4 col-sm-3 col-5 m-3">
       <div className="avatar m-2" />
       <Card.Body>
-        <Card.Title className="d-flex justify-content-center">{leader.username}</Card.Title>
+        <Card.Title className="d-flex justify-content-center">{leader.user.username}</Card.Title>
         <Card.Text className="d-flex justify-content-center">{leader.rating}</Card.Text>
         <table className="d-flex justify-content-center">
           <tbody>
             {
-              profile
-                ? Object.entries(stateList).map(([id, stat]) => (
-                  <tr key={stat}>
-                    <td>{stat}</td>
-                    <td>{profile[id]}</td>
-                  </tr>
-                )) : null
+              Object.entries(stateList).map(([id, stat]) => (
+                <tr key={stat}>
+                  <td>{stat}</td>
+                  <td>{stat === 'Winning%' ? leader[id].toFixed(2) : leader[id]}</td>
+                </tr>
+              ))
             }
           </tbody>
         </table>
