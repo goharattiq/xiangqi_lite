@@ -1,14 +1,18 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import Chat from './Chat';
 import PlayArea from './PlayArea';
 import './Game.scss';
 
+import Spinner from '../Components/Spinner';
+
 const Game = () => {
   const isTablet = useMediaQuery({ query: '(max-width: 880px)' });
   document.body.style.backgroundColor = '#be342d';
-  return (
+  const gameParams = useSelector(({ game }) => (game.params));
+  return !gameParams || !gameParams.id ? <Spinner /> : (
     <>
       <div className="row">
         <div className="col-md-8 col-sm-12 col-xs-12">

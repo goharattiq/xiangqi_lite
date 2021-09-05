@@ -52,10 +52,12 @@ export const socketLeaveGame = (gameID, dispatch) => {
 export const subscribeGameSockets = (history, username, dispatch) => {
   if (socket) {
     socket.on('game.send_params', (gameParams) => {
+      history.location.pathname !== `/game/${gameParams.id}` && history.push(`/game/${gameParams.id}`);
       initGame(history, gameParams, username, dispatch);
     });
 
     socket.on('game.success', (gameParams) => {
+      history.location.pathname !== `/game/${gameParams.id}` && history.push(`/game/${gameParams.id}`);
       initGame(history, gameParams, username, dispatch);
     });
 
@@ -83,5 +85,4 @@ const initGame = (historyUrl, gameParams, username, dispatch) => {
     };
   }
   dispatch(initBoard(game_board, hit_pieces, history, newGameParams));
-  historyUrl.location.pathname !== `/game/${newGameParams.id}` && historyUrl.push(`/game/${newGameParams.id}`);
 };

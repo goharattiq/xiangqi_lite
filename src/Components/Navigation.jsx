@@ -12,7 +12,7 @@ const Navigation = () => {
     <Navbar expand="lg" bg="style">
       <Container>
         <Navbar.Brand>
-          <Link to="/" className="navbar-brand">
+          <Link to="/lobby" className="navbar-brand">
             Xiangqi Lite
           </Link>
         </Navbar.Brand>
@@ -22,27 +22,26 @@ const Navigation = () => {
             <Link id="play" to="/lobby" className="nav-link-custom">
               Play
             </Link>
-            {/* <Link id="spectate" to="/spectate" className="nav-link-custom">
-              Spectate
-            </Link> */}
             <Link id="leaderboard" to="/leaderboard" className="nav-link-custom">
               LeaderBoard
             </Link>
             <Link id="profile" to="/profile" className="nav-link-custom">
               Profile
             </Link>
-            {auth ? (
-              <Link
-                id="logout"
-                to="/"
-                className="nav-link-custom"
-                onClick={() => {
-                  dispatch(signOutUser());
-                }}
-              >
-                Logout
-              </Link>
-            ) : ''}
+            {
+              auth ? (
+                <Link
+                  id="logout"
+                  to="/"
+                  className="nav-link-custom"
+                  onClick={() => {
+                    dispatch(signOutUser());
+                  }}
+                >
+                  Logout
+                </Link>
+              ) : ''
+            }
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -2,18 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
+import { socketLeaveGame } from '../scoketio/gameSocketio';
+import { whichSide } from '../utils/pieceMove';
 import Board from './Board/Board';
 import HitPiece from './Board/HitPiece';
 import History from './Board/History';
 import Timer from './Board/Timer';
 import Player from './Board/Player';
 import AnnounceWinner from './Board/AnnounceWinner';
-import { socketLeaveGame } from '../scoketio/gameSocketio';
-import { whichSide } from '../utils/pieceMove';
 import './PlayArea.scss';
 
 const PlayArea = () => {
-  // eslint-disable-next-line no-unused-vars
   const URLHistory = useHistory();
   const dispatch = useDispatch();
   const [historyMode, setHistoryMode] = useState(false);
@@ -22,7 +21,7 @@ const PlayArea = () => {
     history,
     gameParams,
     playerTurn,
-    userID,
+    user,
     winner,
   } = useSelector(({ game, auth }) => ({
     hitPiece: game.hitPiece,
@@ -30,7 +29,7 @@ const PlayArea = () => {
     winner: game.winner,
     gameParams: game.params,
     playerTurn: game.params ? game.params.playerTurn : 0,
-    userID: auth.user.pk,
+    user: auth.user,
   }));
   useEffect(() => {
     if (!localStorage.getItem('gameID')) {
@@ -71,16 +70,16 @@ const PlayArea = () => {
       <div className="top-bar">
         <Player style={{ top: '20px' }} />
         {
-        gameParams && gameParams.is_timed && gameParams.is_active ? (
-          <Timer
-            moveTimer={gameParams.move_timer}
-            gameTimer={gameParams.game_timer}
-            isPause={!(haveTurn(redPlayer.user.pk)) || gameParams.connected_player < 2}
-            style={{ bottom: '40px' }}
-            userID={userID}
-          />
-        ) : ''
-      }
+          gameParams && gameParams.is_timed && gameParams.is_active ? (
+            <Timer
+              moveTimer={gameParams.move_timer}
+              gameTimer={gameParams.game_timer}
+              isPause={!(haveTurn(redPlayer.user.pk)) || gameParams.connected_player < 2}
+              style={{ bottom: '40px' }}
+              userID={user.pk}
+            />
+          ) : ''
+        }
         <HitPiece hitPieces={redHitPieces} style={{ bottom: '100px' }} />
       </div>
       <Board historyMode={historyMode} />
@@ -93,7 +92,7 @@ const PlayArea = () => {
               gameTimer={gameParams.game_timer}
               isPause={!(haveTurn(blackPlayer.user.pk)) || gameParams.connected_player < 2}
               style={{ bottom: '60px' }}
-              userID={userID}
+              userID={user.pk}
             />
           ) : ''
         }
@@ -108,7 +107,8 @@ const PlayArea = () => {
         winner ? (
           <AnnounceWinner
             // eslint-disable-next-line no-nested-ternary
-            player={winner === userID ? {} : winner === redPlayer.user.pk ? redPlayer : blackPlayer}
+            player={winner === user.pk
+              ? {} : winner === redPlayer.user.pk ? redPlayer : blackPlayer}
           />
         ) : ''
       }

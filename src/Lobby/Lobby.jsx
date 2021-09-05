@@ -5,6 +5,7 @@ import { fetechedActiveGames, fetechedSpectateGames } from '../redux/game/thunk'
 import GameParams from './GameParams';
 import GameList from './GameList';
 import './Lobby.scss';
+import Spinner from '../Components/Spinner';
 
 const Lobby = () => {
   document.body.style.backgroundColor = '#ede8e0';
@@ -19,7 +20,7 @@ const Lobby = () => {
     dispatch(fetechedActiveGames());
     dispatch(fetechedSpectateGames());
   }, []);
-  return (
+  return !activeGames.length || !spectateGames.length ? <Spinner /> : (
     <>
       <Button className="position-absolute m-2 new-game" onClick={() => { setOverlayDiv(!overlayDiv); }}>
         <i className="fas fa-plus pe-2" />

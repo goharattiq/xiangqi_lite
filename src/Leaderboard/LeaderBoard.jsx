@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Spinner from '../Components/Spinner';
 import { fetechedLeaders } from '../redux/leaderboard/thunk';
 import LeaderCard from './LeaderCard';
 
@@ -10,7 +11,7 @@ const LeaderBoard = () => {
   useEffect(() => {
     dispatch(fetechedLeaders());
   }, []);
-  return (
+  return !leaders.length ? <Spinner /> : (
     <div className="row justify-content-center leaderboard">
       {
         leaders.length !== 0 ? leaders.map((leader) => (
