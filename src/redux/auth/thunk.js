@@ -16,7 +16,7 @@ export const signinUser = ({ username, password }) => (dispatch) => {
     })
     .then((res) => {
       dispatch(signInSueccess(res.data));
-      dispatch(setToast('Signin Successfully', 'light'));
+      dispatch(setToast('Signin Successfully', 'light', dispatch));
     })
     .catch((err) => {
       const errors = err.response.data;
@@ -37,14 +37,14 @@ export const signupUser = ({ username, email, password }) => (dispatch) => {
         .then((resData) => {
           // eslint-disable-next-line no-console
           console.log(resData.data);
-          dispatch(setToast('User Created Successfully', 'light'));
+          dispatch(setToast('User Created Successfully', 'light', dispatch));
         })
         .catch((err) => {
           const errors = err.response.data;
           dispatchErrors(errors, dispatch);
         });
       dispatch(signUpSueccess());
-      dispatch(setToast('Sigup Successfully', 'light'));
+      dispatch(setToast('Sigup Successfully', 'light', dispatch));
     })
     .catch((err) => {
       const errors = err.response.data;
@@ -57,7 +57,7 @@ export const signOutUser = () => (dispatch) => {
     .post('/api/auth/logout/', null)
     .then(() => {
       dispatch(signOutSueccess());
-      dispatch(setToast('Logout Successfully', 'light'));
+      dispatch(setToast('Logout Successfully', 'light', dispatch));
     })
     .catch((err) => {
       const errors = err.response.data;
