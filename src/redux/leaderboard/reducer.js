@@ -1,5 +1,4 @@
-import { GET_LEADERS, GET_LEADERS_STATS } from './type';
-import { attachStats } from './utils';
+import { GET_LEADERS } from './type';
 
 const initialState = {
   leaders: [],
@@ -13,11 +12,6 @@ const leaderReducer = (state = initialState, action) => {
       return {
         ...state,
         leaders: [...action.payload],
-      };
-    case GET_LEADERS_STATS:
-      return {
-        ...state,
-        stats: { ...state.stats, ...attachStats(action.payload, state.leaders) },
       };
     default:
       return state;

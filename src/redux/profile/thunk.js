@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
+import { dispatchErrors } from '../toast/utils';
 import { getGames, getProfile } from './actions';
 
 export const fetchUserProfile = (userId) => (dispatch) => {
@@ -9,8 +10,8 @@ export const fetchUserProfile = (userId) => (dispatch) => {
       dispatch(getProfile(res.data));
     })
     .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.log(err);
+      const errors = err.response.data;
+      dispatchErrors(errors, dispatch);
     });
 };
 
@@ -21,7 +22,7 @@ export const fetchAllTimeGames = () => (dispatch) => {
       dispatch(getGames(res.data));
     })
     .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.log(err);
+      const errors = err.response.data;
+      dispatchErrors(errors, dispatch);
     });
 };
