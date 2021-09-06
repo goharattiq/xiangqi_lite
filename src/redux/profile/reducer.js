@@ -1,7 +1,7 @@
 import { GET_ALLTIME_GAMES, GET_PROFILE } from './type';
 
 const initialState = {
-  games: [],
+  games: null,
 };
 
 const profileReducer = (state = initialState, action) => {

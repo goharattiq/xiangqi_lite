@@ -25,8 +25,8 @@ const initialState = {
   history: [],
   params: null,
   searchNames: [],
-  activeGames: [],
-  spectateGames: [],
+  activeGames: null,
+  spectateGames: null,
   winner: null,
 };
 

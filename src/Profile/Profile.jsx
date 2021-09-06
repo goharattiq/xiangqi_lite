@@ -74,7 +74,7 @@ const ProfileContainer = () => {
   const userFullName = user && user.first_name ? `${user.first_name} ${user.first_name}` : 'Fill Your Name';
   return (
     <ProfileWithSpinner
-      isLoading={!user}
+      isLoading={!user || !games}
       userFullName={userFullName}
       user={user}
       stateList={stateList}

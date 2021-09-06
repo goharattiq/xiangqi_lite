@@ -28,7 +28,7 @@ const LearBoardContainer = () => {
   }, []);
   return (
     <LeaderBoardWithSpinner
-      isLoading={!leaders.length}
+      isLoading={!leaders}
       leaders={leaders}
     />
   );

@@ -17,13 +17,15 @@ export const fetchUserProfile = (userId) => (dispatch) => {
 };
 
 export const fetchAllTimeGames = () => (dispatch) => {
-  axios
-    .get('/api/game/alltime/')
-    .then((res) => {
-      dispatch(getGames(res.data));
-    })
-    .catch((err) => {
-      const errors = err.response.data;
-      dispatchErrors(errors, dispatch);
-    });
+  setTimeout(() => {
+    axios
+      .get('/api/game/alltime/')
+      .then((res) => {
+        dispatch(getGames(res.data));
+      })
+      .catch((err) => {
+        const errors = err.response.data;
+        dispatchErrors(errors, dispatch);
+      });
+  }, 3000);
 };

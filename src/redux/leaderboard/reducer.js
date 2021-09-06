@@ -1,7 +1,7 @@
 import { GET_LEADERS } from './type';
 
 const initialState = {
-  leaders: [],
+  leaders: null,
 };
 
 const leaderReducer = (state = initialState, action) => {

@@ -4,7 +4,7 @@ import authReducer from './auth/reducer';
 import chatReducer from './chat/reducer';
 import gameReducer from './game/reducer';
 import leaderReducer from './leaderboard/reducer';
-import profileReducer from './profile/redux';
+import profileReducer from './profile/reducer';
 import toastReducer from './toast/reducer';
 
 export default combineReducers({
