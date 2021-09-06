@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import ListMyActiveGames, ListSpectateGames
+from .views import ListMyActiveGames, ListSpectateGames, AllTimeGames
 
 urlpatterns = [
-    path('my_game/', ListMyActiveGames.as_view()),
+    path('active/', ListMyActiveGames.as_view()),
     path('spectate/', ListSpectateGames.as_view()),
+    path('alltime/', AllTimeGames.as_view()),
 ]

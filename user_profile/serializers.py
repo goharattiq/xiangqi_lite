@@ -46,4 +46,4 @@ class ProfileGameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['user', 'rating' ]
+        fields = ['user', 'rating']
