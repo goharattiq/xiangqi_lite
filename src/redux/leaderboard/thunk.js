@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { getLeaders, getLeadersStats } from './actions';
+import { dispatchErrors } from '../toast/utils';
+import { getLeaders } from './actions';
 
 export const fetechedLeaders = () => (dispatch) => {
   axios
@@ -8,19 +9,7 @@ export const fetechedLeaders = () => (dispatch) => {
       dispatch(getLeaders(res.data));
     })
     .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.log(err);
-    });
-};
-
-export const fetechedLeaderStats = (username) => (dispatch) => {
-  axios
-    .get(`/api/users/account/${username}`)
-    .then((res) => {
-      dispatch(getLeadersStats(res.data));
-    })
-    .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.log(err);
+      const errors = err.response.data;
+      dispatchErrors(errors, dispatch);
     });
 };

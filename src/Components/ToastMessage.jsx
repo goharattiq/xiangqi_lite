@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Toast, ToastContainer } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeToast } from '../redux/toast/actions';
 import './ToastMessage.scss';
 
 const ToastMessage = () => {
-  const [show, setShow] = useState(true);
+  const dispatch = useDispatch();
+  const toasts = useSelector(({ toast }) => (toast));
   return (
     <ToastContainer position="top-end" className="p-3">
-      <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
-        <Toast.Header />
-        <Toast.Body>Message to show</Toast.Body>
-      </Toast>
+      {
+        toasts.length !== 0 ? toasts.map(({ msg, type, id }) => (
+          <Toast
+            animation
+            onClose={() => dispatch(removeToast(id))}
+            className={`bg-${type} toast`}
+            key={id}
+          >
+            <Toast.Header />
+            <Toast.Body>{msg}</Toast.Body>
+          </Toast>
+        )) : ''
+      }
     </ToastContainer>
   );
 };

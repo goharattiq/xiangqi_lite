@@ -2,6 +2,8 @@ import axios from 'axios';
 import {
   getUser, signInSueccess, signOutSueccess, signUpSueccess,
 } from './actions';
+import { setToast } from '../toast/actions';
+import { dispatchErrors } from '../toast/utils';
 
 export const signinUser = ({ username, password }) => (dispatch) => {
   axios
@@ -10,10 +12,11 @@ export const signinUser = ({ username, password }) => (dispatch) => {
     })
     .then((res) => {
       dispatch(signInSueccess(res.data));
+      dispatch(setToast('Signin Successfully', 'light'));
     })
     .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.log(err);
+      const errors = err.response.data;
+      dispatchErrors(errors, dispatch);
     });
 };
 
@@ -30,16 +33,18 @@ export const signupUser = ({ username, email, password }) => (dispatch) => {
         .then((resData) => {
           // eslint-disable-next-line no-console
           console.log(resData.data);
+          dispatch(setToast('User Created Successfully', 'light'));
         })
         .catch((err) => {
-          // eslint-disable-next-line no-console
-          console.log(err);
+          const errors = err.response.data;
+          dispatchErrors(errors, dispatch);
         });
       dispatch(signUpSueccess());
+      dispatch(setToast('Sigup Successfully', 'light'));
     })
     .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.log(err);
+      const errors = err.response.data;
+      dispatchErrors(errors, dispatch);
     });
 };
 
@@ -48,16 +53,14 @@ export const signOutUser = () => (dispatch) => {
     .post('/api/auth/logout/', null)
     .then(() => {
       dispatch(signOutSueccess());
+      dispatch(setToast('Logout Successfully', 'light'));
     })
     .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.log(err);
+      const errors = err.response.data;
+      dispatchErrors(errors, dispatch);
     });
 };
 
-// {
-//   headers: { Cookie: `access_token=${localStorage.getItem('access_token')}` },
-// }
 export const fetechedUser = () => (dispatch) => {
   axios
     .get('/api/auth/user/')
@@ -65,7 +68,7 @@ export const fetechedUser = () => (dispatch) => {
       dispatch(getUser(res.data));
     })
     .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.log(err);
+      const errors = err.response.data;
+      dispatchErrors(errors, dispatch);
     });
 };

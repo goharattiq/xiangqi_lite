@@ -11,6 +11,7 @@ import Navigation from './Navigation';
 import PrivateRoute from './PrivateRoute';
 import Game from '../Game/Game';
 import LeaderBoard from '../Leaderboard/LeaderBoard';
+import ToastMessage from './ToastMessage';
 import { useSockets } from '../socketio/socketio';
 import { subscribeGameSockets } from '../socketio/gameSocketio';
 import { subscribeChatSocketsEvent } from '../socketio/chatSocketio';
@@ -33,6 +34,7 @@ const Render = () => {
       : (
         <>
           <Navigation />
+          <ToastMessage />
           <Redirect to="/lobby" />
           <Switch>
             <PrivateRoute exact path="/lobby" component={Lobby} />

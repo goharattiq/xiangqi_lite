@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { dispatchErrors } from '../toast/utils';
 import { activeGames, searchUsername, spectateGames } from './actions';
 
 export const fetechedSearchUsernames = (queryString) => (dispatch) => {
@@ -8,8 +9,8 @@ export const fetechedSearchUsernames = (queryString) => (dispatch) => {
       dispatch(searchUsername(res.data));
     })
     .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.log(err);
+      const errors = err.response.data;
+      dispatchErrors(errors, dispatch);
     });
 };
 
@@ -20,8 +21,8 @@ export const fetechedActiveGames = () => (dispatch) => {
       dispatch(activeGames(res.data));
     })
     .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.log(err);
+      const errors = err.response.data;
+      dispatchErrors(errors, dispatch);
     });
 };
 
@@ -32,7 +33,7 @@ export const fetechedSpectateGames = () => (dispatch) => {
       dispatch(spectateGames(res.data));
     })
     .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.log(err);
+      const errors = err.response.data;
+      dispatchErrors(errors, dispatch);
     });
 };

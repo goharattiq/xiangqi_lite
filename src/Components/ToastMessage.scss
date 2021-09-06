@@ -8,5 +8,9 @@
   border-radius: .25rem;
   opacity: .5;
   position: relative;
-  left: 100px;
+  left: 285px;
+}
+
+.toast {
+  z-index: 5000;
 }
