@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Spinner from '../Components/Spinner';
-import { fetechedActiveGames, fetechedSpectateGames } from '../redux/game/thunk';
+import { fetechedActiveGames, fetechedSpectateGames } from '../redux/lobby/thunk';
 import GameList from './GameList';
 import GameParams from './GameParams';
 import './Lobby.scss';
@@ -29,9 +29,9 @@ const LobbyWithSpinner = Spinner(Lobby);
 
 const LobbyContainer = () => {
   document.body.style.backgroundColor = '#ede8e0';
-  const { activeGames, spectateGames, username } = useSelector(({ game, auth }) => ({
-    activeGames: game.activeGames,
-    spectateGames: game.spectateGames,
+  const { activeGames, spectateGames, username } = useSelector(({ lobby, auth }) => ({
+    activeGames: lobby.activeGames,
+    spectateGames: lobby.spectateGames,
     username: auth.user.username,
   }));
   const dispatch = useDispatch();
