@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable camelcase */
+import { clearChat } from '../redux/chat/actions';
 import {
   clearGame,
   announceWinner,
@@ -47,6 +48,7 @@ export const socketEndGame = (gameID, players, looser, type, isRated) => {
 export const socketLeaveGame = (gameID, dispatch) => {
   socket.emit('game.leave', gameID);
   dispatch(clearGame());
+  dispatch(clearChat());
 };
 
 export const subscribeGameSockets = (history, username, dispatch) => {
