@@ -7,8 +7,8 @@ import {
   initBoard,
   pieceMove,
 } from '../redux/game/actions';
-import { initMatrix } from '../utils/game';
 import { COLS, ROWS } from '../utils/constants';
+import { initMatrix } from '../utils/game';
 import { socket } from './socketio';
 
 export const socketEnterGame = (gameID) => {

@@ -1,9 +1,13 @@
 import axios from 'axios';
-import {
-  getUser, signInSueccess, signOutSueccess, signUpSueccess,
-} from './actions';
+
 import { setToast } from '../toast/actions';
 import { dispatchErrors } from '../toast/utils';
+import {
+  getUser,
+  signInSueccess,
+  signOutSueccess,
+  signUpSueccess,
+} from './actions';
 
 export const signinUser = ({ username, password }) => (dispatch) => {
   axios

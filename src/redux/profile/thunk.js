@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
+
 import { dispatchErrors } from '../toast/utils';
 import { getGames, getProfile } from './actions';
 

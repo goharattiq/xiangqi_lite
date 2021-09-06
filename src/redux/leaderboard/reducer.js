@@ -2,8 +2,6 @@ import { GET_LEADERS } from './type';
 
 const initialState = {
   leaders: [],
-  stats: null,
-
 };
 
 const leaderReducer = (state = initialState, action) => {

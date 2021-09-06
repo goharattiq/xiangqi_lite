@@ -1,7 +1,4 @@
-import {
-  GET_ALLTIME_GAMES,
-  GET_PROFILE,
-} from './type';
+import { GET_ALLTIME_GAMES, GET_PROFILE } from './type';
 
 export const getProfile = (data) => ({
   type: GET_PROFILE,

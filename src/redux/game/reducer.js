@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-case-declarations */
+import { getHintMoves } from '../../utils/game';
 import {
   ACTIVE_GAMES,
   CLEAR_HINT_MOVE,
@@ -16,7 +17,6 @@ import {
   ANNOUNCE_WINNER,
 } from './type';
 import { onPieceMove } from './utiles';
-import { getHintMoves } from '../../utils/game';
 
 const initialState = {
   board: null,

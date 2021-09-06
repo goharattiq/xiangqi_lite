@@ -1,7 +1,4 @@
-/* eslint-disable import/prefer-default-export */
-import {
-  GAME_TYPE, GAME_RATED, GAME_TIMED,
-} from './constants';
+import { GAME_TYPE, GAME_RATED, GAME_TIMED } from './constants';
 
 export const PARAMETERS = [
   {

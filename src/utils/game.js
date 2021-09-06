@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
+import { MAP } from './constants';
 import {
   cannonMoves,
   chariotMoves,
@@ -8,7 +9,6 @@ import {
   kingPawnMoves,
   whichSide,
 } from './pieceMove';
-import { MAP } from './constants';
 
 // pices moves
 // => Pawns move forward only

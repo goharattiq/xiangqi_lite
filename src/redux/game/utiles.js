@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-operators */
 import { socketSendMoves, socketEndGame } from '../../socketio/gameSocketio';
-import { matrixPosition, whichSide } from '../../utils/pieceMove';
 import { isValidMove } from '../../utils/game';
+import { matrixPosition, whichSide } from '../../utils/pieceMove';
 
 export const onPieceMove = (move, previousState, history, fromSockets) => {
   const { board, hints, params } = previousState;

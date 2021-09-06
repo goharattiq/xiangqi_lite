@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+
 import authReducer from './auth/reducer';
 import chatReducer from './chat/reducer';
 import gameReducer from './game/reducer';

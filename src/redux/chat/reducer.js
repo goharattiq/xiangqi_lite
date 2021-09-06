@@ -1,6 +1,4 @@
-import {
-  MESSAGE_SEND,
-} from './type';
+import { MESSAGE_SEND } from './type';
 
 const initialState = [];
 
