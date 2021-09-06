@@ -18,7 +18,6 @@ class RetrieveProfile(RetrieveUpdateAPIView):
 
 class CreateProfile(CreateAPIView):
     permission_classes = [IsAuthenticated]
-    # queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
 
@@ -28,3 +27,11 @@ class SearchUser(ListAPIView):
 
     def get_queryset(self):
         return User.objects.filter(Q(username__startswith=self.kwargs.get('username')))
+
+
+class LeaderBoard(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ProfileSerializer
+
+    def get_queryset(self):
+        return Profile.objects.order_by('-rating')[:3]
