@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect } from 'react';
+
+import PropTypes from 'prop-types';
 import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+
 import Spinner from '../Components/Spinner';
 import GameList from '../Lobby/GameList';
 import { fetchAllTimeGames, fetchUserProfile } from '../redux/profile/thunk';

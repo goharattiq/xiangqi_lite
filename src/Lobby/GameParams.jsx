@@ -1,18 +1,18 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { gameParamsAct } from '../redux/game/actions';
 import { fetechedSearchUsernames } from '../redux/game/thunk';
 import { isValidGameParams } from '../redux/game/utiles';
 import { socketSetGameParams } from '../socketio/gameSocketio';
+import { MOVE_TIMER, GAME_TIMER, SIDE } from '../utils/constants';
 import { PARAMETERS } from '../utils/paramsData';
 import Field from './Field';
-import {
-  MOVE_TIMER, GAME_TIMER, SIDE,
-} from '../utils/constants';
 import './GameParams.scss';
 
 const GameParams = ({ setOverlayDiv }) => {

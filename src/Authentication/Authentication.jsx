@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+
 import { useDispatch } from 'react-redux';
+
 import ToastMessage from '../Components/ToastMessage';
 import { fetechedUser } from '../redux/auth/thunk';
 import AuthTab from './AuthTab';
@@ -28,7 +30,7 @@ const Authentication = () => {
         clickTabHandler={clickTabHandler}
         activeTab={activeTab}
       />
-      { activeTab ? (<SignIn />) : (<SignUp />)}
+      {activeTab ? (<SignIn />) : (<SignUp />)}
     </>
   );
 };

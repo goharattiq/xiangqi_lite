@@ -1,20 +1,20 @@
 /* eslint-disable no-unused-expressions */
 import React, { useEffect } from 'react';
-import {
-  Redirect, Switch, useHistory,
-} from 'react-router-dom';
+
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, Switch, useHistory } from 'react-router-dom';
+
 import Authentication from '../Authentication/Authentication';
-import Lobby from '../Lobby/Lobby';
-import Profile from '../Profile/Profile';
-import Navigation from './Navigation';
-import PrivateRoute from './PrivateRoute';
 import Game from '../Game/Game';
 import LeaderBoard from '../Leaderboard/LeaderBoard';
-import ToastMessage from './ToastMessage';
-import { useSockets } from '../socketio/socketio';
-import { subscribeGameSockets } from '../socketio/gameSocketio';
+import Lobby from '../Lobby/Lobby';
+import Profile from '../Profile/Profile';
 import { subscribeChatSocketsEvent } from '../socketio/chatSocketio';
+import { subscribeGameSockets } from '../socketio/gameSocketio';
+import { useSockets } from '../socketio/socketio';
+import Navigation from './Navigation';
+import PrivateRoute from './PrivateRoute';
+import ToastMessage from './ToastMessage';
 
 const Render = () => {
   const auth = useSelector((state) => state.auth);

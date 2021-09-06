@@ -1,6 +1,7 @@
 import React from 'react';
-import { Nav } from 'react-bootstrap';
+
 import PropTypes from 'prop-types';
+import { Nav } from 'react-bootstrap';
 import './AuthTab.scss';
 
 const AuthTab = ({ clickTabHandler, activeTab }) => (

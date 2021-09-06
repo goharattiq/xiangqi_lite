@@ -1,22 +1,17 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
+
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
-import {
-  hintMove,
-  pieceMove,
-  clearHintMove,
-} from '../../redux/game/actions';
-import Row from './Row';
-import {
-  changeDroppableStyle,
-  pieceAnimationEnd,
-  pieceAnimationStart,
-} from '../../utils/game';
-import moveAudio from '../../static/audio/move.ogg';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { hintMove, pieceMove, clearHintMove } from '../../redux/game/actions';
 import hitAudio from '../../static/audio/hit.ogg';
+import moveAudio from '../../static/audio/move.ogg';
+import { changeDroppableStyle, pieceAnimationEnd, pieceAnimationStart } from '../../utils/game';
+import Row from './Row';
+
 import './Board.scss';
 
 const Board = ({ historyMode }) => {

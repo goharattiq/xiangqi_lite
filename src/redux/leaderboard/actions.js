@@ -1,11 +1,6 @@
-import { GET_LEADERS, GET_LEADERS_STATS } from './type';
+import { GET_LEADERS } from './type';
 
 export const getLeaders = (data) => ({
   type: GET_LEADERS,
-  payload: data,
-});
-
-export const getLeadersStats = (data) => ({
-  type: GET_LEADERS_STATS,
   payload: data,
 });

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+
 import { Form, FloatingLabel, Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+
 import { signupUser } from '../redux/auth/thunk';
 import './SignUpIn.scss';
 

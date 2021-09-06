@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import { signOutUser } from '../redux/auth/thunk';
 import './Navigation.scss';
 

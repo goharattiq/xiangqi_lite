@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
+
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetechedLeaders } from '../redux/leaderboard/thunk';
+
 import Spinner from '../Components/Spinner';
+import { fetechedLeaders } from '../redux/leaderboard/thunk';
 import LeaderCard from './LeaderCard';
 
 const LeaderBoard = ({ leaders }) => (

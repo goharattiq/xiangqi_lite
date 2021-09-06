@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+
 import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
 import { socketLeaveGame } from '../socketio/gameSocketio';
 import { whichSide } from '../utils/pieceMove';
-import Board from './Board/Board';
-import HitPiece from './Board/HitPiece';
-import History from './Board/History';
-import Timer from './Board/Timer';
-import Player from './Board/Player';
 import AnnounceWinner from './Board/AnnounceWinner';
+import Board from './Board/Board';
+import History from './Board/History';
+import HitPiece from './Board/HitPiece';
+import Player from './Board/Player';
+import Timer from './Board/Timer';
 import './PlayArea.scss';
 
 const PlayArea = () => {

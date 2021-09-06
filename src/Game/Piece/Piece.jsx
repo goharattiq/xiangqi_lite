@@ -1,12 +1,14 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
+
 import PropTypes from 'prop-types';
+
+import { MAP } from '../../utils/constants';
 import { whichSide } from '../../utils/pieceMove';
 import {
   red, black, Advisor, Cannon, Chariot, Elephant, Horse, King, Pawn,
 } from './PiecesImport';
 import './Piece.scss';
-import { MAP } from '../../utils/constants';
 
 const Piece = ({ name, id, hitStyle }) => {
   const selectPiece = (piece) => {

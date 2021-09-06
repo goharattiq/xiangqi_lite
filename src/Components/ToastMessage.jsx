@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Toast, ToastContainer } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { removeToast } from '../redux/toast/actions';
 import './ToastMessage.scss';
 

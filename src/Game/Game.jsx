@@ -1,11 +1,13 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
-import { Button } from 'react-bootstrap';
+
+import Spinner from '../Components/Spinner';
 import Chat from './Chat';
 import PlayArea from './PlayArea';
-import Spinner from '../Components/Spinner';
 import './Game.scss';
 
 const Game = ({ isTablet }) => (

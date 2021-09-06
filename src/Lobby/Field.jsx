@@ -1,8 +1,9 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
-import { Form } from 'react-bootstrap';
+
 import PropTypes from 'prop-types';
-// checkField === `${id}-${index}`
+import { Form } from 'react-bootstrap';
+
 const Field = ({
   data, name, type, id, className, handleChange,
 }) => (

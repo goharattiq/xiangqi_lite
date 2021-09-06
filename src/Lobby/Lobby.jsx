@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import { fetechedActiveGames, fetechedSpectateGames } from '../redux/game/thunk';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Spinner from '../Components/Spinner';
-import GameParams from './GameParams';
+import { fetechedActiveGames, fetechedSpectateGames } from '../redux/game/thunk';
 import GameList from './GameList';
+import GameParams from './GameParams';
 import './Lobby.scss';
 
 const Lobby = ({ activeGames, spectateGames, username }) => {

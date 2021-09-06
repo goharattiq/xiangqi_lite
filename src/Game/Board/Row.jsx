@@ -3,14 +3,14 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import {
-  Draggable, Droppable,
-} from 'react-beautiful-dnd';
+
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
+
+import { BLACK, RED } from '../../utils/constants';
 import { whichSide } from '../../utils/pieceMove';
 import Piece from '../Piece/Piece';
 import Spot from './Spot';
-import { BLACK, RED } from '../../utils/constants';
 import './Row.scss';
 
 const Row = ({ row, clickHandler }) => {
