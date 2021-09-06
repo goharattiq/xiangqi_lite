@@ -1,25 +1,39 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import Spinner from '../Components/Spinner';
 import { fetechedLeaders } from '../redux/leaderboard/thunk';
+import Spinner from '../Components/Spinner';
 import LeaderCard from './LeaderCard';
 
-const LeaderBoard = () => {
+const LeaderBoard = ({ leaders }) => (
+  <div className="row justify-content-center leaderboard">
+    {
+        leaders.map((leader) => (
+          <LeaderCard leader={leader} key={leader.user.username} />
+        ))
+    }
+  </div>
+);
+
+const LeaderBoardWithSpinner = Spinner(LeaderBoard);
+
+const LearBoardContainer = () => {
   document.body.style.backgroundColor = '#ede8e0';
   const dispatch = useDispatch();
   const leaders = useSelector((state) => (state.leaderBoard.leaders));
   useEffect(() => {
     dispatch(fetechedLeaders());
   }, []);
-  return !leaders.length ? <Spinner /> : (
-    <div className="row justify-content-center leaderboard">
-      {
-        leaders.length !== 0 ? leaders.map((leader) => (
-          <LeaderCard leader={leader} key={leader.user.username} />
-        )) : ''
-      }
-    </div>
+  return (
+    <LeaderBoardWithSpinner
+      isLoading={!leaders.length}
+      leaders={leaders}
+    />
   );
 };
 
-export default LeaderBoard;
+LeaderBoard.propTypes = {
+  leaders: PropTypes.array.isRequired,
+};
+
+export default LearBoardContainer;

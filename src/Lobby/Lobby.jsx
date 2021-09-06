@@ -1,26 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { fetechedActiveGames, fetechedSpectateGames } from '../redux/game/thunk';
+import Spinner from '../Components/Spinner';
 import GameParams from './GameParams';
 import GameList from './GameList';
 import './Lobby.scss';
-import Spinner from '../Components/Spinner';
 
-const Lobby = () => {
-  document.body.style.backgroundColor = '#ede8e0';
-  const { activeGames, spectateGames, username } = useSelector(({ game, auth }) => ({
-    activeGames: game.activeGames,
-    spectateGames: game.spectateGames,
-    username: auth.user.username,
-  }));
-  const dispatch = useDispatch();
+const Lobby = ({ activeGames, spectateGames, username }) => {
   const [overlayDiv, setOverlayDiv] = useState(false);
-  useEffect(() => {
-    dispatch(fetechedActiveGames());
-    dispatch(fetechedSpectateGames());
-  }, []);
-  return !activeGames.length || !spectateGames.length ? <Spinner /> : (
+  return (
     <>
       <Button className="position-absolute m-2 new-game" onClick={() => { setOverlayDiv(!overlayDiv); }}>
         <i className="fas fa-plus pe-2" />
@@ -33,4 +23,35 @@ const Lobby = () => {
   );
 };
 
-export default Lobby;
+const LobbyWithSpinner = Spinner(Lobby);
+
+const LobbyContainer = () => {
+  document.body.style.backgroundColor = '#ede8e0';
+  const { activeGames, spectateGames, username } = useSelector(({ game, auth }) => ({
+    activeGames: game.activeGames,
+    spectateGames: game.spectateGames,
+    username: auth.user.username,
+  }));
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetechedActiveGames());
+    dispatch(fetechedSpectateGames());
+  }, []);
+  return (
+    <LobbyWithSpinner
+      isLoading={!activeGames.length || !spectateGames.length}
+      activeGames={activeGames}
+      spectateGames={spectateGames}
+      username={username}
+    />
+  );
+};
+
+Lobby.propTypes = {
+  activeGames: PropTypes.array.isRequired,
+  spectateGames: PropTypes.array.isRequired,
+  username: PropTypes.string.isRequired,
+};
+
+export default LobbyContainer;

@@ -53,12 +53,12 @@ export const subscribeGameSockets = (history, username, dispatch) => {
   if (socket) {
     socket.on('game.send_params', (gameParams) => {
       history.location.pathname !== `/game/${gameParams.id}` && history.push(`/game/${gameParams.id}`);
-      initGame(history, gameParams, username, dispatch);
+      initGame(gameParams, username, dispatch);
     });
 
     socket.on('game.success', (gameParams) => {
       history.location.pathname !== `/game/${gameParams.id}` && history.push(`/game/${gameParams.id}`);
-      initGame(history, gameParams, username, dispatch);
+      initGame(gameParams, username, dispatch);
     });
 
     socket.on('game.move_success', (data) => {
@@ -72,7 +72,7 @@ export const subscribeGameSockets = (history, username, dispatch) => {
   }
 };
 
-const initGame = (historyUrl, gameParams, username, dispatch) => {
+const initGame = (gameParams, username, dispatch) => {
   let {
     // eslint-disable-next-line prefer-const
     game_board, hit_pieces, history, ...newGameParams
