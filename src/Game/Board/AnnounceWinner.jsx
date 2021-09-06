@@ -5,13 +5,11 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './AnnounceWinner.scss';
 
-const AnnounceWinner = ({ player }) => (
+const AnnounceWinner = ({ player, username }) => (
   <div className="position-absolute w-100 h-100 overlay-div">
     <div className="position-absolute bg-white pt-4 winner">
       <p className="text-center">
-        {player.user ? player.user.username : 'You'}
-        {' '}
-        won
+        {`${player.user.username === username ? 'You' : player.user.username} Won`}
       </p>
       <Link to="/lobby">
         <Button
@@ -25,8 +23,8 @@ const AnnounceWinner = ({ player }) => (
 );
 
 AnnounceWinner.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   player: PropTypes.object.isRequired,
+  username: PropTypes.string.isRequired,
 };
 
 export default AnnounceWinner;

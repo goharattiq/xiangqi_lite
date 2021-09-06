@@ -29,7 +29,7 @@ const GameList = ({ type, games, username }) => {
               </p>
               <p className="text-center"> vs </p>
               <p className="text-center">
-                {`${getPlayerName(player_2.user.username)}(${player_1.rating})`}
+                {`${getPlayerName(player_2.user.username)}(${player_2.rating})`}
               </p>
 
               <div className="d-flex justify-content-between">
@@ -61,7 +61,6 @@ const GameList = ({ type, games, username }) => {
 
 GameList.propTypes = {
   type: PropTypes.string.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   games: PropTypes.array.isRequired,
   username: PropTypes.string.isRequired,
 };
