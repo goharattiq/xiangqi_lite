@@ -30,7 +30,7 @@ const PlayArea = () => {
     history: game.history,
     winner: game.winner,
     gameParams: game.params,
-    playerTurn: game.params ? game.params.playerTurn : 0,
+    playerTurn: game.params.player_turn,
     user: auth.user,
   }));
   useEffect(() => {
@@ -109,8 +109,8 @@ const PlayArea = () => {
         winner ? (
           <AnnounceWinner
             // eslint-disable-next-line no-nested-ternary
-            player={winner === user.pk
-              ? {} : winner === redPlayer.user.pk ? redPlayer : blackPlayer}
+            player={winner === redPlayer.user.pk ? redPlayer : blackPlayer}
+            username={user.username}
           />
         ) : ''
       }
