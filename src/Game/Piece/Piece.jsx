@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 
 import PropTypes from 'prop-types';
@@ -14,19 +13,19 @@ const Piece = ({ name, id, hitStyle }) => {
   const selectPiece = (piece) => {
     switch (piece.toLowerCase()) {
       case 'a':
-        return <Advisor />;
+        return <Advisor className="piece-svg" />;
       case 'c':
-        return <Cannon />;
+        return <Cannon className="piece-svg" />;
       case 'r':
-        return <Chariot />;
+        return <Chariot className="piece-svg" />;
       case 'e':
-        return <Elephant />;
+        return <Elephant className="piece-svg" />;
       case 'h':
-        return <Horse />;
+        return <Horse className="piece-svg" />;
       case 'k':
-        return <King />;
+        return <King className="piece-svg" />;
       case 'p':
-        return <Pawn />;
+        return <Pawn className="piece-svg" />;
       default:
         return null;
     }

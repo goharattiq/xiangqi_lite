@@ -1,11 +1,11 @@
 @import '../../variables';
 
 .board {
-  background-color: $background;
+  background-color: rgba($color: $background, $alpha: 0.1);
   position: relative;
   left: 15%;
-  // top: -80px;
 }
+
 
 tr {
   height: $screen-xl;
@@ -16,9 +16,47 @@ td {
   width: $screen-xl;
 }
 
+
+rect {
+  width: 57px;
+  height: 55px;
+}
+
+$yaxis: 60;
+@for $i from 1 to 5 {
+  $xaxis: 80;
+  @for $j from 1 to 9 {
+    #svg_#{$i}_#{$j} {
+        x: $xaxis;
+        y: $yaxis;
+    }
+    $xaxis: $xaxis + 57
+  }
+  $yaxis: $yaxis + 55; 
+}
+
+$yaxis: $yaxis + 110;
+@for $i from 5 to 9 {
+  $xaxis: 80;
+  @for $j from 1 to 9 {
+    #svg_#{$i}_#{$j} {
+        x: $xaxis;
+        y: $yaxis;
+    }
+    $xaxis: $xaxis + 57
+  }
+  $yaxis: $yaxis + 55; 
+}
+
 .animate {
   zoom: 125%;
 }
+
+.board-background {
+  position: absolute;
+  left: 51px;
+  top: 130px;
+} 
 
 @media screen and (max-width : 1250px ) {
   .board {

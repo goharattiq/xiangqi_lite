@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-array-index-key */
@@ -70,7 +71,8 @@ const Row = ({ row, clickHandler }) => {
                           <Piece
                             name={cell.piece.name}
                             id={`${cell.piece.name}-${cell.piece.id}`}
-                            hitStyle={hints.includes(cell.id) ? { border: '2px solid red', borderRadius: '15px' } : {}}
+                            hitStyle={hints.includes(cell.id)
+                              ? { border: '2px solid red', borderRadius: '15px' } : {}}
                           />
                         </div>
                       )}

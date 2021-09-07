@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
@@ -9,9 +10,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { hintMove, pieceMove, clearHintMove } from '../../redux/game/actions';
 import hitAudio from '../../static/audio/hit.ogg';
 import moveAudio from '../../static/audio/move.ogg';
+import { ReactComponent as Background } from '../../static/img/background/board.svg';
 import { changeDroppableStyle, pieceAnimationEnd, pieceAnimationStart } from '../../utils/game';
 import Row from './Row';
-
 import './Board.scss';
 
 const Board = ({ historyMode }) => {
@@ -53,6 +54,7 @@ const Board = ({ historyMode }) => {
     <>
       <audio id="move-audio" src={moveAudio} />
       <audio id="hit-audio" src={hitAudio} />
+      <Background className="board-background" />
       <table className="rounded board">
         <tbody>
           <DragDropContext
@@ -61,18 +63,22 @@ const Board = ({ historyMode }) => {
             onDragStart={(move) => onDragStart(move)}
           >
             {
-            board && board.map((row, rowIndex) => (
-              <tr
-                key={rowIndex}
-              >
-                <Row
-                  row={row}
-                  key={rowIndex}
-                  clickHandler={clickHandler}
-                />
-              </tr>
-            ))
-          }
+              board && board.map((row, rowIndex) => (
+                <>
+                  {
+                    rowIndex === 5 ? <tr /> : <></>
+                  }
+                  <tr
+                    key={rowIndex}
+                  >
+                    <Row
+                      row={row}
+                      clickHandler={clickHandler}
+                    />
+                  </tr>
+                </>
+              ))
+            }
           </DragDropContext>
         </tbody>
       </table>
