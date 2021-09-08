@@ -8,3 +8,11 @@
   color: rgba(0, 60, 255, 0.671);
   text-decoration: underline;
 }
+
+
+@media screen and (max-width: 400px){
+  .games {
+    position: relative;
+    top: 50px;
+  }
+}

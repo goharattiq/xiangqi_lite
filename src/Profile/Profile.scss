@@ -1,6 +1,6 @@
 @import '../variables';
 
-.avatar {
+.profile-avatar {
   background-color: gray;
   width: 200px;
   height: 200px;
@@ -11,20 +11,19 @@
   display: inline-flex;
 }
 
-.user-fullname {
-  color: $compliment;
+.user-detail {
   position: relative;
-  left: 15%;
+  color: $compliment;
   top: 50px;
+  left: 30px
+}
+
+.user-fullname {
   height: 20px;
   font-size: 2rem;
 }
 
 .user-username {
-  color: $compliment;
-  position: relative;
-  left: -127px;
-  top: 102px;
   height: 20px;
 }
 
@@ -46,6 +45,7 @@
   .user-stats{
     flex-direction: column; 
     left: 40%;
+    width: 100px!important;
   }
 }
 
@@ -53,7 +53,7 @@
   .user-profile {
     display: block;
   }
-  .avatar { 
+  .profile-avatar { 
     position: relative;
     left: 9px;
     top: 20px;
@@ -62,9 +62,7 @@
     font-size: 1.6rem;
   }
   .user-username {
-    text-align: center;
-    top: 49px;
-    left: 0px;
+    text-align: start;
     height: 20px;
   }
   .user-stats{

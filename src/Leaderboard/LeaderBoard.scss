@@ -1,10 +1,10 @@
-.avatar {
+.leader-avatar {
   background-color: gray;
   width: 10rem;
   height: 10rem;
   border-radius: 50%;
   position: relative;
-  left: 15%;
+  left: 20%;
 }
 
 .leaderboard {
@@ -16,22 +16,34 @@ table{
   position: inherit;
 }
 
+@media screen and (max-width: 1400px){
+  .leader-avatar {
+    left: 11%;
+  }
+}
+
 @media screen and (max-width: 1200px){
-  .avatar {
-    left: 1%;
+  .leader-avatar {
+    left: -4%;
   }
 }
 
 @media screen and (max-width: 980px){
-  .avatar {
+  .leader-avatar {
     width: 7rem;
     height: 7rem;
-    left: 20%;
+    left: 27%;
   }
 }
 
-@media screen and (max-width: 600px){
-  .avatar {
-    left: 6%;
+@media screen and (max-width: 850px){
+  .leader-avatar {
+    left: 24%;
+  }
+}
+
+@media screen and (max-width: 730px){
+  .leader-avatar {
+    left: 12%;
   }
 }

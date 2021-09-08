@@ -79,7 +79,8 @@ const Row = ({ row, clickHandler }) => {
                     </Draggable>
                   ) : (
                     <Spot
-                      visiblity={hints.includes(cell.id) && !disable ? 'visible' : 'hidden'}
+                      // visiblity={hints.includes(cell.id) && !disable ? 'visible' : 'hidden'}
+                      visiblity="visible"
                       id={`spot-${cell.id}`}
                     />
                   )

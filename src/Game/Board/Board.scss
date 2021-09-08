@@ -18,34 +18,34 @@ td {
 
 
 rect {
-  width: 57px;
-  height: 55px;
+  width: $rect-width-xxl;
+  height: $rect-height-xxl;
 }
 
-$yaxis: 60;
+$yaxis: $ya-xxl;
 @for $i from 1 to 5 {
-  $xaxis: 80;
+  $xaxis: $xa-xxl;
   @for $j from 1 to 9 {
     #svg_#{$i}_#{$j} {
         x: $xaxis;
         y: $yaxis;
     }
-    $xaxis: $xaxis + 57
+    $xaxis: $xaxis + $rect-width-xxl;
   }
-  $yaxis: $yaxis + 55; 
+  $yaxis: $yaxis + $rect-height-xxl; 
 }
 
-$yaxis: $yaxis + 110;
+$yaxis: $yaxis + 10.7%;
 @for $i from 5 to 9 {
-  $xaxis: 80;
+  $xaxis: $xa-xxl;
   @for $j from 1 to 9 {
     #svg_#{$i}_#{$j} {
         x: $xaxis;
         y: $yaxis;
     }
-    $xaxis: $xaxis + 57
+    $xaxis: $xaxis + $rect-width-xxl;
   }
-  $yaxis: $yaxis + 55; 
+  $yaxis: $yaxis + $rect-height-xxl; 
 }
 
 .animate {
@@ -54,20 +54,51 @@ $yaxis: $yaxis + 110;
 
 .board-background {
   position: absolute;
-  left: 51px;
+  left: 7.4%;
   top: 130px;
 } 
+
+@media screen and (max-width : 1650px ) {
+  .board-background {
+    left: 7.0%;
+  } 
+}
+
+@media screen and (max-width : 1550px ) {
+  .board-background {
+    left: 6.8%;
+  } 
+}
+
+@media screen and (max-width : 1360px ) {
+  .board-background {
+    left: 6.4%;
+  } 
+}
+
 
 @media screen and (max-width : 1250px ) {
   .board {
     left: 13%;
   }
+  .board-background {
+    left: 4.6%;
+  } 
+}
+
+@media screen and (max-width : 1145px ) {
+  .board-background {
+    left: 4%;
+  } 
 }
 
 @media screen and (max-width : 960px ) {
   .board {
     left: 5%;
   }
+  .board-background {
+    left: -2%;
+  } 
 }
 
 @media screen and (max-width : 600px ) {
@@ -82,10 +113,48 @@ $yaxis: $yaxis + 110;
     height: $screen-sm;
     width: $screen-sm;
   }
+  .board-background {
+    width: 800px;
+    height: 800px;
+  }
+
+  rect {
+    width: $rect-width-sm;
+    height: $rect-height-sm;
+  }
+  
+  $yaxis: $ya-sm;
+  @for $i from 1 to 5 {
+    $xaxis: $xa-sm;
+    @for $j from 1 to 9 {
+      #svg_#{$i}_#{$j} {
+          x: $xaxis;
+          y: $yaxis;
+      }
+      $xaxis: $xaxis + $rect-width-sm;
+    }
+    $yaxis: $yaxis + $rect-height-sm; 
+  }
+  
+  $yaxis: $yaxis + 90;
+  @for $i from 5 to 9 {
+    $xaxis: $xa-sm;
+    @for $j from 1 to 9 {
+      #svg_#{$i}_#{$j} {
+          x: $xaxis;
+          y: $yaxis;
+      }
+      $xaxis: $xaxis + $rect-width-sm;
+    }
+    $yaxis: $yaxis + $rect-height-sm; 
+  } 
 }
 
 @media screen and (max-width : 500px ) {
   .board {
     left: 5%;
   }
+  .board-background {
+    left: -76px;
+  } 
 }

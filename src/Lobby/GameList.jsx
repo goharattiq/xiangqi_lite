@@ -21,7 +21,7 @@ const GameList = ({ type, games, username }) => {
             id, player_1, player_2, is_rated, is_timed, move_timer, game_timer,
           }) => (
             <div
-              className="col-2 border m-3  p-3"
+              className="col-md-2 col-sm-4 col-5 border m-3  p-3"
               key={id}
             >
               <p className="text-center">

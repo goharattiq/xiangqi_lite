@@ -19,14 +19,14 @@
 $posLeft: 0;
 
 @for $var from 1 to 16 {
-  li:nth-child(#{$var}) {
+  .hit-piece li:nth-child(#{$var}) {
       position: relative;
       left: $posLeft * 1%;
     } 
     $posLeft: $posLeft - 1 
 }
 
-li:hover {
+.hit-piece li:hover {
   cursor: pointer;
   left: 0;
   z-index: 10;

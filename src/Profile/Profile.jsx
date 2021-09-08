@@ -15,9 +15,12 @@ const Profile = ({
   <Container className="bg-white w-75 mt-5 pb-3">
     <div>
       <div className="user-profile mt-5 ms-5">
-        <div className="avatar" />
-        <p className="user-fullname">{userFullName}</p>
-        <p className="user-username">{user ? user.username : ''}</p>
+        <div className="profile-avatar" />
+        <div className="user-detail">
+          <p className="user-fullname">{userFullName}</p>
+          <p className="mt-5 ms-1 user-username">{user ? user.username : ''}</p>
+        </div>
+
       </div>
       <ul className="list-group mt-5 mb-3 user-stats">
         {

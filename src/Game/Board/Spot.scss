@@ -8,3 +8,12 @@
   border-radius: 10px;
   margin-left: 18px;
 }
+
+
+@media screen and (max-width : 600px ) {
+  .spot {
+    width: 15px;
+    height: 15px;
+    margin-left: 16px;
+  }
+}
