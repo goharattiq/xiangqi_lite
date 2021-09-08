@@ -10,12 +10,12 @@ import { fetchAllTimeGames, fetchUserProfile } from '../redux/profile/thunk';
 import './Profile.scss';
 
 const Profile = ({
-  userFullName, user, stateList, games,
+  userFullName, user, stateList, games, photo,
 }) => (
   <Container className="bg-white w-75 mt-5 pb-3">
     <div>
       <div className="user-profile mt-5 ms-5">
-        <div className="profile-avatar" />
+        <img src={photo} alt={user.username} className="profile-avatar" />
         <div className="user-detail">
           <p className="user-fullname">{userFullName}</p>
           <p className="mt-5 ms-1 user-username">{user ? user.username : ''}</p>
@@ -57,6 +57,7 @@ const ProfileContainer = () => {
     drawCount,
     winningPercentage,
     games,
+    photo,
   } = useSelector(({ profile }) => ({
     user: profile.user,
     gamesCount: profile.games_played_count,
@@ -65,6 +66,7 @@ const ProfileContainer = () => {
     drawCount: profile.draw_count,
     winningPercentage: profile.winning_percentage,
     games: profile.games,
+    photo: profile.photo,
   }));
 
   const stateList = [
@@ -82,6 +84,7 @@ const ProfileContainer = () => {
       user={user}
       stateList={stateList}
       games={games}
+      photo={photo}
     />
 
   );
@@ -92,6 +95,7 @@ Profile.propTypes = {
   user: PropTypes.object.isRequired,
   stateList: PropTypes.array.isRequired,
   games: PropTypes.array.isRequired,
+  photo: PropTypes.string.isRequired,
 };
 
 export default ProfileContainer;

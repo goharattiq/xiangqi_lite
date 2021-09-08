@@ -7,7 +7,7 @@ export const socketSendMessage = (message, gameID) => {
 
 export const subscribeChatSocketsEvent = (dispatch) => {
   if (socket) {
-    socket.on('chat.recevied', (message) => {
+    socket.on('chat.received', (message) => {
       dispatch(messageSend(message));
     });
   }
