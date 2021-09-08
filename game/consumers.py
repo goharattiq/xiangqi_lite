@@ -13,7 +13,7 @@ app = socketio.ASGIApp(sio)
 @sio.on('chat.send')
 async def send_message(sid, data):
     print(data['message'])
-    await sio.emit('chat.recevied',
+    await sio.emit('chat.received',
                    data=data['message'],
                    room=str(data['gameID']),
                    skip_sid=sid)

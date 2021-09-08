@@ -17,7 +17,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ['user', 'bio', 'rating', 'games_played_count',
                   'wins_count',
-                  'losses_count', 'draw_count', 'winning_percentage']
+                  'losses_count', 'draw_count', 'winning_percentage', 'photo']
 
     def create(self, validated_data):
         user = User.objects.filter(id=validated_data['user']['id']).first()
@@ -46,4 +46,4 @@ class ProfileGameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['user', 'rating']
+        fields = ['user', 'rating','photo']
