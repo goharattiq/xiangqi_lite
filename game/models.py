@@ -1,9 +1,10 @@
+from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.contrib.auth.models import User
 from django.db.models import JSONField
 from django.utils.translation import gettext_lazy as _
-from django.contrib.postgres.fields import ArrayField
+
 from user_profile.models import Profile
 
 
@@ -25,17 +26,20 @@ class Game(models.Model):
     player_2 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='player_2', null=True)
     game_board = ArrayField(ArrayField(JSONField(), size=9, default=list, blank=True),
                             size=10, default=list, blank=True)
-    hit_pieces = ArrayField(JSONField(),default=list)
-    history = ArrayField(JSONField(),default=list)
+    hit_pieces = ArrayField(JSONField(), default=list)
+    history = ArrayField(JSONField(), default=list)
     player_turn = models.IntegerField(_('player_turn'), default=-1)
-    connected_player = models.IntegerField(_('connected_player'), default=0)
+    connected_player = models.IntegerField(_('connected_player'), default=0 )
 
     def clean(self):
-        if self.player_1 == self.player_2:
+        if self.player_1.user_id == self.player_2.user_id:
             raise ValidationError('Players should be different')
 
         if self.move_timer not in self.timer.keys():
             raise ValidationError('Please select correct value')
 
         if self.game_timer not in self.timer[self.move_timer]:
+            raise ValidationError('Please select correct value')
+
+        if self.connected_player < 0 or self.connected_player > 1:
             raise ValidationError('Please select correct value')

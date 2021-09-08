@@ -12,6 +12,7 @@ class Profile(models.Model):
     losses_count = models.FloatField(_("losses_count"), default=0)
     draw_count = models.FloatField(_("draw_count"), default=0)
     winning_percentage = models.FloatField(_("winning_percentage"), default=0)
+    photo = models.ImageField(upload_to='images/' ,null=True,blank=True)
 
     def __str__(self):
         return self.user.username
