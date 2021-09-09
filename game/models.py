@@ -24,8 +24,7 @@ class Game(models.Model):
     side = models.CharField(_('side'), max_length=10, blank=True)
     player_1 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='player_1', null=True)
     player_2 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='player_2', null=True)
-    game_board = ArrayField(ArrayField(JSONField(), size=9, default=list, blank=True),
-                            size=10, default=list, blank=True)
+    game_board = JSONField()
     hit_pieces = ArrayField(JSONField(), default=list)
     history = ArrayField(JSONField(), default=list)
     player_turn = models.IntegerField(_('player_turn'), default=-1)
