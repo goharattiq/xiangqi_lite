@@ -9,7 +9,9 @@ import {
   pieceMove,
 } from '../redux/game/actions';
 import { COLS, ROWS } from '../utils/constants';
-import { initMatrix } from '../utils/game';
+import {
+  boardOptimize, initMatrix, loadBoard, setPiecePositions,
+} from '../utils/game';
 import { socket } from './socketio';
 
 export const socketEnterGame = (gameID) => {
@@ -19,19 +21,23 @@ export const socketEnterGame = (gameID) => {
 export const socketSetGameParams = (params, owner) => {
   const newParams = params;
   newParams.side = newParams.side === 'Random' ? ['Red', 'Black'][Math.round(Math.random())] : newParams.side;
+  let board = initMatrix(ROWS, COLS);
+  board = setPiecePositions(board);
   socket.emit('game.set_params', {
     ...newParams,
-    game_board: initMatrix(ROWS, COLS),
+    game_board: boardOptimize(board),
     player_1: owner,
     player_2: params.username,
   });
 };
 
 export const socketSendMoves = (gameID, move, board) => {
+  // console.log(boardOptimize(board));
+  // loadBoard(boardOptimize(board));
   socket.emit('game.piece_move', {
     gameID,
     move,
-    board,
+    board: boardOptimize(board),
   });
 };
 
@@ -86,5 +92,6 @@ const initGame = (gameParams, username, dispatch) => {
       side: newGameParams.side === 'Red' ? 'Black' : 'Red',
     };
   }
+  game_board = loadBoard(game_board);
   dispatch(initBoard(game_board, hit_pieces, history, newGameParams));
 };

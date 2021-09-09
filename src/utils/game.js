@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
-import { MAP } from './constants';
+import { COLS, MAP, ROWS } from './constants';
 import {
   cannonMoves,
   chariotMoves,
@@ -8,6 +8,7 @@ import {
   advisorElephantMoves,
   kingPawnMoves,
   whichSide,
+  matrixPosition,
 } from './pieceMove';
 
 // pices moves
@@ -20,7 +21,7 @@ import {
 // => Chariot orthogoal
 
 export const initMatrix = (row, col) => {
-  let board = Array(row);
+  const board = Array(row);
   let id = 0;
   for (let i = 0; i < board.length; i += 1) {
     board[i] = Array(col);
@@ -30,7 +31,6 @@ export const initMatrix = (row, col) => {
       id += 1;
     }
   }
-  board = setPiecePositions(board);
   return board;
 };
 
@@ -158,4 +158,29 @@ export const getHintMoves = (pieceName, location, board) => {
       break;
   }
   return expectedLocations;
+};
+
+export const boardOptimize = (board) => {
+  const newBoard = {};
+  for (let i = 0; i < ROWS; i++) {
+    for (let j = 0; j < COLS; j++) {
+      const cell = board[i][j];
+      if (cell.piece) {
+        newBoard[cell.id] = cell.piece;
+      }
+    }
+  }
+  return newBoard;
+};
+
+export const loadBoard = (optimizedBoard) => {
+  const board = initMatrix(ROWS, COLS);
+  Object.keys(optimizedBoard).forEach(
+    (key) => {
+      const [x, y] = matrixPosition(key);
+      board[x][y].piece = optimizedBoard[key];
+    },
+  );
+
+  return board;
 };
