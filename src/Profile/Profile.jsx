@@ -3,10 +3,12 @@ import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Spinner from '../Components/Spinner';
 import GameList from '../Lobby/GameList';
 import { fetchAllTimeGames, fetchUserProfile } from '../redux/profile/thunk';
+
 import './Profile.scss';
 
 const Profile = ({
@@ -19,6 +21,9 @@ const Profile = ({
         <div className="user-detail">
           <p className="user-fullname">{userFullName}</p>
           <p className="mt-5 ms-1 user-username">{user ? user.username : ''}</p>
+          <Link to={`profile/edit/${user.pk}`} className="m-1">
+            <i className="fas fa-edit" />
+          </Link>
         </div>
 
       </div>
@@ -76,7 +81,7 @@ const ProfileContainer = () => {
     { name: 'Draws', score: drawCount },
     { name: 'Winning%', score: winningPercentage },
   ];
-  const userFullName = user && user.first_name ? `${user.first_name} ${user.first_name}` : 'Fill Your Name';
+  const userFullName = user && user.first_name ? `${user.first_name} ${user.last_name}` : '';
   return (
     <ProfileWithSpinner
       isLoading={!user || !games}

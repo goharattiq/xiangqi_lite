@@ -8,6 +8,7 @@ import Authentication from '../Authentication/Authentication';
 import Game from '../Game/Game';
 import LeaderBoard from '../Leaderboard/LeaderBoard';
 import Lobby from '../Lobby/Lobby';
+import EditProfile from '../Profile/EditProfile';
 import Profile from '../Profile/Profile';
 import { subscribeChatSocketsEvent } from '../socketio/chatSocketio';
 import { subscribeGameSockets } from '../socketio/gameSocketio';
@@ -39,6 +40,7 @@ const Render = () => {
           <Switch>
             <PrivateRoute exact path="/lobby" component={Lobby} />
             <PrivateRoute exact path="/profile" component={Profile} />
+            <PrivateRoute exact path="/profile/edit/:profileID" component={EditProfile} />
             <PrivateRoute exact path="/game/:gameId" component={Game} />
             <PrivateRoute exact path="/leaderboard" component={LeaderBoard} />
           </Switch>
