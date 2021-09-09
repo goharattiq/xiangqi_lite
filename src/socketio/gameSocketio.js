@@ -32,8 +32,6 @@ export const socketSetGameParams = (params, owner) => {
 };
 
 export const socketSendMoves = (gameID, move, board) => {
-  // console.log(boardOptimize(board));
-  // loadBoard(boardOptimize(board));
   socket.emit('game.piece_move', {
     gameID,
     move,

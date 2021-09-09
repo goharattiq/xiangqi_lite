@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { gameParamsAct } from '../redux/game/actions';
 import { fetechedSearchUsernames } from '../redux/game/thunk';
 import { isValidGameParams } from '../redux/game/utiles';
+import { setToast } from '../redux/toast/actions';
 import { socketSetGameParams } from '../socketio/gameSocketio';
 import { MOVE_TIMER, GAME_TIMER, SIDE } from '../utils/constants';
 import { PARAMETERS } from '../utils/paramsData';
@@ -47,6 +48,10 @@ const GameParams = ({ setOverlayDiv }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (isValidGameParams(gameParams, searchNames)) {
+      if (owner === username) {
+        dispatch(setToast('You cannot play with yourself', 'danger', dispatch));
+        return;
+      }
       dispatch(gameParamsAct(gameParams));
       socketSetGameParams(gameParams, owner);
       setGameParams({
@@ -58,6 +63,8 @@ const GameParams = ({ setOverlayDiv }) => {
         side: '',
         username: '',
       });
+    } else {
+      dispatch(setToast('Please choose complete game params', 'danger', dispatch));
     }
   };
   return (
