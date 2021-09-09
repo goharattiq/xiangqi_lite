@@ -1,30 +1,28 @@
 from django.contrib.auth.models import User
-from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer
 
 from .models import Profile
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ['pk', 'username', 'email', 'first_name', 'last_name']
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+class ProfileSerializer(ModelSerializer):
+    user = UserSerializer('user')
 
     class Meta:
         model = Profile
-        fields = ['user', 'bio', 'rating', 'games_played_count',
-                  'wins_count',
+        fields = ['user', 'bio', 'rating', 'games_played_count', 'wins_count',
                   'losses_count', 'draw_count', 'winning_percentage', 'photo']
 
     def create(self, validated_data):
-        user = User.objects.filter(id=validated_data['user']['id']).first()
-        validated_data.pop('user')
+        user = User.objects.filter(id=validated_data).first()
         if not user:
             return None
-        return Profile.objects.create(user_id=user.id, **validated_data)
+        return Profile.objects.create(user_id=user.id)
 
     def update(self, instance, validated_data):
         user_id = validated_data['user']['id']
@@ -35,13 +33,13 @@ class ProfileSerializer(serializers.ModelSerializer):
         return Profile.objects.filter(user_id=user_id).first()
 
 
-class UserSearchSerializer(serializers.ModelSerializer):
+class UserSearchSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username']
 
 
-class ProfileGameSerializer(serializers.ModelSerializer):
+class ProfileGameSerializer(ModelSerializer):
     user = UserSerializer()
 
     class Meta:

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from rest_framework.generics import RetrieveUpdateAPIView, CreateAPIView, ListAPIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
@@ -19,6 +20,10 @@ class RetrieveProfile(RetrieveUpdateAPIView):
 class CreateProfile(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ProfileSerializer
+
+    def post(self, request, *args, **kwargs):
+        ProfileSerializer().create(validated_data=request.data['id'])
+        return HttpResponse(status=201)
 
 
 class SearchUser(ListAPIView):
