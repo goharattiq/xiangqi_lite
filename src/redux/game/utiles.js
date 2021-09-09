@@ -54,6 +54,13 @@ export const onPieceMove = (move, previousState, history, fromSockets) => {
   };
 };
 
-export const isValidGameParams = (params, searchNames) => ((params.gameType !== '') && (params.gameRated !== '')
-  && (params.gameTimed !== '') && (params.side !== '')
-  && (params.username !== '') && searchNames.find((user) => user.username === params.username));
+export const isValidGameParams = (params, searchNames) => (
+  (params.gameType !== '')
+  && (params.gameRated !== '')
+  && (params.gameTimed !== '')
+  && (params.side !== '')
+  && (params.username !== '')
+  && searchNames.find(
+    (user) => user.username === params.username,
+  )
+);

@@ -1,8 +1,7 @@
-/* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 
 import { dispatchErrors } from '../toast/utils';
-import { getGames, getProfile } from './actions';
+import { editProfile, getGames, getProfile } from './actions';
 
 export const fetchUserProfile = (userId) => (dispatch) => {
   axios
@@ -21,6 +20,27 @@ export const fetchAllTimeGames = () => (dispatch) => {
     .get('/api/game/alltime/')
     .then((res) => {
       dispatch(getGames(res.data));
+    })
+    .catch((err) => {
+      const errors = err.response.data;
+      dispatchErrors(errors, dispatch);
+    });
+};
+
+export const updateProfile = (userID, {
+// eslint-disable-next-line camelcase
+  first_name, last_name, bio, photo,
+}) => (dispatch) => {
+  const data = new FormData();
+  data.append('photo', photo);
+  data.append('id', userID);
+  data.append('first_name', first_name);
+  data.append('last_name', last_name);
+  data.append('bio', bio);
+  axios
+    .put(`/api/profile/${userID}/`, data)
+    .then((res) => {
+      dispatch(editProfile(res.data));
     })
     .catch((err) => {
       const errors = err.response.data;
