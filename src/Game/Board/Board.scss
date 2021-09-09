@@ -35,7 +35,7 @@ $yaxis: $ya-xxl;
   $yaxis: $yaxis + $rect-height-xxl; 
 }
 
-$yaxis: $yaxis + 10.7%;
+$yaxis: $yaxis + 15.4%;
 @for $i from 5 to 9 {
   $xaxis: $xa-xxl;
   @for $j from 1 to 9 {
@@ -54,7 +54,7 @@ $yaxis: $yaxis + 10.7%;
 
 .board-background {
   position: absolute;
-  left: 7.4%;
+  left: 7.6%;
   top: 130px;
 } 
 
@@ -136,7 +136,7 @@ $yaxis: $yaxis + 10.7%;
     $yaxis: $yaxis + $rect-height-sm; 
   }
   
-  $yaxis: $yaxis + 90;
+  $yaxis: $yaxis + 11%;
   @for $i from 5 to 9 {
     $xaxis: $xa-sm;
     @for $j from 1 to 9 {

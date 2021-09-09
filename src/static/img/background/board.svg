@@ -1,4 +1,4 @@
-<svg width="910" height="1010" xmlns="http://www.w3.org/2000/svg">
+<svg width="600" height="700" xmlns="http://www.w3.org/2000/svg">
  <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
 
  <g>
@@ -96,30 +96,30 @@
    <rect fill="none" stroke="#664f4c" stroke-width="1.5" id="svg_8_8"/>
 
   </g>
-  <!-- <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_4" y="54.11773" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">J</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_5" y="154.11775" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">I</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_6" y="254.11775" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">H</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_7" y="354.11775" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">G</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_8" y="454.11775" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">F</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_11" y="554.21636" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">E</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_12" y="654.11775" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">D</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_13" y="754.11775" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">C</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_14" y="854.21628" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">B</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_15" y="954.2236" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">A</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_19" y="1007.16389" x="63.08738" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">1</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_20" y="1007.16389" x="162.97023" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">2</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_21" y="1007.16389" x="262.97023" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">3</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_22" y="1007.16389" x="362.97023" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">4</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_23" y="1007.16389" x="462.97023" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">5</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_24" y="1007.16389" x="562.97023" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">6</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_27" y="1007.16389" x="662.97023" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">7</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_28" y="1007.16389" x="762.97023" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">8</text>
-  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_29" y="1007.16389" x="862.97023" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">9</text>-->
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t1" y="60" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">J</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t2" y="120" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">I</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t3" y="180" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">H</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t4" y="240" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">G</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t5" y="300" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">F</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t6" y="400" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">E</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t7" y="460" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">D</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t8" y="520" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">C</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t9" y="580" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">B</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t10" y="640" x="6.47072" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">A</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t11" y="670" x="68" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">1</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t12" y="670" x="128" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">2</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t13" y="670" x="185" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">3</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t14" y="670" x="240" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">4</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t15" y="670" x="300" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">5</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t16" y="670" x="355" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">6</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t17" y="670" x="410" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">7</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t18" y="670" x="470" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">8</text>
+  <text style="cursor: move;" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_t19" y="670" x="530" stroke-width="0" stroke="#0aa3b7" fill="#b7a3a8">9</text>
   
-  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_s1" y2="60" x2="250" y1="170" x1="365" stroke-width="1.5" stroke="#664f4c" fill="none"/> 
-  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_s2" y2="170" x2="250" y1="60" x1="365" stroke-width="1.5" stroke="#664f4c" fill="none"/>
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_s1" y2="57" x2="250" y1="170" x1="363" stroke-width="1.5" stroke="#664f4c" fill="none"/> 
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_s2" y2="170" x2="250" y1="57" x1="363" stroke-width="1.5" stroke="#664f4c" fill="none"/>
   
-  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_s3" y2="500" x2="250" y1="610" x1="365" stroke-width="1.5" stroke="#664f4c" fill="none"/>
-  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_s4" y2="610" x2="250" y1="500" x1="365" stroke-width="1.5" stroke="#664f4c" fill="none"/>
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_s3" y2="510" x2="250" y1="622" x1="363" stroke-width="1.5" stroke="#664f4c" fill="none"/>
+  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_s4" y2="622" x2="250" y1="510" x1="363" stroke-width="1.5" stroke="#664f4c" fill="none"/>
  </g>
 </svg>
