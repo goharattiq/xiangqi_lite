@@ -49,8 +49,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'dj_rest_auth.registration',
     'channels',
-    'allauth.socialaccount',
-    'storages'
 ]
 
 MIDDLEWARE = [
@@ -89,15 +87,14 @@ ASGI_APPLICATION = 'xiangqi_django.routing.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-#DATABASES = {
+# DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
 
-DB_NAME = 'postgresql://goharattiq_demo_db_connection:D5A2_aT4ubV74TUcmCNYDMvfaShX@db.bit.io'
-
+# local database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -109,8 +106,18 @@ DATABASES = {
     }
 }
 
-# postgresql://goharattiq_demo_db_connection:D5A2_aT4ubV74TUcmCNYDMvfaShX@db.bit.io
-#
+# online database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'xiangqi_db',
+#         'USER': 'admin',
+#         'PASSWORD': 'adminadmin',
+#         'HOST': 'postgresql-49660-0.cloudclusters.net',
+#         'PORT': '12212',
+#     }
+# }
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
        'rest_framework.permissions.AllowAny',
@@ -150,7 +157,6 @@ SIMPLE_JWT = {
 
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'TOKEN_TYPE_CLAIM': 'token_type',
-
 }
 
 
@@ -180,19 +186,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
 CORS_ALLOW_ALL_ORIGINS = True
-SITE_ID = 1
+SITE_ID = 2
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'access_token'
 JWT_AUTH_REFRESH_COOKIE = 'refresh_token'
 ALLOWED_HOSTS = '*'
-
-# AWS_ACCESS_KEY_ID = 'AKIAV7BOV2DT4DT6IMW5'
-# AWS_SECRET_ACCESS_KEY = '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'
-#
-#
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# AWS_STORAGE_BUCKET_NAME = 'xiangqi.lite'
-# AWS_S3_REGION_NAME = 'us-east-2'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

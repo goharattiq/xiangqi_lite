@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from rest_framework.serializers import ModelSerializer
-
 from .models import Profile
 
 
@@ -25,11 +24,25 @@ class ProfileSerializer(ModelSerializer):
         return Profile.objects.create(user_id=user.id)
 
     def update(self, instance, validated_data):
-        user_id = validated_data['user']['id']
-        validated_data['user'].pop('id')
-        User.objects.filter(id=user_id).update(**validated_data['user'])
-        validated_data.pop('user')
-        Profile.objects.update(user_id=user_id, **validated_data)
+        user_id = validated_data.get('id')
+        user_fields = ['email', 'first_name', 'last_name']
+        user = {}
+        for field in user_fields:
+            value = validated_data.get(field)
+            if value is not None:
+                user[field] = value
+        User.objects.filter(id=user_id).update(**user)
+
+        profile = {}
+        profile_fields = ['bio', 'photo']
+        for field in profile_fields:
+            value = validated_data.get(field)
+            if value is not None and value != '':
+                if field == 'photo':
+                    instance = Profile.objects.filter(user_id=user_id).first()
+                    instance.photo.save(value.name, value)
+                    continue
+                profile[field] = value
         return Profile.objects.filter(user_id=user_id).first()
 
 
@@ -44,4 +57,4 @@ class ProfileGameSerializer(ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['user', 'rating','photo']
+        fields = ['user', 'rating', 'photo']

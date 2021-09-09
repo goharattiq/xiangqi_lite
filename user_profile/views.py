@@ -16,6 +16,10 @@ class RetrieveProfile(RetrieveUpdateAPIView):
         id = self.kwargs.get('pk')
         return get_object_or_404(Profile, user_id=id)
 
+    def update(self, request, *args, **kwargs):
+        ProfileSerializer().update(Profile.objects.get(user_id=self.kwargs['pk']), validated_data=request.data)
+        return HttpResponse(status=200)
+
 
 class CreateProfile(CreateAPIView):
     permission_classes = [IsAuthenticated]
@@ -31,7 +35,8 @@ class SearchUser(ListAPIView):
     serializer_class = UserSearchSerializer
 
     def get_queryset(self):
-        return User.objects.filter(Q(username__startswith=self.kwargs.get('username')))
+        return User.objects.filter(Q(username__startswith=self.kwargs.get('username')),
+                                   ~Q(username=self.request.user.username))
 
 
 class LeaderBoard(ListAPIView):
