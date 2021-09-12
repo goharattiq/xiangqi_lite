@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 /* eslint-disable camelcase */
 import { clearChat } from '../redux/chat/actions';
 import {

@@ -1,11 +1,10 @@
-@import '../../variables';
+@import "../../variables";
 
 .board {
   background-color: rgba($color: $background, $alpha: 0.1);
   position: relative;
   left: 15%;
 }
-
 
 tr {
   height: $screen-xl;
@@ -15,7 +14,6 @@ td {
   height: $screen-xl;
   width: $screen-xl;
 }
-
 
 rect {
   width: $rect-width-xxl;
@@ -27,12 +25,12 @@ $yaxis: $ya-xxl;
   $xaxis: $xa-xxl;
   @for $j from 1 to 9 {
     #svg_#{$i}_#{$j} {
-        x: $xaxis;
-        y: $yaxis;
+      x: $xaxis;
+      y: $yaxis;
     }
     $xaxis: $xaxis + $rect-width-xxl;
   }
-  $yaxis: $yaxis + $rect-height-xxl; 
+  $yaxis: $yaxis + $rect-height-xxl;
 }
 
 $yaxis: $yaxis + 15.4%;
@@ -40,12 +38,12 @@ $yaxis: $yaxis + 15.4%;
   $xaxis: $xa-xxl;
   @for $j from 1 to 9 {
     #svg_#{$i}_#{$j} {
-        x: $xaxis;
-        y: $yaxis;
+      x: $xaxis;
+      y: $yaxis;
     }
     $xaxis: $xaxis + $rect-width-xxl;
   }
-  $yaxis: $yaxis + $rect-height-xxl; 
+  $yaxis: $yaxis + $rect-height-xxl;
 }
 
 .animate {
@@ -56,59 +54,58 @@ $yaxis: $yaxis + 15.4%;
   position: absolute;
   left: 7.6%;
   top: 130px;
-} 
-
-@media screen and (max-width : 1650px ) {
-  .board-background {
-    left: 7.0%;
-  } 
 }
 
-@media screen and (max-width : 1550px ) {
+@media screen and (max-width: 1650px) {
+  .board-background {
+    left: 7%;
+  }
+}
+
+@media screen and (max-width: 1550px) {
   .board-background {
     left: 6.8%;
-  } 
+  }
 }
 
-@media screen and (max-width : 1360px ) {
+@media screen and (max-width: 1360px) {
   .board-background {
     left: 6.4%;
-  } 
+  }
 }
 
-
-@media screen and (max-width : 1250px ) {
+@media screen and (max-width: 1250px) {
   .board {
     left: 13%;
   }
   .board-background {
     left: 4.6%;
-  } 
+  }
 }
 
-@media screen and (max-width : 1145px ) {
+@media screen and (max-width: 1145px) {
   .board-background {
     left: 4%;
-  } 
+  }
 }
 
-@media screen and (max-width : 960px ) {
+@media screen and (max-width: 960px) {
   .board {
     left: 5%;
   }
   .board-background {
     left: -2%;
-  } 
+  }
 }
 
-@media screen and (max-width : 600px ) {
+@media screen and (max-width: 600px) {
   .board {
     left: 15%;
   }
   tr {
     height: $screen-sm;
   }
-  
+
   td {
     height: $screen-sm;
     width: $screen-sm;
@@ -122,39 +119,39 @@ $yaxis: $yaxis + 15.4%;
     width: $rect-width-sm;
     height: $rect-height-sm;
   }
-  
+
   $yaxis: $ya-sm;
   @for $i from 1 to 5 {
     $xaxis: $xa-sm;
     @for $j from 1 to 9 {
       #svg_#{$i}_#{$j} {
-          x: $xaxis;
-          y: $yaxis;
+        x: $xaxis;
+        y: $yaxis;
       }
       $xaxis: $xaxis + $rect-width-sm;
     }
-    $yaxis: $yaxis + $rect-height-sm; 
+    $yaxis: $yaxis + $rect-height-sm;
   }
-  
+
   $yaxis: $yaxis + 11%;
   @for $i from 5 to 9 {
     $xaxis: $xa-sm;
     @for $j from 1 to 9 {
       #svg_#{$i}_#{$j} {
-          x: $xaxis;
-          y: $yaxis;
+        x: $xaxis;
+        y: $yaxis;
       }
       $xaxis: $xaxis + $rect-width-sm;
     }
-    $yaxis: $yaxis + $rect-height-sm; 
-  } 
+    $yaxis: $yaxis + $rect-height-sm;
+  }
 }
 
-@media screen and (max-width : 500px ) {
+@media screen and (max-width: 500px) {
   .board {
     left: 5%;
   }
   .board-background {
     left: -76px;
-  } 
+  }
 }

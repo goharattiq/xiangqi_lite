@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
@@ -71,7 +69,10 @@ const GameParams = ({ setOverlayDiv }) => {
     <div className="position-absolute w-100 h-100 overlay-div">
       <div className="position-absolute bg-white pt-4 game-params">
         <h2 className="text-center mb-3">Create game</h2>
-        <i className="fas fa-times" onClick={() => { setOverlayDiv(false); }} />
+        <button type="button" onClick={() => { setOverlayDiv(false); }}>
+          <i id="close" className="fas fa-times" />
+        </button>
+
         <Form onSubmit={handleSubmit} className="form-scroll">
           {
             PARAMETERS.map(({

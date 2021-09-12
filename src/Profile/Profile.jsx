@@ -21,20 +21,19 @@ const Profile = ({
         <div className="user-detail">
           <p className="user-fullname">{userFullName}</p>
           <p className="mt-5 ms-1 user-username">{user ? user.username : ''}</p>
-          <Link to={`profile/edit/${user.pk}`} className="m-1">
+          <Link to={`profile/edit/${user.pk}`} className="m-1 edit-button">
             <i className="fas fa-edit" />
           </Link>
         </div>
-
       </div>
       <ul className="list-group mt-5 mb-3 user-stats">
         {
                 stateList.map((state) => (
                   <li key={state.name} className="score list-group-item m-2">
-                    <p className="m-0">
+                    <p className="text-center">
                       {state.name === 'Winning%' ? state.score.toFixed(2) : state.score}
                     </p>
-                    <p className="m-0">{state.name}</p>
+                    <p className="text-center">{state.name}</p>
                   </li>
                 ))
               }

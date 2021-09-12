@@ -16,7 +16,6 @@ export const useSockets = (
   });
 
   socket.connect(() => {
-    // console.log(`connected ${socket.id}`);
   });
 
   socket.on('connect_error', () => {
@@ -25,7 +24,6 @@ export const useSockets = (
 
   return () => {
     socket.disconnect(() => {
-      // console.log('disconnected');
     });
   };
 };

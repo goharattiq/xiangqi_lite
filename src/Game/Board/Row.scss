@@ -1,4 +1,4 @@
-@import '../../variables';
+@import "../../variables";
 
 .expected-move {
   border: 2px solid;
@@ -6,5 +6,5 @@
 
 .cell {
   height: 70px;
-  width: 65px!important;
+  width: 65px !important;
 }

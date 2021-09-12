@@ -1,7 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 
 import { Draggable, Droppable } from 'react-beautiful-dnd';
@@ -22,13 +20,15 @@ const Row = ({ row, clickHandler }) => {
     user: auth.user,
     playerTurn: game.params.player_turn,
   }));
-  const disable = ![gameParams.player_1.user.username, gameParams.player_2.user.username]
+  const disable = ![
+    gameParams.player_1.user.username,
+    gameParams.player_2.user.username]
     .includes(user.username);
   const canMove = (pieceName) => !(whichSide(pieceName) === (gameParams.side === 'Red' ? RED : BLACK));
   const haveTurn = (turn) => (turn === user.pk);
   return (
-    row.map((cell, cellIndex) => (
-      <td key={`tr-${cellIndex}`} id={`droppable-${cell.id}`}>
+    row.map((cell) => (
+      <td key={`td-${cell.id}`} id={`droppable-${cell.id}`}>
         <Droppable
           droppableId={`droppable-${cell.id}`}
           key={cell.id}
@@ -57,15 +57,8 @@ const Row = ({ row, clickHandler }) => {
                           {...provid.draggableProps}
                           {...provid.dragHandleProps}
                           onClick={() => {
-                            // eslint-disable-next-line no-unused-expressions
-                            !disable
-                            && clickHandler(cell.piece.name, cell.id);
+                            !disable && clickHandler(cell.piece.name, cell.id);
                           }}
-                          // onMouseOver={() => {
-                          //   clickHandler(cell.piece.id, cell.piece.name, cell.id);
-                          // }}
-                          // eslint-disable-next-line max-len
-                          // onFocus={() => { clickHandler(cell.piece.id, cell.piece.name, cell.id); }}
                         >
                           <Piece
                             name={cell.piece.name}
@@ -79,7 +72,6 @@ const Row = ({ row, clickHandler }) => {
                   ) : (
                     <Spot
                       visiblity={hints.includes(cell.id) && !disable ? 'visible' : 'hidden'}
-                      // visiblity="visible"
                       id={`spot-${cell.id}`}
                     />
                   )

@@ -1,4 +1,4 @@
-@import '../../variables';
+@import "../../variables";
 
 .hit-piece {
   position: relative;
@@ -20,10 +20,10 @@ $posLeft: 0;
 
 @for $var from 1 to 16 {
   .hit-piece li:nth-child(#{$var}) {
-      position: relative;
-      left: $posLeft * 1%;
-    } 
-    $posLeft: $posLeft - 1 
+    position: relative;
+    left: $posLeft * 1%;
+  }
+  $posLeft: $posLeft - 1;
 }
 
 .hit-piece li:hover {

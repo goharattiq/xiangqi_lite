@@ -1,4 +1,33 @@
-@import '../variables';
+@import "../variables";
+
+input[type="radio"]:checked + label {
+  background-color: $primary;
+  color: $background;
+  cursor: pointer;
+}
+
+input[name="moveTime"],
+input[name="gameTimer"] {
+  height: 40px;
+  width: 60px !important;
+  cursor: pointer;
+}
+
+input[name="moveTime"] + label,
+input[name="gameTimer"] + label {
+  position: relative;
+  top: -31px;
+  left: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+
+input[type="radio"] + label {
+  position: relative;
+  top: -31px;
+  left: 10px;
+  cursor: pointer;
+}
 
 .overlay-div {
   color: $compliment;
@@ -26,7 +55,7 @@
   padding-left: 1rem;
 }
 
-.form-check-input[type=radio] {
+.form-check-input[type="radio"] {
   height: 40px;
   width: 90px;
   border-radius: 10px;
@@ -38,22 +67,9 @@
   width: 90px;
 }
 
-input[type="radio"]+label {
-  position: relative;
-  top: -31px;
-  left: 10px;
-  cursor: pointer;
-}
-
 .form-check-input:checked {
   background-color: $primary;
   color: $background;
-}
-
-input[type="radio"]:checked + label {
-  background-color: $primary;
-  color: $background;
-  cursor: pointer;
 }
 
 .form-check-label:checked {
@@ -64,27 +80,15 @@ input[type="radio"]:checked + label {
   margin-left: -30px;
 }
 
-input[name="moveTime"], input[name="gameTimer"] {
-  height: 40px;
-  width: 60px!important;
-  cursor: pointer;
-}
-
-input[name="moveTime"]+label, input[name="gameTimer"]+label {
-  position: relative;
-  top: -31px;
-  left: 20px;
-  width: 20px;
-  cursor: pointer; 
-}
-
-.form-button, .form-button:hover, .form-button:focus {
+.form-button,
+.form-button:hover,
+.form-button:focus {
   left: 20%;
   background-color: $primary;
 }
 
 .form-button:focus {
-  box-shadow: 0 0 0 0.25rem rgb(190,52,45/10%);
+  box-shadow: 0 0 0 0.25rem rgb(190, 52, 45/10%);
 }
 
 @media screen and (max-width: 550px) {

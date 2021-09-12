@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,35 +10,32 @@ import { updateProfile } from '../redux/profile/thunk';
 const EditProfile = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {
-    user,
-    player_bio,
-    // player_photo,
-  } = useSelector((state) => ({
-    user: state.profile.user,
-    player_bio: state.profile.bio,
-    player_photo: state.profile.photo,
+  const { user, player_bio } = useSelector(({ profile }) => ({
+    user: profile.user,
+    player_bio: profile.bio,
   }));
 
   const [profile, setProfile] = useState({
-    first_name: user.first_name ? user.first_name : '',
-    last_name: user.last_name ? user.last_name : '',
+    first_name: user?.first_name ? user.first_name : '',
+    last_name: user?.last_name ? user.last_name : '',
     bio: player_bio || '',
     photo: '',
   });
-  const {
-    bio, first_name, last_name, photo,
-  } = profile;
+  const { bio, first_name, last_name } = profile;
   const handleChange = ({ target: { name, value } }) => {
     setProfile({
       ...profile,
       [name]: value,
     });
   };
+  useEffect(() => {
+    if (!profile) {
+      history.push('/profile');
+    }
+  }, []);
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(updateProfile(user.pk, profile));
-    history.push('/profile');
+    dispatch(updateProfile(user.pk, profile, history));
     setProfile({
       first_name: '',
       last_name: '',
@@ -91,17 +87,11 @@ const EditProfile = () => {
           onChange={handleChange}
         />
       </FloatingLabel>
-      {/* <Form.Group
-        controlId="formFile"
-        className="mb-3"
-      > */}
       <Form.Control
         type="file"
         name="photo"
         onChange={handleFileChange}
       />
-      {/* </Form.Group> */}
-
       <Button
         className="form-button"
         type="submit"

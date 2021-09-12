@@ -25,7 +25,6 @@ export const signinUser = ({ username, password }) => (dispatch) => {
 };
 
 export const signupUser = ({ username, email, password }) => (dispatch) => {
-  // eslint-disable-next-line no-unused-vars
   let signUpData;
   axios
     .post('/api/auth/signup/', {
@@ -43,9 +42,7 @@ export const signupUser = ({ username, email, password }) => (dispatch) => {
           },
           withCredentials: true,
         })
-        .then((resData) => {
-          // eslint-disable-next-line no-console
-          console.log(resData.data);
+        .then(() => {
           dispatch(setToast('User Created Successfully', 'light', dispatch));
         })
         .catch((err) => {
@@ -81,7 +78,7 @@ export const fetechedUser = () => (dispatch) => {
       dispatch(getUser(res.data));
     })
     .catch((err) => {
-      const errors = err.response.data;
+      const errors = err.response?.data;
       dispatchErrors(errors, dispatch);
     });
 };

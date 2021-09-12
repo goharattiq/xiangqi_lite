@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 .profile-avatar {
   width: 200px;
@@ -14,7 +14,7 @@
   position: relative;
   color: $compliment;
   top: 50px;
-  left: 30px
+  left: 30px;
 }
 
 .user-fullname {
@@ -26,7 +26,7 @@
   height: 20px;
 }
 
-.user-stats{
+.user-stats {
   color: $compliment;
   position: relative;
   left: 18%;
@@ -37,14 +37,20 @@
   background-color: rgba($color: gray, $alpha: 0.8);
   width: 80px;
   height: 70px;
-  border-radius: 23%!important;
+  border-radius: 23% !important;
+}
+
+.edit-button,
+.edit-button:hover,
+.edit-button:focus {
+  color: $compliment !important;
 }
 
 @media screen and (max-width: 850px) {
-  .user-stats{
-    flex-direction: column; 
+  .user-stats {
+    flex-direction: column;
     left: 40%;
-    width: 100px!important;
+    width: 100px !important;
   }
 }
 
@@ -52,11 +58,11 @@
   .user-profile {
     display: block;
   }
-  .profile-avatar { 
+  .profile-avatar {
     position: relative;
     left: 9px;
     top: 20px;
-  }  
+  }
   .user-fullname {
     font-size: 1.6rem;
   }
@@ -64,7 +70,7 @@
     text-align: start;
     height: 20px;
   }
-  .user-stats{
+  .user-stats {
     top: 10px;
   }
 }

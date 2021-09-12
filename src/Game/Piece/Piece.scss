@@ -1,4 +1,4 @@
-@import '../../variables';
+@import "../../variables";
 
 img {
   width: $screen-xl;
@@ -35,21 +35,21 @@ img {
 
 .piece:hover {
   border-radius: 50%;
-  border: 3px dashed #E99600;
+  border: 3px dashed #e99600;
 }
 
-@media screen and (max-width : 600px ) {
+@media screen and (max-width: 600px) {
   img {
     width: $screen-sm;
     height: $screen-sm;
   }
-  
+
   .piece {
     width: $screen-sm;
     height: $screen-sm;
     margin-left: 2px;
   }
-  
+
   .piece-svg {
     left: 8px;
     bottom: 37px;

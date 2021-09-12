@@ -1,7 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/media-has-caption */
-/* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -64,19 +61,17 @@ const Board = ({ historyMode }) => {
           >
             {
               board && board.map((row, rowIndex) => (
-                <>
+                <Fragment key={`row-${row[0].id}`}>
                   {
                     rowIndex === 5 ? <tr /> : <></>
                   }
-                  <tr
-                    key={rowIndex}
-                  >
+                  <tr>
                     <Row
                       row={row}
                       clickHandler={clickHandler}
                     />
                   </tr>
-                </>
+                </Fragment>
               ))
             }
           </DragDropContext>

@@ -12,9 +12,7 @@ const AnnounceWinner = ({ player, username }) => (
         {`${player.user.username === username ? 'You' : player.user.username} Won`}
       </p>
       <Link to="/lobby">
-        <Button
-          className="position-relative m-4 form-button"
-        >
+        <Button className="position-relative m-4 form-button">
           Back To Lobby
         </Button>
       </Link>

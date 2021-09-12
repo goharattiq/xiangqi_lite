@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { CLEAR_CHAT, MESSAGE_SEND } from './type';
 
 export const messageSend = (message) => ({

@@ -5,9 +5,9 @@ import './Spot.scss';
 
 const Spot = ({ visiblity, id }) => (
   <div
+    id={id}
     className="spot"
     style={{ visibility: visiblity }}
-    id={id}
   />
 );
 

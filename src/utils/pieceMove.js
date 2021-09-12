@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-param-reassign */
 /* eslint-disable no-loop-func */
 import {
   BLACK, EAST, MAP, NORTH, RED, SOUTH, WEST,
@@ -108,6 +106,7 @@ export const advisorElephantMoves = (pieceName, indexLocation, expectedLocations
   while ((location[NORTH] || location[SOUTH] || location[EAST] || location[WEST])
     && limitedMoves > 0) {
     location = movePiece(location, false);
+    // eslint-disable-next-line no-unused-vars
     Object.entries(location).forEach(([id, direct]) => {
       if ((isValidRange(direct.x, direct.y)) && !(board[direct.x][direct.y].piece
         && whichSide(board[direct.x][direct.y].piece.name) === whichSide(pieceName))) {
@@ -230,17 +229,18 @@ const setInitalPosition = (sourceI, sourceJ) => ({
 });
 
 const movePiece = (location, isOrthogonal) => {
+  const newLocation = location;
   const directions = [NORTH, SOUTH, EAST, WEST];
   if (isOrthogonal) {
     directions.forEach((direction) => {
-      location[direction] = location[direction]
-        ? moveOrthogoanl(location[direction], direction) : false;
+      newLocation[direction] = newLocation[direction]
+        ? moveOrthogoanl(newLocation[direction], direction) : false;
     });
   } else {
     directions.forEach((direction) => {
-      location[direction] = location[direction]
-        ? moveDiagonal(location[direction], direction) : false;
+      newLocation[direction] = newLocation[direction]
+        ? moveDiagonal(newLocation[direction], direction) : false;
     });
   }
-  return location;
+  return newLocation;
 };

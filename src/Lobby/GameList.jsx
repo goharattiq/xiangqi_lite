@@ -1,8 +1,4 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable camelcase */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 
 import PropTypes from 'prop-types';
@@ -41,8 +37,8 @@ const GameList = ({ type, games, username }) => {
                 </p>
               </div>
 
-              <p
-                className="game-link text-end fs-6 m-1"
+              <button
+                className="game-link"
                 type="button"
                 onClick={() => {
                   socketEnterGame(id);
@@ -50,7 +46,7 @@ const GameList = ({ type, games, username }) => {
               >
                 {type === 'Active' ? 'join' : 'view'}
                 {id}
-              </p>
+              </button>
             </div>
           ))
           : <p>{`No ${type} Games Available`}</p>

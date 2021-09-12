@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React from 'react';
 
 import { useSelector } from 'react-redux';
@@ -10,6 +9,7 @@ const ChatHistory = () => {
     <div className="message-history">
       {
           chat.length !== 0 ? chat.map(({ content, author }, index) => (
+            // eslint-disable-next-line react/no-array-index-key
             <div className=" mt-3 ps-2 border-dark message" key={index}>
               <span className="author">
                 {author}

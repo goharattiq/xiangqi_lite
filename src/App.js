@@ -3,11 +3,11 @@ import React from 'react';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import Render from './Components/Render';
+import Routes from './Components/Routes';
 
 const App = () => (
   <Router>
-    <Render />
+    <Routes />
   </Router>
 
 );

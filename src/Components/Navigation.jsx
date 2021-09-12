@@ -28,22 +28,18 @@ const Navigation = () => {
               LeaderBoard
             </Link>
             <Link id="profile" to="/profile" className="nav-link-custom">
-              Profile
+              {`Profile (${auth.user.username})`}
             </Link>
-            {
-              auth ? (
-                <Link
-                  id="logout"
-                  to="/"
-                  className="nav-link-custom"
-                  onClick={() => {
-                    dispatch(signOutUser());
-                  }}
-                >
-                  Logout
-                </Link>
-              ) : ''
-            }
+            <Link
+              id="logout"
+              to="/"
+              className="nav-link-custom"
+              onClick={() => {
+                dispatch(signOutUser());
+              }}
+            >
+              Logout
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

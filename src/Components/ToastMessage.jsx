@@ -10,7 +10,7 @@ const ToastMessage = () => {
   const dispatch = useDispatch();
   const toasts = useSelector(({ toast }) => (toast));
   return (
-    <ToastContainer position="top-end" className="p-3">
+    <ToastContainer position="top-end" className="p-3 toast-container">
       {
         toasts.length !== 0 ? toasts.map(({ msg, type, id }) => (
           <Toast

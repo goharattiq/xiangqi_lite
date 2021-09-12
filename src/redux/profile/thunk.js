@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import { setToast } from '../toast/actions';
 import { dispatchErrors } from '../toast/utils';
 import { editProfile, getGames, getProfile } from './actions';
 
@@ -30,7 +31,7 @@ export const fetchAllTimeGames = () => (dispatch) => {
 export const updateProfile = (userID, {
 // eslint-disable-next-line camelcase
   first_name, last_name, bio, photo,
-}) => (dispatch) => {
+}, history) => (dispatch) => {
   const data = new FormData();
   data.append('photo', photo);
   data.append('id', userID);
@@ -41,6 +42,8 @@ export const updateProfile = (userID, {
     .put(`/api/profile/${userID}/`, data)
     .then((res) => {
       dispatch(editProfile(res.data));
+      dispatch(setToast('Profile Edit SuccessFully', 'light', dispatch));
+      history.push('/profile');
     })
     .catch((err) => {
       const errors = err.response.data;

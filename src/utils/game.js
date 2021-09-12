@@ -1,5 +1,5 @@
-/* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
+/* eslint-disable no-param-reassign */
 import { COLS, MAP, ROWS } from './constants';
 import {
   cannonMoves,
@@ -117,13 +117,11 @@ export const changeDroppableStyle = (expectedMove, previousExpectedMove) => {
 };
 
 export const pieceAnimationStart = (movingPieceID) => {
-  // console.log(movingPieceID);
   const pieceElement = document.getElementById(movingPieceID);
   pieceElement.classList.add('animate');
 };
 
 export const pieceAnimationEnd = (movingPieceID) => {
-  // console.log(movingPieceID);
   const pieceElement = document.getElementById(movingPieceID);
   pieceElement.classList.remove('animate');
 };

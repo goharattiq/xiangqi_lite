@@ -1,6 +1,7 @@
 import { setToast } from './actions';
 
 export const dispatchErrors = (errors, dispatch) => {
+  if (!errors) return;
   for (let i = 0; i < Object.keys(errors).length; i += 1) {
     const errorName = Object.keys(errors)[i];
     const errorList = errors[errorName];

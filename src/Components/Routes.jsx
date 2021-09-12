@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +16,7 @@ import Navigation from './Navigation';
 import PrivateRoute from './PrivateRoute';
 import ToastMessage from './ToastMessage';
 
-const Render = () => {
+const Routes = () => {
   const auth = useSelector((state) => state.auth);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -49,4 +48,4 @@ const Render = () => {
   );
 };
 
-export default Render;
+export default Routes;
