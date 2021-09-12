@@ -20,7 +20,7 @@ const History = ({ history, clickHandler }) => {
     clickHandler(pointer, historyType);
   }, [pointer, historyType]);
   return (
-    <div className="d-flex m-2 justify-content-center">
+    <div className="d-flex m-2 justify-content-center history">
       <Button
         className="custom-color me-2"
         onClick={() => {

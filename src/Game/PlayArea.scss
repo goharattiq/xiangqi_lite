@@ -2,12 +2,14 @@
 
 .play-area {
   background-color: $background;
+  height: 950px;
 }
 
-.top-bar {
+.bar {
   height: 100px;
 }
 
 .bottom-bar {
-  height: 100px;
+  position: relative;
+  top: -38rem;
 }

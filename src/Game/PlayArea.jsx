@@ -69,7 +69,7 @@ const PlayArea = () => {
         (haveTurn(redPlayer.user.pk))
           ? <i className="fas fa-arrow-right" /> : ''
       } */}
-      <div className="top-bar">
+      <div className="bar">
         <Player style={{ top: '20px' }} player={redPlayer} />
         {
           gameParams && gameParams.is_timed && gameParams.is_active ? (
@@ -82,7 +82,7 @@ const PlayArea = () => {
             />
           ) : ''
         }
-        <HitPiece hitPieces={redHitPieces} style={{ bottom: '40px' }} />
+        <HitPiece hitPieces={redHitPieces} style={{ bottom: '25px' }} />
       </div>
       <Board historyMode={historyMode} />
       <div className="bottom-bar">

@@ -72,6 +72,7 @@ const Row = ({ row, clickHandler }) => {
                   ) : (
                     <Spot
                       visiblity={hints.includes(cell.id) && !disable ? 'visible' : 'hidden'}
+                      // visiblity="visible"
                       id={`spot-${cell.id}`}
                     />
                   )

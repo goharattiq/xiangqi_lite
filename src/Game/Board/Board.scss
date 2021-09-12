@@ -1,11 +1,5 @@
 @import "../../variables";
 
-.board {
-  background-color: rgba($color: $background, $alpha: 0.1);
-  position: relative;
-  left: 15%;
-}
-
 tr {
   height: $screen-xl;
 }
@@ -46,14 +40,22 @@ $yaxis: $yaxis + 15.4%;
   $yaxis: $yaxis + $rect-height-xxl;
 }
 
+.board {
+  background-color: rgba($color: $background, $alpha: 0.1);
+  position: relative;
+  z-index: 10;
+  top: -42rem !important;
+  left: 11.5% !important;
+}
+
 .animate {
   zoom: 125%;
 }
 
 .board-background {
-  position: absolute;
+  position: relative;
   left: 7.6%;
-  top: 130px;
+  z-index: 0;
 }
 
 @media screen and (max-width: 1650px) {
@@ -68,15 +70,21 @@ $yaxis: $yaxis + 15.4%;
   }
 }
 
-@media screen and (max-width: 1360px) {
+@media screen and (max-width: 1460px) {
   .board-background {
     left: 6.4%;
   }
 }
 
+@media screen and (max-width: 1320px) {
+  .board-background {
+    left: 6%;
+  }
+}
+
 @media screen and (max-width: 1250px) {
   .board {
-    left: 13%;
+    left: 10.5% !important;
   }
   .board-background {
     left: 4.6%;
@@ -94,13 +102,26 @@ $yaxis: $yaxis + 15.4%;
     left: 5%;
   }
   .board-background {
-    left: -2%;
+    left: 2.5%;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 850px) {
+  .board-background {
+    left: 1.5%;
+  }
+}
+
+@media screen and (max-width: 760px) {
   .board {
-    left: 15%;
+    left: 8% !important;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .board {
+    left: 17.5% !important;
+    top: -48.23rem !important;
   }
   tr {
     height: $screen-sm;
@@ -149,7 +170,8 @@ $yaxis: $yaxis + 15.4%;
 
 @media screen and (max-width: 500px) {
   .board {
-    left: 5%;
+    left: 3.5% !important;
+    top: -48.23rem !important;
   }
   .board-background {
     left: -76px;
