@@ -1,0 +1,59 @@
+@import "../../variables";
+
+img {
+  width: $screen-xl;
+  height: $screen-xl;
+}
+
+.piece {
+  width: $screen-xl;
+  height: $screen-xl;
+}
+
+.piece-svg {
+  position: relative;
+  left: 13px;
+  bottom: 45px;
+  width: $svg-xl;
+  height: $svg-xl;
+}
+
+.piece-name {
+  visibility: hidden;
+}
+
+.piece:hover .piece-name {
+  visibility: visible;
+  background-color: $compliment;
+  color: $background;
+  padding: 5px;
+  position: relative;
+  top: -26px;
+  z-index: 1;
+  transition-delay: 1s;
+}
+
+.piece:hover {
+  border-radius: 50%;
+  border: 3px dashed #e99600;
+}
+
+@media screen and (max-width: 600px) {
+  img {
+    width: $screen-sm;
+    height: $screen-sm;
+  }
+
+  .piece {
+    width: $screen-sm;
+    height: $screen-sm;
+    margin-left: 2px;
+  }
+
+  .piece-svg {
+    left: 8px;
+    bottom: 37px;
+    width: $svg-sm;
+    height: $svg-sm;
+  }
+}

@@ -1,0 +1,51 @@
+@import "../variables";
+
+.leader-avatar {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  position: relative;
+  left: 20%;
+}
+
+.leaderboard {
+  margin-top: 5%;
+  color: $compliment;
+}
+
+table {
+  background-color: #fff;
+  position: inherit;
+}
+
+@media screen and (max-width: 1400px) {
+  .leader-avatar {
+    left: 11%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .leader-avatar {
+    left: -4%;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .leader-avatar {
+    width: 7rem;
+    height: 7rem;
+    left: 27%;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .leader-avatar {
+    left: 24%;
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .leader-avatar {
+    left: 12%;
+  }
+}

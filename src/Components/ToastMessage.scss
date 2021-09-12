@@ -1,0 +1,20 @@
+.btn-close {
+  box-sizing: content-box;
+  width: 1em;
+  height: 1em;
+  padding: 0.25em 0.25em;
+  color: #000;
+  border: 0;
+  border-radius: 0.25rem;
+  opacity: 0.5;
+  position: relative;
+  left: 90%;
+}
+
+.toast {
+  z-index: 1000;
+}
+
+.toast-container {
+  z-index: 1000;
+}

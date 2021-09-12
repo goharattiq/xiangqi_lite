@@ -1,0 +1,15 @@
+@import "../variables";
+
+.play-area {
+  background-color: $background;
+  height: 950px;
+}
+
+.bar {
+  height: 100px;
+}
+
+.bottom-bar {
+  position: relative;
+  top: -38rem;
+}

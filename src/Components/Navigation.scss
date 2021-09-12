@@ -1,0 +1,26 @@
+@import "../variables";
+
+a:hover {
+  color: $background;
+}
+
+.bg-style {
+  background-color: $primary;
+}
+
+.nav-link-custom,
+.navbar-brand {
+  color: rgba($color: $background, $alpha: 0.7);
+  padding-left: 10px;
+  text-decoration: none;
+}
+
+.navbar-brand {
+  color: $background !important;
+  padding-left: 10px;
+  text-decoration: none;
+}
+
+.navbar-collapse {
+  margin-left: 10px;
+}

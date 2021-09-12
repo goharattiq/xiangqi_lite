@@ -1,0 +1,33 @@
+@import "../../variables";
+
+.hit-piece {
+  position: relative;
+  left: 20%;
+  padding: 0;
+  height: 70px;
+  width: 500px;
+}
+
+.items {
+  background-color: rgba($color: $background, $alpha: 0);
+  padding: 0;
+  padding-top: 10px;
+  border: 0;
+  width: 35px;
+}
+
+$posLeft: 0;
+
+@for $var from 1 to 16 {
+  .hit-piece li:nth-child(#{$var}) {
+    position: relative;
+    left: $posLeft * 1%;
+  }
+  $posLeft: $posLeft - 1;
+}
+
+.hit-piece li:hover {
+  cursor: pointer;
+  left: 0;
+  z-index: 10;
+}
