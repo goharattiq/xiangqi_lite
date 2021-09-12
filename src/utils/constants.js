@@ -34,7 +34,9 @@ export const TOAST_TIMER = 5000;
 
 // export const SOCKET_URL = 'http://192.168.1.4:8000';
 const WS_SCHEME = window.location.protocol === 'https:' ? 'wss' : 'ws';
-export const HOST = '192.168.1.7:8000';
+// export const HOST = '192.168.1.7:8000';
+export const HOST = 'localhost:8000';
 export const SOCKET_URL = `${WS_SCHEME}://${HOST}`;
+// export const SOCKET_URL = `${WS_SCHEME}://${HOST}`;
 // export const SOCKET_URL = `${WS_SCHEME}://${window.location.host}`;
 // export const SOCKET_URL = 'http://172.16.11.238:8000';
