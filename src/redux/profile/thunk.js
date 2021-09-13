@@ -4,9 +4,9 @@ import { setToast } from '../toast/actions';
 import { dispatchErrors } from '../toast/utils';
 import { editProfile, getGames, getProfile } from './actions';
 
-export const fetchUserProfile = (userId) => (dispatch) => {
+export const fetchUserProfile = (username) => (dispatch) => {
   axios
-    .get(`/api/profile/${userId}/`)
+    .get(`/api/profile/${username}/`)
     .then((res) => {
       dispatch(getProfile(res.data));
     })
@@ -48,5 +48,6 @@ export const updateProfile = (userID, {
     .catch((err) => {
       const errors = err.response.data;
       dispatchErrors(errors, dispatch);
+      history.push('/lobby');
     });
 };

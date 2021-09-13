@@ -32,7 +32,7 @@ const LobbyContainer = () => {
   const { activeGames, spectateGames, username } = useSelector(({ lobby, auth }) => ({
     activeGames: lobby.activeGames,
     spectateGames: lobby.spectateGames,
-    username: auth.user.username,
+    username: auth.user ? auth.user.username : '',
   }));
   const dispatch = useDispatch();
 
