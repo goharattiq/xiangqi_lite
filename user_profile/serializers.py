@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework.serializers import ModelSerializer
+
 from .models import Profile
 
 
@@ -24,14 +25,14 @@ class ProfileSerializer(ModelSerializer):
         return Profile.objects.create(user_id=user.id)
 
     def update(self, instance, validated_data):
-        user_id = validated_data.get('id')
+        username = instance.user.username
         user_fields = ['email', 'first_name', 'last_name']
         user = {}
         for field in user_fields:
             value = validated_data.get(field)
             if value is not None:
                 user[field] = value
-        User.objects.filter(id=user_id).update(**user)
+        User.objects.filter(username=username).update(**user)
 
         profile = {}
         profile_fields = ['bio', 'photo']
@@ -39,11 +40,13 @@ class ProfileSerializer(ModelSerializer):
             value = validated_data.get(field)
             if value is not None and value != '':
                 if field == 'photo':
-                    instance = Profile.objects.filter(user_id=user_id).first()
+                    instance = Profile.objects.filter(user__username=username).first()
                     instance.photo.save(value.name, value)
                     continue
                 profile[field] = value
-        return Profile.objects.filter(user_id=user_id).first()
+
+        Profile.objects.filter(user__username=username).update(**profile)
+        return Profile.objects.filter(user__username=username).first()
 
 
 class UserSearchSerializer(ModelSerializer):
