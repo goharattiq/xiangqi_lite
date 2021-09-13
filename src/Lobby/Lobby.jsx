@@ -42,7 +42,7 @@ const LobbyContainer = () => {
   }, []);
   return (
     <LobbyWithSpinner
-      isLoading={!activeGames || !spectateGames}
+      isLoading={!activeGames || !spectateGames || !username}
       activeGames={activeGames}
       spectateGames={spectateGames}
       username={username}
