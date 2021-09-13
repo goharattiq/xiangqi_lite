@@ -173,7 +173,9 @@ def player_in_game(user, type, game_id):
     if instance.first().player_1.user_id == user.id \
             or instance.first().player_2.user_id == user.id:
         count = 1 if type == 'JOIN_GAME' else -1
-        Game.objects.filter(pk=game_id).update(
-            connected_player=F('connected_player') + count,
-        )
+        instance = Game.objects.filter(pk=game_id).first()
+        cp = instance.connected_player
+        cp = cp + count if 0 <= cp + count <= 2 else 0 if cp + count < 0 else 2
+        instance.connected_player = cp;
+        instance.save()
     return
