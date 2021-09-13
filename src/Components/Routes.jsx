@@ -17,24 +17,31 @@ import PrivateRoute from './PrivateRoute';
 import ToastMessage from './ToastMessage';
 
 const Routes = () => {
-  const {auth,gameParams} = useSelector(({auth, game}) => ({auth, gameParams: game.params}));
+  const { authUser, gameParams, accessToken } = useSelector(({ auth, game }) => ({
+    authUser: auth ? auth.user : null,
+    accessToken: auth ? auth.access_token : null,
+    gameParams: game.params,
+  }));
   const history = useHistory();
   const dispatch = useDispatch();
   useEffect(() => {
     const connectSokcets = async () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      await auth && useSockets(auth.access_token);
-      await auth && subscribeGameSockets(history, auth.user.username, dispatch);
-      await auth && subscribeChatSocketsEvent(dispatch);
-      if (auth && !gameParams) {
+      await authUser && Object.keys(authUser).length !== 0 && useSockets(accessToken);
+      await authUser && Object.keys(authUser).length !== 0 && subscribeGameSockets(
+        history,
+        authUser.username,
+        dispatch,
+      );
+      await authUser && Object.keys(authUser).length !== 0 && subscribeChatSocketsEvent(dispatch);
+      if (authUser && Object.keys(authUser).length !== 0 && !gameParams && localStorage.getItem('gameID')) {
         socketLeaveGame(localStorage.getItem('gameID'), dispatch);
-        localStorage.removeItem('gameID')
       }
     };
     connectSokcets();
-  }, [auth]);
+  }, [authUser]);
   return (
-    !auth
+    !authUser
       ? <Authentication />
       : (
         <>
