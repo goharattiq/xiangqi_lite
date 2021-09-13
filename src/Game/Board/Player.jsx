@@ -6,6 +6,7 @@ import './Player.scss';
 const Player = ({ player, style }) => (
   <div className="player" style={style}>
     <img src={player.photo} alt={player.user.username} />
+    <p className="ps-2">{player.user.username}</p>
   </div>
 );
 
@@ -15,3 +16,4 @@ Player.propTypes = {
 };
 
 export default Player;
+ 
