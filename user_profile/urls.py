@@ -5,5 +5,5 @@ urlpatterns = [
     path('leaderboard/', LeaderBoard.as_view()),
     path('search/<username>/', SearchUser.as_view()),
     path('', CreateProfile.as_view()),
-    path('<pk>/', RetrieveProfile.as_view()),
+    path('<str:pk>/', RetrieveProfile.as_view()),
 ]
