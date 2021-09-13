@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
@@ -9,6 +9,8 @@ import Spinner from '../Components/Spinner';
 import Chat from './Chat';
 import PlayArea from './PlayArea';
 import './Game.scss';
+import { useParams, useHistory } from 'react-router';
+import { socketEnterGame } from '../socketio/gameSocketio';
 
 const Game = ({ isTablet }) => (
   <>
@@ -38,9 +40,17 @@ const Game = ({ isTablet }) => (
 const GameWithContainer = Spinner(Game);
 
 const GameContainer = () => {
+  const { gameId } = useParams();
+  const history = useHistory();
   const isTablet = useMediaQuery({ query: '(max-width: 880px)' });
+  const {gameParams} = useSelector(({ game, }) => ({gameParams: game.params, }));
   document.body.style.backgroundColor = '#be342d';
-  const gameParams = useSelector(({ game }) => (game.params));
+
+  useEffect(()=>{
+    if (!gameParams || !gameParams.id) {
+      socketEnterGame(gameId, history)
+    }
+  },[])
   return (
     <GameWithContainer
       isLoading={!gameParams || !gameParams.id}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+
 
 import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
 import { socketLeaveGame } from '../socketio/gameSocketio';
@@ -15,7 +15,7 @@ import Timer from './Board/Timer';
 import './PlayArea.scss';
 
 const PlayArea = () => {
-  const URLHistory = useHistory();
+
   const dispatch = useDispatch();
   const [historyMode, setHistoryMode] = useState(false);
   const {
@@ -36,10 +36,6 @@ const PlayArea = () => {
   useEffect(() => {
     if (!localStorage.getItem('gameID')) {
       localStorage.setItem('gameID', gameParams.id);
-    }
-    if (!gameParams) {
-      socketLeaveGame(localStorage.getItem('gameID'), dispatch);
-      URLHistory.push('/lobby');
     }
     return () => {
       socketLeaveGame(gameParams.id, dispatch);

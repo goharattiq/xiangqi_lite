@@ -10,14 +10,14 @@ import Lobby from '../Lobby/Lobby';
 import EditProfile from '../Profile/EditProfile';
 import Profile from '../Profile/Profile';
 import { subscribeChatSocketsEvent } from '../socketio/chatSocketio';
-import { subscribeGameSockets } from '../socketio/gameSocketio';
+import { socketLeaveGame, subscribeGameSockets } from '../socketio/gameSocketio';
 import { useSockets } from '../socketio/socketio';
 import Navigation from './Navigation';
 import PrivateRoute from './PrivateRoute';
 import ToastMessage from './ToastMessage';
 
 const Routes = () => {
-  const auth = useSelector((state) => state.auth);
+  const {auth,gameParams} = useSelector(({auth, game}) => ({auth, gameParams: game.params}));
   const history = useHistory();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -26,6 +26,10 @@ const Routes = () => {
       await auth && useSockets(auth.access_token);
       await auth && subscribeGameSockets(history, auth.user.username, dispatch);
       await auth && subscribeChatSocketsEvent(dispatch);
+      if (auth && !gameParams) {
+        socketLeaveGame(localStorage.getItem('gameID'), dispatch);
+        localStorage.removeItem('gameID')
+      }
     };
     connectSokcets();
   }, [auth]);

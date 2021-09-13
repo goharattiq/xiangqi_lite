@@ -3,11 +3,12 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import { socketEnterGame } from '../socketio/gameSocketio';
 import './GameList.scss';
+import { useHistory } from 'react-router';
 
 const GameList = ({ type, games, username }) => {
   const getPlayerName = (playerName) => (playerName === username ? 'Me' : playerName);
+  const history = useHistory();
   return (
     <div className="m-3 games row">
       <h4>{`My ${type} Games`}</h4>
@@ -41,7 +42,7 @@ const GameList = ({ type, games, username }) => {
                 className="game-link"
                 type="button"
                 onClick={() => {
-                  socketEnterGame(id);
+                  history.push(`/game/${id}`);
                 }}
               >
                 {type === 'Active' ? 'join' : 'view'}

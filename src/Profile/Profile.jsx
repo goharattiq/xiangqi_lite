@@ -49,6 +49,7 @@ const ProfileContainer = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const callback = useCallback((id) => fetchUserProfile(id));
+  document.body.style.backgroundColor = '#ede8e0';
   useEffect(() => {
     dispatch(callback(auth.user.pk));
     dispatch(fetchAllTimeGames());
@@ -90,7 +91,6 @@ const ProfileContainer = () => {
       games={games}
       photo={photo}
     />
-
   );
 };
 

@@ -13,7 +13,11 @@ import {
 } from '../utils/game';
 import { socket } from './socketio';
 
-export const socketEnterGame = (gameID) => {
+export const socketEnterGame = (gameID, history) => {
+  if(!socket){
+    history.push('/lobby');
+    return;
+  }
   socket.emit('game.enter', gameID);
 };
 
@@ -57,7 +61,6 @@ export const socketLeaveGame = (gameID, dispatch) => {
 export const subscribeGameSockets = (history, username, dispatch) => {
   if (socket) {
     socket.on('game.send_params', (gameParams) => {
-      history.location.pathname !== `/game/${gameParams.id}` && history.push(`/game/${gameParams.id}`);
       initGame(gameParams, username, dispatch);
     });
 
@@ -73,6 +76,10 @@ export const subscribeGameSockets = (history, username, dispatch) => {
 
     socket.on('game.announce_winner', (winner) => {
       dispatch(announceWinner(winner));
+    });
+    socket.on("disconnect", () => {
+      socketLeaveGame(localStorage.getItem('gameID'), dispatch)
+      localStorage.removeItem('gameID');
     });
   }
 };

@@ -21,9 +21,9 @@ export const useSockets = (
   socket.on('connect_error', () => {
     socket.disconnect();
   });
-
   return () => {
     socket.disconnect(() => {
+
     });
   };
 };
