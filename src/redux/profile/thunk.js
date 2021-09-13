@@ -16,9 +16,9 @@ export const fetchUserProfile = (userId) => (dispatch) => {
     });
 };
 
-export const fetchAllTimeGames = () => (dispatch) => {
+export const fetchAllTimeGames = (userID) => (dispatch) => {
   axios
-    .get('/api/game/alltime/')
+    .get(`/api/game/alltime/${userID}/`)
     .then((res) => {
       dispatch(getGames(res.data));
     })

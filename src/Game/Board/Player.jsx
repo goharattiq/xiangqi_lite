@@ -2,11 +2,14 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import './Player.scss';
+import { Link } from 'react-router-dom';
 
 const Player = ({ player, style }) => (
   <div className="player" style={style}>
     <img src={player.photo} alt={player.user.username} />
-    <p className="ps-2">{player.user.username}</p>
+    <Link to={`/profile/${player.user.pk}`}>
+      <p className="ps-2">{player.user.username}</p>
+    </Link>
   </div>
 );
 

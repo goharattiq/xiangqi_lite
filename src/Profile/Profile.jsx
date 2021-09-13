@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import Spinner from '../Components/Spinner';
 import GameList from '../Lobby/GameList';
@@ -12,7 +12,7 @@ import { fetchAllTimeGames, fetchUserProfile } from '../redux/profile/thunk';
 import './Profile.scss';
 
 const Profile = ({
-  userFullName, user, stateList, games, photo,
+  userFullName, user, stateList, games, photo,isSessionUser
 }) => (
   <Container className="bg-white w-75 mt-5 pb-3">
     <div>
@@ -21,9 +21,12 @@ const Profile = ({
         <div className="user-detail">
           <p className="user-fullname">{userFullName}</p>
           <p className="mt-5 ms-1 user-username">{user ? user.username : ''}</p>
-          <Link to={`profile/edit/${user.pk}`} className="m-1 edit-button">
-            <i className="fas fa-edit" />
-          </Link>
+          {
+            isSessionUser ? 
+            (<Link to={`profile/edit/${user.pk}`} className="m-1 edit-button">
+              <i className="fas fa-edit" />
+            </Link>):''
+          }
         </div>
       </div>
       <ul className="list-group mt-5 mb-3 user-stats">
@@ -46,13 +49,14 @@ const Profile = ({
 const ProfileWithSpinner = Spinner(Profile);
 
 const ProfileContainer = () => {
+  const { profileID } = useParams(); 
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-  const callback = useCallback((id) => fetchUserProfile(id));
+  const callback = useCallback(() => fetchUserProfile(profileID));
   document.body.style.backgroundColor = '#ede8e0';
   useEffect(() => {
-    dispatch(callback(auth.user.pk));
-    dispatch(fetchAllTimeGames());
+    dispatch(callback());
+    dispatch(fetchAllTimeGames(profileID));
   }, [auth]);
   const {
     user,
@@ -90,6 +94,7 @@ const ProfileContainer = () => {
       stateList={stateList}
       games={games}
       photo={photo}
+      isSessionUser={auth.user.pk == profileID }
     />
   );
 };
@@ -100,6 +105,7 @@ Profile.propTypes = {
   stateList: PropTypes.array.isRequired,
   games: PropTypes.array.isRequired,
   photo: PropTypes.string.isRequired,
+  isSessionUser: PropTypes.bool.isRequired,
 };
 
 export default ProfileContainer;

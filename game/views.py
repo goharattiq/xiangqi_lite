@@ -34,8 +34,14 @@ class AllTimeGames(ListAPIView):
     serializer_class = ListGameSerializer
 
     def get_queryset(self):
-        return Game.objects.filter(
-            Q(player_1__user_id=self.request.user.pk) |
-            Q(player_2__user_id=self.request.user.pk),
-            is_active=False,
+        id = self.kwargs.get('pk')
+        qs =  Game.objects.filter(
+            Q(player_1__user_id=id) |
+            Q(player_2__user_id=id),
+            is_active=False
         )
+
+        if id == self.request.user.pk:
+            return qs
+        else:
+            return qs.filter(is_public=True)
