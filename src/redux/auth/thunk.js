@@ -72,14 +72,14 @@ export const signOutUser = () => (dispatch) => {
 };
 
 export const fetechedUser = () => (dispatch) => {
-  dispatch(getUser({}))
-    axios
+  dispatch(getUser({}));
+  axios
     .get('/api/auth/user/')
     .then((res) => {
       dispatch(getUser(res.data));
     })
     .catch((err) => {
-      dispatch(getUser(null))
+      dispatch(getUser(null));
       const errors = err.response?.data;
       dispatchErrors(errors, dispatch);
     });

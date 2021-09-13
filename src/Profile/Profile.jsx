@@ -12,7 +12,7 @@ import { fetchAllTimeGames, fetchUserProfile } from '../redux/profile/thunk';
 import './Profile.scss';
 
 const Profile = ({
-  userFullName, user, stateList, games, photo,isSessionUser
+  userFullName, user, stateList, games, photo, isSessionUser,
 }) => (
   <Container className="bg-white w-75 mt-5 pb-3">
     <div>
@@ -22,10 +22,12 @@ const Profile = ({
           <p className="user-fullname">{userFullName}</p>
           <p className="mt-5 ms-1 user-username">{user ? user.username : ''}</p>
           {
-            isSessionUser ? 
-            (<Link to={`profile/edit/${user.pk}`} className="m-1 edit-button">
-              <i className="fas fa-edit" />
-            </Link>):''
+            isSessionUser
+              ? (
+                <Link to={`profile/edit/${user.pk}`} className="m-1 edit-button">
+                  <i className="fas fa-edit" />
+                </Link>
+              ) : ''
           }
         </div>
       </div>
@@ -49,7 +51,7 @@ const Profile = ({
 const ProfileWithSpinner = Spinner(Profile);
 
 const ProfileContainer = () => {
-  const { profileID } = useParams(); 
+  const { profileID } = useParams();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const callback = useCallback(() => fetchUserProfile(profileID));
@@ -94,7 +96,7 @@ const ProfileContainer = () => {
       stateList={stateList}
       games={games}
       photo={photo}
-      isSessionUser={auth.user.pk == profileID }
+      isSessionUser={auth.user.pk === profileID}
     />
   );
 };

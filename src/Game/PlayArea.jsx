@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-
 import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
 import { socketLeaveGame } from '../socketio/gameSocketio';
 import { whichSide } from '../utils/pieceMove';
@@ -15,7 +14,6 @@ import Timer from './Board/Timer';
 import './PlayArea.scss';
 
 const PlayArea = () => {
-
   const dispatch = useDispatch();
   const [historyMode, setHistoryMode] = useState(false);
   const {

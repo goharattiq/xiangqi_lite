@@ -2,10 +2,8 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-
 import './GameList.scss';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const GameList = ({ type, games, username }) => {
   const getPlayerName = (playerName) => (playerName === username ? 'Me' : playerName);
@@ -23,17 +21,17 @@ const GameList = ({ type, games, username }) => {
               key={id}
             >
               <p className="text-center">
-                <Link to={`/profile/${player_1.user.pk}`}> 
+                <Link to={`/profile/${player_1.user.username}`}>
                   {`${getPlayerName(player_1.user.username)}(${player_1.rating})`}
                 </Link>
               </p>
               <p className="text-center"> vs </p>
               <p className="text-center">
-              <Link to={`/profile/${player_2.user.pk}`}> 
-                {`${getPlayerName(player_2.user.username)}(${player_2.rating})`}
-              </Link>
+                <Link to={`/profile/${player_2.user.username}`}>
+                  {`${getPlayerName(player_2.user.username)}(${player_2.rating})`}
+                </Link>
               </p>
-              
+
               <div className="d-flex justify-content-between">
                 <p>
                   {`${is_rated ? 'Rated' : 'Unrated'}`}

@@ -14,7 +14,7 @@ import {
 import { socket } from './socketio';
 
 export const socketEnterGame = (gameID, history) => {
-  if(!socket){
+  if (!socket) {
     history.push('/lobby');
     return;
   }
@@ -53,6 +53,7 @@ export const socketEndGame = (gameID, players, looser, type, isRated) => {
 };
 
 export const socketLeaveGame = (gameID, dispatch) => {
+  localStorage.removeItem('gameID');
   socket.emit('game.leave', gameID);
   dispatch(clearGame());
   dispatch(clearChat());
@@ -77,9 +78,8 @@ export const subscribeGameSockets = (history, username, dispatch) => {
     socket.on('game.announce_winner', (winner) => {
       dispatch(announceWinner(winner));
     });
-    socket.on("disconnect", () => {
-      socketLeaveGame(localStorage.getItem('gameID'), dispatch)
-      localStorage.removeItem('gameID');
+    socket.on('disconnect', () => {
+      socketLeaveGame(localStorage.getItem('gameID'), dispatch);
     });
   }
 };
