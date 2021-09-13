@@ -1,15 +1,27 @@
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import HttpResponse
 from rest_framework.generics import RetrieveUpdateAPIView, CreateAPIView, ListAPIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated, BasePermission, SAFE_METHODS
-from django.db.models import Q
+
 from .models import Profile
 from .serializers import ProfileSerializer, UserSearchSerializer
 
 
+class CustomProfilePermission(BasePermission):
+    def has_permission(self, request, view):
+        if request.method in SAFE_METHODS and IsAuthenticated:
+            return True
+        else:
+            if view.kwargs.get('pk') == request.user.username:
+                return True
+            else:
+                return False
+
+
 class RetrieveProfile(RetrieveUpdateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [CustomProfilePermission]
     serializer_class = ProfileSerializer
 
     def get_object(self, queryset=None, **kwargs):
