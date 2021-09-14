@@ -49,7 +49,6 @@ const GameList = ({ type, games, username }) => {
                 }}
               >
                 {type === 'Active' ? 'join' : 'view'}
-                {id}
               </button>
             </div>
           ))
