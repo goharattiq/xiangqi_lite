@@ -5,21 +5,29 @@ from django.db.models import F
 from game.models import Game
 from game.serializers import GameSerializer
 from user_profile.models import Profile
+from hashids import Hashids
+from xiangqi_django.settings import SECRET_KEY
 
 sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
 app = socketio.ASGIApp(sio)
 
+hashids = Hashids(SECRET_KEY, min_length=8)
+
 
 @sio.on('chat.send')
 async def send_message(sid, data):
+    room_id = hashids.decode(data['gameID'])[0]
+
     await sio.emit('chat.received',
                    data=data['message'],
-                   room=str(data['gameID']),
+                   room=str(room_id),
                    skip_sid=sid)
 
 
 @sio.on('game.piece_move')
 async def piece_move(sid, data):
+    data['gameID'] = hashids.decode(data['gameID'])[0]
+
     player_turn = await update_game(data)
     await sio.emit('game.move_success',
                    data={'move': data['move'], 'playerTurn': player_turn},
@@ -30,16 +38,18 @@ async def piece_move(sid, data):
 @sio.on('game.set_params')
 async def send_game_params(sid, game_params):
     instance = await create_game(game_params)
-    await join_room(sid, instance['id'])
+    game_id = hashids.decode(instance['id'])[0]
+    await join_room(sid, game_id)
 
     session = await sio.get_session(sid)
-
-    await player_in_game(session['user'], 'JOIN_GAME', str(instance['id']))
-    await sio.emit('game.success', data=instance, room=str(instance['id']))
+    await player_in_game(session['user'], 'JOIN_GAME', str(game_id))
+    await sio.emit('game.success', data=instance, room=str(game_id))
 
 
 @sio.on('game.enter')
 async def enter_game(sid, game_id):
+    game_id = hashids.decode(game_id)[0]
+
     session = await sio.get_session(sid)
     await player_in_game(session['user'], 'JOIN_GAME', str(game_id))
 
@@ -53,15 +63,18 @@ async def enter_game(sid, game_id):
 
 @sio.on('game.leave')
 async def leave_game(sid, game_id):
+    game_id = hashids.decode(game_id)[0]
     session = await sio.get_session(sid)
     await player_in_game(session['user'], 'LEAVE_GAME', str(game_id))
     instance = await get_game(game_id)
+
     await sio.emit('game.send_params', data=instance, room=str(game_id), skip_sid=sid)
     sio.leave_room(sid, str(game_id))
 
 
 @sio.on('game.end')
 async def end_game(sid, data):
+    data['gameID'] = hashids.decode(data['gameID'])[0]
     winner_id = await end_game_update(data)
     await sio.emit('game.announce_winner', data=winner_id, room=str(data['gameID']))
 

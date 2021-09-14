@@ -1,11 +1,20 @@
 from rest_framework import serializers
+
 from user_profile.serializers import ProfileGameSerializer
 from .models import Game
 
+from hashids import Hashids
+from xiangqi_django.settings import SECRET_KEY
+
+hashids = Hashids(SECRET_KEY, min_length=8)
 
 class GameSerializer(serializers.ModelSerializer):
     player_1 = ProfileGameSerializer('profile_1')
     player_2 = ProfileGameSerializer('profile_1')
+    id = serializers.SerializerMethodField()
+
+    def get_id(self, obj):
+        return hashids.encode(obj.id)
 
     class Meta:
         model = Game
@@ -14,8 +23,12 @@ class GameSerializer(serializers.ModelSerializer):
 
 
 class ListGameSerializer(serializers.ModelSerializer):
-    player_1 = ProfileGameSerializer('profile_1',read_only=True)
-    player_2 = ProfileGameSerializer('profile_1',read_only=True)
+    player_1 = ProfileGameSerializer('profile_1', read_only=True)
+    player_2 = ProfileGameSerializer('profile_1', read_only=True)
+    id = serializers.SerializerMethodField()
+
+    def get_id(self, obj):
+        return hashids.encode(obj.id)
 
     class Meta:
         model = Game
