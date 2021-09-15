@@ -7,6 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import Spinner from '../Components/Spinner';
 import GameList from '../Lobby/GameList';
+import { clearProfile } from '../redux/profile/actions';
 import { fetchAllTimeGames, fetchUserProfile } from '../redux/profile/thunk';
 
 import './Profile.scss';
@@ -57,9 +58,10 @@ const ProfileContainer = () => {
   const callback = useCallback(() => fetchUserProfile(profileID));
   document.body.style.backgroundColor = '#ede8e0';
   useEffect(() => {
+    dispatch(clearProfile());
     dispatch(callback());
     dispatch(fetchAllTimeGames(profileID));
-  }, [auth]);
+  }, [auth, profileID]);
   const {
     user,
     gamesCount,
