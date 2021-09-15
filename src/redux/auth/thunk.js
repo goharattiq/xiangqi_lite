@@ -35,7 +35,7 @@ export const signupUser = ({ username, email, password }) => (dispatch) => {
     .then((res) => {
       signUpData = res.data;
       axios
-        .post('/api/profile/', { id: signUpData.user.pk }, {
+        .post('/api/profile/', { pk: signUpData.user.pk }, {
           headers: {
             Cookie: `access_token=${signUpData.access_token}`,
             Authorization: `Bearer ${signUpData.access_token}`,
