@@ -47,7 +47,7 @@ const GameContainer = () => {
   document.body.style.backgroundColor = '#be342d';
 
   useEffect(() => {
-    if (!gameParams || !gameParams.id) {
+    if ((!gameParams || !gameParams.id) || (history.location.pathname !== `/game/${gameParams.id}`)) {
       socketEnterGame(gameId, history);
     }
   }, []);

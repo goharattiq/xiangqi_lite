@@ -66,8 +66,8 @@ export const subscribeGameSockets = (history, username, dispatch) => {
     });
 
     socket.on('game.success', (gameParams) => {
-      history.location.pathname !== `/game/${gameParams.id}` && history.push(`/game/${gameParams.id}`);
       initGame(gameParams, username, dispatch);
+      history.location.pathname !== `/game/${gameParams.id}` && history.push(`/game/${gameParams.id}`);
     });
 
     socket.on('game.move_success', (data) => {
