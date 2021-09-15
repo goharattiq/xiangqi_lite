@@ -16,9 +16,9 @@ export const fetchUserProfile = (username) => (dispatch) => {
     });
 };
 
-export const fetchAllTimeGames = (userID) => (dispatch) => {
+export const fetchAllTimeGames = (username) => (dispatch) => {
   axios
-    .get(`/api/game/alltime/${userID}/`)
+    .get(`/api/game/alltime/${username}/`)
     .then((res) => {
       dispatch(getGames(res.data));
     })
@@ -28,22 +28,21 @@ export const fetchAllTimeGames = (userID) => (dispatch) => {
     });
 };
 
-export const updateProfile = (userID, {
+export const updateProfile = (username, {
 // eslint-disable-next-line camelcase
   first_name, last_name, bio, photo,
 }, history) => (dispatch) => {
   const data = new FormData();
   data.append('photo', photo);
-  data.append('id', userID);
   data.append('first_name', first_name);
   data.append('last_name', last_name);
   data.append('bio', bio);
   axios
-    .put(`/api/profile/${userID}/`, data)
+    .put(`/api/profile/${username}/`, data)
     .then((res) => {
       dispatch(editProfile(res.data));
       dispatch(setToast('Profile Edit SuccessFully', 'light', dispatch));
-      history.push('/profile');
+      history.push(`/profile/${username}`);
     })
     .catch((err) => {
       const errors = err.response.data;

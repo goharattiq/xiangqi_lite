@@ -47,8 +47,8 @@ const Routes = () => {
           <Redirect to="/lobby" />
           <Switch>
             <PrivateRoute exact path="/lobby" component={Lobby} />
-            <PrivateRoute exact path="/profile/:profileID" component={Profile} />
-            <PrivateRoute exact path="/profile/edit/:profileID" component={EditProfile} />
+            <PrivateRoute exact path="/profile/:profileUsername" component={Profile} />
+            <PrivateRoute exact path="/profile/edit/:profileUsername" component={EditProfile} />
             <PrivateRoute exact path="/game/:gameId" component={Game} />
             <PrivateRoute exact path="/leaderboard" component={LeaderBoard} />
           </Switch>

@@ -35,7 +35,7 @@ const EditProfile = () => {
   }, []);
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(updateProfile(user.pk, profile, history));
+    dispatch(updateProfile(user.username, profile, history));
     setProfile({
       first_name: '',
       last_name: '',

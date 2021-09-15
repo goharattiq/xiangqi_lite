@@ -25,7 +25,7 @@ const Profile = ({
           {
             isSessionUser
               ? (
-                <Link to={`profile/edit/${user.pk}`} className="m-1 edit-button">
+                <Link to={`/profile/edit/${user.username}`} className="m-1 edit-button">
                   <i className="fas fa-edit" />
                 </Link>
               ) : ''
@@ -52,16 +52,16 @@ const Profile = ({
 const ProfileWithSpinner = Spinner(Profile);
 
 const ProfileContainer = () => {
-  const { profileID } = useParams();
+  const { profileUsername } = useParams();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-  const callback = useCallback(() => fetchUserProfile(profileID));
+  const callback = useCallback(() => fetchUserProfile(profileUsername));
   document.body.style.backgroundColor = '#ede8e0';
   useEffect(() => {
     dispatch(clearProfile());
     dispatch(callback());
-    dispatch(fetchAllTimeGames(profileID));
-  }, [auth, profileID]);
+    dispatch(fetchAllTimeGames(profileUsername));
+  }, [auth, profileUsername]);
   const {
     user,
     gamesCount,
@@ -98,7 +98,7 @@ const ProfileContainer = () => {
       stateList={stateList}
       games={games}
       photo={photo}
-      isSessionUser={auth.user.pk === profileID}
+      isSessionUser={auth.user.username === profileUsername}
     />
   );
 };
