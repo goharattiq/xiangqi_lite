@@ -3,25 +3,15 @@ from django.db.models import Q
 from django.http import HttpResponse
 from rest_framework.generics import RetrieveUpdateAPIView, CreateAPIView, ListAPIView
 from rest_framework.generics import get_object_or_404
-from rest_framework.permissions import IsAuthenticated, BasePermission, SAFE_METHODS
+from rest_framework.permissions import IsAuthenticated
+from .permissions import CustomRetrieveProfilePermission, CustomCreateProfilePermission
 
 from .models import Profile
 from .serializers import ProfileSerializer, UserSearchSerializer
 
 
-class CustomProfilePermission(BasePermission):
-    def has_permission(self, request, view):
-        if request.method in SAFE_METHODS and IsAuthenticated:
-            return True
-        else:
-            if view.kwargs.get('pk') == request.user.username:
-                return True
-            else:
-                return False
-
-
 class RetrieveProfile(RetrieveUpdateAPIView):
-    permission_classes = [CustomProfilePermission]
+    permission_classes = [CustomRetrieveProfilePermission]
     serializer_class = ProfileSerializer
 
     def get_object(self, queryset=None, **kwargs):
@@ -29,16 +19,22 @@ class RetrieveProfile(RetrieveUpdateAPIView):
         return get_object_or_404(Profile, user__username=id)
 
     def update(self, request, *args, **kwargs):
-        ProfileSerializer().update(Profile.objects.get(user__username=self.kwargs['pk']), validated_data=request.data)
-        return HttpResponse(status=200)
+        instance = Profile.objects.get(user__username=self.kwargs['pk'])
+        if ProfileSerializer().update(instance, validated_data=request.data):
+            return HttpResponse(status=202)
+        else:
+            return HttpResponse(status=204)
 
 
 class CreateProfile(CreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [CustomCreateProfilePermission]
     serializer_class = ProfileSerializer
 
     def post(self, request, *args, **kwargs):
-        ProfileSerializer().create(validated_data=request.data['id'])
+        id = int(request.data['pk'])
+        res = ProfileSerializer().create(validated_data=id)
+        if not res:
+            return HttpResponse(status=400)
         return HttpResponse(status=201)
 
 
