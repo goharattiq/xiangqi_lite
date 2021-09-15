@@ -26,14 +26,11 @@ const Routes = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const connectSokcets = async () => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      await authUser && Object.keys(authUser).length !== 0 && useSockets(accessToken);
-      await authUser && Object.keys(authUser).length !== 0 && subscribeGameSockets(
-        history,
-        authUser.username,
-        dispatch,
-      );
-      await authUser && Object.keys(authUser).length !== 0 && subscribeChatSocketsEvent(dispatch);
+      if (authUser && Object.keys(authUser).length !== 0) {
+        await useSockets(accessToken);
+        await subscribeGameSockets(history, authUser.username, dispatch);
+        await subscribeChatSocketsEvent(dispatch);
+      }
       if (authUser && Object.keys(authUser).length !== 0 && !gameParams && localStorage.getItem('gameID')) {
         socketLeaveGame(localStorage.getItem('gameID'), dispatch);
       }
