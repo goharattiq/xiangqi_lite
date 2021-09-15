@@ -20,9 +20,7 @@ class ProfileSerializer(ModelSerializer):
 
     def create(self, validated_data):
         user = User.objects.filter(id=validated_data).first()
-        if not user:
-            return None
-        return Profile.objects.create(user_id=user.id)
+        return Profile.objects.get_or_create(user_id=user.id)[1]
 
     def update(self, instance, validated_data):
         username = instance.user.username
@@ -45,8 +43,7 @@ class ProfileSerializer(ModelSerializer):
                     continue
                 profile[field] = value
 
-        Profile.objects.filter(user__username=username).update(**profile)
-        return Profile.objects.filter(user__username=username).first()
+        return Profile.objects.filter(user__username=username).update(**profile)
 
 
 class UserSearchSerializer(ModelSerializer):
