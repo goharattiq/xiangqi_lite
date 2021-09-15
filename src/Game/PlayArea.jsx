@@ -103,7 +103,7 @@ const PlayArea = () => {
         winner ? (
           <AnnounceWinner
             // eslint-disable-next-line no-nested-ternary
-            player={winner === redPlayer.user.pk ? redPlayer : blackPlayer}
+            player={winner === redPlayer.user.username ? redPlayer : blackPlayer}
             username={user.username}
           />
         ) : ''

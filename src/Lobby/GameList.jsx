@@ -14,23 +14,25 @@ const GameList = ({ type, games, username }) => {
       {
         games.length !== 0
           ? games.map(({
-            id, player_1, player_2, is_rated, is_timed, move_timer, game_timer,
+            id, player_1, player_2, is_rated, is_timed, move_timer, game_timer, winner, is_active,
           }) => (
             <div
               className="col-md-2 col-sm-4 col-5 border m-3  p-3"
               key={id}
             >
-              <p className="text-center">
-                <Link to={`/profile/${player_1.user.username}`} className="profile-link">
+              <Link to={`/profile/${player_1.user.username}`} className="profile-link">
+                <p className="text-center">
                   {`${getPlayerName(player_1.user.username)}(${player_1.rating})`}
-                </Link>
-              </p>
+                </p>
+              </Link>
+
               <p className="text-center"> vs </p>
-              <p className="text-center">
-                <Link to={`/profile/${player_2.user.username}`} className="profile-link">
+
+              <Link to={`/profile/${player_2.user.username}`} className="profile-link">
+                <p className="text-center">
                   {`${getPlayerName(player_2.user.username)}(${player_2.rating})`}
-                </Link>
-              </p>
+                </p>
+              </Link>
 
               <div className="d-flex justify-content-between">
                 <p>
@@ -40,6 +42,18 @@ const GameList = ({ type, games, username }) => {
                   {`${is_timed ? `${move_timer}/${game_timer}` : '-'}`}
                 </p>
               </div>
+              {
+                is_active ? ''
+                  : (
+                    <div className="d-flex justify-content-between">
+                      <p>
+                        <Link to={`/profile/${winner}`} className="profile-link">
+                          {`winner ${getPlayerName(winner)}`}
+                        </Link>
+                      </p>
+                    </div>
+                  )
+}
 
               <button
                 className="game-link"
