@@ -1,16 +1,15 @@
 import os
 from datetime import timedelta
 from pathlib import Path
+
+import dj_database_url
 import django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-SECRET_KEY = 'django-insecure-75v)%$-hm6(8#t3s!ezobfi_911zia%$#+gw@o*naci+(nou&+'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
@@ -70,16 +69,7 @@ ASGI_APPLICATION = 'xiangqi_django.routing.application'
 
 
 # local database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'xiangqi_db',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
