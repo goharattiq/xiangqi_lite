@@ -12,7 +12,7 @@ const ChatHistory = () => {
           chat.length !== 0 ? chat.map(({ content, author }, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <div className=" mt-3 ps-2 border-dark message" key={index}>
-              <Link to={`/profile/${author}`}>
+              <Link to={`/profile/${author}`} className="profile-link">
                 <span className="author">
                   {author}
                 </span>

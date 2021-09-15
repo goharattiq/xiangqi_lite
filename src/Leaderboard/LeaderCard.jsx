@@ -17,7 +17,7 @@ const LeaderCard = ({ leader }) => {
     <Card className="col-lg-2 col-md-4 col-sm-3 col-5 m-3">
       <img src={leader.photo} alt={leader.user.username} className="leader-avatar m-2" />
       <Card.Body>
-        <Link to={`/profile/${leader.user.username}`}>
+        <Link to={`/profile/${leader.user.username}`} className="profile-link">
           <Card.Title className="d-flex justify-content-center">{leader.user.username}</Card.Title>
         </Link>
 

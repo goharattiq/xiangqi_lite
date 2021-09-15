@@ -10,3 +10,11 @@
   width: 60px;
   left: 6%;
 }
+
+.profile-link {
+  color: $compliment;
+}
+
+.profile-link:hover {
+  color: rgba($color: $compliment, $alpha: 0.7);
+}

@@ -4,6 +4,14 @@ p {
   margin: 0;
 }
 
+.profile-link {
+  color: $compliment;
+}
+
+.profile-link:hover {
+  color: rgba($color: $compliment, $alpha: 0.7);
+}
+
 .chat {
   background-color: $background;
   border-radius: 10px;

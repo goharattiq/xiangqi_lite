@@ -1,5 +1,13 @@
 @import "../variables";
 
+.profile-link {
+  color: $compliment;
+}
+
+.profile-link:hover {
+  color: rgba($color: $compliment, $alpha: 0.7);
+}
+
 .leader-avatar {
   width: 10rem;
   height: 10rem;

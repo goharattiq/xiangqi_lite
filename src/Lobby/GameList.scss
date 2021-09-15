@@ -13,6 +13,14 @@
   left: 60%;
 }
 
+.profile-link {
+  color: $compliment;
+}
+
+.profile-link:hover {
+  color: rgba($color: $compliment, $alpha: 0.7);
+}
+
 @media screen and (max-width: 400px) {
   .games {
     position: relative;
