@@ -1,12 +1,12 @@
+from hashids import Hashids
 from rest_framework import serializers
 
 from user_profile.serializers import ProfileGameSerializer
+from xiangqi_django.settings import SECRET_KEY
 from .models import Game
 
-from hashids import Hashids
-from xiangqi_django.settings import SECRET_KEY
-
 hashids = Hashids(SECRET_KEY, min_length=8)
+
 
 class GameSerializer(serializers.ModelSerializer):
     player_1 = ProfileGameSerializer('profile_1')

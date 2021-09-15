@@ -43,6 +43,7 @@ async def send_game_params(sid, game_params):
 
     session = await sio.get_session(sid)
     await player_in_game(session['user'], 'JOIN_GAME', str(game_id))
+    instance = await get_game(game_id)
     await sio.emit('game.success', data=instance, room=str(game_id))
 
 
@@ -183,6 +184,7 @@ def end_game_update(data):
 def player_in_game(user, type, game_id):
     instance = Game.objects.filter(pk=game_id)
 
+    print('============>enter')
     if instance.first().player_1.user_id == user.id \
             or instance.first().player_2.user_id == user.id:
         count = 1 if type == 'JOIN_GAME' else -1
