@@ -52,6 +52,7 @@ async def enter_game(sid, game_id):
     game_id = hashids.decode(game_id)[0]
 
     session = await sio.get_session(sid)
+    user = session['user']
     await player_in_game(session['user'], 'JOIN_GAME', str(game_id))
 
     instance = await get_game(game_id)
@@ -59,17 +60,29 @@ async def enter_game(sid, game_id):
     instance['player_1']['side'] = instance['side']
     instance['player_2']['side'] = 'Black' \
         if instance['side'] == 'Red' else 'Red'
-    await sio.emit('game.send_params', data=instance, room=str(game_id))
+
+    if instance['player_1']['user']['pk'] == user.id \
+            or instance['player_2']['user']['pk'] == user.id:
+        await sio.emit('game.send_params', data=instance, room=str(game_id))
+    else:
+        await sio.emit('game.send_params', to=sid, data=instance, room=str(game_id))
 
 
 @sio.on('game.leave')
 async def leave_game(sid, game_id):
     game_id = hashids.decode(game_id)[0]
     session = await sio.get_session(sid)
-    await player_in_game(session['user'], 'LEAVE_GAME', str(game_id))
+    user = session['user']
+    await player_in_game(user, 'LEAVE_GAME', str(game_id))
     instance = await get_game(game_id)
 
-    await sio.emit('game.send_params', data=instance, room=str(game_id), skip_sid=sid)
+    if instance['player_1']['user']['pk'] == user.id \
+            or instance['player_2']['user']['pk'] == user.id:
+        await sio.emit('game.send_params', data=instance, room=str(game_id),skip_sid=sid)
+    else:
+        await sio.emit('game.send_params', to=sid, data=instance, room=str(game_id))
+
+    # await sio.emit('game.send_params', data=instance, room=str(game_id), skip_sid=sid)
     sio.leave_room(sid, str(game_id))
 
 
