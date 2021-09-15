@@ -29,6 +29,7 @@ class Game(models.Model):
     history = ArrayField(JSONField(), default=list)
     player_turn = models.IntegerField(_('player_turn'), default=-1)
     connected_player = models.IntegerField(_('connected_player'), default=0)
+    winner = models.CharField(_('winner'), null=True,max_length=255)
 
     def clean(self):
         if self.player_1.user_id == self.player_2.user_id:
