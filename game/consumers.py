@@ -70,6 +70,7 @@ async def enter_game(sid, game_id):
 
 @sio.on('game.leave')
 async def leave_game(sid, game_id):
+    if game_id is None: return
     game_id = hashids.decode(game_id)[0]
     session = await sio.get_session(sid)
     user = session['user']
@@ -78,19 +79,18 @@ async def leave_game(sid, game_id):
 
     if instance['player_1']['user']['pk'] == user.id \
             or instance['player_2']['user']['pk'] == user.id:
-        await sio.emit('game.send_params', data=instance, room=str(game_id),skip_sid=sid)
+        await sio.emit('game.send_params', data=instance, room=str(game_id), skip_sid=sid)
     else:
         await sio.emit('game.send_params', to=sid, data=instance, room=str(game_id))
 
-    # await sio.emit('game.send_params', data=instance, room=str(game_id), skip_sid=sid)
     sio.leave_room(sid, str(game_id))
 
 
 @sio.on('game.end')
 async def end_game(sid, data):
     data['gameID'] = hashids.decode(data['gameID'])[0]
-    winner_id = await end_game_update(data)
-    await sio.emit('game.announce_winner', data=winner_id, room=str(data['gameID']))
+    winner_username = await end_game_update(data)
+    await sio.emit('game.announce_winner', data=winner_username, room=str(data['gameID']))
 
 
 @sio.on('connect')
@@ -163,16 +163,13 @@ def update_game(data):
 
 @sync_to_async
 def end_game_update(data):
+    print('end game===>',data)
     player_1 = data['players']['player_1']
     player_2 = data['players']['player_2']
     looser = data['looser']
     points = 25 if data['type'] == 'END_TIME' and data['isRated'] else 50 if data['isRated'] else 0
 
-    Game.objects.filter(pk=data['gameID']).update(
-        is_active=False,
-    )
     winning = player_1['user']['pk'] if player_2['user']['pk'] == looser else player_2['user']['pk']
-    if not data['isRated']: return winning
 
     looser_instance = Profile.objects.filter(user_id=looser)
     winning_instance = Profile.objects.filter(user_id=winning)
@@ -190,14 +187,19 @@ def end_game_update(data):
         rating=F('rating') + points,
         winning_percentage=(F('wins_count') + 1) / (F('games_played_count') + 1) * 100,
     )
-    return winning
+
+    Game.objects.filter(pk=data['gameID']).update(
+        is_active=False,
+        winner=winning_instance.first().user.username
+    )
+
+    return winning_instance.first().user.username
 
 
 @sync_to_async
 def player_in_game(user, type, game_id):
     instance = Game.objects.filter(pk=game_id)
 
-    print('============>enter')
     if instance.first().player_1.user_id == user.id \
             or instance.first().player_2.user_id == user.id:
         count = 1 if type == 'JOIN_GAME' else -1
