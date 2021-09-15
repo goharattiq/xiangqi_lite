@@ -41,7 +41,7 @@ class AllTimeGames(ListAPIView):
             is_active=False
         )
 
-        if username == self.request.user.pk:
+        if username == self.request.user.username:
             return qs
         else:
             return qs.filter(is_public=True)
