@@ -17,7 +17,7 @@ input[name="moveTime"] + label,
 input[name="gameTimer"] + label {
   position: relative;
   top: -31px;
-  left: 20px;
+  left: 20px !important;
   width: 20px;
   cursor: pointer;
 }
@@ -44,11 +44,9 @@ input[type="radio"] + label {
   top: 5%;
 }
 
-.fa-times {
+.close-button {
   position: absolute;
-  right: 9%;
   top: 4%;
-  cursor: pointer;
 }
 
 .form-check {

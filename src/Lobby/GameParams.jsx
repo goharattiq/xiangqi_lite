@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
-import { Button, Form } from 'react-bootstrap';
+import { Button, CloseButton, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { gameParamsAct } from '../redux/game/actions';
@@ -69,9 +69,10 @@ const GameParams = ({ setOverlayDiv }) => {
     <div className="position-absolute w-100 h-100 overlay-div">
       <div className="position-absolute bg-white pt-4 game-params">
         <h2 className="text-center mb-3">Create game</h2>
-        <button type="button" onClick={() => { setOverlayDiv(false); }}>
-          <i id="close" className="fas fa-times" />
-        </button>
+        <CloseButton
+          className="close-button"
+          onClick={() => { setOverlayDiv(false); }}
+        />
 
         <Form onSubmit={handleSubmit} className="form-scroll">
           {
