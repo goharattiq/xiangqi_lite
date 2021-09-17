@@ -1,11 +1,12 @@
 import socketio
 from asgiref.sync import sync_to_async
 from django.db.models import F
+from django.utils.timezone import now
+from hashids import Hashids
 
 from game.models import Game
 from game.serializers import GameSerializer
 from user_profile.models import Profile
-from hashids import Hashids
 from xiangqi_django.settings import SECRET_KEY
 
 sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
@@ -27,10 +28,11 @@ async def send_message(sid, data):
 @sio.on('game.piece_move')
 async def piece_move(sid, data):
     data['gameID'] = hashids.decode(data['gameID'])[0]
-
-    player_turn = await update_game(data)
+    session = await sio.get_session(sid)
+    session_user = session['user']
+    updated_game = await update_game(data, session_user)
     await sio.emit('game.move_success',
-                   data={'move': data['move'], 'playerTurn': player_turn},
+                   data={'move': data['move'], 'playerTurn': updated_game['player_turn'], 'time': updated_game['time']},
                    room=str(data['gameID']),
                    skip_sid=sid)
 
@@ -69,13 +71,19 @@ async def enter_game(sid, game_id):
 
 
 @sio.on('game.leave')
-async def leave_game(sid, game_id):
-    if game_id is None: return
+async def leave_game(sid, data):
+    game_id = data['gameID']
+    if game_id is None:
+        return
     game_id = hashids.decode(game_id)[0]
     session = await sio.get_session(sid)
     user = session['user']
     await player_in_game(user, 'LEAVE_GAME', str(game_id))
     instance = await get_game(game_id)
+
+    instance['player_1']['side'] = instance['side']
+    instance['player_2']['side'] = 'Black' \
+        if instance['side'] == 'Red' else 'Red'
 
     if instance['player_1']['user']['pk'] == user.id \
             or instance['player_2']['user']['pk'] == user.id:
@@ -119,29 +127,46 @@ def get_game(game_id):
 def create_game(game_params):
     user_owner = Profile.objects.filter(user__username=game_params['player_1']).first()
     user_invitee = Profile.objects.filter(user__username=game_params['player_2']).first()
+
+    time = None
+    if game_params['gameTimed'] == 'Timed':
+        time = {
+            'player_1': {
+                'move_time': int(game_params['moveTime']),
+                'game_time': int(game_params['gameTimer']),
+            },
+            'player_2': {
+                'move_time': int(game_params['moveTime']),
+                'game_time': int(game_params['gameTimer']),
+            }
+        }
+
     game = Game.objects.create(
         is_public=True if game_params['gameType'] == 'Public' else False,
         is_rated=True if game_params['gameRated'] == 'Rated' else False,
         is_timed=True if game_params['gameTimed'] == 'Timed' else False,
         move_timer=game_params['moveTime'],
         game_timer=game_params['gameTimer'],
+        time=time,
         side=game_params['side'],
         player_1=user_owner,
         player_2=user_invitee,
         game_board=game_params['game_board'],
         player_turn=user_owner.user.id
     )
-    game.save()
     return GameSerializer(game).data
 
 
 @sync_to_async
-def update_game(data):
+def update_game(data,session_user):
     previous_instance = Game.objects.get(pk=data['gameID'])
 
     hit_pieces = previous_instance.hit_pieces
     history = previous_instance.history
     player_turn = previous_instance.player_turn
+    last_move = previous_instance.last_move
+    time_taken = (now() - last_move).total_seconds() / 60
+    time = previous_instance.time
 
     player_turn = previous_instance.player_2.user_id \
         if previous_instance.player_1.user_id == player_turn else previous_instance.player_1.user_id
@@ -152,18 +177,31 @@ def update_game(data):
     history.append(data['move'])
     history = list(filter(None, history))
 
+    if session_user.pk == previous_instance.player_1.user_id:
+        time['player_1']['game_time'] -= time_taken
+    if session_user.pk == previous_instance.player_2.user_id:
+        time['player_2']['game_time'] -= time_taken
+
     Game.objects.filter(pk=data['gameID']).update(
         game_board=data['board'],
         history=history,
         hit_pieces=hit_pieces,
-        player_turn=player_turn
+        player_turn=player_turn,
+        time=time,
+        last_move=now()
     )
-    return player_turn
+    return {'player_turn': player_turn, 'time': time }
+
+
+@sync_to_async
+def update_game_time(game_id, time):
+    Game.objects.filter(pk=game_id).update(
+        time=time
+    )
 
 
 @sync_to_async
 def end_game_update(data):
-    print('end game===>',data)
     player_1 = data['players']['player_1']
     player_2 = data['players']['player_2']
     looser = data['looser']
@@ -198,14 +236,32 @@ def end_game_update(data):
 
 @sync_to_async
 def player_in_game(user, type, game_id):
-    instance = Game.objects.filter(pk=game_id)
+    instance = Game.objects.filter(pk=game_id).first()
 
-    if instance.first().player_1.user_id == user.id \
-            or instance.first().player_2.user_id == user.id:
+    if instance.player_1.user_id == user.id \
+            or instance.player_2.user_id == user.id:
         count = 1 if type == 'JOIN_GAME' else -1
-        instance = Game.objects.filter(pk=game_id).first()
+        last_move = instance.last_move
+        cp = instance.connected_player
+
+        if type != 'JOIN_GAME' and cp == 2:
+            time_taken = (now() - last_move).total_seconds() / 60
+            time = instance.time
+
+            if instance.player_turn == instance.player_1.user_id:
+                time['player_1']['game_time'] -= time_taken
+                print('player 1 leave')
+            if instance.player_turn == instance.player_2.user_id:
+                print('player 2 leave')
+                time['player_2']['game_time'] -= time_taken
+
+            print(time)
+            instance.time = time
+
         cp = instance.connected_player
         cp = cp + count if 0 <= cp + count <= 2 else 0 if cp + count < 0 else 2
         instance.connected_player = cp;
+
+        instance.last_move = now()
         instance.save()
     return
