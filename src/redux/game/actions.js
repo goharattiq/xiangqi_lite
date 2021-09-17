@@ -19,9 +19,9 @@ export const initBoard = (board, hitPiece, history, gameParams) => ({
   },
 });
 
-export const pieceMove = (move, fromSockets) => ({
+export const pieceMove = (move, fromSockets, time) => ({
   type: PIECE_MOVE,
-  payload: { move, fromSockets },
+  payload: { move, fromSockets, time },
 });
 
 export const hintMove = (pieceName, location) => ({

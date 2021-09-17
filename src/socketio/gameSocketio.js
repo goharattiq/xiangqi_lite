@@ -54,7 +54,7 @@ export const socketEndGame = (gameID, players, looser, type, isRated) => {
 
 export const socketLeaveGame = (gameID, dispatch) => {
   localStorage.removeItem('gameID');
-  socket.emit('game.leave', gameID);
+  socket.emit('game.leave', { gameID });
   dispatch(clearGame());
   dispatch(clearChat());
 };
@@ -71,7 +71,7 @@ export const subscribeGameSockets = (history, username, dispatch) => {
     });
 
     socket.on('game.move_success', (data) => {
-      dispatch(pieceMove(data.move, true));
+      dispatch(pieceMove(data.move, true, data.time));
       dispatch(clearHintMove());
     });
 

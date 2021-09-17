@@ -55,6 +55,7 @@ const gameReducer = (state = initialState, action) => {
             : turnChanged && state.params.player_turn === state.params.player_2.user.pk
               ? state.params.player_1.user.pk
               : state.params.player_turn,
+          time: payload.time ? payload.time : state.params.time
         },
       };
     case HINT_MOVE:
