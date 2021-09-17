@@ -34,7 +34,7 @@ const Board = ({ historyMode }) => {
   };
   const onDragEnd = (move) => {
     if (!historyMode) {
-      dispatch(pieceMove(move, false));
+      dispatch(pieceMove(move, false, null));
       dispatch(clearHintMove());
     }
     changeDroppableStyle(null, previousExpectedMove);

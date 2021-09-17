@@ -68,8 +68,7 @@ const PlayArea = () => {
         {
           gameParams && gameParams.is_timed && gameParams.is_active ? (
             <Timer
-              moveTimer={gameParams.move_timer}
-              gameTimer={gameParams.game_timer}
+              playerTimer={gameParams.time.player_1}
               isPause={!(haveTurn(redPlayer.user.pk)) || gameParams.connected_player < 2}
               style={{ bottom: '40px' }}
               userID={user.pk}
@@ -84,8 +83,7 @@ const PlayArea = () => {
         {
           gameParams && gameParams.is_timed && gameParams.is_active ? (
             <Timer
-              moveTimer={gameParams.move_timer}
-              gameTimer={gameParams.game_timer}
+              playerTimer={gameParams.time.player_2}
               isPause={!(haveTurn(blackPlayer.user.pk)) || gameParams.connected_player < 2}
               style={{ bottom: '60px' }}
               userID={user.pk}

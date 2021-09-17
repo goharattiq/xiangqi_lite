@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Button, CloseButton, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { gameParamsAct } from '../redux/game/actions';
 import { fetechedSearchUsernames } from '../redux/game/thunk';
 import { isValidGameParams } from '../redux/game/utiles';
 import { setToast } from '../redux/toast/actions';
@@ -50,7 +49,6 @@ const GameParams = ({ setOverlayDiv }) => {
         dispatch(setToast('You cannot play with yourself', 'danger', dispatch));
         return;
       }
-      dispatch(gameParamsAct(gameParams));
       socketSetGameParams(gameParams, owner);
       setGameParams({
         gameType: '',
@@ -155,7 +153,7 @@ const GameParams = ({ setOverlayDiv }) => {
                   ))
                   : <p>Nothing Found</p>
 
-                }
+              }
             </datalist>
           </div>
           <Button
