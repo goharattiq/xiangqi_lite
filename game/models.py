@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import JSONField
 from django.utils.translation import gettext_lazy as _
+from django.utils.timezone import now
 
 from user_profile.models import Profile
 
@@ -20,6 +21,8 @@ class Game(models.Model):
     is_timed = models.BooleanField(_('is_timed'), default=True)
     move_timer = models.IntegerField(_('move_timer'), default=1)
     game_timer = models.IntegerField(_('game_timer'), default=30)
+    last_move = models.DateTimeField(default=now)
+    time = JSONField(null=True)
     is_active = models.BooleanField(_('is_active'), default=True)
     side = models.CharField(_('side'), max_length=10, blank=True)
     player_1 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='player_1', null=True)
@@ -29,7 +32,7 @@ class Game(models.Model):
     history = ArrayField(JSONField(), default=list)
     player_turn = models.IntegerField(_('player_turn'), default=-1)
     connected_player = models.IntegerField(_('connected_player'), default=0)
-    winner = models.CharField(_('winner'), null=True,max_length=255)
+    winner = models.CharField(_('winner'), null=True, max_length=255)
 
     def clean(self):
         if self.player_1.user_id == self.player_2.user_id:

@@ -18,9 +18,9 @@ class GameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Game
-        fields = ['id', 'is_active', 'is_public', 'is_rated', 'is_timed', 'move_timer', 'game_timer', 'side',
+        fields = ['id', 'is_active', 'is_public', 'is_rated', 'is_timed', 'side',
                   'player_1', 'player_2', 'game_board', 'hit_pieces', 'history', 'player_turn', 'connected_player',
-                  'winner']
+                  'winner', 'time', 'last_move']
 
 
 class ListGameSerializer(serializers.ModelSerializer):
@@ -34,4 +34,4 @@ class ListGameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
         fields = ['id', 'is_active', 'is_public', 'is_rated', 'is_timed', 'move_timer', 'game_timer', 'side',
-                  'player_1', 'player_2', 'player_turn', 'winner']
+                  'player_1', 'player_2', 'player_turn', 'winner', 'time', 'last_move']
