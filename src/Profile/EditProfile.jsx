@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { updateProfile } from '../redux/profile/thunk';
+import { setToast } from '../redux/toast/actions';
+import { ALLOWED_EXTENSTIONS } from '../utils/constants';
 
 const EditProfile = () => {
   const dispatch = useDispatch();
@@ -43,11 +45,18 @@ const EditProfile = () => {
     });
   };
 
+
   const handleFileChange = (event) => {
-    setProfile({
+    const extention = event.target.files[0].name.split('.')[1]
+    if (ALLOWED_EXTENSTIONS.includes(extention.toUpperCase()))
+    { 
+      setProfile({
       ...profile,
       photo: event.target.files[0],
-    });
+      });
+    } else {
+      dispatch(setToast('This file is not allowed','danger',dispatch))
+    }
   };
 
   return (
@@ -90,6 +99,7 @@ const EditProfile = () => {
       <Form.Control
         type="file"
         name="photo"
+        accept="image/png, image/jpeg, image/jpg"
         onChange={handleFileChange}
       />
       <Button

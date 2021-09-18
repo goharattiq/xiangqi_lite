@@ -32,5 +32,9 @@ export const COLS = 9;
 
 export const TOAST_TIMER = 5000;
 
+export const ALLOWED_EXTENSTIONS = [
+  'JPEG', 'JPG', 'PNG' 
+]
+
 const WS_SCHEME = window.location.protocol === 'https:' ? 'wss' : 'ws';
 export const SOCKET_URL = `${WS_SCHEME}://${window.location.host}`;
