@@ -11,8 +11,8 @@ class ListMyActiveGames(ListAPIView):
 
     def get_queryset(self):
         return Game.objects.filter(
-            Q(player_1__user_id=self.request.user.pk) |
-            Q(player_2__user_id=self.request.user.pk),
+            Q(player_1__profile__user_id=self.request.user.pk) |
+            Q(player_2__profile__user_id=self.request.user.pk),
             is_active=True)
 
 
@@ -22,8 +22,8 @@ class ListSpectateGames(ListAPIView):
 
     def get_queryset(self):
         return Game.objects.filter(
-            ~Q(player_1__user_id=self.request.user.pk),
-            ~Q(player_2__user_id=self.request.user.pk),
+            ~Q(player_1__profile__user_id=self.request.user.pk),
+            ~Q(player_2__profile__user_id=self.request.user.pk),
             is_active=True,
             is_public=True
         )
@@ -36,8 +36,8 @@ class AllTimeGames(ListAPIView):
     def get_queryset(self):
         username = self.kwargs.get('pk')
         qs = Game.objects.filter(
-            Q(player_1__user__username=username) |
-            Q(player_2__user__username=username),
+            Q(player_1__profile__user__username=username) |
+            Q(player_2__profile__user__username=username),
             is_active=False
         )
 
