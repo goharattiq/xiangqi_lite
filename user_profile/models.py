@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser, User
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
@@ -12,7 +12,7 @@ class Profile(models.Model):
     losses_count = models.FloatField(_("losses_count"), default=0)
     draw_count = models.FloatField(_("draw_count"), default=0)
     winning_percentage = models.FloatField(_("winning_percentage"), default=0)
-    photo = models.ImageField(upload_to='images/' ,null=True,blank=True)
+    photo = models.ImageField(upload_to='media/images/', null=True, blank=True)
 
     def __str__(self):
         return self.user.username
