@@ -20,17 +20,17 @@ const GameList = ({ type, games, username }) => {
               className="col-md-2 col-sm-4 col-5 border m-3  p-3"
               key={id}
             >
-              <Link to={`/profile/${player_1.user.username}`} className="profile-link">
+              <Link to={`/profile/${player_1.profile.user.username}`} className="profile-link">
                 <p className="text-center">
-                  {`${getPlayerName(player_1.user.username)}(${player_1.rating})`}
+                  {`${getPlayerName(player_1.profile.user.username)}(${player_1.profile.rating})`}
                 </p>
               </Link>
 
               <p className="text-center"> vs </p>
 
-              <Link to={`/profile/${player_2.user.username}`} className="profile-link">
+              <Link to={`/profile/${player_2.profile.user.username}`} className="profile-link">
                 <p className="text-center">
-                  {`${getPlayerName(player_2.user.username)}(${player_2.rating})`}
+                  {`${getPlayerName(player_2.profile.user.username)}(${player_2.profile.rating})`}
                 </p>
               </Link>
 

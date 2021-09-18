@@ -52,7 +52,8 @@ const PlayArea = () => {
       setHistoryMode(false);
     }
   };
-  const haveTurn = (turn) => (turn === playerTurn);
+  const bothConnected = (redPlayer,blackPlayer)=> ((redPlayer.is_connected && blackPlayer.is_connected))
+  const haveTurn = (turn) =>  (turn === playerTurn);
   const redHitPieces = hitPiece.filter((piece) => whichSide(piece.name));
   const blackHitPieces = hitPiece.filter((piece) => !whichSide(piece.name));
   const redPlayer = gameParams && (gameParams.player_1.side === 'Red' ? gameParams.player_1 : gameParams.player_2);
@@ -68,8 +69,8 @@ const PlayArea = () => {
         {
           gameParams && gameParams.is_timed && gameParams.is_active ? (
             <Timer
-              playerTimer={gameParams.time.player_1}
-              isPause={!(haveTurn(redPlayer.user.pk)) || gameParams.connected_player < 2}
+              playerTimer={gameParams.player_1.time}
+              isPause={!(haveTurn(redPlayer.profile.user.pk)) || !bothConnected(redPlayer,blackPlayer)}
               style={{ bottom: '40px' }}
               userID={user.pk}
             />
@@ -83,8 +84,8 @@ const PlayArea = () => {
         {
           gameParams && gameParams.is_timed && gameParams.is_active ? (
             <Timer
-              playerTimer={gameParams.time.player_2}
-              isPause={!(haveTurn(blackPlayer.user.pk)) || gameParams.connected_player < 2}
+              playerTimer={gameParams.player_2.time}
+              isPause={!(haveTurn(blackPlayer.profile.user.pk)) || !bothConnected(redPlayer,blackPlayer)}
               style={{ bottom: '60px' }}
               userID={user.pk}
             />
@@ -101,7 +102,7 @@ const PlayArea = () => {
         winner ? (
           <AnnounceWinner
             // eslint-disable-next-line no-nested-ternary
-            player={winner === redPlayer.user.username ? redPlayer : blackPlayer}
+            player={winner === redPlayer.profile.user.username ? redPlayer : blackPlayer}
             username={user.username}
           />
         ) : ''

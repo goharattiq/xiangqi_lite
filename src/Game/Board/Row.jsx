@@ -21,11 +21,20 @@ const Row = ({ row, clickHandler }) => {
     playerTurn: game.params.player_turn,
   }));
   const disable = ![
-    gameParams.player_1.user.username,
-    gameParams.player_2.user.username]
+    gameParams.player_1.profile.user.username,
+    gameParams.player_2.profile.user.username]
     .includes(user.username);
-  const canMove = (pieceName) => !(whichSide(pieceName) === (gameParams.side === 'Red' ? RED : BLACK));
+  // const canMove = (pieceName) => !(whichSide(pieceName) === (gameParams.player_1.side === 'Red' ? RED : BLACK));
+
+  const canMove = (pieceName,playerTurn) =>  { 
+    if (playerTurn === gameParams.player_1.profile.user.pk)
+      return !(whichSide(pieceName) === (gameParams.player_1.side === 'Red' ? RED : BLACK));
+    if (playerTurn === gameParams.player_2.profile.user.pk)
+      return !(whichSide(pieceName) === (gameParams.player_2.side === 'Red' ? RED : BLACK));
+  }
+
   const haveTurn = (turn) => (turn === user.pk);
+  const bothConnected = (player_1,player_2)=> (player_1.is_connected && player_2.is_connected)
   return (
     row.map((cell) => (
       <td key={`td-${cell.id}`} id={`droppable-${cell.id}`}>
@@ -43,8 +52,8 @@ const Row = ({ row, clickHandler }) => {
                 cell.piece
                   ? (
                     <Draggable
-                      isDragDisabled={canMove(cell.piece.name) || !haveTurn(playerTurn)
-                        || disable || gameParams.connected_player < 2 || !gameParams.is_active}
+                      isDragDisabled={canMove(cell.piece.name,playerTurn) || !haveTurn(playerTurn)
+                        || disable || !bothConnected(gameParams.player_1,gameParams.player_2) || !gameParams.is_active}
                       draggableId={`${cell.piece.name}-${cell.piece.id}`}
                       index={cell.piece.id}
                       key={cell.piece.id}
