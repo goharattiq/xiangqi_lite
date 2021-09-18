@@ -196,7 +196,8 @@ def end_game_update(data):
     looser = data['looser']
     points = 25 if data['type'] == 'END_TIME' and data['isRated'] else 50 if data['isRated'] else 0
 
-    winning = player_1['profile']['user']['pk'] if player_2['profile']['user']['pk'] == looser else player_2['profile']['user']['pk']
+    winning = player_1['profile']['user']['pk'] if player_2['profile']['user']['pk'] == looser\
+        else player_2['profile']['user']['pk']
 
     looser_instance = Profile.objects.filter(user_id=looser)
     winning_instance = Profile.objects.filter(user_id=winning)
