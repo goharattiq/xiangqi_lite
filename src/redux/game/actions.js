@@ -19,9 +19,9 @@ export const initBoard = (board, hitPiece, history, gameParams) => ({
   },
 });
 
-export const pieceMove = (move, fromSockets, time) => ({
+export const pieceMove = (move, fromSockets, player_1,player_2,playerTurn) => ({
   type: PIECE_MOVE,
-  payload: { move, fromSockets, time },
+  payload: { move, fromSockets, player_1,player_2,playerTurn },
 });
 
 export const hintMove = (pieceName, location) => ({
@@ -48,10 +48,10 @@ export const gameParamsAct = (params) => ({
   payload: params,
 });
 
-export const playerTurn = (changePlayerTurn) => ({
-  type: PLAYER_TURN,
-  payload: changePlayerTurn,
-});
+// export const playerTurn = (changePlayerTurn) => ({
+//   type: PLAYER_TURN,
+//   payload: changePlayerTurn,
+// });
 
 export const searchUsername = (searchedUsers) => ({
   type: SEARCH_NAME,

@@ -43,6 +43,9 @@ const gameReducer = (state = initialState, action) => {
       } = onPieceMove(
         payload.move, state, { mode: false }, payload.fromSockets,
       );
+      const player_1 = payload.player_1 ? payload.player_1 : state.params.player_1; 
+      const player_2= payload.player_2 ? payload.player_2 : state.params.player_2;
+
       return {
         ...state,
         board,
@@ -50,12 +53,11 @@ const gameReducer = (state = initialState, action) => {
         history: [...state.history, history].filter((back) => (back !== null)),
         params: {
           ...state.params,
-          player_turn: turnChanged && state.params.player_turn === state.params.player_1.user.pk
-            ? state.params.player_2.user.pk
-            : turnChanged && state.params.player_turn === state.params.player_2.user.pk
-              ? state.params.player_1.user.pk
-              : state.params.player_turn,
-          time: payload.time ? payload.time : state.params.time
+          player_1: player_1,
+          player_2: player_2,
+          player_turn: turnChanged && payload.playerTurn ? payload.playerTurn : turnChanged && state.params.player_turn === player_1.profile.user.pk ?
+          player_2.profile.user.pk : turnChanged && state.params.player_turn === player_2.profile.user.pk ? player_1.profile.user.pk : state.params.player_turn,
+
         },
       };
     case HINT_MOVE:

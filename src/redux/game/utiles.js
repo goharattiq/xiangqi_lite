@@ -42,7 +42,7 @@ export const onPieceMove = (move, previousState, history, fromSockets) => {
       // eslint-disable-next-line camelcase
       const { player_1, player_2 } = params;
       const side = whichSide(hitPiece.name) ? 'Red' : 'Black';
-      const looser = side === player_1.side ? player_1.user.pk : player_2.user.pk;
+      const looser = side === player_1.side ? player_1.profile.user.pk : player_2.profile.user.pk;
       socketEndGame(params.id, { player_1, player_2 }, looser, 'KING_DIED', params.is_rated);
     }
     return {
