@@ -71,7 +71,7 @@ export const subscribeGameSockets = (history, username, dispatch) => {
     });
 
     socket.on('game.move_success', (data) => {
-      dispatch(pieceMove(data.move, true, data.time));
+      dispatch(pieceMove(data.move, true, data.player_1,data.player_2,data.playerTurn));
       dispatch(clearHintMove());
     });
 
@@ -89,13 +89,6 @@ const initGame = (gameParams, username, dispatch) => {
     // eslint-disable-next-line prefer-const
     game_board, hit_pieces, history, ...newGameParams
   } = gameParams;
-
-  if (newGameParams.player_2.user.username === username) {
-    newGameParams = {
-      ...newGameParams,
-      side: newGameParams.side === 'Red' ? 'Black' : 'Red',
-    };
-  }
   game_board = loadBoard(game_board);
   dispatch(initBoard(game_board, hit_pieces, history, newGameParams));
 };
