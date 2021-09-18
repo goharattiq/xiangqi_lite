@@ -1,29 +1,30 @@
 /* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react';
 
-import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { Button, FloatingLabel, Form, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory,useParams } from 'react-router-dom';
 
-import { updateProfile } from '../redux/profile/thunk';
+import { fetchUserProfile, updateProfile } from '../redux/profile/thunk';
 import { setToast } from '../redux/toast/actions';
 import { ALLOWED_EXTENSTIONS } from '../utils/constants';
 
 const EditProfile = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const {profileUsername} = useParams()
   const { user, player_bio } = useSelector(({ profile }) => ({
     user: profile.user,
     player_bio: profile.bio,
   }));
-
+  const [imagePreview,setImagePreview] = useState(null);
   const [profile, setProfile] = useState({
     first_name: user?.first_name ? user.first_name : '',
     last_name: user?.last_name ? user.last_name : '',
     bio: player_bio || '',
     photo: '',
   });
-  const { bio, first_name, last_name } = profile;
+  const { bio, first_name, last_name,photo } = profile;
   const handleChange = ({ target: { name, value } }) => {
     setProfile({
       ...profile,
@@ -32,7 +33,8 @@ const EditProfile = () => {
   };
   useEffect(() => {
     if (!profile) {
-      history.push('/profile');
+      // history.push('/profile');
+      dispatch(fetchUserProfile(profileUsername));
     }
   }, []);
   const handleSubmit = (event) => {
@@ -58,6 +60,15 @@ const EditProfile = () => {
       dispatch(setToast('This file is not allowed','danger',dispatch))
     }
   };
+
+  useEffect(()=>{
+    if(!photo){
+      return
+    }
+    const fileUrl = URL.createObjectURL(photo)
+    setImagePreview(fileUrl)
+    return ()=> URL.revokeObjectURL(fileUrl)
+  },[photo])
 
   return (
     <Form className="sign-form" onSubmit={handleSubmit}>
@@ -102,6 +113,17 @@ const EditProfile = () => {
         accept="image/png, image/jpeg, image/jpg"
         onChange={handleFileChange}
       />
+      {
+        imagePreview ? 
+        (
+          <Row className='m-2 justify-content-center'>
+            <img src={imagePreview} className="profile-avatar" alt='Profile-preview'/>
+          </Row>
+
+        )
+        : "" 
+      }
+
       <Button
         className="form-button"
         type="submit"
