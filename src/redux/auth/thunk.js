@@ -80,6 +80,7 @@ export const fetechedUser = () => (dispatch) => {
     })
     .catch((err) => {
       dispatch(getUser(null));
+      localStorage.removeItem('access_token');
       const errors = err.response?.data;
       dispatchErrors(errors, dispatch);
     });
