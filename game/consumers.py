@@ -66,6 +66,10 @@ async def enter_game(sid, game_id):
     if instance['player_1']['profile']['user']['pk'] == user.id \
             or instance['player_2']['profile']['user']['pk'] == user.id:
         await sio.emit('game.send_params', data=instance, room=str(game_id))
+        await sio.emit('game.players_ready', data={
+            'creator': instance['player_1']['profile']['user']['username'],
+            'invitee': instance['player_2']['profile']['user']['username']
+        }, room=str(game_id), skip_sid=sid)
     else:
         await sio.emit('game.send_params', to=sid, data=instance, room=str(game_id))
 
@@ -83,6 +87,10 @@ async def leave_game(sid, data):
     if instance['player_1']['profile']['user']['pk'] == user.id \
             or instance['player_2']['profile']['user']['pk'] == user.id:
         await sio.emit('game.send_params', data=instance, room=str(game_id), skip_sid=sid)
+        await sio.emit('game.player_leave', data={
+            'creator': instance['player_1']['profile']['user']['username'],
+            'invitee': instance['player_2']['profile']['user']['username']
+        }, room=str(game_id), skip_sid=sid)
     else:
         await sio.emit('game.send_params', to=sid, data=instance, room=str(game_id))
 
