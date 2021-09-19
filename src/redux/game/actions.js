@@ -6,7 +6,6 @@ import {
   HISTORY_MOVE_FORWARD,
   CLEAR_HINT_MOVE,
   SET_GAME_PARAMS,
-  PLAYER_TURN,
   SEARCH_NAME,
   CLEAR_GAME,
   ANNOUNCE_WINNER,
@@ -47,11 +46,6 @@ export const gameParamsAct = (params) => ({
   type: SET_GAME_PARAMS,
   payload: params,
 });
-
-// export const playerTurn = (changePlayerTurn) => ({
-//   type: PLAYER_TURN,
-//   payload: changePlayerTurn,
-// });
 
 export const searchUsername = (searchedUsers) => ({
   type: SEARCH_NAME,

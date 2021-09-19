@@ -8,7 +8,6 @@ import {
   HISTORY_MOVE_FORWARD,
   INIT_BOARD,
   PIECE_MOVE,
-  PLAYER_TURN,
   SEARCH_NAME,
   SET_GAME_PARAMS,
   CLEAR_GAME,
@@ -90,14 +89,6 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         params: payload,
-      };
-    case PLAYER_TURN:
-      return {
-        ...state,
-        params: {
-          ...state.params,
-          player_turn: payload,
-        },
       };
     case SEARCH_NAME:
       return {
