@@ -12,6 +12,7 @@ import HitPiece from './Board/HitPiece';
 import Player from './Board/Player';
 import Timer from './Board/Timer';
 import './PlayArea.scss';
+import StartTimer from './StartTimer';
 
 const PlayArea = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const PlayArea = () => {
     playerTurn,
     user,
     winner,
+    startTimer
   } = useSelector(({ game, auth }) => ({
     hitPiece: game.hitPiece,
     history: game.history,
@@ -30,6 +32,7 @@ const PlayArea = () => {
     gameParams: game.params,
     playerTurn: game.params.player_turn,
     user: auth.user,
+    startTimer: game.startTime
   }));
   useEffect(() => {
     if (!localStorage.getItem('gameID')) {
@@ -60,6 +63,9 @@ const PlayArea = () => {
   const blackPlayer = gameParams && (gameParams.player_1.side === 'Black' ? gameParams.player_1 : gameParams.player_2);
   return (
     <div className="rounded play-area">
+      {
+        startTimer && bothConnected(redPlayer,blackPlayer) ? <StartTimer/>: ''
+      }
       {/* {
         (haveTurn(redPlayer.user.pk))
           ? <i className="fas fa-arrow-right" /> : ''
@@ -70,7 +76,7 @@ const PlayArea = () => {
           gameParams && gameParams.is_timed && gameParams.is_active ? (
             <Timer
               playerTimer={gameParams.player_1.time}
-              isPause={!(haveTurn(redPlayer.profile.user.pk)) || !bothConnected(redPlayer,blackPlayer)}
+              isPause={startTimer || !(haveTurn(redPlayer.profile.user.pk)) || !bothConnected(redPlayer,blackPlayer)}
               style={{ bottom: '40px' }}
               userID={user.pk}
             />
@@ -85,7 +91,7 @@ const PlayArea = () => {
           gameParams && gameParams.is_timed && gameParams.is_active ? (
             <Timer
               playerTimer={gameParams.player_2.time}
-              isPause={!(haveTurn(blackPlayer.profile.user.pk)) || !bothConnected(redPlayer,blackPlayer)}
+              isPause={startTimer || !(haveTurn(blackPlayer.profile.user.pk)) || !bothConnected(redPlayer,blackPlayer)}
               style={{ bottom: '60px' }}
               userID={user.pk}
             />

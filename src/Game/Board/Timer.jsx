@@ -58,7 +58,6 @@ const Timer = ({
       <p>
         {`${timeFormatter((Math.floor(moveInterval / 60)).toString())} :
           ${timeFormatter(Math.floor(moveInterval % 60).toString())}`}
-
       </p>
       <p>
         {`${timeFormatter((Math.floor(gameInterval / 60)).toString())} :
