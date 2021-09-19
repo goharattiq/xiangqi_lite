@@ -43,6 +43,10 @@ For Database
 
 Others 
 
-### Set env var for `SECRET_KEY`
+### Set env var for `SECRET_KEY`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_STORAGE_BUCKET_NAME`
 
 Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
+
+OR
+
+You simply can visit this repo deployment on [heroku](https://xiangqi-lite.herokuapp.com)
