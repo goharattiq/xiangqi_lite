@@ -63,11 +63,11 @@ export const socketLeaveGame = (gameID, dispatch) => {
 export const subscribeGameSockets = (history, username, dispatch) => {
   if (socket) {
     socket.on('game.send_params', (gameParams) => {
-      initGame(gameParams, username, dispatch);
+      initGame(gameParams, dispatch);
     });
 
     socket.on('game.success', (gameParams) => {
-      initGame(gameParams, username, dispatch);
+      initGame(gameParams, dispatch);
       history.location.pathname !== `/game/${gameParams.id}` && history.push(`/game/${gameParams.id}`);
     });
 
@@ -84,13 +84,25 @@ export const subscribeGameSockets = (history, username, dispatch) => {
       dispatch(setToast('Game Create Successfully','light', dispatch, data));
     });
     
+    socket.on('game.players_ready', (data) => {
+        if(username===data.creator || username===data.invitee){
+        dispatch(setToast('Opposition join the game','light', dispatch));
+      }
+    });
+
+    socket.on('game.player_leave', (data) => {
+      if(username===data.creator || username===data.invitee){
+        dispatch(setToast('Opposition leave the game','light', dispatch));
+      }
+    });
+
     socket.on('disconnect', () => {
       socketLeaveGame(localStorage.getItem('gameID'), dispatch);
     });
   }
 };
 
-const initGame = (gameParams, username, dispatch) => {
+const initGame = (gameParams, dispatch) => {
   let {
     // eslint-disable-next-line prefer-const
     game_board, hit_pieces, history, ...newGameParams
