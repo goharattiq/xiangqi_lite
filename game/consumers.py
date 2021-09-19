@@ -47,6 +47,11 @@ async def send_game_params(sid, game_params):
     session = await sio.get_session(sid)
     instance = await player_in_game(session['user'], 'JOIN_GAME', str(game_id))
     await sio.emit('game.success', data=instance, room=str(game_id))
+    await sio.emit('game.created_notification', data={
+        'gameID': instance['id'],
+        'creator': instance['player_1']['profile']['user']['username'],
+        'invitee': instance['player_2']['profile']['user']['username']
+    })
 
 
 @sio.on('game.enter')
