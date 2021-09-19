@@ -78,7 +78,8 @@ const PlayArea = () => {
         }
         <HitPiece hitPieces={redHitPieces} style={{ bottom: '25px' }} />
       </div>
-      <Board historyMode={historyMode} />
+      <Board historyMode={historyMode} isRotate={user.pk === redPlayer.profile.user.pk}/>
+      {/* <Board historyMode={historyMode} isRotate={false}/> */}
       <div className="bottom-bar">
         <HitPiece hitPieces={blackHitPieces} style={{ top: '5px' }} />
         {
@@ -101,7 +102,6 @@ const PlayArea = () => {
       {
         winner ? (
           <AnnounceWinner
-            // eslint-disable-next-line no-nested-ternary
             player={winner === redPlayer.profile.user.username ? redPlayer : blackPlayer}
             username={user.username}
           />

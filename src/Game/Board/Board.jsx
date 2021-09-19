@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -12,7 +12,7 @@ import { changeDroppableStyle, pieceAnimationEnd, pieceAnimationStart } from '..
 import Row from './Row';
 import './Board.scss';
 
-const Board = ({ historyMode }) => {
+const Board = ({ historyMode, isRotate }) => {
   const [previousExpectedMove, setPreviousExpectedMove] = useState(null);
   const dispatch = useDispatch();
   const { board } = useSelector(({ game }) => ({
@@ -52,7 +52,10 @@ const Board = ({ historyMode }) => {
       <audio id="move-audio" src={moveAudio} />
       <audio id="hit-audio" src={hitAudio} />
       <Background className="board-background" />
-      <table className="rounded board">
+      <table 
+        id='play-board' className="rounded board" 
+        style={isRotate ? {transform: 'rotate(180deg)'} : {}}
+      >
         <tbody>
           <DragDropContext
             onDragEnd={(move) => onDragEnd(move)}
@@ -69,6 +72,7 @@ const Board = ({ historyMode }) => {
                     <Row
                       row={row}
                       clickHandler={clickHandler}
+                      isRotate={isRotate}
                     />
                   </tr>
                 </Fragment>
@@ -83,6 +87,7 @@ const Board = ({ historyMode }) => {
 
 Board.propTypes = {
   historyMode: PropTypes.bool.isRequired,
+  isRotate: PropTypes.bool.isRequired,
 };
 
 export default Board;
