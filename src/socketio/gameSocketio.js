@@ -7,6 +7,7 @@ import {
   initBoard,
   pieceMove,
 } from '../redux/game/actions';
+import { setToast } from '../redux/toast/actions';
 import { COLS, ROWS } from '../utils/constants';
 import {
   boardOptimize, initMatrix, loadBoard, setPiecePositions,
@@ -78,6 +79,11 @@ export const subscribeGameSockets = (history, username, dispatch) => {
     socket.on('game.announce_winner', (winner) => {
       dispatch(announceWinner(winner));
     });
+
+    socket.on('game.created_notification', (data) => {
+      dispatch(setToast('Game Create Successfully','light', dispatch, data));
+    });
+    
     socket.on('disconnect', () => {
       socketLeaveGame(localStorage.getItem('gameID'), dispatch);
     });
