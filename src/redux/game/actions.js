@@ -9,6 +9,7 @@ import {
   SEARCH_NAME,
   CLEAR_GAME,
   ANNOUNCE_WINNER,
+  START_TIMER,
 } from './type';
 
 export const initBoard = (board, hitPiece, history, gameParams) => ({
@@ -59,4 +60,9 @@ export const announceWinner = (winner) => ({
 
 export const clearGame = () => ({
   type: CLEAR_GAME,
+});
+
+export const startTimer = (isStart) => ({
+  type: START_TIMER,
+  payload: isStart
 });

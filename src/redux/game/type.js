@@ -8,3 +8,4 @@ export const SET_GAME_PARAMS = 'SET_GAME_PARAMS';
 export const SEARCH_NAME = 'SEARCH_NAME';
 export const CLEAR_GAME = 'CLEAR_GAME';
 export const ANNOUNCE_WINNER = 'ANNOUNCE_WINNER';
+export const START_TIMER = 'START_TIMER';
