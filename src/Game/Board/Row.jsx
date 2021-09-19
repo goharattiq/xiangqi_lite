@@ -11,7 +11,7 @@ import Piece from '../Piece/Piece';
 import Spot from './Spot';
 import './Row.scss';
 
-const Row = ({ row, clickHandler }) => {
+const Row = ({ row, clickHandler, isRotate, }) => {
   const {
     playerTurn, hints, gameParams, user,
   } = useSelector(({ game, auth }) => ({
@@ -24,13 +24,40 @@ const Row = ({ row, clickHandler }) => {
     gameParams.player_1.profile.user.username,
     gameParams.player_2.profile.user.username]
     .includes(user.username);
-  // const canMove = (pieceName) => !(whichSide(pieceName) === (gameParams.player_1.side === 'Red' ? RED : BLACK));
 
   const canMove = (pieceName,playerTurn) =>  { 
     if (playerTurn === gameParams.player_1.profile.user.pk)
       return !(whichSide(pieceName) === (gameParams.player_1.side === 'Red' ? RED : BLACK));
     if (playerTurn === gameParams.player_2.profile.user.pk)
       return !(whichSide(pieceName) === (gameParams.player_2.side === 'Red' ? RED : BLACK));
+  }
+
+  function getStyle(style, snapshot,isRotate) {
+    // console.log(`${style.left}px`)
+    // console.log(`${style.left}px`)
+    if (!snapshot.isDropAnimating) {
+      return isRotate ? {
+        ...style,
+        left: `${style.left}px`,
+        top: `${style.left}px`
+      }: style;
+    }
+    // console.log('getStyle')
+    const { moveTo, curve, duration } = snapshot.dropAnimation;
+
+    const translate = `translate(${moveTo.x}px, ${moveTo.y}px)`;
+    
+    return isRotate? {
+      ...style,
+      left: `${style.left - 500}px`,
+      top: `${style.top + 100}px`,
+      transform: `${translate}`,
+      transition: `all ${curve} ${duration + 1}s`,
+    }: {
+      ...style,
+      transform: `${translate}`,
+      transition: `all ${curve} ${duration + 1}s`,
+    }
   }
 
   const haveTurn = (turn) => (turn === user.pk);
@@ -60,20 +87,31 @@ const Row = ({ row, clickHandler }) => {
                       id={`${cell.piece.name}-${cell.piece.id}`}
                       className="cell"
                     >
-                      {(provid) => (
+                      {(provid,snapshot) => (
                         <div
                           ref={provid.innerRef}
                           {...provid.draggableProps}
                           {...provid.dragHandleProps}
+                          
+                          // isDragging={snapshot.isDragging && !snapshot.isDropAnimating}
+                          style={getStyle(provid.draggableProps.style, snapshot, isRotate)}
                           onClick={() => {
                             !disable && clickHandler(cell.piece.name, cell.id);
                           }}
                         >
+                          {/* {
+                            provid.draggableProps.onTransitionEnd ? 
+                              console.log(provid.draggableProps) : ''
+                          } */}
+                          {/* {
+                            console.log(provid.dragHandleProps)
+                          } */}
                           <Piece
                             name={cell.piece.name}
                             id={`${cell.piece.name}-${cell.piece.id}`}
                             hitStyle={hints.includes(cell.id)
                               ? { border: '2px solid red', borderRadius: '15px' } : {}}
+                            rotateStyle={isRotate ? {transform: 'rotate(180deg)'} : {}}
                           />
                         </div>
                       )}
