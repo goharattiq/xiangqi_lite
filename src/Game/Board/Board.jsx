@@ -14,6 +14,7 @@ import './Board.scss';
 
 const Board = ({ historyMode }) => {
   const [previousExpectedMove, setPreviousExpectedMove] = useState(null);
+  const [selectedPiece, setSlelectedPiece] = useState();
   const dispatch = useDispatch();
   const { board } = useSelector(({ game }) => ({
     board: game.board,
@@ -41,9 +42,10 @@ const Board = ({ historyMode }) => {
     pieceAnimationEnd(move.draggableId);
     setPreviousExpectedMove(move);
   };
-  const clickHandler = (pieceName, location) => {
+  const clickHandler = (pieceName, location, pieceId) => {
     if (!historyMode) {
       dispatch(hintMove(pieceName, location));
+      setSlelectedPiece({pieceName, location, pieceId})
     }
   };
 
@@ -69,6 +71,7 @@ const Board = ({ historyMode }) => {
                     <Row
                       row={row}
                       clickHandler={clickHandler}
+                      selectedPiece={selectedPiece}
                     />
                   </tr>
                 </Fragment>

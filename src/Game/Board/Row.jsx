@@ -11,7 +11,7 @@ import Piece from '../Piece/Piece';
 import Spot from './Spot';
 import './Row.scss';
 
-const Row = ({ row, clickHandler }) => {
+const Row = ({ row, clickHandler, selectedPiece }) => {
   const {
     playerTurn, hints, gameParams, user,
   } = useSelector(({ game, auth }) => ({
@@ -24,7 +24,6 @@ const Row = ({ row, clickHandler }) => {
     gameParams.player_1.profile.user.username,
     gameParams.player_2.profile.user.username]
     .includes(user.username);
-  // const canMove = (pieceName) => !(whichSide(pieceName) === (gameParams.player_1.side === 'Red' ? RED : BLACK));
 
   const canMove = (pieceName,playerTurn) =>  { 
     if (playerTurn === gameParams.player_1.profile.user.pk)
@@ -66,7 +65,8 @@ const Row = ({ row, clickHandler }) => {
                           {...provid.draggableProps}
                           {...provid.dragHandleProps}
                           onClick={() => {
-                            !disable && clickHandler(cell.piece.name, cell.id);
+                            !disable && !canMove(cell.piece.name,playerTurn) && haveTurn(playerTurn)
+                            && clickHandler(cell.piece.name, cell.id, cell.piece.id);
                           }}
                         >
                           <Piece
@@ -83,6 +83,7 @@ const Row = ({ row, clickHandler }) => {
                       visiblity={hints.includes(cell.id) && !disable ? 'visible' : 'hidden'}
                       // visiblity="visible"
                       id={`spot-${cell.id}`}
+                      selectedPiece={selectedPiece}
                     />
                   )
               }
