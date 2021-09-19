@@ -6,6 +6,7 @@ import {
   clearHintMove,
   initBoard,
   pieceMove,
+  startTimer,
 } from '../redux/game/actions';
 import { setToast } from '../redux/toast/actions';
 import { COLS, ROWS } from '../utils/constants';
@@ -64,6 +65,7 @@ export const subscribeGameSockets = (history, username, dispatch) => {
   if (socket) {
     socket.on('game.send_params', (gameParams) => {
       initGame(gameParams, dispatch);
+      dispatch(startTimer(true))
     });
 
     socket.on('game.success', (gameParams) => {
@@ -85,13 +87,13 @@ export const subscribeGameSockets = (history, username, dispatch) => {
     });
     
     socket.on('game.players_ready', (data) => {
-        if(username===data.creator || username===data.invitee){
+      if(username===data.creator || username===data.invitee) {
         dispatch(setToast('Opposition join the game','light', dispatch));
       }
     });
 
     socket.on('game.player_leave', (data) => {
-      if(username===data.creator || username===data.invitee){
+      if(username===data.creator || username===data.invitee) {
         dispatch(setToast('Opposition leave the game','light', dispatch));
       }
     });
