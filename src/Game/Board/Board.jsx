@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -34,7 +34,7 @@ const Board = ({ historyMode, isRotate }) => {
   };
   const onDragEnd = (move) => {
     if (!historyMode) {
-      dispatch(pieceMove(move, false, null,null,null));
+      dispatch(pieceMove(move, false, null, null, null));
       dispatch(clearHintMove());
     }
     changeDroppableStyle(null, previousExpectedMove);
@@ -52,9 +52,10 @@ const Board = ({ historyMode, isRotate }) => {
       <audio id="move-audio" src={moveAudio} />
       <audio id="hit-audio" src={hitAudio} />
       <Background className="board-background" />
-      <table 
-        id='play-board' className="rounded board" 
-        style={isRotate ? {transform: 'rotate(180deg)'} : {}}
+      <table
+        id="play-board"
+        className="rounded board"
+        style={isRotate ? { transform: 'rotate(180deg)' } : {}}
       >
         <tbody>
           <DragDropContext
