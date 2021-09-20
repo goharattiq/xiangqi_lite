@@ -9,7 +9,7 @@ The goal of this project is to provide basic functionalities as [xiangqi](https:
 Clone the project using following command:
 
 ### `git clone https://github.com/goharattiq/xiangqi_lite.git`
-### `git clone https://gitlab.com/gohar.attiq/xiangqi_lite.git`
+### `https://gitlab.arbisoft.com/gohar.attiq/xiangqi_lite.git`
 
 In the project directory, to install dependencies:
 

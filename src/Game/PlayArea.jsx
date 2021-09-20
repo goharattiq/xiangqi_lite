@@ -11,8 +11,8 @@ import History from './Board/History';
 import HitPiece from './Board/HitPiece';
 import Player from './Board/Player';
 import Timer from './Board/Timer';
-import './PlayArea.scss';
 import StartTimer from './StartTimer';
+import './PlayArea.scss';
 
 const PlayArea = () => {
   const dispatch = useDispatch();
@@ -85,15 +85,14 @@ const PlayArea = () => {
               playerTimer={redPlayer.time}
               isPause={startTimer || !(haveTurn(redPlayer.profile.user.pk))
                 || !bothConnected(redPlayer, blackPlayer)}
-              style={{ bottom: '40px' }}
+              style={{ bottom: '60px' }}
               userID={user.pk}
             />
           ) : ''
         }
-        <HitPiece hitPieces={redHitPieces} style={{ bottom: '25px' }} />
+        <HitPiece hitPieces={redHitPieces} style={{ bottom: '120px' }} />
       </div>
       <Board historyMode={historyMode} isRotate={isRotated} />
-      {/* <Board historyMode={historyMode} isRotate={false}/> */}
       <div className="bottom-bar">
         <HitPiece hitPieces={blackHitPieces} style={{ top: '5px' }} />
         {
@@ -111,7 +110,7 @@ const PlayArea = () => {
         (haveTurn(blackPlayer.user.pk))
           ? <i className="fas fa-arrow-right" /> : ''
       } */}
-        <Player style={{ bottom: '60px' }} player={blackPlayer} />
+        <Player style={{ bottom: '110px' }} player={blackPlayer} />
       </div>
       <History history={history} clickHandler={historyHandler} setHistoryMode={setHistoryMode} />
       {
