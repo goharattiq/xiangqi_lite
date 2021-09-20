@@ -21,13 +21,9 @@ const StartTimer = () => {
     return () => (clearInterval(timeInterval));
   });
   return (
-    <div className="d-flex justify-content-center align-items-center position-fixed w-100 h-100 spinner-screen">
+    <div className="d-flex justify-content-center align-items-center position-fixed w-100 h-100 timer-screen">
       <div className="timer-box d-flex justify-content-center align-items-center position-fixed">
-        Game starts in
-        {' '}
-        {timer}
-        {' '}
-        sec...
+        {`Game starts in ${timer} sec...`}
       </div>
     </div>
   );
