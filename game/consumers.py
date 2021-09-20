@@ -7,7 +7,7 @@ from hashids import Hashids
 from game.models import Game, Player
 from game.serializers import GameSerializer
 from user_profile.models import Profile
-from xiangqi_django.constants import WAIT_TIME
+from xiangqi_django.constants import WAIT_TIME, BLACK, RED
 from xiangqi_django.settings import SECRET_KEY
 
 sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
@@ -147,7 +147,7 @@ def update_player_game(user, game_id):
         profile=user_invitee,
         is_connected=False,
         time=time,
-        side='Black' if instance.player_1.side == 'Red' else 'Red'
+        side=BLACK if instance.player_1.side == RED else RED
     )
 
     instance.player_2 = player_2
@@ -178,7 +178,7 @@ def create_game(game_params):
         profile=user_invitee,
         is_connected=False,
         time=time,
-        side='Black' if game_params['side'] == 'Red' else 'Red'
+        side=BLACK if game_params['side'] == RED else RED
     ) if user_invitee is not None else None
 
     game = Game.objects.create(
