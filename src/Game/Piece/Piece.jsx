@@ -9,7 +9,7 @@ import {
 } from './PiecesImport';
 import './Piece.scss';
 
-const Piece = ({ name, id, hitStyle }) => {
+const Piece = ({ name, id, hitStyle, rotateStyle }) => {
   const selectPiece = (piece) => {
     switch (piece.toLowerCase()) {
       case 'a':
@@ -34,7 +34,9 @@ const Piece = ({ name, id, hitStyle }) => {
     <div
       className="piece"
       id={id}
-      style={hitStyle}
+      style={{...hitStyle,
+        ...rotateStyle,
+      }}
     >
       <img src={whichSide(name) ? red : black} alt="Piece Background" />
       {selectPiece(name)}
@@ -47,6 +49,7 @@ Piece.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   hitStyle: PropTypes.object.isRequired,
+  rotateStyle: PropTypes.object.isRequired,
 };
 
 export default Piece;

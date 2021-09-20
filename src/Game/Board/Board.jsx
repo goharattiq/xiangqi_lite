@@ -12,7 +12,7 @@ import { changeDroppableStyle, pieceAnimationEnd, pieceAnimationStart } from '..
 import Row from './Row';
 import './Board.scss';
 
-const Board = ({ historyMode }) => {
+const Board = ({ historyMode, isRotate }) => {
   const [previousExpectedMove, setPreviousExpectedMove] = useState(null);
   const [selectedPiece, setSlelectedPiece] = useState();
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const Board = ({ historyMode }) => {
   };
   const onDragEnd = (move) => {
     if (!historyMode) {
-      dispatch(pieceMove(move, false, null,null,null));
+      dispatch(pieceMove(move, false, null, null, null));
       dispatch(clearHintMove());
     }
     changeDroppableStyle(null, previousExpectedMove);
@@ -45,7 +45,7 @@ const Board = ({ historyMode }) => {
   const clickHandler = (pieceName, location, pieceId) => {
     if (!historyMode) {
       dispatch(hintMove(pieceName, location));
-      setSlelectedPiece({pieceName, location, pieceId})
+      setSlelectedPiece({ pieceName, location, pieceId });
     }
   };
 
@@ -54,7 +54,11 @@ const Board = ({ historyMode }) => {
       <audio id="move-audio" src={moveAudio} />
       <audio id="hit-audio" src={hitAudio} />
       <Background className="board-background" />
-      <table className="rounded board">
+      <table
+        id="play-board"
+        className="rounded board"
+        style={isRotate ? { transform: 'rotate(180deg)' } : {}}
+      >
         <tbody>
           <DragDropContext
             onDragEnd={(move) => onDragEnd(move)}
@@ -72,6 +76,7 @@ const Board = ({ historyMode }) => {
                       row={row}
                       clickHandler={clickHandler}
                       selectedPiece={selectedPiece}
+                      isRotate={isRotate}
                     />
                   </tr>
                 </Fragment>
@@ -86,6 +91,7 @@ const Board = ({ historyMode }) => {
 
 Board.propTypes = {
   historyMode: PropTypes.bool.isRequired,
+  isRotate: PropTypes.bool.isRequired,
 };
 
 export default Board;
