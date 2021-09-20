@@ -82,7 +82,8 @@ const PlayArea = () => {
           ? <i className="fas fa-arrow-right" /> : ''
       } */}
       <div className="bar">
-        <Player style={{ top: '20px' }} player={redPlayer} />
+        <Player style={{ top: '30px' }} player={redPlayer} />
+        <HitPiece hitPieces={redHitPieces} style={{ bottom: '60px' }} />
         {
           gameParams && gameParams.is_timed && gameParams.is_active
           && bothConnected(redPlayer, blackPlayer) ? (
@@ -90,16 +91,17 @@ const PlayArea = () => {
               playerTimer={redPlayer.time}
               isPause={startTimer || !(haveTurn(redPlayer.profile.user.pk))
                 || !bothConnected(redPlayer, blackPlayer)}
-              style={{ bottom: '60px' }}
+              style={{ bottom: '115px' }}
               userID={user.pk}
             />
             ) : ''
         }
-        <HitPiece hitPieces={redHitPieces} style={{ bottom: '120px' }} />
+
       </div>
       <Board historyMode={historyMode} isRotate={isRotated} />
       <div className="bottom-bar">
-        <HitPiece hitPieces={blackHitPieces} style={{ top: '5px' }} />
+        <Player style={{ top: '10px' }} player={blackPlayer} />
+        <HitPiece hitPieces={blackHitPieces} style={{ bottom: '80px' }} />
         {
           gameParams && gameParams.is_timed && gameParams.is_active
           && bothConnected(redPlayer, blackPlayer) ? (
@@ -107,7 +109,7 @@ const PlayArea = () => {
               playerTimer={blackPlayer.time}
               isPause={startTimer || !(haveTurn(blackPlayer.profile.user.pk))
                 || !bothConnected(redPlayer, blackPlayer)}
-              style={{ bottom: '60px' }}
+              style={{ bottom: '135px' }}
               userID={user.pk}
             />
             ) : ''
@@ -116,7 +118,7 @@ const PlayArea = () => {
         (haveTurn(blackPlayer.user.pk))
           ? <i className="fas fa-arrow-right" /> : ''
       } */}
-        <Player style={{ bottom: '110px' }} player={blackPlayer} />
+
       </div>
       <History history={history} clickHandler={historyHandler} setHistoryMode={setHistoryMode} />
       {
