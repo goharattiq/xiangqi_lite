@@ -8,7 +8,7 @@ import { useParams, useHistory } from 'react-router-dom';
 
 import Spinner from '../Components/Spinner';
 import { socketEnterGame } from '../socketio/gameSocketio';
-import Chat from './Chat';
+import Chat from './Chat/Chat';
 import PlayArea from './PlayArea';
 import './Game.scss';
 

@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
 import { socketLeaveGame } from '../socketio/gameSocketio';
 import { whichSide } from '../utils/pieceMove';
-import AnnounceWinner from './Board/AnnounceWinner';
 import Board from './Board/Board';
-import History from './Board/History';
-import HitPiece from './Board/HitPiece';
-import Player from './Board/Player';
-import Timer from './Board/Timer';
-import StartTimer from './StartTimer';
+import AnnounceWinner from './Components/AnnounceWinner';
+import History from './Components/History';
+import HitPiece from './Components/HitPiece';
+import Player from './Components/Player';
+import StartTimer from './Components/StartTimer';
+import Timer from './Components/Timer';
 import './PlayArea.scss';
 
 const PlayArea = () => {

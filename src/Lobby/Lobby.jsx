@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
+import GameList from '../Components/GameList';
 import Spinner from '../Components/Spinner';
 import { fetechedActiveGames, fetechedSpectateGames } from '../redux/lobby/thunk';
-import GameList from './GameList';
 import GameParams from './GameParams';
 import './Lobby.scss';
 

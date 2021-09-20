@@ -8,8 +8,8 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { messageSend } from '../redux/chat/actions';
-import { socketSendMessage } from '../socketio/chatSocketio';
+import { messageSend } from '../../redux/chat/actions';
+import { socketSendMessage } from '../../socketio/chatSocketio';
 import ChatHistory from './ChatHistory';
 import './Chat.scss';
 

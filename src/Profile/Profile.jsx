@@ -5,8 +5,8 @@ import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
+import GameList from '../Components/GameList';
 import Spinner from '../Components/Spinner';
-import GameList from '../Lobby/GameList';
 import { clearProfile } from '../redux/profile/actions';
 import { fetchAllTimeGames, fetchUserProfile } from '../redux/profile/thunk';
 

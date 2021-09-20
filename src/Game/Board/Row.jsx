@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux';
 
 import { BLACK, RED } from '../../utils/constants';
 import { whichSide } from '../../utils/pieceMove';
+import Spot from '../Components/Spot';
 import Piece from '../Piece/Piece';
-import Spot from './Spot';
 import './Row.scss';
 
 const Row = ({

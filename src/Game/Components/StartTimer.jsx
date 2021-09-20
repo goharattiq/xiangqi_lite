@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import { startTimer } from '../redux/game/actions';
-import { START_TIME } from '../utils/constants';
+import { startTimer } from '../../redux/game/actions';
+import { START_TIME } from '../../utils/constants';
 import './StartTimer.scss';
 
 const StartTimer = () => {
