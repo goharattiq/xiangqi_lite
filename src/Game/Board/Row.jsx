@@ -5,7 +5,7 @@ import React from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 
-import { BLACK, RED } from '../../utils/constants';
+import { BLACK, RED, RED_STR } from '../../utils/constants';
 import { whichSide } from '../../utils/pieceMove';
 import Spot from '../Components/Spot';
 import Piece from '../Piece/Piece';
@@ -29,10 +29,10 @@ const Row = ({
 
   const canMove = (pieceName, turn) => {
     if (turn === gameParams.player_1.profile.user.pk) {
-      return !(whichSide(pieceName) === (gameParams.player_1.side === 'Red' ? RED : BLACK));
+      return !(whichSide(pieceName) === (gameParams.player_1.side === RED_STR ? RED : BLACK));
     }
     if (turn === gameParams.player_2.profile.user.pk) {
-      return !(whichSide(pieceName) === (gameParams.player_2.side === 'Red' ? RED : BLACK));
+      return !(whichSide(pieceName) === (gameParams.player_2.side === RED_STR ? RED : BLACK));
     }
     return false;
   };

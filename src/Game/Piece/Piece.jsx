@@ -9,7 +9,9 @@ import {
 } from './PiecesImport';
 import './Piece.scss';
 
-const Piece = ({ name, id, hitStyle, rotateStyle }) => {
+const Piece = ({
+  name, id, hitStyle, rotateStyle,
+}) => {
   const selectPiece = (piece) => {
     switch (piece.toLowerCase()) {
       case 'a':
@@ -34,7 +36,8 @@ const Piece = ({ name, id, hitStyle, rotateStyle }) => {
     <div
       className="piece"
       id={id}
-      style={{...hitStyle,
+      style={{
+        ...hitStyle,
         ...rotateStyle,
       }}
     >

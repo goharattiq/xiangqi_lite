@@ -26,12 +26,14 @@ export const WEST = 'WEST';
 
 export const RED = 1;
 export const BLACK = 0;
+export const RED_STR = 'RED';
+export const BLACK_STR = 'Black';
 
 export const ROWS = 10;
 export const COLS = 9;
 
 export const TOAST_TIMER = 5000;
-export const START_TIME = 5;
+export const START_TIME = 3;
 
 export const ALLOWED_EXTENSTIONS = [
   'JPEG', 'JPG', 'PNG',

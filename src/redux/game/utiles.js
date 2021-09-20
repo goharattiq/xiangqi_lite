@@ -1,5 +1,6 @@
 /* eslint-disable no-mixed-operators */
 import { socketSendMoves, socketEndGame } from '../../socketio/gameSocketio';
+import { BLACK_STR, RED_STR } from '../../utils/constants';
 import { isValidMove } from '../../utils/game';
 import { matrixPosition, whichSide } from '../../utils/pieceMove';
 
@@ -41,7 +42,7 @@ export const onPieceMove = (move, previousState, history, fromSockets) => {
     if (!history.mode && !fromSockets && hitPiece && (hitPiece.name === 'k' || hitPiece.name === 'K')) {
       // eslint-disable-next-line camelcase
       const { player_1, player_2 } = params;
-      const side = whichSide(hitPiece.name) ? 'Red' : 'Black';
+      const side = whichSide(hitPiece.name) ? RED_STR : BLACK_STR;
       const looser = side === player_1.side ? player_1.profile.user.pk : player_2.profile.user.pk;
       socketEndGame(params.id, { player_1, player_2 }, looser, 'KING_DIED', params.is_rated);
     }
