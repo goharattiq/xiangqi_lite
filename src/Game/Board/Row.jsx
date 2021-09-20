@@ -22,7 +22,7 @@ const Row = ({
     user: auth.user,
     playerTurn: game.params.player_turn,
   }));
-  const disable = ![
+  const disable = gameParams.player_2 && ![
     gameParams.player_1.profile.user.username,
     gameParams.player_2.profile.user.username]
     .includes(user.username);
@@ -70,8 +70,8 @@ const Row = ({
   };
 
   const haveTurn = (turn) => (turn === user.pk);
-  const bothConnected = (playerOne, playerTwo) => (playerOne.is_connected
-    && playerTwo.is_connected);
+  const bothConnected = (playerOne, playerTwo) => (playerOne && playerTwo)
+    && (playerOne.is_connected && playerTwo.is_connected);
   return (
     row.map((cell) => (
       <td key={`td-${cell.id}`} id={`droppable-${cell.id}`}>

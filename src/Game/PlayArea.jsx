@@ -56,14 +56,15 @@ const PlayArea = () => {
     }
   };
   const bothConnected = (redPlayer, blackPlayer) => (
-    (redPlayer.is_connected && blackPlayer.is_connected)
+    (redPlayer && blackPlayer)
+    && (redPlayer.is_connected && blackPlayer.is_connected)
   );
   const haveTurn = (turn) => (turn === playerTurn);
   let redHitPieces = hitPiece.filter((piece) => whichSide(piece.name));
   let blackHitPieces = hitPiece.filter((piece) => !whichSide(piece.name));
   let redPlayer = gameParams && (gameParams.player_1.side === 'Red' ? gameParams.player_1 : gameParams.player_2);
   let blackPlayer = gameParams && (gameParams.player_1.side === 'Black' ? gameParams.player_1 : gameParams.player_2);
-  const isRotated = user.pk === redPlayer.profile.user.pk;
+  const isRotated = redPlayer && user.pk === redPlayer.profile.user.pk;
   if (isRotated) {
     [blackPlayer, redPlayer] = [redPlayer, blackPlayer];
     [blackHitPieces, redHitPieces] = [redHitPieces, blackHitPieces];
@@ -80,7 +81,8 @@ const PlayArea = () => {
       <div className="bar">
         <Player style={{ top: '20px' }} player={redPlayer} />
         {
-          gameParams && gameParams.is_timed && gameParams.is_active ? (
+          gameParams && gameParams.is_timed && gameParams.is_active
+          && bothConnected(redPlayer, blackPlayer) ? (
             <Timer
               playerTimer={redPlayer.time}
               isPause={startTimer || !(haveTurn(redPlayer.profile.user.pk))
@@ -88,7 +90,7 @@ const PlayArea = () => {
               style={{ bottom: '60px' }}
               userID={user.pk}
             />
-          ) : ''
+            ) : ''
         }
         <HitPiece hitPieces={redHitPieces} style={{ bottom: '120px' }} />
       </div>
@@ -96,7 +98,8 @@ const PlayArea = () => {
       <div className="bottom-bar">
         <HitPiece hitPieces={blackHitPieces} style={{ top: '5px' }} />
         {
-          gameParams && gameParams.is_timed && gameParams.is_active ? (
+          gameParams && gameParams.is_timed && gameParams.is_active
+          && bothConnected(redPlayer, blackPlayer) ? (
             <Timer
               playerTimer={blackPlayer.time}
               isPause={startTimer || !(haveTurn(blackPlayer.profile.user.pk))
@@ -104,7 +107,7 @@ const PlayArea = () => {
               style={{ bottom: '60px' }}
               userID={user.pk}
             />
-          ) : ''
+            ) : ''
         }
         {/* {
         (haveTurn(blackPlayer.user.pk))

@@ -32,7 +32,7 @@ export const socketSetGameParams = (params, owner) => {
     ...newParams,
     game_board: boardOptimize(board),
     player_1: owner,
-    player_2: params.username,
+    player_2: params.username !== '' ? params.username : null,
   });
 };
 
