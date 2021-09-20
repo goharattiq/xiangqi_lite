@@ -7,6 +7,7 @@ from hashids import Hashids
 from game.models import Game, Player
 from game.serializers import GameSerializer
 from user_profile.models import Profile
+from xiangqi_django.constants import WAIT_TIME
 from xiangqi_django.settings import SECRET_KEY
 
 sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
@@ -60,10 +61,11 @@ async def enter_game(sid, game_id):
 
     session = await sio.get_session(sid)
     user = session['user']
-    instance = await player_in_game(session['user'], 'JOIN_GAME', str(game_id))
+    instance = await player_in_game(user, 'JOIN_GAME', str(game_id))
 
     if instance['player_2'] is None and instance['player_1']['profile']['user']['pk'] is not user.pk:
-        instance = await update_player_game(user, game_id)
+        await update_player_game(user, game_id)
+        instance = await player_in_game(user, 'JOIN_GAME', str(game_id))
 
     sio.enter_room(sid, str(game_id))
 
@@ -131,7 +133,7 @@ def get_game(game_id):
 
 
 @sync_to_async
-def update_player_game(user,game_id):
+def update_player_game(user, game_id):
     user_invitee = Profile.objects.filter(user__username=user.username).first()
     instance = Game.objects.filter(id=game_id).first()
     time = None
@@ -149,8 +151,9 @@ def update_player_game(user,game_id):
     )
 
     instance.player_2 = player_2
+    instance.player_2.save()
     instance.save()
-    return GameSerializer(instance).data
+
 
 @sync_to_async
 def create_game(game_params):
@@ -203,7 +206,7 @@ def update_game(data, session_user):
     instance.game_board = data['board']
 
     last_move = instance.last_move
-    time_taken = (now() - last_move).total_seconds() / 60
+    time_taken = ((now() - last_move).total_seconds() + WAIT_TIME) / 60
 
     instance.player_turn = instance.player_2.profile.user_id \
         if instance.player_1.profile.user_id == player_turn else instance.player_1.profile.user_id
@@ -235,7 +238,7 @@ def end_game_update(data):
     looser = data['looser']
     points = 25 if data['type'] == 'END_TIME' and data['isRated'] else 50 if data['isRated'] else 0
 
-    winning = player_1['profile']['user']['pk'] if player_2['profile']['user']['pk'] == looser\
+    winning = player_1['profile']['user']['pk'] if player_2['profile']['user']['pk'] == looser \
         else player_2['profile']['user']['pk']
 
     looser_instance = Profile.objects.filter(user_id=looser)
@@ -273,7 +276,7 @@ def player_in_game(user, type, game_id):
         last_move = instance.last_move
 
         if type == 'LEAVE_GAME' and both_players_connected(instance):
-            time_taken = (now() - last_move).total_seconds() / 60
+            time_taken = ((now() - last_move).total_seconds() + WAIT_TIME) / 60
 
             if instance.is_timed and instance.player_turn == instance.player_1.profile.user_id:
                 instance.player_1.time['game_time'] -= time_taken
