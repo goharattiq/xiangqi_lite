@@ -28,11 +28,17 @@ const GameList = ({ type, games, username }) => {
 
               <p className="text-center"> vs </p>
 
-              <Link to={`/profile/${player_2.profile.user.username}`} className="profile-link">
+              { player_2 ? (
+                <Link to={`/profile/${player_2.profile.user.username}`} className="profile-link">
+                  <p className="text-center">
+                    {`${getPlayerName(player_2.profile.user.username)}(${player_2.profile.rating})`}
+                  </p>
+                </Link>
+              ) : (
                 <p className="text-center">
-                  {`${getPlayerName(player_2.profile.user.username)}(${player_2.profile.rating})`}
+                  {player_1.profile.user.username === username ? 'waiting for user' : 'you can join'}
                 </p>
-              </Link>
+              )}
 
               <div className="d-flex justify-content-between">
                 <p>
