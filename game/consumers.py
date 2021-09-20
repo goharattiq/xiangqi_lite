@@ -50,7 +50,7 @@ async def send_game_params(sid, game_params):
     await sio.emit('game.created_notification', data={
         'gameID': instance['id'],
         'creator': instance['player_1']['profile']['user']['username'],
-        'invitee': instance['player_2']['profile']['user']['username']
+        'invitee': instance['player_2']['profile']['user']['username'] if instance['player_2'] else ''
     })
 
 
@@ -61,6 +61,10 @@ async def enter_game(sid, game_id):
     session = await sio.get_session(sid)
     user = session['user']
     instance = await player_in_game(session['user'], 'JOIN_GAME', str(game_id))
+
+    if instance['player_2'] is None and instance['player_1']['profile']['user']['pk'] is not user.pk:
+        instance = await update_player_game(user, game_id)
+
     sio.enter_room(sid, str(game_id))
 
     if instance['player_1']['profile']['user']['pk'] == user.id \
@@ -68,7 +72,7 @@ async def enter_game(sid, game_id):
         await sio.emit('game.send_params', data=instance, room=str(game_id))
         await sio.emit('game.players_ready', data={
             'creator': instance['player_1']['profile']['user']['username'],
-            'invitee': instance['player_2']['profile']['user']['username']
+            'invitee': instance['player_2']['profile']['user']['username'] if instance['player_2'] else ''
         }, room=str(game_id), skip_sid=sid)
     else:
         await sio.emit('game.send_params', to=sid, data=instance, room=str(game_id))
@@ -89,7 +93,7 @@ async def leave_game(sid, data):
         await sio.emit('game.send_params', data=instance, room=str(game_id), skip_sid=sid)
         await sio.emit('game.player_leave', data={
             'creator': instance['player_1']['profile']['user']['username'],
-            'invitee': instance['player_2']['profile']['user']['username']
+            'invitee': instance['player_2']['profile']['user']['username'] if instance['player_2'] else ''
         }, room=str(game_id), skip_sid=sid)
     else:
         await sio.emit('game.send_params', to=sid, data=instance, room=str(game_id))
@@ -127,6 +131,28 @@ def get_game(game_id):
 
 
 @sync_to_async
+def update_player_game(user,game_id):
+    user_invitee = Profile.objects.filter(user__username=user.username).first()
+    instance = Game.objects.filter(id=game_id).first()
+    time = None
+    if instance.is_timed:
+        time = {
+            'move_time': instance.move_timer,
+            'game_time': instance.game_timer,
+        }
+
+    player_2 = Player.objects.create(
+        profile=user_invitee,
+        is_connected=False,
+        time=time,
+        side='Black' if instance.player_1.side == 'Red' else 'Red'
+    )
+
+    instance.player_2 = player_2
+    instance.save()
+    return GameSerializer(instance).data
+
+@sync_to_async
 def create_game(game_params):
     user_owner = Profile.objects.filter(user__username=game_params['player_1']).first()
     user_invitee = Profile.objects.filter(user__username=game_params['player_2']).first()
@@ -150,7 +176,7 @@ def create_game(game_params):
         is_connected=False,
         time=time,
         side='Black' if game_params['side'] == 'Red' else 'Red'
-    )
+    ) if user_invitee is not None else None
 
     game = Game.objects.create(
         is_public=True if game_params['gameType'] == 'Public' else False,
@@ -242,7 +268,7 @@ def player_in_game(user, type, game_id):
     instance = Game.objects.filter(pk=game_id).first()
 
     if instance.player_1.profile.user_id == user.id \
-            or instance.player_2.profile.user_id == user.id:
+            or (instance.player_2 and instance.player_2.profile.user_id == user.id):
 
         last_move = instance.last_move
 
@@ -251,20 +277,21 @@ def player_in_game(user, type, game_id):
 
             if instance.is_timed and instance.player_turn == instance.player_1.profile.user_id:
                 instance.player_1.time['game_time'] -= time_taken
-            if instance.is_timed and instance.player_turn == instance.player_2.profile.user_id:
+            if instance.is_timed and instance.player_2 and instance.player_turn == instance.player_2.profile.user_id:
                 instance.player_2.time['game_time'] -= time_taken
 
         if instance.player_1.profile.user_id == user.id:
             instance.player_1.is_connected = False if type == 'LEAVE_GAME' else True
-        if instance.player_2.profile.user_id == user.id:
+        if instance.player_2 and instance.player_2.profile.user_id == user.id:
             instance.player_2.is_connected = False if type == 'LEAVE_GAME' else True
 
         instance.last_move = now()
         instance.player_1.save()
-        instance.player_2.save()
+        if instance.player_2 is not None:
+            instance.player_2.save()
         instance.save()
     return GameSerializer(instance).data
 
 
 def both_players_connected(game):
-    return game.player_1.is_connected and game.player_2.is_connected
+    return game.player_1.is_connected and game.player_2 and game.player_2.is_connected
