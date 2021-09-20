@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
@@ -26,9 +27,11 @@ const GameParams = ({ setOverlayDiv }) => {
     moveTime: 1,
     gameTimer: 30,
     side: '',
+    challenge: false,
     username: '',
   });
   const {
+    challenge,
     gameTimed,
     moveTime,
     username,
@@ -41,6 +44,12 @@ const GameParams = ({ setOverlayDiv }) => {
     if (name === 'username' && value !== '') {
       dispatch(fetechedSearchUsernames(value));
     }
+  };
+  const handleCheckbox = ({ target: { name, checked } }) => {
+    setGameParams({
+      ...gameParams,
+      [name]: checked,
+    });
   };
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -133,26 +142,37 @@ const GameParams = ({ setOverlayDiv }) => {
             />
           </div>
           <div className="">
-            <Form.Group className="m-3" controlId="formBasicEmail">
-              <Form.Control
-                type="text"
-                placeholder="Search By Username"
-                name="username"
-                value={username}
-                onChange={handleChange}
-                list="search-names"
-                autoComplete="off"
-              />
-            </Form.Group>
+            <Form.Check
+              name="challenge"
+              type="checkbox"
+              id="challenge"
+              label="Cahllenge Someone?"
+              className="d-flex justify-content-center"
+              onChange={handleCheckbox}
+            />
+            {
+              challenge ? (
+                <Form.Group className="m-3" controlId="formBasicEmail">
+                  <Form.Control
+                    type="text"
+                    placeholder="Search By Username"
+                    name="username"
+                    value={username}
+                    onChange={handleChange}
+                    list="search-names"
+                    autoComplete="off"
+                  />
+                </Form.Group>
+              )
+                : ''
+            }
             <datalist id="search-names">
               {
-
                 searchNames.length !== 0
                   ? searchNames.map((user) => (
                     <option key={user.id} value={user.username} label={user.username} />
                   ))
                   : <p>Nothing Found</p>
-
               }
             </datalist>
           </div>

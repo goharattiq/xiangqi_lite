@@ -59,8 +59,9 @@ export const isValidGameParams = (params, searchNames) => (
   && (params.gameRated !== '')
   && (params.gameTimed !== '')
   && (params.side !== '')
-  && (params.username !== '')
-  && searchNames.find(
-    (user) => user.username === params.username,
+  && (!params.challenge
+    || (params.challenge && searchNames.find(
+      (user) => user.username === params.username,
+    ))
   )
 );
