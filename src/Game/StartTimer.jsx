@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { startTimer } from '../redux/game/actions';
+import { START_TIME } from '../utils/constants';
 import './StartTimer.scss';
 
 const StartTimer = () => {
   const dispatch = useDispatch();
-  const [timer, setTimer] = useState(3);
+  const [timer, setTimer] = useState(START_TIME);
   useEffect(()=>{
     const timeInterval = setInterval(() => {
       setTimer(timer-1);

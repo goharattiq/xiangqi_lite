@@ -31,6 +31,7 @@ export const ROWS = 10;
 export const COLS = 9;
 
 export const TOAST_TIMER = 5000;
+export const START_TIME = 5;
 
 export const ALLOWED_EXTENSTIONS = [
   'JPEG', 'JPG', 'PNG' 
