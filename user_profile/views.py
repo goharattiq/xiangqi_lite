@@ -4,9 +4,9 @@ from django.http import HttpResponse
 from rest_framework.generics import RetrieveUpdateAPIView, CreateAPIView, ListAPIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
-from .permissions import CustomRetrieveProfilePermission, CustomCreateProfilePermission
 
 from .models import Profile
+from .permissions import CustomRetrieveProfilePermission, CustomCreateProfilePermission
 from .serializers import ProfileSerializer, UserSearchSerializer
 
 

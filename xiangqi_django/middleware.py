@@ -1,7 +1,8 @@
 import jwt
 from channels.auth import AuthMiddlewareStack
-from django.contrib.auth.models import AnonymousUser, User
 from channels.db import database_sync_to_async
+from django.contrib.auth.models import AnonymousUser, User
+
 from .settings import SECRET_KEY, SIMPLE_JWT
 
 

@@ -1,6 +1,6 @@
 from channels.routing import ProtocolTypeRouter, URLRouter
-import game.routing
 
+import game.routing
 from xiangqi_django.middleware import TokenAuthMiddlewareStack
 
 application = ProtocolTypeRouter({

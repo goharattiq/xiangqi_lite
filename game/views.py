@@ -1,8 +1,9 @@
+from django.db.models import Q
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
+
 from game.models import Game
 from game.serializers import ListGameSerializer
-from django.db.models import Q
 
 
 class ListMyActiveGames(ListAPIView):
