@@ -65,7 +65,7 @@ export const subscribeGameSockets = (history, username, dispatch) => {
   if (socket) {
     socket.on('game.send_params', (gameParams) => {
       initGame(gameParams, dispatch);
-      dispatch(startTimer(true))
+      dispatch(startTimer(true));
     });
 
     socket.on('game.success', (gameParams) => {
@@ -74,7 +74,7 @@ export const subscribeGameSockets = (history, username, dispatch) => {
     });
 
     socket.on('game.move_success', (data) => {
-      dispatch(pieceMove(data.move, true, data.player_1,data.player_2,data.playerTurn));
+      dispatch(pieceMove(data.move, true, data.player_1, data.player_2, data.playerTurn));
       dispatch(clearHintMove());
     });
 
@@ -83,18 +83,18 @@ export const subscribeGameSockets = (history, username, dispatch) => {
     });
 
     socket.on('game.created_notification', (data) => {
-      dispatch(setToast('Game Create Successfully','light', dispatch, data));
+      dispatch(setToast('Game Create Successfully', 'light', dispatch, data));
     });
-    
+
     socket.on('game.players_ready', (data) => {
-      if(username===data.creator || username===data.invitee) {
-        dispatch(setToast('Opposition join the game','light', dispatch));
+      if (username === data.creator || username === data.invitee) {
+        dispatch(setToast('Opposition join the game', 'light', dispatch));
       }
     });
 
     socket.on('game.player_leave', (data) => {
-      if(username===data.creator || username===data.invitee) {
-        dispatch(setToast('Opposition leave the game','light', dispatch));
+      if (username === data.creator || username === data.invitee) {
+        dispatch(setToast('Opposition leave the game', 'light', dispatch));
       }
     });
 

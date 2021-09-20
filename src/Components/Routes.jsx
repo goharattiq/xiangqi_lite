@@ -27,7 +27,6 @@ const Routes = () => {
   useEffect(() => {
     const connectSokcets = async () => {
       if (authUser && Object.keys(authUser).length !== 0) {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
         await useSockets(accessToken);
         await subscribeGameSockets(history, authUser.username, dispatch);
         await subscribeChatSocketsEvent(dispatch);

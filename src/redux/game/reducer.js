@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-case-declarations */
 import { getHintMoves } from '../../utils/game';
@@ -24,7 +25,7 @@ const initialState = {
   params: null,
   searchNames: [],
   winner: null,
-  startTime: false
+  startTime: false,
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -44,8 +45,8 @@ const gameReducer = (state = initialState, action) => {
       } = onPieceMove(
         payload.move, state, { mode: false }, payload.fromSockets,
       );
-      const player_1 = payload.player_1 ? payload.player_1 : state.params.player_1; 
-      const player_2= payload.player_2 ? payload.player_2 : state.params.player_2;
+      const player_1 = payload.player_1 ? payload.player_1 : state.params.player_1;
+      const player_2 = payload.player_2 ? payload.player_2 : state.params.player_2;
 
       return {
         ...state,
@@ -54,10 +55,13 @@ const gameReducer = (state = initialState, action) => {
         history: [...state.history, history].filter((back) => (back !== null)),
         params: {
           ...state.params,
-          player_1: player_1,
-          player_2: player_2,
-          player_turn: turnChanged && payload.playerTurn ? payload.playerTurn : turnChanged && state.params.player_turn === player_1.profile.user.pk ?
-          player_2.profile.user.pk : turnChanged && state.params.player_turn === player_2.profile.user.pk ? player_1.profile.user.pk : state.params.player_turn,
+          player_1,
+          player_2,
+          player_turn: turnChanged && payload.playerTurn ? payload.playerTurn : turnChanged
+          && state.params.player_turn === player_1.profile.user.pk
+            ? player_2.profile.user.pk : turnChanged
+            && state.params.player_turn === player_2.profile.user.pk
+              ? player_1.profile.user.pk : state.params.player_turn,
 
         },
       };

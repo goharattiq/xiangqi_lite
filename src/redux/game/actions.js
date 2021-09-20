@@ -19,9 +19,12 @@ export const initBoard = (board, hitPiece, history, gameParams) => ({
   },
 });
 
-export const pieceMove = (move, fromSockets, player_1,player_2,playerTurn) => ({
+// eslint-disable-next-line camelcase
+export const pieceMove = (move, fromSockets, player_1, player_2, playerTurn) => ({
   type: PIECE_MOVE,
-  payload: { move, fromSockets, player_1,player_2,playerTurn },
+  payload: {
+    move, fromSockets, player_1, player_2, playerTurn,
+  },
 });
 
 export const hintMove = (pieceName, location) => ({
@@ -64,5 +67,5 @@ export const clearGame = () => ({
 
 export const startTimer = (isStart) => ({
   type: START_TIMER,
-  payload: isStart
+  payload: isStart,
 });

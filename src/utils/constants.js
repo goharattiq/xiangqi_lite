@@ -34,8 +34,8 @@ export const TOAST_TIMER = 5000;
 export const START_TIME = 5;
 
 export const ALLOWED_EXTENSTIONS = [
-  'JPEG', 'JPG', 'PNG' 
-]
+  'JPEG', 'JPG', 'PNG',
+];
 
 const WS_SCHEME = window.location.protocol === 'https:' ? 'wss' : 'ws';
 export const SOCKET_URL = `${WS_SCHEME}://${window.location.host}`;
