@@ -14,7 +14,11 @@ import './Board.scss';
 
 const Board = ({ historyMode, isRotate }) => {
   const [previousExpectedMove, setPreviousExpectedMove] = useState(null);
-  const [selectedPiece, setSlelectedPiece] = useState();
+  const [selectedPiece, setSelectedPiece] = useState({
+    pieceName: null,
+    location: null,
+    pieceId: null,
+  });
   const dispatch = useDispatch();
   const { board } = useSelector(({ game }) => ({
     board: game.board,
@@ -45,7 +49,7 @@ const Board = ({ historyMode, isRotate }) => {
   const clickHandler = (pieceName, location, pieceId) => {
     if (!historyMode) {
       dispatch(hintMove(pieceName, location));
-      setSlelectedPiece({ pieceName, location, pieceId });
+      setSelectedPiece({ pieceName, location, pieceId });
     }
   };
 
