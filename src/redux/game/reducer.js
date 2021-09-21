@@ -13,7 +13,7 @@ import {
   SET_GAME_PARAMS,
   CLEAR_GAME,
   ANNOUNCE_WINNER,
-  START_TIMER,
+  WAIT_TIMER,
 } from './type';
 import { onPieceMove } from './utiles';
 
@@ -25,7 +25,7 @@ const initialState = {
   params: null,
   searchNames: [],
   winner: null,
-  startTime: false,
+  waitTime: false,
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -106,10 +106,10 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         winner: payload,
       };
-    case START_TIMER:
+    case WAIT_TIMER:
       return {
         ...state,
-        startTime: payload,
+        waitTime: payload,
       };
     case CLEAR_GAME:
       return initialState;

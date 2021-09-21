@@ -6,7 +6,7 @@ import {
   clearHintMove,
   initBoard,
   pieceMove,
-  startTimer,
+  waitTimer,
 } from '../redux/game/actions';
 import { setToast } from '../redux/toast/actions';
 import {
@@ -67,7 +67,7 @@ export const subscribeGameSockets = (history, username, dispatch) => {
   if (socket) {
     socket.on('game.send_params', (gameParams) => {
       initGame(gameParams, dispatch);
-      dispatch(startTimer(true));
+      dispatch(waitTimer(true));
     });
 
     socket.on('game.success', (gameParams) => {
