@@ -5,7 +5,7 @@ import { searchUsername } from './actions';
 
 export const fetechedSearchUsernames = (queryString) => (dispatch) => {
   axios
-    .get(`/api/profile/search/${queryString}/`)
+    .get(`/api/profile/search/?username=${queryString}`)
     .then((res) => {
       dispatch(searchUsername(res.data));
     })
