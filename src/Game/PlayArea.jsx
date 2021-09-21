@@ -11,8 +11,8 @@ import AnnounceWinner from './Components/AnnounceWinner';
 import History from './Components/History';
 import HitPiece from './Components/HitPiece';
 import Player from './Components/Player';
-import StartTimer from './Components/StartTimer';
 import Timer from './Components/Timer';
+import WaitTimer from './Components/WaitTimer';
 import './PlayArea.scss';
 
 const PlayArea = () => {
@@ -25,7 +25,7 @@ const PlayArea = () => {
     playerTurn,
     user,
     winner,
-    startTimer,
+    waitTime,
   } = useSelector(({ game, auth }) => ({
     hitPiece: game.hitPiece,
     history: game.history,
@@ -33,7 +33,7 @@ const PlayArea = () => {
     gameParams: game.params,
     playerTurn: game.params.player_turn,
     user: auth.user,
-    startTimer: game.startTime,
+    waitTime: game.waitTime,
   }));
   useEffect(() => {
     if (!localStorage.getItem('gameID')) {
@@ -57,7 +57,7 @@ const PlayArea = () => {
     }
   };
   const bothConnected = (redPlayer, blackPlayer) => (
-    (redPlayer && blackPlayer)
+    (!!redPlayer && !!blackPlayer)
     && (redPlayer.is_connected && blackPlayer.is_connected)
   );
   const haveTurn = (turn) => (turn === playerTurn);
@@ -74,61 +74,48 @@ const PlayArea = () => {
   }
   return (
     <div className="rounded play-area">
-      {
-        startTimer && bothConnected(redPlayer, blackPlayer) ? <StartTimer /> : ''
-      }
-      {/* {
-        (haveTurn(redPlayer.user.pk))
-          ? <i className="fas fa-arrow-right" /> : ''
-      } */}
+      <WaitTimer
+        waitTimeOn={waitTime && bothConnected(redPlayer, blackPlayer)}
+      />
       <div className="bar">
         <Player style={{ top: '30px' }} player={redPlayer} />
         <HitPiece hitPieces={redHitPieces} style={{ bottom: '60px' }} />
-        {
-          gameParams && gameParams.is_timed && gameParams.is_active
-          && bothConnected(redPlayer, blackPlayer) ? (
-            <Timer
-              playerTimer={redPlayer.time}
-              isPause={startTimer || !(haveTurn(redPlayer.profile.user.pk))
-                || !bothConnected(redPlayer, blackPlayer)}
-              style={{ bottom: '115px' }}
-              userID={user.pk}
-            />
-            ) : ''
-        }
-
+        <Timer
+          showTimer={!!gameParams && gameParams.is_timed && gameParams.is_active
+            && bothConnected(redPlayer, blackPlayer)}
+          playerTimer={redPlayer && gameParams.is_timed ? redPlayer.time
+            : { move_time: 0, game_time: 0 }}
+          isPause={waitTime || (redPlayer && !(haveTurn(redPlayer.profile.user.pk)))
+            || !bothConnected(redPlayer, blackPlayer)}
+          style={{ bottom: '115px' }}
+          userID={user.pk}
+        />
       </div>
       <Board historyMode={historyMode} isRotate={isRotated} />
       <div className="bottom-bar">
         <Player style={{ top: '10px' }} player={blackPlayer} />
         <HitPiece hitPieces={blackHitPieces} style={{ bottom: '80px' }} />
-        {
-          gameParams && gameParams.is_timed && gameParams.is_active
-          && bothConnected(redPlayer, blackPlayer) ? (
-            <Timer
-              playerTimer={blackPlayer.time}
-              isPause={startTimer || !(haveTurn(blackPlayer.profile.user.pk))
-                || !bothConnected(redPlayer, blackPlayer)}
-              style={{ bottom: '135px' }}
-              userID={user.pk}
-            />
-            ) : ''
-        }
-        {/* {
-        (haveTurn(blackPlayer.user.pk))
-          ? <i className="fas fa-arrow-right" /> : ''
-      } */}
-
+        <Timer
+          showTimer={!!gameParams && gameParams.is_timed && gameParams.is_active
+            && bothConnected(redPlayer, blackPlayer)}
+          playerTimer={blackPlayer && gameParams.is_timed ? blackPlayer.time
+            : { move_time: 0, game_time: 0 }}
+          isPause={waitTime || (blackPlayer && !(haveTurn(blackPlayer.profile.user.pk)))
+            || !bothConnected(redPlayer, blackPlayer)}
+          style={{ bottom: '135px' }}
+          userID={user.pk}
+        />
       </div>
-      <History history={history} clickHandler={historyHandler} setHistoryMode={setHistoryMode} />
-      {
-        winner ? (
-          <AnnounceWinner
-            player={winner === redPlayer.profile.user.username ? redPlayer : blackPlayer}
-            username={user.username}
-          />
-        ) : ''
-      }
+      <History
+        history={history}
+        clickHandler={historyHandler}
+        setHistoryMode={setHistoryMode}
+      />
+      <AnnounceWinner
+        announce={!!winner}
+        player={redPlayer && winner === redPlayer.profile.user.username ? redPlayer : blackPlayer}
+        username={user.username}
+      />
     </div>
   );
 };
