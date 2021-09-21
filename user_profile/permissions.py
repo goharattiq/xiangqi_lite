@@ -6,7 +6,7 @@ class CustomRetrieveProfilePermission(BasePermission):
         if request.method in SAFE_METHODS and IsAuthenticated:
             return True
         else:
-            if view.kwargs.get('pk') == request.user.username:
+            if view.kwargs.get('username') == request.user.username:
                 return True
             else:
                 return False
