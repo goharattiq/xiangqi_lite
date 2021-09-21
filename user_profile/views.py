@@ -15,11 +15,10 @@ class RetrieveProfile(RetrieveUpdateAPIView):
     serializer_class = ProfileSerializer
 
     def get_object(self, queryset=None, **kwargs):
-        id = self.kwargs.get('pk')
-        return get_object_or_404(Profile, user__username=id)
+        return get_object_or_404(Profile, user__username=self.kwargs.get('username'))
 
     def update(self, request, *args, **kwargs):
-        instance = Profile.objects.get(user__username=self.kwargs['pk'])
+        instance = Profile.objects.get(user__username=self.kwargs['username'])
         if ProfileSerializer().update(instance, validated_data=request.data):
             return HttpResponse(status=202)
         else:
@@ -43,7 +42,8 @@ class SearchUser(ListAPIView):
     serializer_class = UserSearchSerializer
 
     def get_queryset(self):
-        return User.objects.filter(Q(username__startswith=self.kwargs.get('username')),
+        username = self.request.query_params.get('username')
+        return User.objects.filter(Q(username__startswith=username),
                                    ~Q(username=self.request.user.username))
 
 
