@@ -25,7 +25,7 @@ const Profile = ({
           {
             isSessionUser
               ? (
-                <Link to={`/profile/edit/${user.username}`} className="m-1 edit-button">
+                <Link to={`/profile/${user.username}/edit`} className="m-1 edit-button">
                   <i className="fas fa-edit" />
                 </Link>
               ) : ''
