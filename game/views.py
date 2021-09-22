@@ -40,7 +40,6 @@ class AllTimeGames(ListAPIView):
 
     def get_queryset(self):
         username = self.kwargs.get('username')
-        print(username)
         qs = Game.objects.filter(
             Q(player_1__profile__user__username=username) |
             Q(player_2__profile__user__username=username),
