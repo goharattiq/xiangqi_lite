@@ -11,7 +11,7 @@ urlpatterns = [
     path('api/auth/signup/', include('dj_rest_auth.registration.urls')),
     path('api/profile/', include('user_profile.urls')),
     path('api/game/', include('game.urls')),
-    re_path('(^(?!(api|admin|media)).*$)',index,name='index'),
+    re_path('(^(?!(api|admin|media)).*$)', index, name='index'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,

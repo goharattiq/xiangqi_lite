@@ -41,4 +41,4 @@ class ListGameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
         fields = ['id', 'player_1', 'player_2', 'is_active', 'is_public', 'is_rated', 'is_timed', 'game_board',
-                  'hit_pieces', 'history', 'player_turn', 'winner' ,'game_timer','move_timer']
+                  'hit_pieces', 'history', 'player_turn', 'winner', 'game_timer', 'move_timer']

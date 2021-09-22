@@ -1,6 +1,5 @@
 import socketio
 from asgiref.sync import sync_to_async
-from django.db.models import F
 from django.utils.timezone import now
 from hashids import Hashids
 

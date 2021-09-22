@@ -18,10 +18,6 @@ class ProfileSerializer(ModelSerializer):
         fields = ['user', 'bio', 'rating', 'games_played_count', 'wins_count',
                   'losses_count', 'draw_count', 'winning_percentage', 'photo']
 
-    def create(self, validated_data):
-        user = User.objects.filter(id=validated_data).first()
-        return Profile.objects.get_or_create(user_id=user.id)[1]
-
     def update(self, instance, validated_data):
         username = instance.user.username
         user_fields = ['email', 'first_name', 'last_name']
