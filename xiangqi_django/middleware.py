@@ -21,7 +21,9 @@ class TokenAuthMiddleware:
         self.app = app
 
     async def __call__(self, scope, receive, send):
-        access_token = scope['query_string'].decode().split('access_token=')[1].split('&')[0]
+        query_string = scope['query_string'].decode()
+        [_, access_token] = query_string.split('access_token=')
+        access_token = access_token.split('&')[0]
         scope['user'] = AnonymousUser() if access_token is None else await get_user(access_token)
         return await self.app(scope, receive, send)
 
