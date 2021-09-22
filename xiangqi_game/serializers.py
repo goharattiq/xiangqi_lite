@@ -1,7 +1,7 @@
 from hashids import Hashids
 from rest_framework import serializers
 
-from user_profile.serializers import ProfileGameSerializer
+from xiangqi_user_profile.serializers import ProfileGameSerializer
 from xiangqi_django.settings import SECRET_KEY
 from .models import Game, Player
 

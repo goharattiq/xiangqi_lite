@@ -3,9 +3,9 @@ from asgiref.sync import sync_to_async
 from django.utils.timezone import now
 from hashids import Hashids
 
-from game.models import Game, Player
-from game.serializers import GameSerializer
-from user_profile.models import Profile
+from xiangqi_game.models import Game, Player
+from xiangqi_game.serializers import GameSerializer
+from xiangqi_user_profile.models import Profile
 from xiangqi_django.settings import SECRET_KEY
 from .constants import WAIT_TIME, BLACK, RED
 
