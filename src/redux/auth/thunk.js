@@ -25,30 +25,13 @@ export const signinUser = ({ username, password }) => (dispatch) => {
 };
 
 export const signupUser = ({ username, email, password }) => (dispatch) => {
-  let signUpData;
   axios
     .post('/api/auth/signup/', {
       username, email, password1: password, password2: password,
     }, {
       withCredentials: false,
     })
-    .then((res) => {
-      signUpData = res.data;
-      axios
-        .post('/api/profile/', { pk: signUpData.user.pk }, {
-          headers: {
-            Cookie: `access_token=${signUpData.access_token}`,
-            Authorization: `Bearer ${signUpData.access_token}`,
-          },
-          withCredentials: true,
-        })
-        .then(() => {
-          dispatch(setToast('User Created Successfully', 'light', dispatch));
-        })
-        .catch((err) => {
-          const errors = err.response.data;
-          dispatchErrors(errors, dispatch);
-        });
+    .then(() => {
       dispatch(signUpSueccess());
       dispatch(setToast('Sigup Successfully', 'light', dispatch));
     })
