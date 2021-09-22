@@ -241,29 +241,27 @@ def end_game_update(data):
     winning = player_1['profile']['user']['pk'] if player_2['profile']['user']['pk'] == looser \
         else player_2['profile']['user']['pk']
 
-    looser_instance = Profile.objects.filter(user_id=looser)
-    winning_instance = Profile.objects.filter(user_id=winning)
+    looser_instance = Profile.objects.filter(user_id=looser).first()
 
-    looser_instance.update(
-        games_played_count=F('games_played_count') + 1,
-        losses_count=F('losses_count') + 1,
-        rating=F('rating') + (-points),
-        winning_percentage=F('wins_count') / (F('games_played_count') + 1) * 100,
-    )
+    looser_instance.games_played_count += 1
+    looser_instance.losses_count += 1
+    looser_instance.rating -= points
+    looser_instance.winning_percentage = looser_instance.wins_count / looser_instance.games_played_count * 100
+    looser_instance.save()
 
-    winning_instance.update(
-        games_played_count=F('games_played_count') + 1,
-        wins_count=F('wins_count') + 1,
-        rating=F('rating') + points,
-        winning_percentage=(F('wins_count') + 1) / (F('games_played_count') + 1) * 100,
-    )
+    winning_instance = Profile.objects.filter(user_id=winning).first()
+    winning_instance.games_played_count += 1
+    winning_instance.wins_count += 1
+    winning_instance.rating += points
+    winning_instance.winning_percentage = winning_instance.wins_count / winning_instance.games_played_count * 100
+    winning_instance.save()
 
     Game.objects.filter(pk=data['gameID']).update(
         is_active=False,
-        winner=winning_instance.first().user.username
+        winner=winning_instance.user.username
     )
 
-    return winning_instance.first().user.username
+    return winning_instance.user.username
 
 
 @sync_to_async
