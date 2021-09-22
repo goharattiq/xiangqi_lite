@@ -6,8 +6,8 @@ from hashids import Hashids
 from game.models import Game, Player
 from game.serializers import GameSerializer
 from user_profile.models import Profile
-from xiangqi_django.constants import WAIT_TIME, BLACK, RED
 from xiangqi_django.settings import SECRET_KEY
+from .constants import WAIT_TIME, BLACK, RED
 
 sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
 app = socketio.ASGIApp(sio)

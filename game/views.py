@@ -16,7 +16,8 @@ class ListMyActiveGames(ListAPIView):
             Q(player_2__profile__user_id=self.request.user.pk) |
             Q(player_1=None) |
             Q(player_2=None),
-            is_active=True)
+            is_active=True
+        )
 
 
 class ListSpectateGames(ListAPIView):
