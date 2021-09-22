@@ -12,8 +12,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 INSTALLED_APPS = [
-    'user_profile',
-    'game',
+    'xiangqi_user_profile',
+    'xiangqi_game',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -9,8 +9,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('dj_rest_auth.urls')),
     path('api/auth/signup/', include('dj_rest_auth.registration.urls')),
-    path('api/profile/', include('user_profile.urls')),
-    path('api/game/', include('game.urls')),
+    path('api/profile/', include('xiangqi_user_profile.urls')),
+    path('api/game/', include('xiangqi_game.urls')),
     re_path('(^(?!(api|admin|media)).*$)', index, name='index'),
 ]
 
