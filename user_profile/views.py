@@ -1,12 +1,12 @@
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import HttpResponse
-from rest_framework.generics import RetrieveUpdateAPIView, CreateAPIView, ListAPIView
+from rest_framework.generics import RetrieveUpdateAPIView, ListAPIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Profile
-from .permissions import CustomRetrieveProfilePermission, CustomCreateProfilePermission
+from .permissions import CustomRetrieveProfilePermission
 from .serializers import ProfileSerializer, UserSearchSerializer
 
 
@@ -23,18 +23,6 @@ class RetrieveProfile(RetrieveUpdateAPIView):
             return HttpResponse(status=202)
         else:
             return HttpResponse(status=204)
-
-
-class CreateProfile(CreateAPIView):
-    permission_classes = [CustomCreateProfilePermission]
-    serializer_class = ProfileSerializer
-
-    def post(self, request, *args, **kwargs):
-        id = int(request.data['pk'])
-        res = ProfileSerializer().create(validated_data=id)
-        if not res:
-            return HttpResponse(status=400)
-        return HttpResponse(status=201)
 
 
 class SearchUser(ListAPIView):
