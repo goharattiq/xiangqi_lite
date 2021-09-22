@@ -12,7 +12,7 @@ import Piece from '../Piece/Piece';
 import './Row.scss';
 
 const Row = ({
-  row, clickHandler, isRotate, selectedPiece,
+  row, clickHandler, selectedPiece,
 }) => {
   const {
     playerTurn, hints, gameParams, user,
@@ -35,38 +35,6 @@ const Row = ({
       return !(whichSide(pieceName) === (gameParams.player_2.side === RED_STR ? RED : BLACK));
     }
     return false;
-  };
-  const getCoords = (prop) => {
-    let str = prop;
-    if (typeof (str) === 'string') {
-      str = str.slice(9);
-      str = str.substring(1, str.length - 1);
-      str = str.split(',');
-      return [-1 * parseInt(str[0], 10), -1 * parseInt(str[1], 10)];
-    }
-    return null;
-  };
-  const getStyle = (style, snapshot, isRotated) => {
-    const coords = getCoords(style.transform);
-    if (!coords) { return style; }
-
-    if (!snapshot.isDropAnimating) {
-      if (!style.transform) {
-        return style;
-      }
-      return isRotated ? {
-        ...style,
-        left: 0,
-        top: 0,
-        transform: `translate(${coords[0]}px, ${coords[1]}px)`,
-      } : style;
-    }
-    return isRotated ? {
-      ...style,
-      left: 0,
-      top: 0,
-      transform: `translate(${coords[0]}px, ${coords[1]}px)`,
-    } : style;
   };
 
   const haveTurn = (turn) => (turn === user.pk);
@@ -103,7 +71,6 @@ const Row = ({
                           ref={provid.innerRef}
                           {...provid.draggableProps}
                           {...provid.dragHandleProps}
-                          style={getStyle(provid.draggableProps.style, snapshot, isRotate)}
                           onClick={() => {
                             !disable
                               && !canMove(cell.piece.name, playerTurn)
@@ -116,7 +83,6 @@ const Row = ({
                             id={`${cell.piece.name}-${cell.piece.id}`}
                             hitStyle={hints.includes(cell.id)
                               ? { border: '2px solid red', borderRadius: '15px' } : {}}
-                            rotateStyle={isRotate ? { transform: 'rotate(180deg)' } : {}}
                           />
                         </div>
                       )}

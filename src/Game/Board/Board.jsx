@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 
+import spin from 'spinatrix';
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +21,7 @@ const Board = ({ historyMode, isRotate }) => {
     pieceId: null,
   });
   const dispatch = useDispatch();
-  const { board } = useSelector(({ game }) => ({
+  let { board } = useSelector(({ game }) => ({
     board: game.board,
   }));
   const onDragUpdate = (expectedMove) => {
@@ -53,6 +54,9 @@ const Board = ({ historyMode, isRotate }) => {
     }
   };
 
+  if(isRotate){
+    board = spin.x180(board)
+  }
   return (
     <>
       <audio id="move-audio" src={moveAudio} />
@@ -61,7 +65,6 @@ const Board = ({ historyMode, isRotate }) => {
       <table
         id="play-board"
         className="rounded board"
-        style={isRotate ? { transform: 'rotate(180deg)' } : {}}
       >
         <tbody>
           <DragDropContext
@@ -80,7 +83,6 @@ const Board = ({ historyMode, isRotate }) => {
                       row={row}
                       clickHandler={clickHandler}
                       selectedPiece={selectedPiece}
-                      isRotate={isRotate}
                     />
                   </tr>
                 </Fragment>
