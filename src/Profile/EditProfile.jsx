@@ -9,7 +9,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { fetchUserProfile, updateProfile } from '../redux/profile/thunk';
 import { setToast } from '../redux/toast/actions';
-import { ALLOWED_EXTENSTIONS } from '../utils/constants';
+import { ALLOWED_EXTENSTIONS } from '../utilis/constants';
 
 const EditProfile = () => {
   const dispatch = useDispatch();
@@ -37,7 +37,6 @@ const EditProfile = () => {
   };
   useEffect(() => {
     if (!profile) {
-      // history.push('/profile');
       dispatch(fetchUserProfile(profileUsername));
     }
   }, []);
@@ -70,9 +69,7 @@ const EditProfile = () => {
     const fileUrl = URL.createObjectURL(photo);
     setImagePreview(fileUrl);
     // eslint-disable-next-line consistent-return
-    return () => {
-      URL.revokeObjectURL(fileUrl);
-    };
+    return () => (URL.revokeObjectURL(fileUrl));
   }, [photo]);
 
   return (

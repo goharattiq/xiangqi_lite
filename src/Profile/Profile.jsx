@@ -34,15 +34,15 @@ const Profile = ({
       </div>
       <ul className="list-group mt-5 mb-3 user-stats">
         {
-                stateList.map((state) => (
-                  <li key={state.name} className="score list-group-item m-2">
-                    <p className="text-center">
-                      {state.name === 'Winning%' ? state.score.toFixed(2) : state.score}
-                    </p>
-                    <p className="text-center">{state.name}</p>
-                  </li>
-                ))
-              }
+          stateList.map((state) => (
+            <li key={state.name} className="score list-group-item m-2">
+              <p className="text-center">
+                {state.name === 'Winning%' ? state.score.toFixed(2) : state.score}
+              </p>
+              <p className="text-center">{state.name}</p>
+            </li>
+          ))
+        }
       </ul>
       <GameList type="All Time" games={games} username={user.username} />
     </div>
