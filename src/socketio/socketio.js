@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-import { SOCKET_URL } from '../utils/constants';
+import { SOCKET_URL } from './constants';
 
 // eslint-disable-next-line import/no-mutable-exports
 export let socket;

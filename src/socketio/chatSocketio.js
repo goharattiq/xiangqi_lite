@@ -1,14 +1,16 @@
-import { messageSend } from '../redux/chat/actions';
+import { sendMessage } from '../redux/chat/actions';
+import { CHAT_MESSAGE_RECEIVED, CHAT_MESSAGE_SEND } from './constants';
 import { socket } from './socketio';
 
-export const socketSendMessage = (message, gameID) => {
-  socket.emit('chat.send', { message, gameID });
+// eslint-disable-next-line camelcase
+export const socketSendMessage = (message, game_id) => {
+  socket.emit(CHAT_MESSAGE_SEND, { message, game_id });
 };
 
 export const subscribeChatSocketsEvent = (dispatch) => {
   if (socket) {
-    socket.on('chat.received', (message) => {
-      dispatch(messageSend(message));
+    socket.on(CHAT_MESSAGE_RECEIVED, (message) => {
+      dispatch(sendMessage(message));
     });
   }
 };

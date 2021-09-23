@@ -10,11 +10,26 @@ import {
 } from '../redux/game/actions';
 import { setToast } from '../redux/toast/actions';
 import {
-  BLACK_STR, COLS, RED_STR, ROWS,
-} from '../utils/constants';
+  BLACK_STR, numCols, RED_STR, numRows, RANDOM,
+} from '../utilis/constants';
 import {
   boardOptimize, initMatrix, loadBoard, setPiecePositions,
-} from '../utils/game';
+} from '../utilis/game';
+import {
+  DISCONNECT,
+  GAME_CREATE,
+  GAME_END,
+  GAME_ENTER,
+  GAME_LEAVE,
+  GAME_MAKE_MOVE,
+  GAME_MOVE_SUCCESS,
+  GAME_SEND_PARAMS,
+  GAME_SUCCESSFULLY_CREATED,
+  GAME_WINNER_ANNOUNCE,
+  NOTIFICATION_GAME_CREATED,
+  NOTIFICATION_PLAYERS_READY,
+  NOTIFICATION_PLAYER_LEAVE,
+} from './constants';
 import { socket } from './socketio';
 
 export const socketEnterGame = (gameID, history) => {
@@ -22,15 +37,16 @@ export const socketEnterGame = (gameID, history) => {
     history.push('/lobby');
     return;
   }
-  socket.emit('game.enter', gameID);
+  socket.emit(GAME_ENTER, gameID);
 };
 
 export const socketSetGameParams = (params, owner) => {
   const newParams = params;
-  newParams.side = newParams.side === 'Random' ? [RED_STR, BLACK_STR][Math.round(Math.random())] : newParams.side;
-  let board = initMatrix(ROWS, COLS);
+  newParams.side = newParams.side === RANDOM
+    ? [RED_STR, BLACK_STR][Math.round(Math.random())] : newParams.side;
+  let board = initMatrix(numRows, numCols);
   board = setPiecePositions(board);
-  socket.emit('game.set_params', {
+  socket.emit(GAME_CREATE, {
     ...newParams,
     game_board: boardOptimize(board),
     player_1: owner,
@@ -38,17 +54,17 @@ export const socketSetGameParams = (params, owner) => {
   });
 };
 
-export const socketSendMoves = (gameID, move, board) => {
-  socket.emit('game.piece_move', {
-    gameID,
+export const socketSendMoves = (game_id, move, board) => {
+  socket.emit(GAME_MAKE_MOVE, {
+    game_id,
     move,
-    board: boardOptimize(board),
+    game_board: boardOptimize(board),
   });
 };
 
-export const socketEndGame = (gameID, players, looser, type, isRated) => {
-  socket.emit('game.end', {
-    gameID,
+export const socketEndGame = (game_id, players, looser, type, isRated) => {
+  socket.emit(GAME_END, {
+    game_id,
     players,
     looser,
     type,
@@ -56,51 +72,51 @@ export const socketEndGame = (gameID, players, looser, type, isRated) => {
   });
 };
 
-export const socketLeaveGame = (gameID, dispatch) => {
+export const socketLeaveGame = (game_id, dispatch) => {
   localStorage.removeItem('gameID');
-  socket.emit('game.leave', { gameID });
+  socket.emit(GAME_LEAVE, game_id);
   dispatch(clearGame());
   dispatch(clearChat());
 };
 
 export const subscribeGameSockets = (history, username, dispatch) => {
   if (socket) {
-    socket.on('game.send_params', (gameParams) => {
+    socket.on(GAME_SEND_PARAMS, (gameParams) => {
       initGame(gameParams, dispatch);
       dispatch(waitTimer(true));
     });
 
-    socket.on('game.success', (gameParams) => {
+    socket.on(GAME_SUCCESSFULLY_CREATED, (gameParams) => {
       initGame(gameParams, dispatch);
       history.location.pathname !== `/game/${gameParams.id}` && history.push(`/game/${gameParams.id}`);
     });
 
-    socket.on('game.move_success', (data) => {
+    socket.on(GAME_MOVE_SUCCESS, (data) => {
       dispatch(pieceMove(data.move, true, data.player_1, data.player_2, data.playerTurn));
       dispatch(clearHintMove());
     });
 
-    socket.on('game.announce_winner', (winner) => {
+    socket.on(GAME_WINNER_ANNOUNCE, (winner) => {
       dispatch(announceWinner(winner));
     });
 
-    socket.on('game.created_notification', (data) => {
+    socket.on(NOTIFICATION_GAME_CREATED, (data) => {
       dispatch(setToast('Game Create Successfully', 'light', dispatch, data));
     });
 
-    socket.on('game.players_ready', (data) => {
+    socket.on(NOTIFICATION_PLAYERS_READY, (data) => {
       if (username === data.creator || username === data.invitee) {
         dispatch(setToast('Opposition join the game', 'light', dispatch));
       }
     });
 
-    socket.on('game.player_leave', (data) => {
+    socket.on(NOTIFICATION_PLAYER_LEAVE, (data) => {
       if (username === data.creator || username === data.invitee) {
         dispatch(setToast('Opposition leave the game', 'light', dispatch));
       }
     });
 
-    socket.on('disconnect', () => {
+    socket.on(DISCONNECT, () => {
       socketLeaveGame(localStorage.getItem('gameID'), dispatch);
     });
   }
