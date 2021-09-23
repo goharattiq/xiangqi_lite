@@ -1,12 +1,13 @@
 import axios from 'axios';
 
+import { GAME_BASE_PATH, PROFILE_BASE_PATH } from '../../utilis/constants';
 import { setToast } from '../toast/actions';
-import { dispatchErrors } from '../toast/utils';
+import { dispatchErrors } from '../toast/utilis';
 import { editProfile, getGames, getProfile } from './actions';
 
 export const fetchUserProfile = (username) => (dispatch) => {
   axios
-    .get(`/api/profile/${username}/`)
+    .get(`${PROFILE_BASE_PATH}/${username}/`)
     .then((res) => {
       dispatch(getProfile(res.data));
     })
@@ -18,7 +19,7 @@ export const fetchUserProfile = (username) => (dispatch) => {
 
 export const fetchAllTimeGames = (username) => (dispatch) => {
   axios
-    .get(`/api/game/alltime/${username}/`)
+    .get(`${GAME_BASE_PATH}/alltime/${username}/`)
     .then((res) => {
       dispatch(getGames(res.data));
     })
@@ -38,7 +39,7 @@ export const updateProfile = (username, {
   data.append('last_name', last_name);
   data.append('bio', bio);
   axios
-    .put(`/api/profile/${username}/`, data)
+    .put(`${PROFILE_BASE_PATH}/${username}/`, data)
     .then((res) => {
       dispatch(editProfile(res.data));
       dispatch(setToast('Profile Edit SuccessFully', 'light', dispatch));

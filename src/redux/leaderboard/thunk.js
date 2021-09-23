@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-import { dispatchErrors } from '../toast/utils';
+import { PROFILE_BASE_PATH } from '../../utilis/constants';
+import { dispatchErrors } from '../toast/utilis';
 import { getLeaders } from './actions';
 
-export const fetechedLeaders = () => (dispatch) => {
+export const fetechLeaders = () => (dispatch) => {
   axios
-    .get('/api/profile/leaderboard/')
+    .get(`${PROFILE_BASE_PATH}/leaderboard/`)
     .then((res) => {
       dispatch(getLeaders(res.data));
     })

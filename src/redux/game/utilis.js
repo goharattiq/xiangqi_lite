@@ -1,8 +1,8 @@
 /* eslint-disable no-mixed-operators */
 import { socketSendMoves, socketEndGame } from '../../socketio/gameSocketio';
-import { BLACK_STR, RED_STR } from '../../utils/constants';
-import { isValidMove } from '../../utils/game';
-import { matrixPosition, whichSide } from '../../utils/pieceMove';
+import { BLACK_STR, RED_STR } from '../../utilis/constants';
+import { isValidMove } from '../../utilis/game';
+import { matrixPosition, whichSide } from '../../utilis/pieceMove';
 
 export const onPieceMove = (move, previousState, history, fromSockets) => {
   const { board, hints, params } = previousState;

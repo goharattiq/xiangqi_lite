@@ -5,17 +5,17 @@ import {
   SIGNUP_SUCCESS,
 } from './type';
 
-export const signInSueccess = (data) => ({
+export const signInSuccess = (data) => ({
   type: SIGNIN_SUCCESS,
   payload: data,
 });
 
-export const signUpSueccess = (data) => ({
+export const signUpSuccess = (data) => ({
   type: SIGNUP_SUCCESS,
   payload: data,
 });
 
-export const signOutSueccess = () => ({
+export const signOutSuccess = () => ({
   type: SIGNOUT_SUCCESS,
 });
 

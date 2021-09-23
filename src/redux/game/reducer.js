@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-case-declarations */
-import { getHintMoves } from '../../utils/game';
+import { getHintMoves } from '../../utilis/game';
 import {
   CLEAR_HINT_MOVE,
   HINT_MOVE,
@@ -15,7 +15,7 @@ import {
   ANNOUNCE_WINNER,
   WAIT_TIMER,
 } from './type';
-import { onPieceMove } from './utiles';
+import { onPieceMove } from './utilis';
 
 const initialState = {
   board: null,

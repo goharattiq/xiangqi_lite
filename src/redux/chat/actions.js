@@ -1,7 +1,7 @@
-import { CLEAR_CHAT, MESSAGE_SEND } from './type';
+import { CLEAR_CHAT, SEND_MESSAGE } from './type';
 
-export const messageSend = (message) => ({
-  type: MESSAGE_SEND,
+export const sendMessage = (message) => ({
+  type: SEND_MESSAGE,
   payload: message,
 });
 

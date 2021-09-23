@@ -1,16 +1,17 @@
 import axios from 'axios';
 
-import { dispatchErrors } from '../toast/utils';
+import { PROFILE_BASE_PATH } from '../../utilis/constants';
+import { dispatchErrors } from '../toast/utilis';
 import { searchUsername } from './actions';
 
-export const fetechedSearchUsernames = (queryString) => (dispatch) => {
+export const fetechSearchUserNames = (queryString) => (dispatch) => {
   axios
-    .get(`/api/profile/search/?username=${queryString}`)
+    .get(`${PROFILE_BASE_PATH}/search/?username=${queryString}`)
     .then((res) => {
       dispatch(searchUsername(res.data));
     })
     .catch((err) => {
-      const errors = err.response.data;
+      const errors = err.response?.data;
       dispatchErrors(errors, dispatch);
     });
 };

@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-import { dispatchErrors } from '../toast/utils';
+import { GAME_BASE_PATH } from '../../utilis/constants';
+import { dispatchErrors } from '../toast/utilis';
 import { activeGames, spectateGames } from './actions';
 
-export const fetechedActiveGames = () => (dispatch) => {
+export const fetechActiveGames = () => (dispatch) => {
   axios
-    .get('/api/game/active/')
+    .get(`${GAME_BASE_PATH}/active/`)
     .then((res) => {
       dispatch(activeGames(res.data));
     })
@@ -15,9 +16,9 @@ export const fetechedActiveGames = () => (dispatch) => {
     });
 };
 
-export const fetechedSpectateGames = () => (dispatch) => {
+export const fetechSpectateGames = () => (dispatch) => {
   axios
-    .get('/api/game/spectate/')
+    .get(`${GAME_BASE_PATH}/spectate/`)
     .then((res) => {
       dispatch(spectateGames(res.data));
     })

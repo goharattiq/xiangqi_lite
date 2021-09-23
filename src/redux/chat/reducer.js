@@ -1,10 +1,10 @@
-import { CLEAR_CHAT, MESSAGE_SEND } from './type';
+import { CLEAR_CHAT, SEND_MESSAGE } from './type';
 
 const initialState = [];
 
 const chatReducer = (state = initialState, action) => {
   switch (action.type) {
-    case MESSAGE_SEND:
+    case SEND_MESSAGE:
       return [...state, action.payload];
     case CLEAR_CHAT:
       return initialState;

@@ -1,21 +1,22 @@
 import axios from 'axios';
 
+import { AUTH_BASE_PATH } from '../../utilis/constants';
 import { setToast } from '../toast/actions';
-import { dispatchErrors } from '../toast/utils';
+import { dispatchErrors } from '../toast/utilis';
 import {
   getUser,
-  signInSueccess,
-  signOutSueccess,
-  signUpSueccess,
+  signInSuccess,
+  signOutSuccess,
+  signUpSuccess,
 } from './actions';
 
 export const signinUser = ({ username, password }) => (dispatch) => {
   axios
-    .post('/api/auth/login/', {
+    .post(`${AUTH_BASE_PATH}/login/`, {
       username, password,
     })
     .then((res) => {
-      dispatch(signInSueccess(res.data));
+      dispatch(signInSuccess(res.data));
       dispatch(setToast('Signin Successfully', 'light', dispatch));
     })
     .catch((err) => {
@@ -26,13 +27,13 @@ export const signinUser = ({ username, password }) => (dispatch) => {
 
 export const signupUser = ({ username, email, password }) => (dispatch) => {
   axios
-    .post('/api/auth/signup/', {
+    .post(`${AUTH_BASE_PATH}/signup/`, {
       username, email, password1: password, password2: password,
     }, {
       withCredentials: false,
     })
     .then(() => {
-      dispatch(signUpSueccess());
+      dispatch(signUpSuccess());
       dispatch(setToast('Sigup Successfully', 'light', dispatch));
     })
     .catch((err) => {
@@ -43,9 +44,9 @@ export const signupUser = ({ username, email, password }) => (dispatch) => {
 
 export const signOutUser = () => (dispatch) => {
   axios
-    .post('/api/auth/logout/', null)
+    .post(`${AUTH_BASE_PATH}/logout/`, null)
     .then(() => {
-      dispatch(signOutSueccess());
+      dispatch(signOutSuccess());
       dispatch(setToast('Logout Successfully', 'light', dispatch));
     })
     .catch((err) => {
@@ -54,10 +55,10 @@ export const signOutUser = () => (dispatch) => {
     });
 };
 
-export const fetechedUser = () => (dispatch) => {
+export const fetechUser = () => (dispatch) => {
   dispatch(getUser({}));
   axios
-    .get('/api/auth/user/')
+    .get(`${AUTH_BASE_PATH}/user/`)
     .then((res) => {
       dispatch(getUser(res.data));
     })
