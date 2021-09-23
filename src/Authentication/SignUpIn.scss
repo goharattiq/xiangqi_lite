@@ -3,8 +3,9 @@
 .sign-form {
   width: 30rem;
   position: absolute;
-  left: 38%;
-  top: 30%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .form-button,
@@ -21,7 +22,6 @@
 
 @media screen and (max-width: 980px) {
   .sign-form {
-    left: 35%;
     width: 15rem;
   }
   .form-button,
@@ -33,7 +33,6 @@
 
 @media screen and (max-width: 480px) {
   .sign-form {
-    left: 25%;
     width: 12rem;
   }
   .form-button,

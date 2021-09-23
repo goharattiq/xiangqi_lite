@@ -31,7 +31,6 @@ const SignUP = () => {
   };
   return (
     <Form className="sign-form" onSubmit={handleSubmit}>
-
       <FloatingLabel
         label="Username"
       >

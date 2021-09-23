@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import ToastMessage from '../Components/ToastMessage';
-import { fetechedUser } from '../redux/auth/thunk';
+import { fetechUser } from '../redux/auth/thunk';
 import AuthTab from './AuthTab';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
@@ -20,7 +20,7 @@ const Authentication = () => {
 
   useEffect(() => {
     if (localStorage.getItem('access_token')) {
-      dispatch(fetechedUser());
+      dispatch(fetechUser());
     }
   }, []);
   return (
