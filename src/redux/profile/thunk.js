@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from 'axios';
 
 import { GAME_BASE_PATH, PROFILE_BASE_PATH } from '../../utilis/constants';
@@ -29,15 +30,13 @@ export const fetchAllTimeGames = (username) => (dispatch) => {
     });
 };
 
-export const updateProfile = (username, {
-// eslint-disable-next-line camelcase
-  first_name, last_name, bio, photo,
-}, history) => (dispatch) => {
+export const updateProfile = (username, updatedProfile, history) => (dispatch) => {
   const data = new FormData();
-  data.append('photo', photo);
-  data.append('first_name', first_name);
-  data.append('last_name', last_name);
-  data.append('bio', bio);
+  Object.entries(updatedProfile).forEach(([name, value]) => {
+    if (value) {
+      data.append(name, value);
+    }
+  });
   axios
     .put(`${PROFILE_BASE_PATH}/${username}/`, data)
     .then((res) => {

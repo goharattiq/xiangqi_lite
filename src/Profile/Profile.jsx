@@ -13,7 +13,7 @@ import { fetchAllTimeGames, fetchUserProfile } from '../redux/profile/thunk';
 import './Profile.scss';
 
 const Profile = ({
-  userFullName, user, stateList, games, photo, isSessionUser,
+  userFullName, user, statList, games, photo, isSessionUser,
 }) => (
   <Container className="bg-white w-75 mt-5 pb-3">
     <div>
@@ -34,7 +34,7 @@ const Profile = ({
       </div>
       <ul className="list-group mt-5 mb-3 user-stats">
         {
-          stateList.map((state) => (
+          statList.map((state) => (
             <li key={state.name} className="score list-group-item m-2">
               <p className="text-center">
                 {state.name === 'Winning%' ? state.score.toFixed(2) : state.score}
@@ -82,7 +82,7 @@ const ProfileContainer = () => {
     photo: profile.photo,
   }));
 
-  const stateList = [
+  const statList = [
     { name: 'Games', score: gamesCount },
     { name: 'Wins', score: winsCount },
     { name: 'Losses', score: lossesCount },
@@ -95,7 +95,7 @@ const ProfileContainer = () => {
       isLoading={!user || !games}
       userFullName={userFullName}
       user={user}
-      stateList={stateList}
+      statList={statList}
       games={games}
       photo={photo}
       isSessionUser={auth.user.username === profileUsername}
@@ -106,7 +106,7 @@ const ProfileContainer = () => {
 Profile.propTypes = {
   userFullName: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
-  stateList: PropTypes.array.isRequired,
+  statList: PropTypes.array.isRequired,
   games: PropTypes.array.isRequired,
   photo: PropTypes.string.isRequired,
   isSessionUser: PropTypes.bool.isRequired,

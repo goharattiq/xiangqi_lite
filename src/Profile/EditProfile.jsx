@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react';
 
@@ -24,7 +25,7 @@ const EditProfile = () => {
     first_name: user?.first_name ? user.first_name : '',
     last_name: user?.last_name ? user.last_name : '',
     bio: player_bio || '',
-    photo: '',
+    photo: null,
   });
   const {
     bio, first_name, last_name, photo,
@@ -47,11 +48,13 @@ const EditProfile = () => {
       first_name: '',
       last_name: '',
       bio: '',
+      photo: null,
     });
   };
 
   const handleFileChange = (event) => {
-    const extention = event.target.files[0].name.split('.')[1];
+    const [file, ..._] = event.target.files;
+    const [_0, extention] = file.name.split('.');
     if (ALLOWED_EXTENSTIONS.includes(extention.toUpperCase())) {
       setProfile({
         ...profile,
