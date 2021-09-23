@@ -19,27 +19,22 @@ class ProfileSerializer(ModelSerializer):
                   'losses_count', 'draw_count', 'winning_percentage', 'photo']
 
     def update(self, instance, validated_data):
-        username = instance.user.username
-        user_fields = ['email', 'first_name', 'last_name']
         user = {}
-        for field in user_fields:
-            value = validated_data.get(field)
-            if value is not None:
-                user[field] = value
-        User.objects.filter(username=username).update(**user)
-
         profile = {}
-        profile_fields = ['bio', 'photo']
-        for field in profile_fields:
+        for field in validated_data:
             value = validated_data.get(field)
-            if value is not None and value != '':
+            if User.field_exists(field) and value:
+                user[field] = value
+            elif Profile.field_exists(field):
                 if field == 'photo':
-                    instance = Profile.objects.filter(user__username=username).first()
+                    instance = Profile.objects.filter(user__username=instance.user.username).first()
                     instance.photo.save(value.name, value)
                     continue
                 profile[field] = value
 
-        return Profile.objects.filter(user__username=username).update(**profile)
+        user_updated = User.objects.filter(username=instance.user.username).update(**user)
+        profile_updated = Profile.objects.filter(user__username=instance.user.username).update(**profile)
+        return user_updated or profile_updated
 
 
 class UserSearchSerializer(ModelSerializer):

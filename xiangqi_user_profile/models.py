@@ -15,3 +15,15 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+@classmethod
+def model_field_exists(cls, field):
+    try:
+        cls._meta.get_field(field)
+        return True
+    except:
+        return False
+
+
+models.Model.field_exists = model_field_exists
