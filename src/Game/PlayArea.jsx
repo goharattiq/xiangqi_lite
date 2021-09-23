@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
 import { socketLeaveGame } from '../socketio/gameSocketio';
-import { BLACK_STR, RED_STR } from '../utils/constants';
-import { whichSide } from '../utils/pieceMove';
+import { BLACK_STR, RED_STR } from '../utilis/constants';
+import { whichSide } from '../utilis/pieceMove';
 import Board from './Board/Board';
 import AnnounceWinner from './Components/AnnounceWinner';
 import History from './Components/History';

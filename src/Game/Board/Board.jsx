@@ -1,15 +1,15 @@
 import React, { Fragment, useState } from 'react';
 
-import spin from 'spinatrix';
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
+import spin from 'spinatrix';
 
 import { hintMove, pieceMove, clearHintMove } from '../../redux/game/actions';
 import hitAudio from '../../static/audio/hit.ogg';
 import moveAudio from '../../static/audio/move.ogg';
 import { ReactComponent as Background } from '../../static/img/background/board.svg';
-import { changeDroppableStyle, pieceAnimationEnd, pieceAnimationStart } from '../../utils/game';
+import { changeDroppableStyle, pieceAnimationEnd, pieceAnimationStart } from '../../utilis/game';
 import Row from './Row';
 import './Board.scss';
 
@@ -54,8 +54,8 @@ const Board = ({ historyMode, isRotate }) => {
     }
   };
 
-  if(isRotate){
-    board = spin.x180(board)
+  if (isRotate) {
+    board = spin.x180(board);
   }
   return (
     <>

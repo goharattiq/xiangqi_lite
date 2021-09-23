@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { messageSend } from '../../redux/chat/actions';
+import { sendMessage } from '../../redux/chat/actions';
 import { socketSendMessage } from '../../socketio/chatSocketio';
 import ChatHistory from './ChatHistory';
 import './Chat.scss';
@@ -33,7 +33,7 @@ const Chat = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(messageSend(message));
+    dispatch(sendMessage(message));
     socketSendMessage(message, gameID);
     setMessage({
       content: '',

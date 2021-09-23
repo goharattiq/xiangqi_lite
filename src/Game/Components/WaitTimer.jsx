@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import { waitTimer } from '../../redux/game/actions';
-import { WAIT_TIME } from '../../utils/constants';
+import { GAME_RESTART_TIMEOUT_MINUTES } from '../../utilis/constants';
 import './WaitTimer.scss';
 
 const WaitTimer = ({ waitTimeOn }) => {
   const dispatch = useDispatch();
-  const [timer, setTimer] = useState(WAIT_TIME);
+  const [timer, setTimer] = useState(GAME_RESTART_TIMEOUT_MINUTES);
   useEffect(() => {
     let timeInterval;
     if (waitTimeOn) {

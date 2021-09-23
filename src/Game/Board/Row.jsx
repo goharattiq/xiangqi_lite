@@ -5,8 +5,8 @@ import React from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 
-import { BLACK, RED, RED_STR } from '../../utils/constants';
-import { whichSide } from '../../utils/pieceMove';
+import { BLACK, RED, RED_STR } from '../../utilis/constants';
+import { whichSide } from '../../utilis/pieceMove';
 import Spot from '../Components/Spot';
 import Piece from '../Piece/Piece';
 import './Row.scss';
@@ -66,7 +66,7 @@ const Row = ({
                       id={`${cell.piece.name}-${cell.piece.id}`}
                       className="cell"
                     >
-                      {(provid, snapshot) => (
+                      {(provid) => (
                         <div
                           ref={provid.innerRef}
                           {...provid.draggableProps}

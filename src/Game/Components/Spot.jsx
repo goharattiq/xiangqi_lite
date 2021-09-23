@@ -11,7 +11,6 @@ import { clearHintMove, pieceMove } from '../../redux/game/actions';
 const Spot = ({ visiblity, id, selectedPiece }) => {
   const disptach = useDispatch();
   const moveByClick = (event) => {
-    // console.log(event.target.id.split('-')[1], selectedPiece)
     const move = {
       draggableId: `${selectedPiece.pieceName}-${selectedPiece.pieceId}`,
       source: {

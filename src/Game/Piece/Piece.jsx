@@ -2,15 +2,15 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import { MAP } from '../../utils/constants';
-import { whichSide } from '../../utils/pieceMove';
+import { PIECE_MAP } from '../../utilis/constants';
+import { whichSide } from '../../utilis/pieceMove';
 import {
   red, black, Advisor, Cannon, Chariot, Elephant, Horse, King, Pawn,
 } from './PiecesImport';
 import './Piece.scss';
 
 const Piece = ({
-  name, id, hitStyle, rotateStyle,
+  name, id, hitStyle,
 }) => {
   const selectPiece = (piece) => {
     switch (piece.toLowerCase()) {
@@ -36,14 +36,11 @@ const Piece = ({
     <div
       className="piece"
       id={id}
-      style={{
-        ...hitStyle,
-        ...rotateStyle,
-      }}
+      style={hitStyle}
     >
       <img src={whichSide(name) ? red : black} alt="Piece Background" />
       {selectPiece(name)}
-      <span className="piece-name">{MAP[name.toLowerCase()]}</span>
+      <span className="piece-name">{PIECE_MAP[name.toLowerCase()]}</span>
     </div>
   );
 };
@@ -52,7 +49,6 @@ Piece.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   hitStyle: PropTypes.object.isRequired,
-  rotateStyle: PropTypes.object.isRequired,
 };
 
 export default Piece;
