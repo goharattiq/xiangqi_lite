@@ -7,7 +7,7 @@ export const dispatchErrors = (errors, dispatch) => {
       dispatch(setToast(`${errorName}: ${errorList}`, 'danger', dispatch));
       return;
     }
-    errorList.forEach((error) => {
+    Array.isArray(errorList) && errorList.forEach((error) => {
       dispatch(setToast(`${error}`, 'danger', dispatch));
     });
   });

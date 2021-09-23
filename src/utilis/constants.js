@@ -41,7 +41,9 @@ export const ALLOWED_EXTENSTIONS = [
 export const RADIO = 'radio';
 export const RADIO_STYLE = 'text-center radio-buttons';
 
-const API = '/api/';
+const API = '/api';
 export const AUTH_BASE_PATH = `${API}/auth`;
 export const GAME_BASE_PATH = `${API}/game`;
 export const PROFILE_BASE_PATH = `${API}/profile`;
+
+export const EDIT_PROFILE = [];
