@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import { Button, CloseButton, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetechedSearchUsernames } from '../redux/game/thunk';
-import { isValidGameParams } from '../redux/game/utiles';
+import { fetechSearchUserNames } from '../redux/game/thunk';
+import { isValidGameParams } from '../redux/game/utilis';
 import { setToast } from '../redux/toast/actions';
 import { socketSetGameParams } from '../socketio/gameSocketio';
-import { MOVE_TIMER, GAME_TIMER, SIDE } from '../utils/constants';
-import { PARAMETERS } from '../utils/paramsData';
+import { MOVE_TIMER, GAME_TIMER, SIDE } from '../utilis/constants';
+import { GAME_PARAMETERS } from '../utilis/paramsData';
 import Field from './Field';
 import './GameParams.scss';
 
@@ -41,8 +41,8 @@ const GameParams = ({ setOverlayDiv }) => {
       ...gameParams,
       [name]: value,
     });
-    if (name === 'username' && value !== '') {
-      dispatch(fetechedSearchUsernames(value));
+    if (name === 'username' && value) {
+      dispatch(fetechSearchUserNames(value));
     }
   };
   const handleCheckbox = ({ target: { name, checked } }) => {
@@ -83,7 +83,7 @@ const GameParams = ({ setOverlayDiv }) => {
 
         <Form onSubmit={handleSubmit} className="form-scroll">
           {
-            PARAMETERS.map(({
+            GAME_PARAMETERS.map(({
               data, name, type, id, className,
             }) => (
               <div className="d-flex justify-content-center" key={name}>

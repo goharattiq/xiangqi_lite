@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import GameList from '../Components/GameList';
 import Spinner from '../Components/Spinner';
-import { fetechedActiveGames, fetechedSpectateGames } from '../redux/lobby/thunk';
+import { fetechActiveGames, fetechSpectateGames } from '../redux/lobby/thunk';
 import GameParams from './GameParams';
 import './Lobby.scss';
 
@@ -37,8 +37,8 @@ const LobbyContainer = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetechedActiveGames());
-    dispatch(fetechedSpectateGames());
+    dispatch(fetechActiveGames());
+    dispatch(fetechSpectateGames());
   }, []);
   return (
     <LobbyWithSpinner
