@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Spinner from '../Components/Spinner';
-import { fetechedLeaders } from '../redux/leaderboard/thunk';
+import { fetechLeaders } from '../redux/leaderboard/thunk';
 import LeaderCard from './LeaderCard';
 
 const LeaderBoard = ({ leaders }) => (
@@ -19,12 +19,12 @@ const LeaderBoard = ({ leaders }) => (
 
 const LeaderBoardWithSpinner = Spinner(LeaderBoard);
 
-const LearBoardContainer = () => {
+const LearderBoardContainer = () => {
   document.body.style.backgroundColor = '#ede8e0';
   const dispatch = useDispatch();
   const leaders = useSelector((state) => (state.leaderBoard.leaders));
   useEffect(() => {
-    dispatch(fetechedLeaders());
+    dispatch(fetechLeaders());
   }, []);
   return (
     <LeaderBoardWithSpinner
@@ -38,4 +38,4 @@ LeaderBoard.propTypes = {
   leaders: PropTypes.array.isRequired,
 };
 
-export default LearBoardContainer;
+export default LearderBoardContainer;

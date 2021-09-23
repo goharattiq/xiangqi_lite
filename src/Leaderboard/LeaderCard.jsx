@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import './LeaderBoard.scss';
 
 const LeaderCard = ({ leader }) => {
-  const stateList = {
+  const statList = {
     games_played_count: 'Games',
     wins_count: 'Wins',
     losses_count: 'Losses',
@@ -25,7 +25,7 @@ const LeaderCard = ({ leader }) => {
         <table className="d-flex justify-content-center">
           <tbody>
             {
-              Object.entries(stateList).map(([id, stat]) => (
+              Object.entries(statList).map(([id, stat]) => (
                 <tr key={stat}>
                   <td>{stat}</td>
                   <td>{stat === 'Winning%' ? leader[id].toFixed(2) : leader[id]}</td>
