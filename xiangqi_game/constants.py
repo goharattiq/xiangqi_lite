@@ -1,3 +1,57 @@
 WAIT_TIME = 3
 BLACK = 'Black'
 RED = 'Red'
+
+ID = 'id'
+PK = 'pk'
+PLAYER_1 = 'player_1'
+PLAYER_2 = 'player_2'
+USER = 'user'
+PROFILE = 'profile'
+USERNAME = 'username'
+PLAYER_TURN = 'player_turn'
+GAME_ID = 'game_id'
+MOVE = 'move'
+JOIN_GAME = 'JOIN_GAME'
+SIDE = 'side'
+PLAYERS = 'players'
+TYPE = 'type'
+LOOSER = 'looser'
+
+MESSAGE = 'message'
+
+END_TIME = 'END_TIME'
+LEAVE_GAME = 'LEAVE_GAME'
+
+HIT = 'hit'
+TIMED = 'Timed'
+GAME_TYPE = 'gameType'
+GAME_TIMED = 'gameTimed'
+GAME_RATED = 'gameRated'
+MOVE_TIME = 'moveTime'
+GAME_TIME = 'gameTimer'
+GAME_BOARD = 'game_board'
+
+IS_RATED = 'isRated'
+PUBLIC = 'Public'
+RATED = 'Rated'
+
+CHAT_MESSAGE_SEND = 'chat.message_send'
+CHAT_MESSAGE_RECEIVED = 'chat.message_received'
+
+GAME_MAKE_MOVE = 'game.make_move'
+GAME_MOVE_SUCCESS = 'game.move_success'
+GAME_CREATE = 'game.create'
+GAME_SUCCESSFULLY_CREATED = 'game.successfully_created'
+GAME_ENTER = 'game.enter'
+GAME_SEND_PARAMS = 'game.send_params'
+GAME_LEAVE = 'game.leave'
+GAME_END = 'game.end'
+GAME_WINNER_ANNOUNCE = 'game.winner_announce'
+
+NOTIFICATION_GAME_CREATED = 'notification.game_created'
+NOTIFICATION_PLAYERS_READY = 'notification.players_ready'
+NOTIFICATION_PLAYER_LEAVE = 'notification.player_leave'
+
+CONNECT = 'connect'
+DISCONNECT = 'disconnect'
