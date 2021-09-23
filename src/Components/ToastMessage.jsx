@@ -16,7 +16,7 @@ const ToastMessage = () => {
   return (
     <ToastContainer position="top-end" className="p-3 toast-container">
       {
-        toasts.length !== 0 ? toasts.map(({
+        toasts.length > 0 && toasts.map(({
           msg, type, id, data,
         }) => (
           <Toast
@@ -32,7 +32,7 @@ const ToastMessage = () => {
                   <>
                     <p>{`${data.creator} created the game.`}</p>
                     {
-                      user.username === data.invitee ? <p>You are challenged in this game.</p> : ''
+                      user.username === data.invitee ? <p>{`${data.creator} challenged you to a game`}</p> : ''
                     }
                     <Link to={`game/${data.gameID}`}>
                       {
@@ -44,7 +44,7 @@ const ToastMessage = () => {
               }
             </Toast.Body>
           </Toast>
-        )) : ''
+        ))
       }
     </ToastContainer>
   );

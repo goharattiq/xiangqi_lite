@@ -17,22 +17,23 @@ import PrivateRoute from './PrivateRoute';
 import ToastMessage from './ToastMessage';
 
 const Routes = () => {
-  const { authUser, gameParams, accessToken } = useSelector(({ auth, game }) => ({
-    authUser: auth ? auth.user : null,
-    accessToken: auth ? auth.access_token : null,
+  const {
+    authUser, gameParams, accessToken,
+  } = useSelector(({ auth, game }) => ({
+    authUser: auth && auth.user,
+    accessToken: auth && auth.access_token,
     gameParams: game.params,
   }));
   const history = useHistory();
   const dispatch = useDispatch();
   useEffect(() => {
     const connectSokcets = async () => {
-      if (authUser && Object.keys(authUser).length !== 0) {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
+      if (authUser && !Object.keys(authUser).length) {
         await useSockets(accessToken);
         await subscribeGameSockets(history, authUser.username, dispatch);
         await subscribeChatSocketsEvent(dispatch);
       }
-      if (authUser && Object.keys(authUser).length !== 0 && !gameParams && localStorage.getItem('gameID')) {
+      if (authUser && !Object.keys(authUser).length && !gameParams && localStorage.getItem('gameID')) {
         socketLeaveGame(localStorage.getItem('gameID'), dispatch);
       }
     };

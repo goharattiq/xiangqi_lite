@@ -13,8 +13,8 @@ const Navigation = () => {
   return (
     <Navbar expand="lg" bg="style">
       <Container>
-        <Navbar.Brand>
-          <Link to="/lobby" className="navbar-brand">
+        <Navbar.Brand className="nav-link-custom">
+          <Link to="/lobby" className="navbar-brand nav-link-custom">
             Xiangqi Lite
           </Link>
         </Navbar.Brand>

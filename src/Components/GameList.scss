@@ -2,23 +2,22 @@
 
 .games {
   color: $compliment;
-}
 
-.game-link {
-  background-color: $background;
-  border: none;
-  color: rgba(0, 60, 255, 0.671);
-  text-decoration: underline;
-  position: relative;
-  left: 60%;
-}
+  .game-link {
+    background-color: $background;
+    border: none;
+    color: rgba(0, 60, 255, 0.671);
+    text-decoration: underline;
+    position: relative;
+    left: 60%;
+  }
 
-.profile-link {
-  color: $compliment;
-}
-
-.profile-link:hover {
-  color: rgba($color: $compliment, $alpha: 0.7);
+  .profile-link {
+    color: $compliment;
+    &:hover {
+      color: rgba($color: $compliment, $alpha: 0.7);
+    }
+  }
 }
 
 @media screen and (max-width: 400px) {
