@@ -9,7 +9,7 @@ export const GAME_TIMER = {
   10: ['30', '60'],
 };
 export const SIDE = ['Red', 'Random', 'Black'];
-export const MAP = {
+export const PIECE_MAP = {
   p: 'Pawn',
   r: 'Chariot',
   h: 'Horse',
@@ -19,25 +19,31 @@ export const MAP = {
   c: 'Cannon',
 };
 
-export const NORTH = 'NORTH';
-export const SOUTH = 'SOUTH';
-export const EAST = 'EAST';
-export const WEST = 'WEST';
+export const UP = 'UP';
+export const DOWN = 'DOWN';
+export const RIGHT = 'EAST';
+export const LEFT = 'LEFT';
 
 export const RED = 1;
 export const BLACK = 0;
 export const RED_STR = 'Red';
 export const BLACK_STR = 'Black';
+export const RANDOM = 'Random';
 
-export const ROWS = 10;
-export const COLS = 9;
+export const numRows = 10;
+export const numCols = 9;
 
-export const TOAST_TIMER = 5000;
-export const WAIT_TIME = 3;
+export const TOAST_TIMEOUT_SECONDS = 5;
+export const GAME_RESTART_TIMEOUT_MINUTES = 3;
 
 export const ALLOWED_EXTENSTIONS = [
   'JPEG', 'JPG', 'PNG',
 ];
 
-const WS_SCHEME = window.location.protocol === 'https:' ? 'wss' : 'ws';
-export const SOCKET_URL = `${WS_SCHEME}://${window.location.host}`;
+export const RADIO = 'radio';
+export const RADIO_STYLE = 'text-center radio-buttons';
+
+const API = '/api/';
+export const AUTH_BASE_PATH = `${API}/auth`;
+export const GAME_BASE_PATH = `${API}/game`;
+export const PROFILE_BASE_PATH = `${API}/profile`;

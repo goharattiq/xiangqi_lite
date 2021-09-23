@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-param-reassign */
-import { COLS, MAP, ROWS } from './constants';
+import { numCols, PIECE_MAP, numRows } from './constants';
 import {
   cannonMoves,
   chariotMoves,
@@ -133,22 +133,22 @@ export const createCell = (id, piece) => ({
 
 export const getHintMoves = (pieceName, location, board) => {
   let expectedLocations = [];
-  switch (MAP[pieceName.toLowerCase()]) {
-    case MAP.p:
-    case MAP.k:
+  switch (PIECE_MAP[pieceName.toLowerCase()]) {
+    case PIECE_MAP.p:
+    case PIECE_MAP.k:
       expectedLocations = kingPawnMoves(pieceName, location, expectedLocations, board);
       break;
-    case MAP.r:
+    case PIECE_MAP.r:
       expectedLocations = chariotMoves(pieceName, location, expectedLocations, board);
       break;
-    case MAP.c:
+    case PIECE_MAP.c:
       expectedLocations = cannonMoves(pieceName, location, expectedLocations, board);
       break;
-    case MAP.e:
-    case MAP.a:
+    case PIECE_MAP.e:
+    case PIECE_MAP.a:
       expectedLocations = advisorElephantMoves(pieceName, location, expectedLocations, board);
       break;
-    case MAP.h:
+    case PIECE_MAP.h:
       expectedLocations = horseMoves(pieceName, location, expectedLocations, board);
       break;
 
@@ -160,8 +160,8 @@ export const getHintMoves = (pieceName, location, board) => {
 
 export const boardOptimize = (board) => {
   const newBoard = {};
-  for (let i = 0; i < ROWS; i++) {
-    for (let j = 0; j < COLS; j++) {
+  for (let i = 0; i < numRows; i++) {
+    for (let j = 0; j < numCols; j++) {
       const cell = board[i][j];
       if (cell.piece) {
         newBoard[cell.id] = cell.piece;
@@ -172,7 +172,7 @@ export const boardOptimize = (board) => {
 };
 
 export const loadBoard = (optimizedBoard) => {
-  const board = initMatrix(ROWS, COLS);
+  const board = initMatrix(numRows, numCols);
   Object.keys(optimizedBoard).forEach(
     (key) => {
       const [x, y] = matrixPosition(key);

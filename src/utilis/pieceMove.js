@@ -1,6 +1,6 @@
 /* eslint-disable no-loop-func */
 import {
-  BLACK, EAST, MAP, NORTH, RED, SOUTH, WEST,
+  BLACK, RIGHT, PIECE_MAP, UP, RED, DOWN, LEFT,
 } from './constants';
 
 export const kingPawnMoves = (pieceName, indexLocation, expectedLocations, board) => {
@@ -8,23 +8,23 @@ export const kingPawnMoves = (pieceName, indexLocation, expectedLocations, board
   let location = setInitalPosition(sourceI, sourceJ);
   const riverLocation = whichSide(pieceName) ? 4 : 5;
   let limitedMoves = 1;
-  while ((location[NORTH] || location[SOUTH] || location[EAST] || location[WEST])
+  while ((location[UP] || location[DOWN] || location[RIGHT] || location[LEFT])
   && limitedMoves > 0) {
     location = movePiece(location, true);
     Object.entries(location).forEach(([id, direct]) => {
       if ((isValidRange(direct.x, direct.y)) && !(board[direct.x][direct.y].piece
         && whichSide(board[direct.x][direct.y].piece.name) === whichSide(pieceName))) {
-        if (MAP[pieceName.toLowerCase()] === MAP.p && whichSide(pieceName)
-          && (id === SOUTH || (direct.x > riverLocation && (id === WEST || id === EAST)))) {
+        if (PIECE_MAP[pieceName.toLowerCase()] === PIECE_MAP.p && whichSide(pieceName)
+          && (id === DOWN || (direct.x > riverLocation && (id === LEFT || id === RIGHT)))) {
           // if red pawn and cross river or not
           expectedLocations.push(indexPosition(direct.x, direct.y));
-        } else if (MAP[pieceName.toLowerCase()] === MAP.p && !whichSide(pieceName)
-          && (id === NORTH || (direct.x < riverLocation && (id === WEST || id === EAST)))) {
+        } else if (PIECE_MAP[pieceName.toLowerCase()] === PIECE_MAP.p && !whichSide(pieceName)
+          && (id === UP || (direct.x < riverLocation && (id === LEFT || id === RIGHT)))) {
           // if red pawn and cross river or not
           expectedLocations.push(indexPosition(direct.x, direct.y));
         }
         // king
-        if (MAP[pieceName.toLowerCase()] === MAP.k
+        if (PIECE_MAP[pieceName.toLowerCase()] === PIECE_MAP.k
           && isValidKingAdvisorRange(direct.x, direct.y, whichSide(pieceName))) {
           expectedLocations.push(indexPosition(direct.x, direct.y));
         }
@@ -38,7 +38,7 @@ export const kingPawnMoves = (pieceName, indexLocation, expectedLocations, board
 export const chariotMoves = (pieceName, indexLocation, expectedLocations, board) => {
   const [sourceI, sourceJ] = matrixPosition(indexLocation);
   let location = setInitalPosition(sourceI, sourceJ);
-  while (location[NORTH] || location[SOUTH] || location[EAST] || location[WEST]) {
+  while (location[UP] || location[DOWN] || location[RIGHT] || location[LEFT]) {
     location = movePiece(location, true);
     Object.entries(location).forEach(([id, direct]) => {
       if ((isValidRange(direct.x, direct.y)) && !(board[direct.x][direct.y].piece
@@ -60,18 +60,18 @@ export const cannonMoves = (pieceName, indexLocation, expectedLocations, board) 
   const [sourceI, sourceJ] = matrixPosition(indexLocation);
   let location = setInitalPosition(sourceI, sourceJ);
   const directionJump = {
-    [NORTH]: true,
-    [SOUTH]: true,
-    [EAST]: true,
-    [WEST]: true,
+    [UP]: true,
+    [DOWN]: true,
+    [RIGHT]: true,
+    [LEFT]: true,
   };
   const hit = {
-    [NORTH]: false,
-    [SOUTH]: false,
-    [EAST]: false,
-    [WEST]: false,
+    [UP]: false,
+    [DOWN]: false,
+    [RIGHT]: false,
+    [LEFT]: false,
   };
-  while (location[NORTH] || location[SOUTH] || location[EAST] || location[WEST]) {
+  while (location[UP] || location[DOWN] || location[RIGHT] || location[LEFT]) {
     location = movePiece(location, true);
     Object.entries(location).forEach(([id, direct]) => {
       if (isValidRange(direct.x, direct.y)) {
@@ -103,19 +103,19 @@ export const advisorElephantMoves = (pieceName, indexLocation, expectedLocations
   const riverLocation = whichSide(pieceName) ? 4 : 5;
   let location = setInitalPosition(sourceI, sourceJ);
   let limitedMoves = 2;
-  while ((location[NORTH] || location[SOUTH] || location[EAST] || location[WEST])
+  while ((location[UP] || location[DOWN] || location[RIGHT] || location[LEFT])
     && limitedMoves > 0) {
     location = movePiece(location, false);
     // eslint-disable-next-line no-unused-vars
     Object.entries(location).forEach(([id, direct]) => {
       if ((isValidRange(direct.x, direct.y)) && !(board[direct.x][direct.y].piece
         && whichSide(board[direct.x][direct.y].piece.name) === whichSide(pieceName))) {
-        if (MAP[pieceName.toLowerCase()] === MAP.e && (limitedMoves === 1)
+        if (PIECE_MAP[pieceName.toLowerCase()] === PIECE_MAP.e && (limitedMoves === 1)
           && ((whichSide(pieceName) && direct.x <= riverLocation)
           || ((!whichSide(pieceName) && direct.x >= riverLocation)))) {
           expectedLocations.push(indexPosition(direct.x, direct.y));
         }
-        if (MAP[pieceName.toLowerCase()] === MAP.a && (limitedMoves === 2)
+        if (PIECE_MAP[pieceName.toLowerCase()] === PIECE_MAP.a && (limitedMoves === 2)
           && isValidKingAdvisorRange(direct.x, direct.y, whichSide(pieceName))) {
           expectedLocations.push(indexPosition(direct.x, direct.y));
         }
@@ -130,10 +130,10 @@ export const horseMoves = (pieceName, indexLocation, expectedLocations, board) =
   const [sourceI, sourceJ] = matrixPosition(indexLocation);
   let location = setInitalPosition(sourceI, sourceJ);
   const paring = {
-    [NORTH]: WEST,
-    [SOUTH]: EAST,
-    [EAST]: NORTH,
-    [WEST]: SOUTH,
+    [UP]: LEFT,
+    [DOWN]: RIGHT,
+    [RIGHT]: UP,
+    [LEFT]: DOWN,
   };
   location = movePiece(location, true);
   Object.entries(location).forEach(([id, direct]) => {
@@ -155,22 +155,22 @@ export const horseMoves = (pieceName, indexLocation, expectedLocations, board) =
 
 const moveOrthogoanl = (location, direction) => {
   switch (direction) {
-    case NORTH:
+    case UP:
       return {
         ...location,
         x: location.x - 1,
       };
-    case SOUTH:
+    case DOWN:
       return {
         ...location,
         x: location.x + 1,
       };
-    case EAST:
+    case RIGHT:
       return {
         ...location,
         y: location.y + 1,
       };
-    case WEST:
+    case LEFT:
       return {
         ...location,
         y: location.y - 1,
@@ -183,22 +183,22 @@ const moveOrthogoanl = (location, direction) => {
 
 const moveDiagonal = (location, direction) => {
   switch (direction) {
-    case NORTH:
+    case UP:
       return {
         x: location.x - 1,
         y: location.y + 1,
       };
-    case SOUTH:
+    case DOWN:
       return {
         x: location.x + 1,
         y: location.y - 1,
       };
-    case EAST:
+    case RIGHT:
       return {
         x: location.x + 1,
         y: location.y + 1,
       };
-    case WEST:
+    case LEFT:
       return {
         x: location.x - 1,
         y: location.y - 1,
@@ -222,15 +222,15 @@ export const whichSide = (piece) => (/[A-Z]/.test(piece.at(0)) ? RED : BLACK);
 export const matrixPosition = (num) => [Math.floor(num / 9), Math.floor(num % 9)];
 
 const setInitalPosition = (sourceI, sourceJ) => ({
-  [NORTH]: setLocation(sourceI, sourceJ),
-  [SOUTH]: setLocation(sourceI, sourceJ),
-  [EAST]: setLocation(sourceI, sourceJ),
-  [WEST]: setLocation(sourceI, sourceJ),
+  [UP]: setLocation(sourceI, sourceJ),
+  [DOWN]: setLocation(sourceI, sourceJ),
+  [RIGHT]: setLocation(sourceI, sourceJ),
+  [LEFT]: setLocation(sourceI, sourceJ),
 });
 
 const movePiece = (location, isOrthogonal) => {
   const newLocation = location;
-  const directions = [NORTH, SOUTH, EAST, WEST];
+  const directions = [UP, DOWN, RIGHT, LEFT];
   if (isOrthogonal) {
     directions.forEach((direction) => {
       newLocation[direction] = newLocation[direction]
