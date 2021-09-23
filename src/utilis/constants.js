@@ -24,10 +24,8 @@ export const DOWN = 'DOWN';
 export const RIGHT = 'EAST';
 export const LEFT = 'LEFT';
 
-export const RED = 1;
-export const BLACK = 0;
-export const RED_STR = 'Red';
-export const BLACK_STR = 'Black';
+export const RED = 'Red';
+export const BLACK = 'Black';
 export const RANDOM = 'Random';
 
 export const numRows = 10;

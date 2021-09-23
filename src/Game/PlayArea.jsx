@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
 import { socketLeaveGame } from '../socketio/gameSocketio';
-import { BLACK_STR, RED_STR } from '../utilis/constants';
+import { BLACK, RED } from '../utilis/constants';
 import { whichSide } from '../utilis/pieceMove';
 import Board from './Board/Board';
 import AnnounceWinner from './Components/AnnounceWinner';
@@ -61,11 +61,11 @@ const PlayArea = () => {
     && (redPlayer.is_connected && blackPlayer.is_connected)
   );
   const haveTurn = (turn) => (turn === playerTurn);
-  let redHitPieces = hitPiece.filter((piece) => whichSide(piece.name));
-  let blackHitPieces = hitPiece.filter((piece) => !whichSide(piece.name));
-  let redPlayer = gameParams && (gameParams.player_1.side === RED_STR
+  let redHitPieces = hitPiece.filter((piece) => whichSide(piece.name) === RED);
+  let blackHitPieces = hitPiece.filter((piece) => whichSide(piece.name) === BLACK);
+  let redPlayer = gameParams && (gameParams.player_1.side === RED
     ? gameParams.player_1 : gameParams.player_2);
-  let blackPlayer = gameParams && (gameParams.player_1.side === BLACK_STR
+  let blackPlayer = gameParams && (gameParams.player_1.side === BLACK
     ? gameParams.player_1 : gameParams.player_2);
   const isRotated = redPlayer && user.pk === redPlayer.profile.user.pk;
   if (isRotated) {

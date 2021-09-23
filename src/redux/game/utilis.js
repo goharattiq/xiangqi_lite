@@ -1,8 +1,8 @@
 /* eslint-disable no-mixed-operators */
 import { socketSendMoves, socketEndGame } from '../../socketio/gameSocketio';
-import { BLACK_STR, RED_STR } from '../../utilis/constants';
 import { isValidMove } from '../../utilis/game';
 import { matrixPosition, whichSide } from '../../utilis/pieceMove';
+import { HISTORY_MOVE_BACK } from './type';
 
 export const onPieceMove = (move, previousState, history, fromSockets) => {
   const { board, hints, params } = previousState;
@@ -28,9 +28,10 @@ export const onPieceMove = (move, previousState, history, fromSockets) => {
     && (isValidMove(move, hints) || history.mode || fromSockets)) {
     const hitPiece = board[destI][destJ].piece;
     board[destI][destJ].piece = board[sourceI][sourceJ].piece;
-    board[sourceI][sourceJ].piece = history.mode && history.type === 'HISTORY_MOVE_BACK' ? move.hit : null;
+    board[sourceI][sourceJ].piece = history.mode && history.type === HISTORY_MOVE_BACK
+      ? move.hit : null;
     // eslint-disable-next-line no-param-reassign
-    move.hit = history.mode && history.type === 'HISTORY_MOVE_BACK' ? move.hit : hitPiece;
+    move.hit = history.mode && history.type === HISTORY_MOVE_BACK ? move.hit : hitPiece;
     if (!hitPiece) {
       moveAudioTag.play();
     } else {
@@ -42,8 +43,8 @@ export const onPieceMove = (move, previousState, history, fromSockets) => {
     if (!history.mode && !fromSockets && hitPiece && (hitPiece.name === 'k' || hitPiece.name === 'K')) {
       // eslint-disable-next-line camelcase
       const { player_1, player_2 } = params;
-      const side = whichSide(hitPiece.name) ? RED_STR : BLACK_STR;
-      const looser = side === player_1.side ? player_1.profile.user.pk : player_2.profile.user.pk;
+      const looser = whichSide(hitPiece.name) === player_1.side
+        ? player_1.profile.user.pk : player_2.profile.user.pk;
       socketEndGame(params.id, { player_1, player_2 }, looser, 'KING_DIED', params.is_rated);
     }
     return {

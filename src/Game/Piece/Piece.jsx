@@ -2,7 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import { PIECE_MAP } from '../../utilis/constants';
+import { PIECE_MAP, RED } from '../../utilis/constants';
 import { whichSide } from '../../utilis/pieceMove';
 import {
   red, black, Advisor, Cannon, Chariot, Elephant, Horse, King, Pawn,
@@ -38,7 +38,7 @@ const Piece = ({
       id={id}
       style={hitStyle}
     >
-      <img src={whichSide(name) ? red : black} alt="Piece Background" />
+      <img src={whichSide(name) === RED ? red : black} alt="Piece Background" />
       {selectPiece(name)}
       <span className="piece-name">{PIECE_MAP[name.toLowerCase()]}</span>
     </div>

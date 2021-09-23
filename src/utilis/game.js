@@ -1,6 +1,8 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-param-reassign */
-import { numCols, PIECE_MAP, numRows } from './constants';
+import {
+  numCols, PIECE_MAP, numRows, RED,
+} from './constants';
 import {
   cannonMoves,
   chariotMoves,
@@ -45,7 +47,7 @@ export const setPiecePositions = (board) => {
 
   const pawns = ['p', 'P'];
   pawns.forEach((pawn) => {
-    const position = whichSide(pawn) ? 3 : 6;
+    const position = whichSide(pawn) === RED ? 3 : 6;
     for (let index = 0; index < 5; index += 1) {
       board[position][index * 2].piece = createPiece(pieceID++, pawn);
     }
@@ -54,7 +56,7 @@ export const setPiecePositions = (board) => {
   // cannon index 10-11black 12-13red
   const cannons = ['c', 'C'];
   cannons.forEach((cannon) => {
-    const position = whichSide(cannon) ? 2 : 7;
+    const position = whichSide(cannon) === RED ? 2 : 7;
     board[position][1].piece = createPiece(pieceID++, cannon);
     board[position][7].piece = createPiece(pieceID++, cannon);
   });
@@ -62,7 +64,7 @@ export const setPiecePositions = (board) => {
   // chariot index 14-15black 16-17red
   const chariots = ['r', 'R'];
   chariots.forEach((chariot) => {
-    const position = whichSide(chariot) ? 0 : 9;
+    const position = whichSide(chariot) === RED ? 0 : 9;
     board[position][0].piece = createPiece(pieceID++, chariot);
     board[position][8].piece = createPiece(pieceID++, chariot);
   });
@@ -70,7 +72,7 @@ export const setPiecePositions = (board) => {
   // horses index 18-19black 20-21red
   const horses = ['h', 'H'];
   horses.forEach((horse) => {
-    const position = whichSide(horse) ? 0 : 9;
+    const position = whichSide(horse) === RED ? 0 : 9;
     board[position][1].piece = createPiece(pieceID++, horse);
     board[position][7].piece = createPiece(pieceID++, horse);
   });
@@ -78,7 +80,7 @@ export const setPiecePositions = (board) => {
   // elephants index 22-23black 24-25red
   const elephants = ['e', 'E'];
   elephants.forEach((elephant) => {
-    const position = whichSide(elephant) ? 0 : 9;
+    const position = whichSide(elephant) === RED ? 0 : 9;
     board[position][2].piece = createPiece(pieceID++, elephant);
     board[position][6].piece = createPiece(pieceID++, elephant);
   });
@@ -86,7 +88,7 @@ export const setPiecePositions = (board) => {
   // adviors index 26-27black 28-29red
   const adviors = ['a', 'A'];
   adviors.forEach((advior) => {
-    const position = whichSide(advior) ? 0 : 9;
+    const position = whichSide(advior) === RED ? 0 : 9;
     board[position][3].piece = createPiece(pieceID++, advior);
     board[position][5].piece = createPiece(pieceID++, advior);
   });
@@ -94,7 +96,7 @@ export const setPiecePositions = (board) => {
   // king index 30black 31red
   const kings = ['k', 'K'];
   kings.forEach((king) => {
-    const position = whichSide(king) ? 0 : 9;
+    const position = whichSide(king) === RED ? 0 : 9;
     board[position][4].piece = createPiece(pieceID++, king);
   });
   return board;

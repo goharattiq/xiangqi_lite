@@ -6,7 +6,7 @@ import {
 export const kingPawnMoves = (pieceName, indexLocation, expectedLocations, board) => {
   const [sourceI, sourceJ] = matrixPosition(indexLocation);
   let location = setInitalPosition(sourceI, sourceJ);
-  const riverLocation = whichSide(pieceName) ? 4 : 5;
+  const riverLocation = whichSide(pieceName) === RED ? 4 : 5;
   let limitedMoves = 1;
   while ((location[UP] || location[DOWN] || location[RIGHT] || location[LEFT])
   && limitedMoves > 0) {
@@ -14,11 +14,12 @@ export const kingPawnMoves = (pieceName, indexLocation, expectedLocations, board
     Object.entries(location).forEach(([id, direct]) => {
       if ((isValidRange(direct.x, direct.y)) && !(board[direct.x][direct.y].piece
         && whichSide(board[direct.x][direct.y].piece.name) === whichSide(pieceName))) {
-        if (PIECE_MAP[pieceName.toLowerCase()] === PIECE_MAP.p && whichSide(pieceName)
+        if ((PIECE_MAP[pieceName.toLowerCase()] === PIECE_MAP.p) && (whichSide(pieceName) === RED)
           && (id === DOWN || (direct.x > riverLocation && (id === LEFT || id === RIGHT)))) {
           // if red pawn and cross river or not
           expectedLocations.push(indexPosition(direct.x, direct.y));
-        } else if (PIECE_MAP[pieceName.toLowerCase()] === PIECE_MAP.p && !whichSide(pieceName)
+        } else if (PIECE_MAP[pieceName.toLowerCase()] === PIECE_MAP.p
+          && (whichSide(pieceName) === BLACK)
           && (id === UP || (direct.x < riverLocation && (id === LEFT || id === RIGHT)))) {
           // if red pawn and cross river or not
           expectedLocations.push(indexPosition(direct.x, direct.y));
@@ -45,7 +46,7 @@ export const chariotMoves = (pieceName, indexLocation, expectedLocations, board)
         && whichSide(board[direct.x][direct.y].piece.name) === whichSide(pieceName))) {
         expectedLocations.push(indexPosition(direct.x, direct.y));
         if (board[direct.x][direct.y].piece
-          && whichSide(board[direct.x][direct.y].piece.name) !== pieceName) {
+          && whichSide(board[direct.x][direct.y].piece.name) !== whichSide(pieceName)) {
           location[id] = false;
         }
       } else {
@@ -100,7 +101,7 @@ export const cannonMoves = (pieceName, indexLocation, expectedLocations, board) 
 
 export const advisorElephantMoves = (pieceName, indexLocation, expectedLocations, board) => {
   const [sourceI, sourceJ] = matrixPosition(indexLocation);
-  const riverLocation = whichSide(pieceName) ? 4 : 5;
+  const riverLocation = whichSide(pieceName) === RED ? 4 : 5;
   let location = setInitalPosition(sourceI, sourceJ);
   let limitedMoves = 2;
   while ((location[UP] || location[DOWN] || location[RIGHT] || location[LEFT])
@@ -111,8 +112,8 @@ export const advisorElephantMoves = (pieceName, indexLocation, expectedLocations
       if ((isValidRange(direct.x, direct.y)) && !(board[direct.x][direct.y].piece
         && whichSide(board[direct.x][direct.y].piece.name) === whichSide(pieceName))) {
         if (PIECE_MAP[pieceName.toLowerCase()] === PIECE_MAP.e && (limitedMoves === 1)
-          && ((whichSide(pieceName) && direct.x <= riverLocation)
-          || ((!whichSide(pieceName) && direct.x >= riverLocation)))) {
+          && (((whichSide(pieceName) === RED) && direct.x <= riverLocation)
+          || (((whichSide(pieceName) === BLACK) && direct.x >= riverLocation)))) {
           expectedLocations.push(indexPosition(direct.x, direct.y));
         }
         if (PIECE_MAP[pieceName.toLowerCase()] === PIECE_MAP.a && (limitedMoves === 2)
@@ -211,7 +212,7 @@ const moveDiagonal = (location, direction) => {
 
 const isValidRange = (x, y) => (x >= 0 && x <= 9) && (y >= 0 && y <= 8);
 const isValidKingAdvisorRange = (x, y, side) => {
-  if (side) {
+  if (side === RED) {
     return (x >= 0 && x <= 2) && (y >= 3 && y <= 5);
   }
   return (x >= 7 && x <= 9) && (y >= 3 && y <= 5);

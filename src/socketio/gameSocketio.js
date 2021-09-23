@@ -10,7 +10,7 @@ import {
 } from '../redux/game/actions';
 import { setToast } from '../redux/toast/actions';
 import {
-  BLACK_STR, numCols, RED_STR, numRows, RANDOM,
+  BLACK, numCols, numRows, RANDOM, RED,
 } from '../utilis/constants';
 import {
   boardOptimize, initMatrix, loadBoard, setPiecePositions,
@@ -43,7 +43,7 @@ export const socketEnterGame = (gameID, history) => {
 export const socketSetGameParams = (params, owner) => {
   const newParams = params;
   newParams.side = newParams.side === RANDOM
-    ? [RED_STR, BLACK_STR][Math.round(Math.random())] : newParams.side;
+    ? [RED, BLACK][Math.round(Math.random())] : newParams.side;
   let board = initMatrix(numRows, numCols);
   board = setPiecePositions(board);
   socket.emit(GAME_CREATE, {
