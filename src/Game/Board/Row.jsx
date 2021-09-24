@@ -5,7 +5,6 @@ import React from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 
-// import { BLACK, RED, RED_STR } from '../../utilis/constants';
 import { whichSide } from '../../utilis/pieceMove';
 import Spot from '../Components/Spot';
 import Piece from '../Piece/Piece';

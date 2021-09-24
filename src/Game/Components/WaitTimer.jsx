@@ -17,7 +17,7 @@ const WaitTimer = ({ waitTimeOn }) => {
         setTimer(timer - 1);
       }, 1000);
 
-      if (timer === 0) {
+      if (!timer) {
         clearInterval(timeInterval);
         dispatch(waitTimer(false));
         setTimer(GAME_RESTART_TIMEOUT_MINUTES);
