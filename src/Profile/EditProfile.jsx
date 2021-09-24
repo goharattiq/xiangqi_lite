@@ -126,7 +126,7 @@ const EditProfile = () => {
         imagePreview
           ? (
             <Row className="m-2 justify-content-center">
-              <img src={imagePreview} className="prview-avatar" alt="Profile-preview" />
+              <img src={imagePreview} className="preview-avatar" alt="Profile-preview" />
             </Row>
 
           )
