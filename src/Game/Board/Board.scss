@@ -14,9 +14,9 @@ rect {
   height: $rect-height-xxl;
 }
 
-$yaxis: $ya-xxl;
+$yaxis: $cell-heigth-xxl;
 @for $i from 1 to 5 {
-  $xaxis: $xa-xxl;
+  $xaxis: $cell-width-xxl;
   @for $j from 1 to 9 {
     #svg_#{$i}_#{$j} {
       x: $xaxis;
@@ -29,7 +29,7 @@ $yaxis: $ya-xxl;
 
 $yaxis: $yaxis + 15.4%;
 @for $i from 5 to 9 {
-  $xaxis: $xa-xxl;
+  $xaxis: $cell-width-xxl;
   @for $j from 1 to 9 {
     #svg_#{$i}_#{$j} {
       x: $xaxis;
@@ -141,9 +141,9 @@ $yaxis: $yaxis + 15.4%;
     height: $rect-height-sm;
   }
 
-  $yaxis: $ya-sm;
+  $yaxis: $cell-heigth-sm;
   @for $i from 1 to 5 {
-    $xaxis: $xa-sm;
+    $xaxis: $cell-width-sm;
     @for $j from 1 to 9 {
       #svg_#{$i}_#{$j} {
         x: $xaxis;
@@ -156,7 +156,7 @@ $yaxis: $yaxis + 15.4%;
 
   $yaxis: $yaxis + 11%;
   @for $i from 5 to 9 {
-    $xaxis: $xa-sm;
+    $xaxis: $cell-width-sm;
     @for $j from 1 to 9 {
       #svg_#{$i}_#{$j} {
         x: $xaxis;
