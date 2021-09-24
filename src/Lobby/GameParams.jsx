@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
@@ -14,6 +13,7 @@ import { GAME_PARAMETERS } from '../utilis/paramsData';
 import Field from './Field';
 import './GameParams.scss';
 
+let searchTimeOut;
 const GameParams = ({ setOverlayDiv }) => {
   const dispatch = useDispatch();
   const { searchNames, owner } = useSelector(({ game, auth }) => ({
@@ -37,12 +37,15 @@ const GameParams = ({ setOverlayDiv }) => {
     username,
   } = gameParams;
   const handleChange = ({ target: { name, value } }) => {
+    clearTimeout(searchTimeOut);
     setGameParams({
       ...gameParams,
       [name]: value,
     });
     if (name === 'username' && value) {
-      dispatch(fetechSearchUserNames(value));
+      searchTimeOut = setTimeout(() => {
+        dispatch(fetechSearchUserNames(value));
+      }, 500);
     }
   };
   const handleCheckbox = ({ target: { name, checked } }) => {
@@ -80,7 +83,6 @@ const GameParams = ({ setOverlayDiv }) => {
           className="close-button"
           onClick={() => { setOverlayDiv(false); }}
         />
-
         <Form onSubmit={handleSubmit} className="form-scroll">
           {
             GAME_PARAMETERS.map(({
