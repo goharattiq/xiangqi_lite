@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { historyMoveBack, historyMoveForward } from '../redux/game/actions';
+import { historyMoveBack, historyMoveForward, toggleHistoryMode } from '../redux/game/actions';
 import { socketLeaveGame } from '../socketio/gameSocketio';
 import { BLACK, RED } from '../utilis/constants';
 import { whichSide } from '../utilis/pieceMove';
@@ -17,7 +17,6 @@ import './PlayArea.scss';
 
 const PlayArea = () => {
   const dispatch = useDispatch();
-  const [historyMode, setHistoryMode] = useState(false);
   const {
     hitPiece,
     history,
@@ -26,6 +25,7 @@ const PlayArea = () => {
     user,
     winner,
     waitTime,
+    historyMode,
   } = useSelector(({ game, auth }) => ({
     hitPiece: game.hitPiece,
     history: game.history,
@@ -34,6 +34,7 @@ const PlayArea = () => {
     playerTurn: game.params.player_turn,
     user: auth.user,
     waitTime: game.waitTime,
+    historyMode: game.historyMode,
   }));
   useEffect(() => {
     if (!localStorage.getItem('gameID')) {
@@ -45,15 +46,15 @@ const PlayArea = () => {
   }, []);
   const historyHandler = (pointer, isNext) => {
     if (pointer < history.length || (isNext && historyMode)) {
-      setHistoryMode(true);
+      dispatch(toggleHistoryMode(true));
       // eslint-disable-next-line no-unused-expressions
       isNext ? dispatch(historyMoveForward(history[pointer - 1]))
         : dispatch(historyMoveBack(history[pointer]));
       if (pointer === history.length) {
-        setHistoryMode(false);
+        dispatch(toggleHistoryMode(false));
       }
     } else {
-      setHistoryMode(false);
+      dispatch(toggleHistoryMode(false));
     }
   };
   const bothConnected = (redPlayer, blackPlayer) => (
@@ -109,7 +110,7 @@ const PlayArea = () => {
       <History
         history={history}
         clickHandler={historyHandler}
-        setHistoryMode={setHistoryMode}
+        historyMode={historyMode}
       />
       <AnnounceWinner
         announce={!!winner}

@@ -4,17 +4,19 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import './History.scss';
 
-const History = ({ history, clickHandler }) => {
+const History = ({ history, clickHandler, historyMode }) => {
   const [historyManager, setHistoryManager] = useState({
     pointer: history.length,
     historyType: false,
   });
   const { pointer, historyType } = historyManager;
   useEffect(() => {
-    setHistoryManager({
-      ...historyManager,
-      pointer: history.length,
-    });
+    if (!historyMode) {
+      setHistoryManager({
+        ...historyManager,
+        pointer: history.length,
+      });
+    }
   }, [history]);
   useEffect(() => {
     clickHandler(pointer, historyType);
@@ -55,6 +57,7 @@ const History = ({ history, clickHandler }) => {
 History.propTypes = {
   history: PropTypes.array.isRequired,
   clickHandler: PropTypes.func.isRequired,
+  historyMode: PropTypes.bool.isRequired,
 };
 
 export default History;
