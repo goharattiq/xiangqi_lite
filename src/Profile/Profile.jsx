@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
+import Avatar from 'react-avatar';
 import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
@@ -18,7 +19,7 @@ const Profile = ({
   <Container className="bg-white w-75 mt-5 pb-3">
     <div>
       <div className="user-profile mt-5 ms-5">
-        <img src={photo} alt={user.username} className="profile-avatar" />
+        <Avatar name={user.username} src={photo} className="profile-avatar" color="#815752" />
         <div className="user-detail">
           <p className="user-fullname">{userFullName}</p>
           <p className="mt-5 ms-1 user-username">{user ? user.username : ''}</p>
@@ -108,7 +109,8 @@ Profile.propTypes = {
   user: PropTypes.object.isRequired,
   statList: PropTypes.array.isRequired,
   games: PropTypes.array.isRequired,
-  photo: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  photo: PropTypes.string,
   isSessionUser: PropTypes.bool.isRequired,
 };
 
