@@ -1,43 +1,37 @@
 @import "../variables";
 
-.sign-form {
+body {
+  background-color: $background;
+}
+
+.input-form {
   width: 30rem;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-}
 
-.form-button,
-.form-button:hover,
-.form-button:focus {
-  background-color: $primary;
-  margin-left: 180px;
-  margin-top: 20px;
-}
-
-.form-button:focus {
-  box-shadow: 0 0 0 0.25rem rgb(190, 52, 45/10%);
-}
-
-@media screen and (max-width: 980px) {
-  .sign-form {
-    width: 15rem;
-  }
   .form-button,
   .form-button:hover,
   .form-button:focus {
-    margin-left: 80px;
+    background-color: $primary;
+    left: 50%;
+    transform: translate(-50%, 50%);
+  }
+
+  .form-button:focus {
+    box-shadow: 0 0 0 0.25rem rgb(190, 52, 45/10%);
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .input-form {
+    width: 15rem;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .sign-form {
+  .input-form {
     width: 12rem;
-  }
-  .form-button,
-  .form-button:hover,
-  .form-button:focus {
-    margin-left: 50px;
   }
 }

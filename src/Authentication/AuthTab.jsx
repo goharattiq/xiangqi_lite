@@ -2,14 +2,16 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import { Nav } from 'react-bootstrap';
+
+import { SIGNIN, SIGNUP } from '../utilis/constants';
 import './AuthTab.scss';
 
 const AuthTab = ({ clickTabHandler, activeTab }) => (
   <Nav fill variant="tabs">
     <Nav.Item>
       <Nav.Link
-        id="signin"
-        className={`border tabs border-dark ${activeTab ? 'active' : ''}`}
+        id={SIGNIN}
+        className={`border tabs border-dark ${activeTab === SIGNIN ? 'active' : ''}`}
         onClick={clickTabHandler}
       >
         SIGNIN
@@ -18,8 +20,8 @@ const AuthTab = ({ clickTabHandler, activeTab }) => (
 
     <Nav.Item>
       <Nav.Link
-        id="signup"
-        className={`border tabs border-dark ${!activeTab ? 'active' : ''}`}
+        id={SIGNUP}
+        className={`border tabs border-dark ${activeTab === SIGNUP ? 'active' : ''}`}
         onClick={clickTabHandler}
       >
         SIGNUP

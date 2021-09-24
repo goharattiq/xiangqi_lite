@@ -19,6 +19,9 @@ export const PIECE_MAP = {
   c: 'Cannon',
 };
 
+export const SIGNIN = 'signin';
+export const SIGNUP = 'signup';
+
 export const UP = 'UP';
 export const DOWN = 'DOWN';
 export const RIGHT = 'EAST';

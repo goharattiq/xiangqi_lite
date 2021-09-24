@@ -30,7 +30,7 @@ const SignUP = () => {
     });
   };
   return (
-    <Form className="sign-form" onSubmit={handleSubmit}>
+    <Form className="input-form" onSubmit={handleSubmit}>
       <FloatingLabel
         label="Username"
       >
@@ -70,7 +70,7 @@ const SignUP = () => {
         />
       </FloatingLabel>
       <Button
-        className="form-button"
+        className="position-relative form-button"
         type="submit"
       >
         SIGNUP
