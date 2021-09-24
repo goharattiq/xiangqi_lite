@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { Fragment, useCallback, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 import Avatar from 'react-avatar';
@@ -14,39 +15,39 @@ import { fetchAllTimeGames, fetchUserProfile } from '../redux/profile/thunk';
 import './Profile.scss';
 
 const Profile = ({
-  userFullName, user, statList, games, photo, isSessionUser,
+  userFullName, user, statList, games, photo, bio, isSessionUser,
 }) => (
-  <Container className="bg-white w-75 mt-5 pb-3">
-    <div>
-      <div className="user-profile mt-5 ms-5">
-        <Avatar name={user.username} src={photo} className="profile-avatar" color="#815752" />
-        <div className="user-detail">
-          <p className="user-fullname">{userFullName}</p>
-          <p className="mt-5 ms-1 user-username">{user ? user.username : ''}</p>
-          {
-            isSessionUser
-              ? (
-                <Link to={`/profile/${user.username}/edit`} className="m-1 edit-button">
-                  <i className="fas fa-edit" />
-                </Link>
-              ) : ''
-          }
-        </div>
-      </div>
-      <ul className="list-group mt-5 mb-3 user-stats">
+  <Container className="bg-white w-75 mt-5 pb-5">
+    <>
+      <Avatar name={user.username} src={photo} size={200} className="profile-avatar m-3" color="#815752" />
+      <div className="d-inline-flex flex-column user-detail ms-5">
+        <p className="user-fullname">{userFullName}</p>
+        <p>{user ? user.username : ''}</p>
+        <p>{bio}</p>
         {
+          isSessionUser
+            ? (
+              <Link to={`/profile/${user.username}/edit`} className="edit-button">
+                <i className="fas fa-edit" />
+              </Link>
+            ) : ''
+        }
+      </div>
+    </>
+    <ul className="list-group list-group-horizontal position-relative start-50 mt-5 mb-3 user-stats">
+      {
           statList.map((state) => (
-            <li key={state.name} className="score list-group-item m-2">
+            <li key={state.name} className="list-group-item m-2 score">
               <p className="text-center">
-                {state.name === 'Winning%' ? state.score.toFixed(2) : state.score}
+                {state.score}
               </p>
               <p className="text-center">{state.name}</p>
             </li>
           ))
         }
-      </ul>
-      <GameList type="All Time" games={games} username={user.username} />
-    </div>
+    </ul>
+    <hr className="position-relative start-50 w-75" />
+    <GameList type="All Time" games={games} username={user.username} />
   </Container>
 );
 
@@ -57,7 +58,6 @@ const ProfileContainer = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const callback = useCallback(() => fetchUserProfile(profileUsername));
-  document.body.style.backgroundColor = '#ede8e0';
   useEffect(() => {
     dispatch(clearProfile());
     dispatch(callback());
@@ -72,8 +72,10 @@ const ProfileContainer = () => {
     winningPercentage,
     games,
     photo,
+    bio,
   } = useSelector(({ profile }) => ({
     user: profile.user,
+    bio: profile.bio,
     gamesCount: profile.games_played_count,
     winsCount: profile.wins_count,
     lossesCount: profile.losses_count,
@@ -88,7 +90,7 @@ const ProfileContainer = () => {
     { name: 'Wins', score: winsCount },
     { name: 'Losses', score: lossesCount },
     { name: 'Draws', score: drawCount },
-    { name: 'Winning%', score: winningPercentage },
+    { name: 'Win%', score: winningPercentage },
   ];
   const userFullName = user && user.first_name ? `${user.first_name} ${user.last_name}` : '';
   return (
@@ -99,6 +101,7 @@ const ProfileContainer = () => {
       statList={statList}
       games={games}
       photo={photo}
+      bio={bio}
       isSessionUser={auth.user.username === profileUsername}
     />
   );
@@ -111,6 +114,7 @@ Profile.propTypes = {
   games: PropTypes.array.isRequired,
   // eslint-disable-next-line react/require-default-props
   photo: PropTypes.string,
+  bio: PropTypes.string.isRequired,
   isSessionUser: PropTypes.bool.isRequired,
 };
 

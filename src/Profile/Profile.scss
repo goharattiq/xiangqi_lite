@@ -1,76 +1,55 @@
 @import "../variables";
 
+body {
+  background-color: $primary;
+}
+
 .profile-avatar {
-  width: 200px;
-  height: 200px;
   border-radius: 50%;
 }
 
-.user-profile {
-  display: inline-flex;
-}
-
 .user-detail {
-  position: relative;
   color: $compliment;
-  top: 50px;
-  left: 30px;
-}
+  position: relative;
+  bottom: 10px;
 
-.user-fullname {
-  height: 20px;
-  font-size: 2rem;
-}
+  .user-fullname {
+    font-size: 2rem;
+  }
 
-.user-username {
-  height: 20px;
+  .edit-button,
+  .edit-button:hover,
+  .edit-button:focus {
+    color: $compliment !important;
+  }
 }
 
 .user-stats {
   color: $compliment;
-  position: relative;
-  left: 18%;
-  flex-direction: row;
+  width: 500px;
+  transform: translate(-50%, 0);
+
+  .score {
+    background-color: rgba($color: gray, $alpha: 0.8);
+    width: 80px;
+    height: 70px;
+    border-radius: 23% !important;
+  }
 }
 
-.score {
-  background-color: rgba($color: gray, $alpha: 0.8);
-  width: 80px;
-  height: 70px;
-  border-radius: 23% !important;
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  transform: translate(-50%, 0);
 }
 
-.edit-button,
-.edit-button:hover,
-.edit-button:focus {
-  color: $compliment !important;
-}
-
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 650px) {
   .user-stats {
     flex-direction: column;
-    left: 40%;
-    width: 100px !important;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .user-profile {
-    display: block;
-  }
-  .profile-avatar {
-    position: relative;
-    left: 9px;
-    top: 20px;
-  }
-  .user-fullname {
-    font-size: 1.6rem;
-  }
-  .user-username {
-    text-align: start;
-    height: 20px;
-  }
-  .user-stats {
-    top: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 100px;
   }
 }

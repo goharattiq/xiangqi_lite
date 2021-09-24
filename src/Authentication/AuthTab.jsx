@@ -32,7 +32,7 @@ const AuthTab = ({ clickTabHandler, activeTab }) => (
 
 AuthTab.propTypes = {
   clickTabHandler: PropTypes.func.isRequired,
-  activeTab: PropTypes.bool.isRequired,
+  activeTab: PropTypes.string.isRequired,
 };
 
 export default AuthTab;

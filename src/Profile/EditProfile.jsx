@@ -11,6 +11,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { fetchUserProfile, updateProfile } from '../redux/profile/thunk';
 import { setToast } from '../redux/toast/actions';
 import { ALLOWED_EXTENSTIONS } from '../utilis/constants';
+import './EditProfile.scss';
 
 const EditProfile = () => {
   const dispatch = useDispatch();
@@ -28,30 +29,35 @@ const EditProfile = () => {
     photo: null,
   });
   const {
-    bio, first_name, last_name, photo,
+    bio,
+    first_name,
+    last_name,
+    photo,
   } = profile;
+
+  useEffect(() => {
+    if (!profile) {
+      dispatch(fetchUserProfile(profileUsername));
+    }
+  }, []);
+
+  useEffect(() => {
+    let fileUrl;
+    if (photo) {
+      fileUrl = URL.createObjectURL(photo);
+      setImagePreview(fileUrl);
+    }
+    return () => {
+      photo && URL.revokeObjectURL(fileUrl);
+    };
+  }, [photo]);
+
   const handleChange = ({ target: { name, value } }) => {
     setProfile({
       ...profile,
       [name]: value,
     });
   };
-  useEffect(() => {
-    if (!profile) {
-      dispatch(fetchUserProfile(profileUsername));
-    }
-  }, []);
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(updateProfile(user.username, profile, history));
-    setProfile({
-      first_name: '',
-      last_name: '',
-      bio: '',
-      photo: null,
-    });
-  };
-
   const handleFileChange = (event) => {
     const [file, ..._] = event.target.files;
     const [_0, extention] = file.name.split('.');
@@ -64,19 +70,19 @@ const EditProfile = () => {
       dispatch(setToast('This file is not allowed', 'danger', dispatch));
     }
   };
-
-  useEffect(() => {
-    if (!photo) {
-      return;
-    }
-    const fileUrl = URL.createObjectURL(photo);
-    setImagePreview(fileUrl);
-    // eslint-disable-next-line consistent-return
-    return () => (URL.revokeObjectURL(fileUrl));
-  }, [photo]);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(updateProfile(user.username, profile, history));
+    setProfile({
+      first_name: '',
+      last_name: '',
+      bio: '',
+      photo: null,
+    });
+  };
 
   return (
-    <Form className="sign-form" onSubmit={handleSubmit}>
+    <Form className="input-form" onSubmit={handleSubmit}>
       <FloatingLabel
         label="First Name"
       >
@@ -88,7 +94,6 @@ const EditProfile = () => {
           onChange={handleChange}
         />
       </FloatingLabel>
-
       <FloatingLabel
         label="Last Name"
       >
@@ -100,7 +105,6 @@ const EditProfile = () => {
           onChange={handleChange}
         />
       </FloatingLabel>
-
       <FloatingLabel
         label="Bio"
       >
@@ -122,15 +126,14 @@ const EditProfile = () => {
         imagePreview
           ? (
             <Row className="m-2 justify-content-center">
-              <img src={imagePreview} className="profile-avatar" alt="Profile-preview" />
+              <img src={imagePreview} className="prview-avatar" alt="Profile-preview" />
             </Row>
 
           )
           : ''
       }
-
       <Button
-        className="form-button"
+        className="position-relative form-button"
         type="submit"
       >
         Submit
