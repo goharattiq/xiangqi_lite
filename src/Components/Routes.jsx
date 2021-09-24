@@ -29,7 +29,7 @@ const Routes = () => {
   useEffect(() => {
     const connectSokcets = async () => {
       if (authUser && !Object.keys(authUser).length) {
-        await useSockets(accessToken);
+        await useSockets(accessToken, dispatch);
         await subscribeGameSockets(history, authUser.username, dispatch);
         await subscribeChatSocketsEvent(dispatch);
       }
