@@ -9,3 +9,4 @@ export const SEARCH_NAME = 'SEARCH_NAME';
 export const CLEAR_GAME = 'CLEAR_GAME';
 export const ANNOUNCE_WINNER = 'ANNOUNCE_WINNER';
 export const WAIT_TIMER = 'WAIT_TIMER';
+export const TOGGLE_HISTORY_MODE = 'TOGGLE_HISTORY_MODE';

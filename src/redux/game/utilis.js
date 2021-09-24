@@ -5,9 +5,11 @@ import { matrixPosition, whichSide } from '../../utilis/pieceMove';
 import { HISTORY_MOVE_BACK } from './type';
 
 export const onPieceMove = (move, previousState, history, fromSockets) => {
-  const { board, hints, params } = previousState;
+  const {
+    board, hints, params, historyMode,
+  } = previousState;
   let { source, destination } = move;
-  if (history.mode && history.type === 'HISTORY_MOVE_BACK') {
+  if (history.mode && history.type === HISTORY_MOVE_BACK) {
     [source, destination] = [destination, source];
   }
   if (!destination) {
@@ -19,6 +21,13 @@ export const onPieceMove = (move, previousState, history, fromSockets) => {
   const hitAudioTag = document.getElementById('hit-audio');
   const [sourceI, sourceJ] = matrixPosition(parseInt(source.droppableId.split('-')[1], 10));
   const [destI, destJ] = matrixPosition(parseInt(destination.droppableId.split('-')[1], 10));
+
+  if (historyMode && fromSockets) {
+    return {
+      board, hitPiece: move.hit, history: move, turnChanged: true,
+    };
+  }
+
   // checking if source and destintation dropped location is not same and the
   // destination location if not empty then must not contain same side piece
   // and the piece has valid move

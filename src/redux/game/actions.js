@@ -10,6 +10,7 @@ import {
   CLEAR_GAME,
   ANNOUNCE_WINNER,
   WAIT_TIMER,
+  TOGGLE_HISTORY_MODE,
 } from './type';
 
 export const initBoard = (board, hitPiece, history, gameParams) => ({
@@ -68,4 +69,9 @@ export const clearGame = () => ({
 export const waitTimer = (isStart) => ({
   type: WAIT_TIMER,
   payload: isStart,
+});
+
+export const toggleHistoryMode = (mode) => ({
+  type: TOGGLE_HISTORY_MODE,
+  payload: mode,
 });

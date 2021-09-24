@@ -14,6 +14,7 @@ import {
   CLEAR_GAME,
   ANNOUNCE_WINNER,
   WAIT_TIMER,
+  TOGGLE_HISTORY_MODE,
 } from './type';
 import { onPieceMove } from './utilis';
 
@@ -26,6 +27,7 @@ const initialState = {
   searchNames: [],
   winner: null,
   waitTime: false,
+  historyMode: false,
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -110,6 +112,11 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         waitTime: payload,
+      };
+    case TOGGLE_HISTORY_MODE:
+      return {
+        ...state,
+        historyMode: payload,
       };
     case CLEAR_GAME:
       return initialState;
