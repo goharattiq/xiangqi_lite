@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -28,22 +28,26 @@ const Routes = () => {
     gameParams: game.params,
   }));
   const history = useHistory();
-  const params = useParams();
   const location = useLocation();
   const dispatch = useDispatch();
+  const [urlState, setUrlState] = useState('');
   useEffect(() => {
     const connectSokcets = async () => {
-      if (authUser && !Object.keys(authUser).length) {
+      if (authUser && Object.keys(authUser).length) {
         await useSockets(accessToken, dispatch);
         await subscribeGameSockets(history, authUser.username, dispatch);
         await subscribeChatSocketsEvent(dispatch);
+        if (urlState.match('game')) {
+          history.push(urlState);
+          setUrlState('');
+        }
       }
 
       if (location.pathname.match('game')) {
-        history.push(location.pathname);
-        return;
+        setUrlState(location.pathname);
       }
-      if (authUser && !Object.keys(authUser).length && !gameParams && localStorage.getItem('gameID')) {
+
+      if (authUser && Object.keys(authUser).length && !gameParams && localStorage.getItem('gameID')) {
         socketLeaveGame(localStorage.getItem('gameID'), dispatch);
       }
     };
