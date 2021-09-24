@@ -20,6 +20,7 @@ const WaitTimer = ({ waitTimeOn }) => {
       if (timer === 0) {
         clearInterval(timeInterval);
         dispatch(waitTimer(false));
+        setTimer(GAME_RESTART_TIMEOUT_MINUTES);
       }
     }
     return () => {
@@ -27,7 +28,7 @@ const WaitTimer = ({ waitTimeOn }) => {
         clearInterval(timeInterval);
       }
     };
-  });
+  }, [waitTimeOn, timer]);
   return (
     waitTimeOn
       ? (
