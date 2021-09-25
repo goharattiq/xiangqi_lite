@@ -10,9 +10,9 @@ import LeaderCard from './LeaderCard';
 const LeaderBoard = ({ leaders }) => (
   <div className="row justify-content-center leaderboard">
     {
-        leaders.map((leader) => (
-          <LeaderCard leader={leader} key={leader.user.username} />
-        ))
+      leaders.map((leader) => (
+        <LeaderCard key={leader.user.username} leader={leader} />
+      ))
     }
   </div>
 );
@@ -20,9 +20,8 @@ const LeaderBoard = ({ leaders }) => (
 const LeaderBoardWithSpinner = Spinner(LeaderBoard);
 
 const LearderBoardContainer = () => {
-  document.body.style.backgroundColor = '#ede8e0';
   const dispatch = useDispatch();
-  const leaders = useSelector((state) => (state.leaderBoard.leaders));
+  const leaders = useSelector(({ leaderBoard }) => (leaderBoard.leaders));
   useEffect(() => {
     dispatch(fetechLeaders());
   }, []);

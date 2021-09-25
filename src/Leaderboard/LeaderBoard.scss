@@ -1,59 +1,27 @@
 @import "../variables";
 
-.profile-link {
-  color: $compliment;
-}
-
-.profile-link:hover {
-  color: rgba($color: $compliment, $alpha: 0.7);
-}
-
-.leader-avatar {
-  width: 10rem;
-  height: 10rem;
-  border-radius: 50%;
-  position: relative;
-  left: 20%;
+body {
+  background-color: $background;
 }
 
 .leaderboard {
   margin-top: 5%;
   color: $compliment;
-}
 
-table {
-  background-color: #fff;
-  position: inherit;
-}
-
-@media screen and (max-width: 1400px) {
-  .leader-avatar {
-    left: 11%;
+  .profile-link {
+    color: $compliment;
+    &:hover {
+      color: rgba($color: $compliment, $alpha: 0.7);
+    }
   }
-}
 
-@media screen and (max-width: 1200px) {
   .leader-avatar {
-    left: -4%;
+    border-radius: 50%;
+    transform: translate(-50%, 0);
   }
-}
 
-@media screen and (max-width: 980px) {
-  .leader-avatar {
-    width: 7rem;
-    height: 7rem;
-    left: 27%;
-  }
-}
-
-@media screen and (max-width: 850px) {
-  .leader-avatar {
-    left: 24%;
-  }
-}
-
-@media screen and (max-width: 730px) {
-  .leader-avatar {
-    left: 12%;
+  table {
+    background-color: #fff;
+    position: inherit;
   }
 }
