@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Spinner from '../Components/Spinner';
 import { fetechLeaders } from '../redux/leaderboard/thunk';
+import { BACKGROUND } from '../utilis/constants';
 import LeaderCard from './LeaderCard';
 
 const LeaderBoard = ({ leaders }) => (
-  <div className="row justify-content-center leaderboard">
+  <div className="row justify-content-center w-100 leaderboard">
     {
       leaders.map((leader) => (
         <LeaderCard key={leader.user.username} leader={leader} />
@@ -20,6 +21,7 @@ const LeaderBoard = ({ leaders }) => (
 const LeaderBoardWithSpinner = Spinner(LeaderBoard);
 
 const LearderBoardContainer = () => {
+  document.body.style.backgroundColor = BACKGROUND;
   const dispatch = useDispatch();
   const leaders = useSelector(({ leaderBoard }) => (leaderBoard.leaders));
   useEffect(() => {

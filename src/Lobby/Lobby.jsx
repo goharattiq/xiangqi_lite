@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import GameList from '../Components/GameList';
 import Spinner from '../Components/Spinner';
 import { fetechActiveGames, fetechSpectateGames } from '../redux/lobby/thunk';
+import { BACKGROUND } from '../utilis/constants';
 import GameParams from './GameParams';
 import './Lobby.scss';
 
@@ -18,7 +19,7 @@ const Lobby = ({ activeGames, spectateGames, username }) => {
         <i className="fas fa-plus pe-2" />
         New Game
       </Button>
-      {overlayDiv ? <GameParams setOverlayDiv={setOverlayDiv} /> : ''}
+      {overlayDiv && <GameParams setOverlayDiv={setOverlayDiv} />}
       <GameList type="Active" games={activeGames} username={username} />
       <GameList type="Spectate" games={spectateGames} username={username} />
     </>
@@ -28,7 +29,7 @@ const Lobby = ({ activeGames, spectateGames, username }) => {
 const LobbyWithSpinner = Spinner(Lobby);
 
 const LobbyContainer = () => {
-  document.body.style.backgroundColor = '#ede8e0';
+  document.body.style.backgroundColor = BACKGROUND;
   const { activeGames, spectateGames, username } = useSelector(({ lobby, auth }) => ({
     activeGames: lobby.activeGames,
     spectateGames: lobby.spectateGames,

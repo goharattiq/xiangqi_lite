@@ -10,10 +10,11 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { fetchUserProfile, updateProfile } from '../redux/profile/thunk';
 import { setToast } from '../redux/toast/actions';
-import { ALLOWED_EXTENSTIONS } from '../utilis/constants';
+import { ALLOWED_EXTENSTIONS, BACKGROUND } from '../utilis/constants';
 import './EditProfile.scss';
 
 const EditProfile = () => {
+  document.body.style.backgroundColor = BACKGROUND;
   const dispatch = useDispatch();
   const history = useHistory();
   const { profileUsername } = useParams();

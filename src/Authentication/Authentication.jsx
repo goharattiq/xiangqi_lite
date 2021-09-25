@@ -4,12 +4,13 @@ import { useDispatch } from 'react-redux';
 
 import ToastMessage from '../Components/ToastMessage';
 import { fetechUser } from '../redux/auth/thunk';
-import { SIGNIN } from '../utilis/constants';
+import { BACKGROUND, SIGNIN } from '../utilis/constants';
 import AuthTab from './AuthTab';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
 const Authentication = () => {
+  document.body.style.backgroundColor = BACKGROUND;
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState(SIGNIN);
   const clickTabHandler = ({ target: { id } }) => {

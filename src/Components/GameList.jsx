@@ -9,15 +9,15 @@ const GameList = ({ type, games, username }) => {
   const getPlayerName = (playerName) => (playerName === username ? 'Me' : playerName);
   const history = useHistory();
   return (
-    <div className="m-3 games row">
-      <h4>{`My ${type} Games`}</h4>
+    <div className="row position-relative m-3 game">
+      <h4 className="game-heading">{`My ${type} Games`}</h4>
       {
         games.length !== 0
           ? games.map(({
             id, player_1, player_2, is_rated, is_timed, move_timer, game_timer, winner, is_active,
           }) => (
             <div
-              className="col-md-2 col-sm-4 col-5 border m-3  p-3"
+              className="col-md-2 col-sm-4 col-6 border m-3 p-3 game-card"
               key={id}
             >
               <Link to={`/profile/${player_1.profile.user.username}`} className="profile-link">
@@ -37,7 +37,7 @@ const GameList = ({ type, games, username }) => {
                   </Link>
                 ) : (
                   <p className="text-center">
-                    {player_1.profile.user.username === username ? 'waiting for user' : 'you can join'}
+                    {player_1.profile.user.username === username ? 'waiting for user!' : 'you can join'}
                   </p>
                 )
               }
@@ -51,16 +51,15 @@ const GameList = ({ type, games, username }) => {
                 </p>
               </div>
               {
-                is_active ? ''
-                  : (
-                    <div className="d-flex justify-content-between">
-                      <p>
-                        <Link to={`/profile/${winner}`} className="profile-link">
-                          {`winner ${getPlayerName(winner)}`}
-                        </Link>
-                      </p>
-                    </div>
-                  )
+                !is_active && (
+                  <div className="d-flex justify-content-between">
+                    <p>
+                      <Link to={`/profile/${winner}`} className="profile-link">
+                        {`winner ${getPlayerName(winner)}`}
+                      </Link>
+                    </p>
+                  </div>
+                )
               }
 
               <button

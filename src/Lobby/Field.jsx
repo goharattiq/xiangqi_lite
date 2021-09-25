@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Form } from 'react-bootstrap';
 
 const Field = ({
-  data, name, type, id, className, handleChange,
+  data, name, type, id, className, handleChange, check,
 }) => (
   <>
     {
@@ -18,6 +18,7 @@ const Field = ({
         className={className}
         onChange={handleChange}
         value={item}
+        checked={check === item}
       />
     ))
 }
@@ -31,6 +32,7 @@ Field.propTypes = {
   id: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
+  check: PropTypes.string.isRequired,
 };
 
 export default Field;

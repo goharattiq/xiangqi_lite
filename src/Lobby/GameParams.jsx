@@ -21,12 +21,12 @@ const GameParams = ({ setOverlayDiv }) => {
     owner: auth.user.username,
   }));
   const [gameParams, setGameParams] = useState({
-    gameType: '',
-    gameRated: '',
-    gameTimed: '',
+    gameType: 'Public',
+    gameRated: 'Rated',
+    gameTimed: 'Timed',
     moveTime: 1,
-    gameTimer: 30,
-    side: '',
+    gameTimer: 5,
+    side: 'Random',
     challenge: false,
     username: '',
   });
@@ -35,6 +35,10 @@ const GameParams = ({ setOverlayDiv }) => {
     gameTimed,
     moveTime,
     username,
+    gameType,
+    gameRated,
+    gameTimer,
+    side,
   } = gameParams;
   const handleChange = ({ target: { name, value } }) => {
     clearTimeout(searchTimeOut);
@@ -63,31 +67,45 @@ const GameParams = ({ setOverlayDiv }) => {
       }
       socketSetGameParams(gameParams, owner);
       setGameParams({
-        gameType: '',
-        gameRated: '',
-        gameTime: '',
+        gameType: 'Public',
+        gameRated: 'Rated',
+        gameTimed: 'Timed',
         moveTime: 1,
-        gameTimer: 30,
-        side: '',
+        gameTimer: 5,
+        side: 'Random',
+        challenge: false,
         username: '',
       });
     } else {
       dispatch(setToast('Please choose complete game params', 'danger', dispatch));
     }
   };
+  const selectedValue = [gameType, gameRated, gameTimed];
   return (
-    <div className="position-absolute w-100 h-100 overlay-div">
-      <div className="position-absolute bg-white pt-4 game-params">
+    <div className="position-absolute w-100 h-100 top-0 overlay-div">
+      <div className="position-relative bg-white pt-4 start-50 game-params">
         <h2 className="text-center mb-3">Create game</h2>
         <CloseButton
           className="close-button"
-          onClick={() => { setOverlayDiv(false); }}
+          onClick={() => {
+            setGameParams({
+              gameType: 'Public',
+              gameRated: 'Rated',
+              gameTimed: 'Timed',
+              moveTime: 1,
+              gameTimer: 5,
+              side: 'Random',
+              challenge: false,
+              username: '',
+            });
+            setOverlayDiv(false);
+          }}
         />
         <Form onSubmit={handleSubmit} className="form-scroll">
           {
             GAME_PARAMETERS.map(({
               data, name, type, id, className,
-            }) => (
+            }, index) => (
               <div className="d-flex justify-content-center" key={name}>
                 <Field
                   data={data}
@@ -96,16 +114,17 @@ const GameParams = ({ setOverlayDiv }) => {
                   id={id}
                   className={className}
                   handleChange={handleChange}
+                  check={selectedValue[index]}
                 />
               </div>
             ))
           }
           {
             gameTimed === 'Timed'
-              ? (
+              && (
                 <>
                   <h5 className="text-center">Move Timer (Minutes)</h5>
-                  <div className="d-flex justify-content-center">
+                  <div className="d-flex justify-content-center ms-5">
                     <Field
                       data={MOVE_TIMER}
                       name="moveTime"
@@ -113,11 +132,11 @@ const GameParams = ({ setOverlayDiv }) => {
                       id="move-time"
                       className="time radio-buttons"
                       handleChange={handleChange}
-                      checkField="move-time-1"
+                      check={String(moveTime)}
                     />
                   </div>
                   <h5 className="text-center">Game Timer (Minutes)</h5>
-                  <div className="d-flex justify-content-center ms-3">
+                  <div className="d-flex justify-content-center game-timer">
                     <Field
                       data={GAME_TIMER[moveTime]}
                       name="gameTimer"
@@ -125,14 +144,14 @@ const GameParams = ({ setOverlayDiv }) => {
                       id="game-timer"
                       className="time radio-buttons"
                       handleChange={handleChange}
-                      checkField="game-timer-1"
+                      check={String(gameTimer)}
                     />
                   </div>
                 </>
-              ) : ''
+              )
           }
           <h5 className="text-center">Side</h5>
-          <div className="d-flex">
+          <div className="d-flex justify-content-center">
             <Field
               data={SIDE}
               name="side"
@@ -140,10 +159,10 @@ const GameParams = ({ setOverlayDiv }) => {
               id="side"
               className="text-center radio-buttons"
               handleChange={handleChange}
-              checkField="side-1"
+              check={side}
             />
           </div>
-          <div className="">
+          <div>
             <Form.Check
               name="challenge"
               type="checkbox"
@@ -153,7 +172,7 @@ const GameParams = ({ setOverlayDiv }) => {
               onChange={handleCheckbox}
             />
             {
-              challenge ? (
+              challenge && (
                 <Form.Group className="m-3" controlId="formBasicEmail">
                   <Form.Control
                     type="text"
@@ -166,21 +185,20 @@ const GameParams = ({ setOverlayDiv }) => {
                   />
                 </Form.Group>
               )
-                : ''
             }
             <datalist id="search-names">
               {
-                searchNames.length !== 0
-                  ? searchNames.map((user) => (
+                searchNames.length
+                  && searchNames.map((user) => (
                     <option key={user.id} value={user.username} label={user.username} />
                   ))
-                  : <p>Nothing Found</p>
               }
             </datalist>
           </div>
           <Button
-            className="position-relative m-3 form-button"
+            className="position-relative start-50 my-3 form-button"
             type="submit"
+            disabled={!isValidGameParams(gameParams, searchNames)}
           >
             Create Game
           </Button>

@@ -50,3 +50,6 @@ export const GAME_BASE_PATH = `${API}/game`;
 export const PROFILE_BASE_PATH = `${API}/profile`;
 
 export const EDIT_PROFILE = [];
+
+export const BACKGROUND = '#ede8e0';
+export const PRIMARY = '#be342d';

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { Fragment, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 import Avatar from 'react-avatar';
@@ -11,6 +11,7 @@ import GameList from '../Components/GameList';
 import Spinner from '../Components/Spinner';
 import { clearProfile } from '../redux/profile/actions';
 import { fetchAllTimeGames, fetchUserProfile } from '../redux/profile/thunk';
+import { PRIMARY } from '../utilis/constants';
 
 import './Profile.scss';
 
@@ -54,6 +55,7 @@ const Profile = ({
 const ProfileWithSpinner = Spinner(Profile);
 
 const ProfileContainer = () => {
+  document.body.style.backgroundColor = PRIMARY;
   const { profileUsername } = useParams();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);

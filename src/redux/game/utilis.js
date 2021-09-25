@@ -1,5 +1,8 @@
 /* eslint-disable no-mixed-operators */
 import { socketSendMoves, socketEndGame } from '../../socketio/gameSocketio';
+import {
+  GAME_RATED, GAME_TIMED, GAME_TIMER, GAME_TYPE, SIDE,
+} from '../../utilis/constants';
 import { isValidMove } from '../../utilis/game';
 import { matrixPosition, whichSide } from '../../utilis/pieceMove';
 import { HISTORY_MOVE_BACK } from './type';
@@ -66,10 +69,12 @@ export const onPieceMove = (move, previousState, history, fromSockets) => {
 };
 
 export const isValidGameParams = (params, searchNames) => (
-  (params.gameType !== '')
-  && (params.gameRated !== '')
-  && (params.gameTimed !== '')
-  && (params.side !== '')
+  (GAME_TYPE.includes(params.gameType))
+  && (GAME_RATED.includes(params.gameRated))
+  && ((GAME_TIMED[1] === (params.gameTimed))
+    || ((GAME_TIMED[0] === (params.gameTimed)
+    && GAME_TIMER[parseInt(params.moveTime, 10)].includes(params.gameTimer))))
+  && (SIDE.includes(params.side))
   && (!params.challenge
     || (params.challenge && searchNames.find(
       (user) => user.username === params.username,

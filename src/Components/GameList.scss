@@ -1,7 +1,11 @@
 @import "../variables";
 
-.games {
+.game {
   color: $compliment;
+
+  .game-heading {
+    color: $primary;
+  }
 
   .game-link {
     background-color: $background;
@@ -21,8 +25,7 @@
 }
 
 @media screen and (max-width: 400px) {
-  .games {
-    position: relative;
+  .game {
     top: 50px;
   }
 }
