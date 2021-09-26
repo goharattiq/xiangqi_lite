@@ -27,7 +27,7 @@ $yaxis: $cell-heigth-xxl;
   $yaxis: $yaxis + $rect-height-xxl;
 }
 
-$yaxis: $yaxis + 15.4%;
+$yaxis: $yaxis + 16%;
 @for $i from 5 to 9 {
   $xaxis: $cell-width-xxl;
   @for $j from 1 to 9 {
@@ -44,8 +44,9 @@ $yaxis: $yaxis + 15.4%;
   background-color: rgba($color: $background, $alpha: 0.1);
   position: relative;
   z-index: 10;
-  top: -42rem !important;
-  left: 11.5% !important;
+  top: -42rem;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 .animate {
@@ -54,74 +55,15 @@ $yaxis: $yaxis + 15.4%;
 
 .board-background {
   position: relative;
-  left: 7.6%;
   z-index: 0;
-}
-
-@media screen and (max-width: 1650px) {
-  .board-background {
-    left: 7%;
-  }
-}
-
-@media screen and (max-width: 1550px) {
-  .board-background {
-    left: 6.8%;
-  }
-}
-
-@media screen and (max-width: 1460px) {
-  .board-background {
-    left: 6.4%;
-  }
-}
-
-@media screen and (max-width: 1320px) {
-  .board-background {
-    left: 6%;
-  }
-}
-
-@media screen and (max-width: 1250px) {
-  .board {
-    left: 10.5% !important;
-  }
-  .board-background {
-    left: 4.6%;
-  }
-}
-
-@media screen and (max-width: 1145px) {
-  .board-background {
-    left: 4%;
-  }
-}
-
-@media screen and (max-width: 960px) {
-  .board {
-    left: 5%;
-  }
-  .board-background {
-    left: 2.5%;
-  }
-}
-
-@media screen and (max-width: 850px) {
-  .board-background {
-    left: 1.5%;
-  }
-}
-
-@media screen and (max-width: 760px) {
-  .board {
-    left: 8% !important;
-  }
+  top: -1rem;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 @media screen and (max-width: 660px) {
   .board {
-    left: 17.5% !important;
-    top: -48.23rem !important;
+    top: -42.23rem;
   }
   tr {
     height: $screen-sm;
@@ -130,10 +72,6 @@ $yaxis: $yaxis + 15.4%;
   td {
     height: $screen-sm;
     width: $screen-sm;
-  }
-  .board-background {
-    width: 800px;
-    height: 800px;
   }
 
   rect {
@@ -154,7 +92,7 @@ $yaxis: $yaxis + 15.4%;
     $yaxis: $yaxis + $rect-height-sm;
   }
 
-  $yaxis: $yaxis + 11%;
+  $yaxis: $yaxis + 13%;
   @for $i from 5 to 9 {
     $xaxis: $cell-width-sm;
     @for $j from 1 to 9 {
@@ -165,15 +103,5 @@ $yaxis: $yaxis + 15.4%;
       $xaxis: $xaxis + $rect-width-sm;
     }
     $yaxis: $yaxis + $rect-height-sm;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .board {
-    left: 3.5% !important;
-    top: -48.23rem !important;
-  }
-  .board-background {
-    left: -76px;
   }
 }
