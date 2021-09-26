@@ -42,7 +42,7 @@ const GameWithContainer = Spinner(Game);
 const GameContainer = () => {
   const { gameId } = useParams();
   const history = useHistory();
-  const isTablet = useMediaQuery({ query: '(max-width: 880px)' });
+  const isTablet = useMediaQuery({ query: '(max-width: 992px)' });
   const { gameParams } = useSelector(({ game }) => ({ gameParams: game.params }));
   document.body.style.backgroundColor = '#be342d';
 

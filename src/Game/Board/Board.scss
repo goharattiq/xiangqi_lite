@@ -27,7 +27,8 @@ $yaxis: $cell-heigth-xxl;
   $yaxis: $yaxis + $rect-height-xxl;
 }
 
-$yaxis: $yaxis + 16%;
+$yaxis: $yaxis + 12%;
+// $yaxis: calc(#{$yaxis} + 16%);
 @for $i from 5 to 9 {
   $xaxis: $cell-width-xxl;
   @for $j from 1 to 9 {
@@ -44,7 +45,7 @@ $yaxis: $yaxis + 16%;
   background-color: rgba($color: $background, $alpha: 0.1);
   position: relative;
   z-index: 10;
-  top: -42rem;
+  top: -43.9rem;
   left: 50%;
   transform: translate(-50%);
 }
@@ -59,12 +60,36 @@ $yaxis: $yaxis + 16%;
   top: -1rem;
   left: 50%;
   transform: translate(-50%, 0);
+  width: 520px;
 }
 
-@media screen and (max-width: 660px) {
+.river {
+  height: 30px;
+}
+
+#borad-heading {
+  transform: translate(150px, 300px);
+}
+
+#svg_s1,
+#svg_s2 {
+  transform: translate(-43px, -36px);
+}
+
+#svg_s3,
+#svg_s4 {
+  transform: translate(-44px, -63px);
+}
+
+@media screen and (max-width: 992px) {
   .board {
-    top: -42.23rem;
+    top: -43.23rem;
   }
+
+  .board-background {
+    top: -2rem;
+  }
+
   tr {
     height: $screen-sm;
   }
@@ -92,7 +117,7 @@ $yaxis: $yaxis + 16%;
     $yaxis: $yaxis + $rect-height-sm;
   }
 
-  $yaxis: $yaxis + 13%;
+  $yaxis: $yaxis + 11%;
   @for $i from 5 to 9 {
     $xaxis: $cell-width-sm;
     @for $j from 1 to 9 {
@@ -103,5 +128,91 @@ $yaxis: $yaxis + 16%;
       $xaxis: $xaxis + $rect-width-sm;
     }
     $yaxis: $yaxis + $rect-height-sm;
+  }
+  #borad-heading {
+    transform: translate(150px, 280px);
+  }
+  #svg_s1,
+  #svg_s2 {
+    transform: translate(-13px, -11px) scale(0.89);
+  }
+
+  #svg_s3,
+  #svg_s4 {
+    transform: translate(-13px, -59px) scale(0.89);
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .board {
+    transform: translate(-44%);
+  }
+  .board-background {
+    width: 470px;
+  }
+  #borad-heading {
+    transform: translate(120px, 280px);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .board {
+    transform: translate(-50%);
+  }
+
+  .board-background {
+    width: 430px;
+  }
+
+  tr {
+    height: $screen-xsm;
+  }
+
+  td {
+    height: $screen-xsm;
+    width: $screen-xsm;
+  }
+
+  rect {
+    width: $rect-width-xsm;
+    height: $rect-height-xsm;
+  }
+
+  $yaxis: $cell-heigth-xsm;
+  @for $i from 1 to 5 {
+    $xaxis: $cell-width-xsm;
+    @for $j from 1 to 9 {
+      #svg_#{$i}_#{$j} {
+        x: $xaxis;
+        y: $yaxis;
+      }
+      $xaxis: $xaxis + $rect-width-xsm;
+    }
+    $yaxis: $yaxis + $rect-height-xsm;
+  }
+
+  $yaxis: $yaxis + 9.5%;
+  @for $i from 5 to 9 {
+    $xaxis: $cell-width-xsm;
+    @for $j from 1 to 9 {
+      #svg_#{$i}_#{$j} {
+        x: $xaxis;
+        y: $yaxis;
+      }
+      $xaxis: $xaxis + $rect-width-xsm;
+    }
+    $yaxis: $yaxis + $rect-height-xsm;
+  }
+  #borad-heading {
+    transform: translate(90px, 225px);
+  }
+  #svg_s1,
+  #svg_s2 {
+    transform: translate(7px, -6px) scale(0.68);
+  }
+
+  #svg_s3,
+  #svg_s4 {
+    transform: translate(7px, -26px) scale(0.68);
   }
 }

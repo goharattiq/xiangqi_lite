@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { Fragment, useState } from 'react';
 
 import PropTypes from 'prop-types';
@@ -76,7 +77,7 @@ const Board = ({ historyMode, isRotate }) => {
               board && board.map((row, rowIndex) => (
                 <Fragment key={`row-${row[0].id}`}>
                   {
-                    rowIndex === 5 ? <tr /> : <></>
+                    rowIndex === 5 ? <tr className="river" /> : <></>
                   }
                   <tr>
                     <Row

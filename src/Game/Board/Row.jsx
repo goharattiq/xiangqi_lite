@@ -88,8 +88,8 @@ const Row = ({
                     </Draggable>
                   ) : (
                     <Spot
-                      // visiblity={hints.includes(cell.id) && !disable ? 'visible' : 'hidden'}
-                      visiblity="visible"
+                      visiblity={hints.includes(cell.id) && !disable ? 'visible' : 'hidden'}
+                      // visiblity="visible"
                       id={`spot-${cell.id}`}
                       selectedPiece={selectedPiece}
                     />

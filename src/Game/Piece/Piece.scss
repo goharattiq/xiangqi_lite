@@ -38,7 +38,7 @@ img {
   border: 3px dashed #e99600;
 }
 
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 992px) {
   img {
     width: $screen-sm;
     height: $screen-sm;
@@ -51,9 +51,29 @@ img {
   }
 
   .piece-svg {
-    left: 8px;
-    bottom: 37px;
+    left: 10px;
+    bottom: 38px;
     width: $piece-svg-sm;
     height: $piece-svg-sm;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  img {
+    width: $screen-xsm;
+    height: $screen-xsm;
+  }
+
+  .piece {
+    width: $screen-xsm;
+    height: $screen-xsm;
+    margin-left: 2px;
+  }
+
+  .piece-svg {
+    left: 8px;
+    bottom: 34px;
+    width: $piece-svg-xsm;
+    height: $piece-svg-xsm;
   }
 }
