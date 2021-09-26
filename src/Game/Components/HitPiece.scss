@@ -1,11 +1,11 @@
 @import "../../variables";
 
 .hit-piece {
-  position: relative;
-  left: 20%;
+  left: 8%;
   padding: 0;
-  height: 70px;
-  width: 500px;
+  height: 80px;
+  width: 400px;
+  overflow-x: scroll;
 }
 
 .items {
@@ -30,4 +30,20 @@ $posLeft: 0;
   cursor: pointer;
   left: 0;
   z-index: 10;
+}
+
+.hit-piece::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .hit-piece {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .hit-piece {
+    width: 250px;
+  }
 }

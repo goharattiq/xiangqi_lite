@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import Piece from '../Piece/Piece';
 import './HitPiece.scss';
 
-const HitPiece = ({ hitPieces, style }) => (
-  <ul className="list-group list-group-horizontal hit-piece" style={style}>
+const HitPiece = ({ hitPieces }) => (
+  <ul className="list-group list-group-horizontal position-relative hit-piece">
     {
       hitPieces.map((piece) => (
         <li
@@ -26,7 +26,6 @@ const HitPiece = ({ hitPieces, style }) => (
 
 HitPiece.propTypes = {
   hitPieces: PropTypes.array.isRequired,
-  style: PropTypes.object.isRequired,
 };
 
 export default HitPiece;

@@ -6,13 +6,15 @@
   height: 20px;
   opacity: 0.8;
   border-radius: 10px;
-  margin-left: 18px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 660px) {
   .spot {
     width: 15px;
     height: 15px;
-    margin-left: 16px;
   }
 }
