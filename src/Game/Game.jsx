@@ -14,11 +14,11 @@ import './Game.scss';
 
 const Game = ({ isTablet }) => (
   <>
-    <div className="row">
-      <div className="col-md-8 col-sm-12 col-xs-12">
+    <div className="row w-100">
+      <div className="col-lg-8 col-md-12 ms-2">
         <PlayArea />
       </div>
-      <div className={`${!isTablet ? 'collapse show col-md-4' : 'collapse overlay-chatbox'}`} id="collapse-coloumn">
+      <div className={`${!isTablet ? 'collapse show col-md-3' : 'collapse overlay-chatbox'}`} id="collapse-coloumn">
         <Chat />
       </div>
     </div>

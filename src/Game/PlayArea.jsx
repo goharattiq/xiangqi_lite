@@ -74,13 +74,13 @@ const PlayArea = () => {
     [blackHitPieces, redHitPieces] = [redHitPieces, blackHitPieces];
   }
   return (
-    <div className="rounded play-area">
+    <div className="play-area">
       <WaitTimer
         waitTimeOn={waitTime && bothConnected(redPlayer, blackPlayer)}
       />
-      <div className="bar">
-        <Player style={{ top: '30px' }} player={redPlayer} />
-        <HitPiece hitPieces={redHitPieces} style={{ bottom: '60px' }} />
+      <div className="position-relative d-flex bar">
+        <Player style={{ }} player={redPlayer} />
+        <HitPiece hitPieces={redHitPieces} style={{ }} />
         <Timer
           showTimer={!!gameParams && gameParams.is_timed && gameParams.is_active
             && bothConnected(redPlayer, blackPlayer)}
@@ -88,14 +88,14 @@ const PlayArea = () => {
             : { move_time: 0, game_time: 0 }}
           isPause={waitTime || (redPlayer && !(haveTurn(redPlayer.profile.user.pk)))
             || !bothConnected(redPlayer, blackPlayer)}
-          style={{ bottom: '115px' }}
+          style={{ }}
           userID={user.pk}
         />
       </div>
       <Board historyMode={historyMode} isRotate={isRotated} />
-      <div className="bottom-bar">
-        <Player style={{ top: '10px' }} player={blackPlayer} />
-        <HitPiece hitPieces={blackHitPieces} style={{ bottom: '80px' }} />
+      <div className="position-relative d-flex bottom-bar">
+        <Player style={{ }} player={blackPlayer} />
+        <HitPiece hitPieces={blackHitPieces} style={{ }} />
         <Timer
           showTimer={!!gameParams && gameParams.is_timed && gameParams.is_active
             && bothConnected(redPlayer, blackPlayer)}
@@ -103,7 +103,7 @@ const PlayArea = () => {
             : { move_time: 0, game_time: 0 }}
           isPause={waitTime || (blackPlayer && !(haveTurn(blackPlayer.profile.user.pk)))
             || !bothConnected(redPlayer, blackPlayer)}
-          style={{ bottom: '135px' }}
+          style={{ }}
           userID={user.pk}
         />
       </div>

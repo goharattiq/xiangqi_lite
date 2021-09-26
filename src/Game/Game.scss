@@ -9,7 +9,9 @@
 
 .custom-btn {
   position: relative;
-  left: 90%;
+  // left: 90%;
+  float: right;
+  right: 30px;
   background-color: $compliment;
 }
 
