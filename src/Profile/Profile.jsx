@@ -38,7 +38,7 @@ const Profile = ({
     <ul className="list-group list-group-horizontal position-relative start-50 mt-5 mb-3 user-stats">
       {
           statList.map((state) => (
-            <li key={state.name} className="list-group-item m-2">
+            <li key={state.name} className="list-group-item score m-2">
               <p className="text-center">
                 {state.score}
               </p>
