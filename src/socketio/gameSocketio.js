@@ -79,7 +79,7 @@ export const socketLeaveGame = (game_id, dispatch) => {
   dispatch(clearChat());
 };
 
-export const subscribeGameSockets = (history, username, dispatch) => {
+export const subscribeGameSocketEvents = (history, username, dispatch) => {
   if (socket) {
     socket.on(GAME_SEND_PARAMS, (gameParams) => {
       initGame(gameParams, dispatch);

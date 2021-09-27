@@ -6,7 +6,7 @@ import { SOCKET_URL } from './constants';
 // eslint-disable-next-line import/no-mutable-exports
 export let socket;
 
-export const useSockets = (
+export const connectSockets = (
   accessToken, dispatch,
 ) => {
   socket = io(SOCKET_URL, {
