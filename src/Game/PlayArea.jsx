@@ -88,7 +88,6 @@ const PlayArea = () => {
             : { move_time: 0, game_time: 0 }}
           isPause={waitTime || (redPlayer && !(haveTurn(redPlayer.profile.user.pk)))
             || !bothConnected(redPlayer, blackPlayer)}
-          style={{ }}
           userID={user.pk}
         />
       </div>
@@ -103,7 +102,6 @@ const PlayArea = () => {
             : { move_time: 0, game_time: 0 }}
           isPause={waitTime || (blackPlayer && !(haveTurn(blackPlayer.profile.user.pk)))
             || !bothConnected(redPlayer, blackPlayer)}
-          style={{ }}
           userID={user.pk}
         />
       </div>

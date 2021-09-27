@@ -31,13 +31,13 @@ const WaitTimer = ({ waitTimeOn }) => {
   }, [waitTimeOn, timer]);
   return (
     waitTimeOn
-      ? (
+      && (
         <div className="d-flex justify-content-center align-items-center position-fixed w-100 h-100 timer-screen">
           <div className="timer-box d-flex justify-content-center align-items-center position-fixed">
             {`Game starts in ${timer} sec...`}
           </div>
         </div>
-      ) : ''
+      )
   );
 };
 
