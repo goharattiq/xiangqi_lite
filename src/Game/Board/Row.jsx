@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
@@ -39,6 +40,29 @@ const Row = ({
   const haveTurn = (turn) => (turn === user.pk);
   const bothConnected = (playerOne, playerTwo) => (playerOne && playerTwo)
     && (playerOne.is_connected && playerTwo.is_connected);
+
+  const getCoords = (str) => {
+    const newStr = str.slice(11, str.length - 1);
+    return newStr.split(',');
+  };
+  const getStyle = (style, snapshot) => {
+    if (!snapshot.isDropAnimating) {
+      if (!style.transform) {
+        return style;
+      }
+      const coords = getCoords(style.transform);
+      return {
+        ...style,
+        transform: `translate(${-1 * parseInt(coords[0], 10) - 200}px, ${parseInt(coords[1], 10) - 120}px)`,
+      };
+    }
+    const { moveTo } = snapshot.dropAnimation;
+    const translate = `translate(${moveTo.x - 200}px, ${moveTo.y - 120}px)`;
+    return {
+      ...style,
+      transform: `${translate}`,
+    };
+  };
   return (
     row.map((cell) => (
       <td key={`td-${cell.id}`} id={`droppable-${cell.id}`}>
@@ -65,7 +89,7 @@ const Row = ({
                       id={`${cell.piece.name}-${cell.piece.id}`}
                       className="cell"
                     >
-                      {(provid) => (
+                      {(provid, snapshot) => (
                         <div
                           ref={provid.innerRef}
                           {...provid.draggableProps}
@@ -76,6 +100,7 @@ const Row = ({
                               && haveTurn(playerTurn)
                               && clickHandler(cell.piece.name, cell.id, cell.piece.id);
                           }}
+                          style={getStyle(provid.draggableProps.style, snapshot)}
                         >
                           <Piece
                             name={cell.piece.name}

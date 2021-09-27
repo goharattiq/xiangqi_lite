@@ -65,7 +65,7 @@ const Board = ({ historyMode, isRotate }) => {
       <Background className="board-background" />
       <table
         id="play-board"
-        className="rounded board"
+        className="board"
       >
         <tbody>
           <DragDropContext
@@ -77,7 +77,7 @@ const Board = ({ historyMode, isRotate }) => {
               board && board.map((row, rowIndex) => (
                 <Fragment key={`row-${row[0].id}`}>
                   {
-                    rowIndex === 5 ? <tr className="river" /> : <></>
+                    rowIndex === 5 && <tr className="river" />
                   }
                   <tr>
                     <Row
