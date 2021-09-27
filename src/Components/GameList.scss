@@ -3,12 +3,18 @@
 .game {
   color: $compliment;
 
+  .game-card {
+    background-color: #b8a19b;
+    color: #584543;
+    border-radius: 10px;
+  }
+
   .game-heading {
     color: $primary;
   }
 
   .game-link {
-    background-color: $background;
+    background-color: #b8a19b;
     border: none;
     color: rgba(0, 60, 255, 0.671);
     text-decoration: underline;
@@ -17,7 +23,7 @@
   }
 
   .profile-link {
-    color: $compliment;
+    color: #584543;
     &:hover {
       color: rgba($color: $compliment, $alpha: 0.7);
     }
