@@ -8,7 +8,7 @@ import { socketEndGame } from '../../socketio/gameSocketio';
 import './Timer.scss';
 
 const Timer = ({
-  showTimer, playerTimer, isPause, style, userID,
+  showTimer, playerTimer, isPause, userID,
 }) => {
   const { move_time, game_time } = playerTimer;
   const [timer, setTimer] = useState({
@@ -66,8 +66,8 @@ const Timer = ({
   const timeFormatter = (string) => (new Array(2).join('0') + string).slice(-2);
   return (
     showTimer
-      ? (
-        <div className="timer" style={style}>
+      && (
+        <div className="position-relative timer">
           <p>
             {`${timeFormatter((Math.floor(moveInterval / 60)).toString())} :
           ${timeFormatter(Math.floor(moveInterval % 60).toString())}`}
@@ -77,7 +77,7 @@ const Timer = ({
           ${timeFormatter(Math.floor(gameInterval % 60).toString())}`}
           </p>
         </div>
-      ) : ''
+      )
   );
 };
 
@@ -85,7 +85,6 @@ Timer.propTypes = {
   playerTimer: PropTypes.object.isRequired,
   isPause: PropTypes.bool.isRequired,
   showTimer: PropTypes.bool.isRequired,
-  style: PropTypes.object.isRequired,
   userID: PropTypes.number.isRequired,
 };
 

@@ -1,5 +1,14 @@
+@import "../../variables";
+
 .timer {
-  position: relative;
-  left: 81%;
+  // left: 20%;
+  float: right;
   width: 100px;
+  color: $compliment;
 }
+
+// @media screen and (max-width: 600px) {
+//   .timer {
+//     display: none !important;
+//   }
+// }

@@ -78,9 +78,9 @@ const PlayArea = () => {
       <WaitTimer
         waitTimeOn={waitTime && bothConnected(redPlayer, blackPlayer)}
       />
-      <div className="position-relative d-flex bar">
-        <Player style={{ }} player={redPlayer} />
-        <HitPiece hitPieces={redHitPieces} style={{ }} />
+      <div className="d-flex position-relative bar">
+        <Player player={redPlayer} />
+        <HitPiece hitPieces={redHitPieces} />
         <Timer
           showTimer={!!gameParams && gameParams.is_timed && gameParams.is_active
             && bothConnected(redPlayer, blackPlayer)}
@@ -93,9 +93,9 @@ const PlayArea = () => {
         />
       </div>
       <Board historyMode={historyMode} isRotate={isRotated} />
-      <div className="position-relative d-flex bottom-bar">
-        <Player style={{ }} player={blackPlayer} />
-        <HitPiece hitPieces={blackHitPieces} style={{ }} />
+      <div className="d-flex position-relative bottom-bar">
+        <Player player={blackPlayer} />
+        <HitPiece hitPieces={blackHitPieces} />
         <Timer
           showTimer={!!gameParams && gameParams.is_timed && gameParams.is_active
             && bothConnected(redPlayer, blackPlayer)}

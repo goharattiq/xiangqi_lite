@@ -40,6 +40,26 @@ img {
 
 @media screen and (max-width: 992px) {
   img {
+    width: $screen-m;
+    height: $screen-m;
+  }
+
+  .piece {
+    width: $screen-m;
+    height: $screen-m;
+    margin-left: 2px;
+  }
+
+  .piece-svg {
+    left: 10px;
+    bottom: 38px;
+    width: $piece-svg-m;
+    height: $piece-svg-m;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  img {
     width: $screen-sm;
     height: $screen-sm;
   }
@@ -51,14 +71,14 @@ img {
   }
 
   .piece-svg {
-    left: 10px;
-    bottom: 38px;
+    left: 8px;
+    bottom: 34px;
     width: $piece-svg-sm;
     height: $piece-svg-sm;
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 380px) {
   img {
     width: $screen-xsm;
     height: $screen-xsm;
@@ -71,8 +91,8 @@ img {
   }
 
   .piece-svg {
-    left: 8px;
-    bottom: 34px;
+    left: 6px;
+    bottom: 28px;
     width: $piece-svg-xsm;
     height: $piece-svg-xsm;
   }

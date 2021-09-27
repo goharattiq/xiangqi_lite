@@ -2,29 +2,42 @@ $primary: #be342d;
 $background: #ede8e0;
 $compliment: #815752;
 
+//extra large
 $screen-xl: 55px;
-$screen-sm: 45px;
-
 $piece-svg-xl: 30px;
-$piece-svg-sm: 25px;
 
-$rect-width-xxl: 11%;
-$rect-height-xxl: 8.5%;
+$rect-width-xl: 11%;
+$rect-height-xl: 8.5%;
 
-$cell-width-xxl: 6.5%;
-$cell-heigth-xxl: 3%;
+$cell-width-xl: 6.5%;
+$cell-heigth-xl: 3%;
 
-$rect-width-sm: 9.5%;
-$rect-height-sm: 7%;
+//medium
+$screen-m: 45px;
+$piece-svg-m: 25px;
 
-$cell-width-sm: 12%;
-$cell-heigth-sm: 6%;
+$rect-width-m: 9.5%;
+$rect-height-m: 7%;
 
-$screen-xsm: 35px;
-$piece-svg-xsm: 20px;
+$cell-width-m: 12%;
+$cell-heigth-m: 6%;
 
-$rect-width-xsm: 9%;
-$rect-height-xsm: 5.5%;
+//small
+$screen-sm: 35px;
+$piece-svg-sm: 20px;
 
-$cell-width-xsm: 14%;
+$rect-width-sm: 9%;
+$rect-height-sm: 5.5%;
+
+$cell-width-sm: 14%;
+$cell-heigth-sm: 5%;
+
+//extra small
+$screen-xsm: 25px;
+$piece-svg-xsm: 14px;
+
+$rect-width-xsm: 9.4%;
+$rect-height-xsm: 3.9%;
+
+$cell-width-xsm: 20%;
 $cell-heigth-xsm: 5%;

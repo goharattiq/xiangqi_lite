@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Redirect, Switch, useHistory, useLocation, useParams,
+  Redirect, Switch, useHistory, useLocation,
 } from 'react-router-dom';
 
 import Authentication from '../Authentication/Authentication';
@@ -12,9 +11,9 @@ import LeaderBoard from '../Leaderboard/LeaderBoard';
 import Lobby from '../Lobby/Lobby';
 import EditProfile from '../Profile/EditProfile';
 import Profile from '../Profile/Profile';
-import { subscribeChatSocketsEvent } from '../socketio/chatSocketio';
-import { socketLeaveGame, subscribeGameSockets } from '../socketio/gameSocketio';
-import { useSockets } from '../socketio/socketio';
+import { subscribeChatSocketEvents } from '../socketio/chatSocketio';
+import { socketLeaveGame, subscribeGameSocketEvents } from '../socketio/gameSocketio';
+import { connectSockets } from '../socketio/socketio';
 import Navigation from './Navigation';
 import PrivateRoute from './PrivateRoute';
 import ToastMessage from './ToastMessage';
@@ -32,11 +31,11 @@ const Routes = () => {
   const dispatch = useDispatch();
   const [urlState, setUrlState] = useState('');
   useEffect(() => {
-    const connectSokcets = async () => {
+    const subscirbeSockets = async () => {
       if (authUser && Object.keys(authUser).length) {
-        await useSockets(accessToken, dispatch);
-        await subscribeGameSockets(history, authUser.username, dispatch);
-        await subscribeChatSocketsEvent(dispatch);
+        await connectSockets(accessToken, dispatch);
+        await subscribeGameSocketEvents(history, authUser.username, dispatch);
+        await subscribeChatSocketEvents(dispatch);
         if (urlState.match('game')) {
           history.push(urlState);
           setUrlState('');
@@ -51,7 +50,7 @@ const Routes = () => {
         socketLeaveGame(localStorage.getItem('gameID'), dispatch);
       }
     };
-    connectSokcets();
+    subscirbeSockets();
   }, [authUser]);
   return (
     !authUser
@@ -60,7 +59,7 @@ const Routes = () => {
         <>
           <Navigation />
           <ToastMessage />
-          <Redirect to="/lobby" />
+          <Redirect to={location.pathname === '' ? location.pathname : '/lobby'} />
           <Switch>
             <PrivateRoute exact path="/lobby" component={Lobby} />
             <PrivateRoute exact path="/profile/:profileUsername" component={Profile} />

@@ -8,9 +8,42 @@
 
 .bar {
   height: 85px;
+  width: 700px;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .bottom-bar {
   height: 85px;
-  top: -43rem;
+  top: -42rem;
+  width: 700px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+@media screen and (max-width: 600px) {
+  .bar {
+    width: 500px;
+  }
+  .bottom-bar {
+    width: 500px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .bar {
+    width: 400px;
+  }
+  .bottom-bar {
+    width: 400px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .bar {
+    display: none !important;
+  }
+  .bottom-bar {
+    display: none !important;
+  }
 }

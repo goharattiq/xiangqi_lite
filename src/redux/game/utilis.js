@@ -73,7 +73,7 @@ export const isValidGameParams = (params, searchNames) => (
   && (GAME_RATED.includes(params.gameRated))
   && ((GAME_TIMED[1] === (params.gameTimed))
     || ((GAME_TIMED[0] === (params.gameTimed)
-    && GAME_TIMER[parseInt(params.moveTime, 10)].includes(params.gameTimer))))
+    && GAME_TIMER[params.moveTime].includes(String(params.gameTimer)))))
   && (SIDE.includes(params.side))
   && (!params.challenge
     || (params.challenge && searchNames.find(

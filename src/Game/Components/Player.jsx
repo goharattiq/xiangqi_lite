@@ -5,10 +5,10 @@ import Avatar from 'react-avatar';
 import './Player.scss';
 import { Link } from 'react-router-dom';
 
-const Player = ({ player, style }) => (
+const Player = ({ player }) => (
   player
-    ? (
-      <div className="player" style={style}>
+    && (
+      <div className="player">
         <Avatar
           name={player.profile.user.username}
           src={player.profile.photo}
@@ -19,11 +19,10 @@ const Player = ({ player, style }) => (
           <p className="ps-2">{player.profile.user.username}</p>
         </Link>
       </div>
-    ) : ''
+    )
 );
 
 Player.propTypes = {
-  style: PropTypes.object.isRequired,
   // eslint-disable-next-line react/require-default-props
   player: PropTypes.object,
 };

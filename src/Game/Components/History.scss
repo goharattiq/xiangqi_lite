@@ -18,5 +18,11 @@
 
 .history {
   height: 35px;
-  top: -46rem;
+  top: -43rem;
+}
+
+@media screen and (max-width: 400px) {
+  .history {
+    top: -41rem;
+  }
 }
