@@ -18,6 +18,9 @@ class ProfileSerializer(ModelSerializer):
         fields = ['user', 'bio', 'rating', 'games_played_count', 'wins_count',
                   'losses_count', 'draw_count', 'winning_percentage', 'photo']
 
+    def get_winning_percentage(self, obj):
+        return int(obj.winning_percentage)
+
     def update(self, instance, validated_data):
         user = {}
         profile = {}
