@@ -18,7 +18,7 @@ import './Profile.scss';
 const Profile = ({
   userFullName, user, statList, games, photo, bio, isSessionUser,
 }) => (
-  <Container className="bg-white w-75 mt-5 pb-5">
+  <Container className="bg-white w-75 mt-5 pb-5 rounded-3">
     <>
       <Avatar name={user.username} src={photo} size={200} className="profile-avatar m-3" color="#815752" />
       <div className="d-inline-flex flex-column user-detail ms-5">
@@ -27,18 +27,18 @@ const Profile = ({
         <p>{bio}</p>
         {
           isSessionUser
-            ? (
+            && (
               <Link to={`/profile/${user.username}/edit`} className="edit-button">
                 <i className="fas fa-edit" />
               </Link>
-            ) : ''
+            )
         }
       </div>
     </>
     <ul className="list-group list-group-horizontal position-relative start-50 mt-5 mb-3 user-stats">
       {
           statList.map((state) => (
-            <li key={state.name} className="list-group-item m-2 score">
+            <li key={state.name} className="list-group-item m-2">
               <p className="text-center">
                 {state.score}
               </p>

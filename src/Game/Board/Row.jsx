@@ -114,7 +114,6 @@ const Row = ({
                   ) : (
                     <Spot
                       visiblity={hints.includes(cell.id) && !disable ? 'visible' : 'hidden'}
-                      // visiblity="visible"
                       id={`spot-${cell.id}`}
                       selectedPiece={selectedPiece}
                     />

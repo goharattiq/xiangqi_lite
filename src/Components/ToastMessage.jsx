@@ -32,7 +32,7 @@ const ToastMessage = () => {
                   <>
                     <p>{`${data.creator} created the game.`}</p>
                     {
-                      user.username === data.invitee ? <p>{`${data.creator} challenged you to a game`}</p> : ''
+                      user.username === data.invitee && <p>{`${data.creator} challenged you to a game`}</p>
                     }
                     <Link to={`game/${data.gameID}`}>
                       {

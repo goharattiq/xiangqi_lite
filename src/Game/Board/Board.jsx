@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { Fragment, useState } from 'react';
 
 import PropTypes from 'prop-types';

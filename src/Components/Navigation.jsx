@@ -28,7 +28,7 @@ const Navigation = () => {
               LeaderBoard
             </Link>
             <Link id="profile" to={`/profile/${auth.user ? auth.user.username : ''}`} className="nav-link-custom">
-              {`Profile${auth.user ? `-${auth.user.username}` : ''}`}
+              {`Profile${auth.user && `-${auth.user.username}`}`}
             </Link>
             <Link
               id="logout"
