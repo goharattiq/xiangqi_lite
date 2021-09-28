@@ -3,7 +3,8 @@ from rest_framework.serializers import ModelSerializer
 
 from .models import Profile
 
-from .constants import USER_FIELDS_UPDATE,PROFILE_FIELDS_UPDATE
+from .constants import USER_FIELDS_UPDATE, PROFILE_FIELDS_UPDATE
+
 
 class UserSerializer(ModelSerializer):
     class Meta:

@@ -10,7 +10,8 @@ import {
   signUpSuccess,
 } from './actions';
 
-export const signinUser = ({ username, password }) => (dispatch) => {
+export const signinUser = (credentials) => (dispatch) => {
+  const { username, password } = credentials;
   axios
     .post(`${AUTH_BASE_PATH}/login/`, {
       username, password,

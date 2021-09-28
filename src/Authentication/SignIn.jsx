@@ -22,10 +22,6 @@ const SignIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(signinUser(credentials));
-    setCredentials({
-      username: '',
-      password: '',
-    });
   };
   return (
     <Form className="input-form" onSubmit={handleSubmit}>

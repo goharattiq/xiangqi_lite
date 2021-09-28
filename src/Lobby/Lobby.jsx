@@ -30,13 +30,12 @@ const LobbyWithSpinner = Spinner(Lobby);
 
 const LobbyContainer = () => {
   document.body.style.backgroundColor = BACKGROUND;
+  const dispatch = useDispatch();
   const { activeGames, spectateGames, username } = useSelector(({ lobby, auth }) => ({
     activeGames: lobby.activeGames,
     spectateGames: lobby.spectateGames,
-    username: auth.user ? auth.user.username : '',
+    username: auth && auth.user ? auth.user.username : '',
   }));
-  const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(fetechActiveGames());
     dispatch(fetechSpectateGames());

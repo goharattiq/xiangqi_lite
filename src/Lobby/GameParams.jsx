@@ -66,16 +66,6 @@ const GameParams = ({ setOverlayDiv }) => {
         return;
       }
       socketSetGameParams(gameParams, owner);
-      setGameParams({
-        gameType: 'Public',
-        gameRated: 'Rated',
-        gameTimed: 'Timed',
-        moveTime: 1,
-        gameTimer: 5,
-        side: 'Random',
-        challenge: false,
-        username: '',
-      });
     } else {
       dispatch(setToast('Please choose complete game params', 'danger', dispatch));
     }
@@ -88,16 +78,6 @@ const GameParams = ({ setOverlayDiv }) => {
         <CloseButton
           className="close-button"
           onClick={() => {
-            setGameParams({
-              gameType: 'Public',
-              gameRated: 'Rated',
-              gameTimed: 'Timed',
-              moveTime: 1,
-              gameTimer: 5,
-              side: 'Random',
-              challenge: false,
-              username: '',
-            });
             setOverlayDiv(false);
           }}
         />

@@ -104,7 +104,7 @@ const ProfileContainer = () => {
       games={games}
       photo={photo}
       bio={bio}
-      isSessionUser={auth.user.username === profileUsername}
+      isSessionUser={auth && auth.user.username === profileUsername}
     />
   );
 };

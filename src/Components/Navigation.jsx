@@ -10,7 +10,7 @@ import './Navigation.scss';
 const Navigation = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-  return (
+  return auth && auth.user ? (
     <Navbar expand="lg" bg="style">
       <Container>
         <Navbar.Brand className="nav-link-custom">
@@ -44,6 +44,6 @@ const Navigation = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  );
+  ) : '';
 };
 export default Navigation;
