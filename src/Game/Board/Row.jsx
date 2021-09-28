@@ -53,11 +53,11 @@ const Row = ({
       const coords = getCoords(style.transform);
       return {
         ...style,
-        transform: `translate(${-1 * parseInt(coords[0], 10) - 200}px, ${parseInt(coords[1], 10) - 120}px)`,
+        transform: `translate(${-1 * parseInt(coords[0], 10) - 100}px, ${parseInt(coords[1], 10) - 150}px)`,
       };
     }
     const { moveTo } = snapshot.dropAnimation;
-    const translate = `translate(${moveTo.x - 200}px, ${moveTo.y - 120}px)`;
+    const translate = `translate(${moveTo.x - 100}px, ${moveTo.y - 150}px)`;
     return {
       ...style,
       transform: `${translate}`,
@@ -87,7 +87,6 @@ const Row = ({
                       index={cell.piece.id}
                       key={cell.piece.id}
                       id={`${cell.piece.name}-${cell.piece.id}`}
-                      className="cell"
                     >
                       {(provid, snapshot) => (
                         <div

@@ -30,13 +30,13 @@ const LeaderCard = ({ leader }) => {
         <table className="d-flex justify-content-center">
           <tbody>
             {
-              Object.entries(statList).map(([id, stat]) => (
-                <tr key={stat}>
-                  <td>{stat}</td>
-                  <td>{leader[id]}</td>
-                </tr>
-              ))
-            }
+                Object.entries(statList).map(([id, stat]) => (
+                  <tr key={stat}>
+                    <td>{stat}</td>
+                    <td>{leader[id]}</td>
+                  </tr>
+                ))
+              }
           </tbody>
         </table>
       </Card.Body>

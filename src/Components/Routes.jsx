@@ -59,7 +59,7 @@ const Routes = () => {
         <>
           <Navigation />
           <ToastMessage />
-          <Redirect to={location.pathname === '' ? location.pathname : '/lobby'} />
+          <Redirect to={location.pathname} />
           <Switch>
             <PrivateRoute exact path="/lobby" component={Lobby} />
             <PrivateRoute exact path="/profile/:profileUsername" component={Profile} />

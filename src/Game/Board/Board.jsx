@@ -61,10 +61,10 @@ const Board = ({ historyMode, isRotate }) => {
     <>
       <audio id="move-audio" src={moveAudio} />
       <audio id="hit-audio" src={hitAudio} />
-      <Background className="board-background" />
+      <Background className="position-relative start-50 board-background" />
       <table
         id="play-board"
-        className="board"
+        className="position-relative start-50 board"
       >
         <tbody>
           <DragDropContext

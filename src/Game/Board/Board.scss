@@ -1,52 +1,23 @@
 @import "../../variables";
 
-tr {
-  height: $screen-xl;
-}
-
-td {
-  height: $screen-xl;
-  width: $screen-xl;
-}
-
-rect {
-  width: $rect-width-xl;
-  height: $rect-height-xl;
-}
-
-$yaxis: $cell-heigth-xl;
-@for $i from 1 to 5 {
-  $xaxis: $cell-width-xl;
-  @for $j from 1 to 9 {
-    #svg_#{$i}_#{$j} {
-      x: $xaxis;
-      y: $yaxis;
-    }
-    $xaxis: $xaxis + $rect-width-xl;
-  }
-  $yaxis: $yaxis + $rect-height-xl;
-}
-
-$yaxis: $yaxis + 12%;
-@for $i from 5 to 9 {
-  $xaxis: $cell-width-xl;
-  @for $j from 1 to 9 {
-    #svg_#{$i}_#{$j} {
-      x: $xaxis;
-      y: $yaxis;
-    }
-    $xaxis: $xaxis + $rect-width-xl;
-  }
-  $yaxis: $yaxis + $rect-height-xl;
-}
-
 .board {
   background-color: rgba($color: $background, $alpha: 0.1);
-  position: relative;
   z-index: 10;
   top: -41.9rem;
-  left: 50%;
-  transform: translate(-50%);
+  transform: translate(-50%, 0);
+
+  tr {
+    height: $screen-xl;
+  }
+
+  td {
+    height: $screen-xl;
+    width: $screen-xl;
+  }
+
+  .river {
+    height: 30px;
+  }
 }
 
 .animate {
@@ -54,30 +25,54 @@ $yaxis: $yaxis + 12%;
 }
 
 .board-background {
-  position: relative;
-  z-index: 0;
   top: 0.5rem;
-  left: 50%;
   transform: translate(-50%, 0);
   width: 520px;
-}
 
-.river {
-  height: 30px;
-}
+  rect {
+    width: $rect-width-xl;
+    height: $rect-height-xl;
+  }
 
-#borad-heading {
-  transform: translate(150px, 300px);
-}
+  $yaxis: $cell-heigth-xl;
+  @for $i from 1 to 5 {
+    $xaxis: $cell-width-xl;
+    @for $j from 1 to 9 {
+      #svg_#{$i}_#{$j} {
+        x: $xaxis;
+        y: $yaxis;
+      }
+      $xaxis: $xaxis + $rect-width-xl;
+    }
+    $yaxis: $yaxis + $rect-height-xl;
+  }
 
-#svg_s1,
-#svg_s2 {
-  transform: translate(-43px, -36px);
-}
+  $yaxis: $yaxis + 12%;
+  @for $i from 5 to 9 {
+    $xaxis: $cell-width-xl;
+    @for $j from 1 to 9 {
+      #svg_#{$i}_#{$j} {
+        x: $xaxis;
+        y: $yaxis;
+      }
+      $xaxis: $xaxis + $rect-width-xl;
+    }
+    $yaxis: $yaxis + $rect-height-xl;
+  }
 
-#svg_s3,
-#svg_s4 {
-  transform: translate(-44px, -63px);
+  #borad-heading {
+    transform: translate(150px, 300px);
+  }
+
+  #svg_s1,
+  #svg_s2 {
+    transform: translate(-43px, -36px);
+  }
+
+  #svg_s3,
+  #svg_s4 {
+    transform: translate(-44px, -63px);
+  }
 }
 
 @media screen and (max-width: 992px) {

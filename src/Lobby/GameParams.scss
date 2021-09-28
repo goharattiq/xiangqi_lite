@@ -11,23 +11,34 @@
     transform: translate(-50%, 0);
     top: 5%;
 
-    .form-scroll {
-      overflow-y: scroll;
-      max-height: 70vh;
-    }
-
     .close-button {
       position: relative;
       top: -50px;
     }
 
     .form-scroll {
+      overflow-y: scroll;
+      max-height: 70vh;
+
+      .radio-div {
+        height: 40px;
+        margin-bottom: 20px;
+      }
+
       .form-check-input[type="radio"] {
         height: 40px;
         width: 90px;
-        border-radius: 10px;
+        border-radius: 0px;
         margin: 0;
         cursor: pointer;
+      }
+
+      .form-check-input:checked[type="radio"] {
+        background-image: none;
+      }
+
+      .radio-buttons {
+        width: 90px;
       }
 
       input[type="radio"]:checked + label {
@@ -49,23 +60,13 @@
 
       input[name="moveTime"] + label,
       input[name="gameTimer"] + label {
-        position: relative;
-        top: 8px;
-        left: -40px;
+        left: 50%;
+        transform: translate(-50%, 0);
         width: 20px;
-        cursor: pointer;
-      }
-
-      .game-timer {
-        margin-left: 30px;
       }
 
       .form-check {
         padding-left: 0;
-      }
-
-      .radio-buttons {
-        width: 90px;
       }
 
       .form-check-input:checked {
@@ -74,7 +75,7 @@
       }
 
       .time {
-        margin-left: -30px;
+        width: 60px;
       }
 
       .form-button,
@@ -90,3 +91,7 @@
     }
   }
 }
+
+// .radio-buttons:first-child {
+//   border-bottom-left-radius: 10px;
+// }

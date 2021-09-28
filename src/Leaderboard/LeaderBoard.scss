@@ -20,4 +20,13 @@
     background-color: #fff;
     position: inherit;
   }
+
+  tr {
+    height: $screen-xl;
+  }
+
+  td {
+    height: $screen-xl;
+    width: $screen-xl;
+  }
 }

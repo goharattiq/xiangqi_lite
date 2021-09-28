@@ -106,7 +106,7 @@ const GameParams = ({ setOverlayDiv }) => {
             GAME_PARAMETERS.map(({
               data, name, type, id, className,
             }, index) => (
-              <div className="d-flex justify-content-center" key={name}>
+              <div className="d-flex justify-content-center radio-div" key={name}>
                 <Field
                   data={data}
                   name={name}
@@ -124,25 +124,25 @@ const GameParams = ({ setOverlayDiv }) => {
               && (
                 <>
                   <h5 className="text-center">Move Timer (Minutes)</h5>
-                  <div className="d-flex justify-content-center ms-5">
+                  <div className="d-flex justify-content-center radio-div">
                     <Field
                       data={MOVE_TIMER}
                       name="moveTime"
                       type="radio"
                       id="move-time"
-                      className="time radio-buttons"
+                      className="time"
                       handleChange={handleChange}
                       check={String(moveTime)}
                     />
                   </div>
                   <h5 className="text-center">Game Timer (Minutes)</h5>
-                  <div className="d-flex justify-content-center game-timer">
+                  <div className="d-flex justify-content-center radio-div">
                     <Field
                       data={GAME_TIMER[moveTime]}
                       name="gameTimer"
                       type="radio"
                       id="game-timer"
-                      className="time radio-buttons"
+                      className="time"
                       handleChange={handleChange}
                       check={String(gameTimer)}
                     />
@@ -151,7 +151,7 @@ const GameParams = ({ setOverlayDiv }) => {
               )
           }
           <h5 className="text-center">Side</h5>
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center radio-div">
             <Field
               data={SIDE}
               name="side"
@@ -167,13 +167,13 @@ const GameParams = ({ setOverlayDiv }) => {
               name="challenge"
               type="checkbox"
               id="challenge"
-              label="Cahllenge Someone?"
+              label="Challenge Someone?"
               className="d-flex justify-content-center"
               onChange={handleCheckbox}
             />
             {
               challenge && (
-                <Form.Group className="m-3" controlId="formBasicEmail">
+                <Form.Group className="m-3">
                   <Form.Control
                     type="text"
                     placeholder="Search By Username"
