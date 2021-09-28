@@ -3,6 +3,7 @@ from rest_framework.serializers import ModelSerializer
 
 from .models import Profile
 
+from .constants import USER_FIELDS_UPDATE,PROFILE_FIELDS_UPDATE
 
 class UserSerializer(ModelSerializer):
     class Meta:
@@ -26,9 +27,9 @@ class ProfileSerializer(ModelSerializer):
         profile = {}
         for field in validated_data:
             value = validated_data.get(field)
-            if User.field_exists(field) and value:
+            if field in USER_FIELDS_UPDATE and User.field_exists(field) and value:
                 user[field] = value
-            elif Profile.field_exists(field):
+            elif field in PROFILE_FIELDS_UPDATE and Profile.field_exists(field) and value:
                 if field == 'photo':
                     instance = Profile.objects.filter(user__username=instance.user.username).first()
                     instance.photo.save(value.name, value)
