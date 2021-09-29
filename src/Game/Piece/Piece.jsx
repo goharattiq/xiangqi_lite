@@ -12,25 +12,14 @@ import './Piece.scss';
 const Piece = ({
   name, id, hitStyle,
 }) => {
-  const selectPiece = (piece) => {
-    switch (piece.toLowerCase()) {
-      case 'a':
-        return <Advisor className="piece-svg" />;
-      case 'c':
-        return <Cannon className="piece-svg" />;
-      case 'r':
-        return <Chariot className="piece-svg" />;
-      case 'e':
-        return <Elephant className="piece-svg" />;
-      case 'h':
-        return <Horse className="piece-svg" />;
-      case 'k':
-        return <King className="piece-svg" />;
-      case 'p':
-        return <Pawn className="piece-svg" />;
-      default:
-        return null;
-    }
+  const selectPiece = {
+    p: <Pawn className="piece-svg" />,
+    r: <Chariot className="piece-svg" />,
+    h: <Horse className="piece-svg" />,
+    e: <Elephant className="piece-svg" />,
+    a: <Advisor className="piece-svg" />,
+    k: <King className="piece-svg" />,
+    c: <Cannon className="piece-svg" />,
   };
   return (
     <div
@@ -39,7 +28,7 @@ const Piece = ({
       style={hitStyle}
     >
       <img src={whichSide(name) === RED ? red : black} alt="Piece Background" />
-      {selectPiece(name)}
+      {selectPiece[name.toLowerCase()]}
       <span className="piece-name">{PIECE_MAP[name.toLowerCase()]}</span>
     </div>
   );

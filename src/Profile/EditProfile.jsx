@@ -2,85 +2,29 @@
 /* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react';
 
+import PropTypes from 'prop-types';
 import {
   Button, FloatingLabel, Form, Row,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
+import Spinner from '../Components/Spinner';
+import { clearProfile } from '../redux/profile/actions';
 import { fetchUserProfile, updateProfile } from '../redux/profile/thunk';
 import { setToast } from '../redux/toast/actions';
 import { ALLOWED_EXTENSTIONS, BACKGROUND } from '../utilis/constants';
 import './EditProfile.scss';
 
-const EditProfile = () => {
-  document.body.style.backgroundColor = BACKGROUND;
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const { profileUsername } = useParams();
-  const { user, player_bio } = useSelector(({ profile }) => ({
-    user: profile.user,
-    player_bio: profile.bio,
-  }));
-  const [imagePreview, setImagePreview] = useState(null);
-  const [profile, setProfile] = useState({
-    first_name: user?.first_name ? user.first_name : '',
-    last_name: user?.last_name ? user.last_name : '',
-    bio: player_bio || '',
-    photo: null,
-  });
+const EditProfile = ({
+  profile, handleChange, handleFileChange, handleSubmit,
+}) => {
   const {
     bio,
     first_name,
     last_name,
-    photo,
+    imagePreview,
   } = profile;
-
-  useEffect(() => {
-    if (!profile) {
-      dispatch(fetchUserProfile(profileUsername));
-    }
-  }, []);
-
-  useEffect(() => {
-    let fileUrl;
-    if (photo) {
-      fileUrl = URL.createObjectURL(photo);
-      setImagePreview(fileUrl);
-    }
-    return () => {
-      photo && URL.revokeObjectURL(fileUrl);
-    };
-  }, [photo]);
-
-  const handleChange = ({ target: { name, value } }) => {
-    setProfile({
-      ...profile,
-      [name]: value,
-    });
-  };
-  const handleFileChange = (event) => {
-    const [file, ..._] = event.target.files;
-    const [_0, extention] = file.name.split('.');
-    if (ALLOWED_EXTENSTIONS.includes(extention.toUpperCase())) {
-      setProfile({
-        ...profile,
-        photo: event.target.files[0],
-      });
-    } else {
-      dispatch(setToast('This file is not allowed', 'danger', dispatch));
-    }
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(updateProfile(user.username, profile, history));
-    setProfile({
-      first_name: '',
-      last_name: '',
-      bio: '',
-      photo: null,
-    });
-  };
 
   return (
     <Form className="input-form" onSubmit={handleSubmit}>
@@ -125,13 +69,12 @@ const EditProfile = () => {
       />
       {
         imagePreview
-          ? (
+          && (
             <Row className="m-2 justify-content-center">
               <img src={imagePreview} className="preview-avatar" alt="Profile-preview" />
             </Row>
 
           )
-          : ''
       }
       <Button
         className="position-relative form-button"
@@ -143,4 +86,91 @@ const EditProfile = () => {
   );
 };
 
-export default EditProfile;
+const EditProfileWithSpinner = Spinner(EditProfile);
+
+const EditProfileContainer = () => {
+  document.body.style.backgroundColor = BACKGROUND;
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { profileUsername } = useParams();
+  const { user, player_bio, player_photo } = useSelector(({ profile }) => ({
+    user: profile.user,
+    player_bio: profile.bio,
+    player_photo: profile.photo,
+  }));
+  const [profile, setProfile] = useState({
+    first_name: user?.first_name ? user.first_name : '',
+    last_name: user?.last_name ? user.last_name : '',
+    bio: player_bio || '',
+    photo: player_photo,
+    imagePreview: player_photo,
+  });
+  const {
+    photo,
+  } = profile;
+
+  useEffect(() => {
+    if (!user) {
+      dispatch(fetchUserProfile(profileUsername));
+    }
+    let fileUrl;
+    if (photo) {
+      fileUrl = typeof (photo) !== 'string' && URL.createObjectURL(photo);
+    }
+    if (user) {
+      setProfile({
+        ...profile,
+        first_name: user?.first_name ? user.first_name : '',
+        last_name: user?.last_name ? user.last_name : '',
+        bio: player_bio || '',
+        imagePreview: fileUrl,
+      });
+    }
+    return () => {
+      photo && URL.revokeObjectURL(fileUrl);
+    };
+  }, [photo, user]);
+
+  const handleChange = ({ target: { name, value } }) => {
+    setProfile({
+      ...profile,
+      [name]: value,
+    });
+  };
+  const handleFileChange = (event) => {
+    const [file, ..._] = event.target.files;
+    const [_0, extention] = file.name.split('.');
+    if (ALLOWED_EXTENSTIONS.includes(extention.toUpperCase())) {
+      setProfile({
+        ...profile,
+        photo: event.target.files[0],
+      });
+    } else {
+      dispatch(setToast('This file is not allowed', 'danger', dispatch));
+    }
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(clearProfile());
+    dispatch(updateProfile(user.username, profile, history));
+  };
+  return (
+    <EditProfileWithSpinner
+      isLoading={!user}
+      profile={profile}
+      handleChange={handleChange}
+      handleFileChange={handleFileChange}
+      handleSubmit={handleSubmit}
+
+    />
+  );
+};
+
+EditProfile.propTypes = {
+  profile: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleFileChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};
+
+export default EditProfileContainer;

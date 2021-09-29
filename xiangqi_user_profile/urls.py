@@ -2,6 +2,7 @@ from django.urls import path
 
 from .views import RetrieveProfile, SearchUser, LeaderBoard
 
+app_name = 'profile'
 urlpatterns = [
     path('leaderboard/', LeaderBoard.as_view(), name='get_leaderboard'),
     path('search/', SearchUser.as_view(), name='search_username'),

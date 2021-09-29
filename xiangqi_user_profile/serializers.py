@@ -20,9 +20,6 @@ class ProfileSerializer(ModelSerializer):
         fields = ['user', 'bio', 'rating', 'games_played_count', 'wins_count',
                   'losses_count', 'draw_count', 'winning_percentage', 'photo']
 
-    def get_winning_percentage(self, obj):
-        return int(obj.winning_percentage)
-
     def update(self, instance, validated_data):
         user = {}
         profile = {}
@@ -32,8 +29,9 @@ class ProfileSerializer(ModelSerializer):
                 user[field] = value
             elif field in PROFILE_FIELDS_UPDATE and Profile.field_exists(field) and value:
                 if field == 'photo':
-                    instance = Profile.objects.filter(user__username=instance.user.username).first()
-                    instance.photo.save(value.name, value)
+                    if not isinstance(value, str):
+                        instance = Profile.objects.filter(user__username=instance.user.username).first()
+                        instance.photo.save(value.name, value)
                     continue
                 profile[field] = value
 

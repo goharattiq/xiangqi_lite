@@ -9,7 +9,7 @@ from xiangqi_django.settings import SECRET_KEY
 from xiangqi_game.models import Game, Player
 from xiangqi_game.serializers import GameSerializer
 from xiangqi_user_profile.models import Profile
-from .constants import *
+import xiangqi_game.constants as constants
 
 sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
 app = socketio.ASGIApp(sio)
@@ -18,114 +18,122 @@ hashids = Hashids(SECRET_KEY, min_length=8)
 logger = logging.getLogger(__name__)
 
 
-@sio.on(CHAT_MESSAGE_SEND)
+@sio.on(constants.CHAT_MESSAGE_SEND)
 async def send_message(sid, data):
-    room_id, *_ = hashids.decode(data.get(GAME_ID))
+    room_id, *_ = hashids.decode(data.get(constants.GAME_ID))
 
-    await sio.emit(CHAT_MESSAGE_RECEIVED,
-                   data=data.get(MESSAGE),
+    await sio.emit(constants.CHAT_MESSAGE_RECEIVED,
+                   data=data.get(constants.MESSAGE),
                    room=str(room_id),
                    skip_sid=sid)
 
 
-@sio.on(GAME_MAKE_MOVE)
+@sio.on(constants.GAME_MAKE_MOVE)
 async def piece_move(sid, data):
-    room_id, *_ = hashids.decode(data.get(GAME_ID))
-    data[GAME_ID] = room_id
+    room_id, *_ = hashids.decode(data.get(constants.GAME_ID))
+    data[constants.GAME_ID] = room_id
     session = await sio.get_session(sid)
-    session_user = session.get(USER)
+    session_user = session.get(constants.USER)
     updated_game = await update_game(data, session_user)
-    await sio.emit(GAME_MOVE_SUCCESS,
+    await sio.emit(constants.GAME_MOVE_SUCCESS,
                    data={
-                       'move': data.get(MOVE),
-                       'playerTurn': updated_game.get(PLAYER_TURN),
-                       'player_1': updated_game.get(PLAYER_1),
-                       'player_2': updated_game.get(PLAYER_2),
+                       'move': data.get(constants.MOVE),
+                       'playerTurn': updated_game.get(constants.PLAYER_TURN),
+                       'player_1': updated_game.get(constants.PLAYER_1),
+                       'player_2': updated_game.get(constants.PLAYER_2),
                    },
-                   room=str(data.get(GAME_ID)),
+                   room=str(data.get(constants.GAME_ID)),
                    skip_sid=sid)
 
 
-@sio.on(GAME_CREATE)
+@sio.on(constants.GAME_CREATE)
 async def send_game_params(sid, game_params):
     instance = await create_game(game_params)
-    game_id, *_ = hashids.decode(instance.get(ID))
+    game_id, *_ = hashids.decode(instance.get(constants.ID))
 
     await join_room(sid, game_id)
 
     session = await sio.get_session(sid)
-    instance = await player_in_game(session.get(USER), JOIN_GAME, str(game_id))
-    await sio.emit(GAME_SUCCESSFULLY_CREATED, data=instance, room=str(game_id))
-    await sio.emit(NOTIFICATION_GAME_CREATED, data={
-        'gameID': instance.get(ID),
-        'creator': instance.get(PLAYER_1).get(PROFILE).get(USER).get(USERNAME),
-        'invitee': instance.get(PLAYER_2).get(PROFILE).get(USER).get(USERNAME)
+    instance = await player_in_game(session.get(constants.USER), constants.JOIN_GAME, str(game_id))
+    await sio.emit(constants.GAME_SUCCESSFULLY_CREATED, data=instance, room=str(game_id))
+    await sio.emit(constants.NOTIFICATION_GAME_CREATED, data={
+        'gameID': instance.get(constants.ID),
+        'creator': instance.get(constants.PLAYER_1).get(constants.PROFILE).get(constants.USER).get(constants.USERNAME),
+        'invitee': instance.get(constants.PLAYER_2).get(constants.PROFILE).get(constants.USER).get(constants.USERNAME)
     })
 
 
-@sio.on(GAME_ENTER)
+@sio.on(constants.GAME_ENTER)
 async def enter_game(sid, game_id):
     game_id, *_ = hashids.decode(game_id)
 
     session = await sio.get_session(sid)
-    user = session.get(USER)
-    instance = await player_in_game(user, JOIN_GAME, str(game_id))
-    if instance.get(PLAYER_2) is None and instance.get(PLAYER_1).get(PROFILE).get(USER).get(PK) != user.pk:
+    user = session.get(constants.USER)
+    instance = await player_in_game(user, constants.JOIN_GAME, str(game_id))
+    if instance.get(constants.PLAYER_2) is None and \
+            instance.get(constants.PLAYER_1).get(constants.PROFILE).get(constants.USER).get(constants.PK) != user.pk:
         await update_player_game(user, game_id)
-        instance = await player_in_game(user, JOIN_GAME, str(game_id))
+        instance = await player_in_game(user, constants.JOIN_GAME, str(game_id))
 
     sio.enter_room(sid, str(game_id))
 
-    if instance.get(PLAYER_1).get(PROFILE).get(USER).get(PK) == user.id \
-            or instance.get(PLAYER_2).get(PROFILE).get(USER).get(PK) == user.id:
-        await sio.emit(GAME_SEND_PARAMS, data=instance, room=str(game_id))
-        await sio.emit(NOTIFICATION_PLAYERS_READY, data={
-            'creator': instance.get(PLAYER_1).get(PROFILE).get(USER).get(USERNAME),
-            'invitee': instance.get(PLAYER_2).get(PROFILE).get(USER).get(USERNAME) if instance.get(PLAYER_2) else ''
+    if instance.get(constants.PLAYER_1).get(constants.PROFILE).get(constants.USER).get(constants.PK) == user.id \
+            or instance.get(constants.PLAYER_2).get(constants.PROFILE).get(constants.USER).get(constants.PK) == user.id:
+        await sio.emit(constants.GAME_SEND_PARAMS, data=instance, room=str(game_id))
+        await sio.emit(constants.NOTIFICATION_PLAYERS_READY, data={
+            'creator': instance.get(constants.PLAYER_1).get(constants.PROFILE).get(constants.USER).get(
+                constants.USERNAME),
+            'invitee': instance.get(constants.PLAYER_2).get(constants.PROFILE).get(constants.USER).get(
+                constants.USERNAME)
+            if instance.get(constants.PLAYER_2) else ''
         }, room=str(game_id), skip_sid=sid)
     else:
-        await sio.emit(GAME_SEND_PARAMS, to=sid, data=instance, room=str(game_id))
+        await sio.emit(constants.GAME_SEND_PARAMS, to=sid, data=instance, room=str(game_id))
 
 
-@sio.on(GAME_LEAVE)
+@sio.on(constants.GAME_LEAVE)
 async def leave_game(sid, game_id):
     if game_id is None:
         return
     game_id, *_ = hashids.decode(game_id)
     session = await sio.get_session(sid)
-    user = session.get(USER)
-    instance = await player_in_game(user, LEAVE_GAME, str(game_id))
+    user = session.get(constants.USER)
+    instance = await player_in_game(user, constants.LEAVE_GAME, str(game_id))
 
-    if instance.get(PLAYER_1).get(PROFILE).get(USER).get(PK) == user.id \
-            or instance.get(PLAYER_2).get(PROFILE).get(USER).get(PK) == user.id:
-        await sio.emit(GAME_SEND_PARAMS, data=instance, room=str(game_id), skip_sid=sid)
-        await sio.emit(NOTIFICATION_PLAYER_LEAVE, data={
-            'creator': instance.get(PLAYER_1).get(PROFILE).get(USER).get(USERNAME),
-            'invitee': instance.get(PLAYER_2).get(PROFILE).get(USER).get(USERNAME) if instance.get(PLAYER_2) else ''
+    if instance.get(constants.PLAYER_1).get(constants.PROFILE).get(constants.USER).get(constants.PK) == user.id \
+            or instance.get(constants.PLAYER_2).get(constants.PROFILE).get(constants.USER).get(constants.PK) == user.id:
+        await sio.emit(constants.GAME_SEND_PARAMS, data=instance, room=str(game_id), skip_sid=sid)
+        await sio.emit(constants.NOTIFICATION_PLAYER_LEAVE, data={
+            'creator': instance.get(constants.PLAYER_1).get(constants.PROFILE).get(constants.USER).get(
+                constants.USERNAME),
+            'invitee': instance.get(constants.PLAYER_2).get(constants.PROFILE).get(constants.USER).get(
+                constants.USERNAME)
+            if instance.get(constants.PLAYER_2) else ''
         }, room=str(game_id), skip_sid=sid)
     else:
-        await sio.emit(GAME_SEND_PARAMS, to=sid, data=instance, room=str(game_id))
+        await sio.emit(constants.GAME_SEND_PARAMS, to=sid, data=instance, room=str(game_id))
 
     sio.leave_room(sid, str(game_id))
 
 
-@sio.on(GAME_END)
+@sio.on(constants.GAME_END)
 async def end_game(sid, data):
-    room_id, *_ = hashids.decode(data.get(GAME_ID))
-    data[GAME_ID] = room_id
+    room_id, *_ = hashids.decode(data.get(constants.GAME_ID))
+    data[constants.GAME_ID] = room_id
 
     winner_username = await end_game_update(data)
-    await sio.emit(GAME_WINNER_ANNOUNCE, data=winner_username, room=str(data.get(GAME_ID)))
+    await sio.emit(constants.GAME_WINNER_ANNOUNCE, data=winner_username,
+                   room=str(data.get(constants.GAME_ID)))
 
 
-@sio.on(CONNECT)
+@sio.on(constants.CONNECT)
 async def connect(sid, environ):
-    if environ.get('asgi.scope').get(USER).is_anonymous:
+    if environ.get('asgi.scope').get(constants.USER).is_anonymous:
         return False
-    await sio.save_session(sid, {'user': environ.get('asgi.scope').get(USER)})
+    await sio.save_session(sid, {'user': environ.get('asgi.scope').get(constants.USER)})
 
 
-@sio.on(DISCONNECT)
+@sio.on(constants.DISCONNECT)
 def disconnect(sid):
     logger.info(f'{sid}, client disconnected')
 
@@ -155,7 +163,7 @@ def update_player_game(user, game_id):
         profile=user_invitee,
         is_connected=False,
         time=time,
-        side=BLACK if instance.player_1.side == RED else RED
+        side=constants.BLACK if instance.player_1.side == constants.RED else constants.RED
     )
 
     instance.player_2 = player_2
@@ -165,37 +173,39 @@ def update_player_game(user, game_id):
 
 @sync_to_async
 def create_game(game_params):
-    user_owner = Profile.objects.filter(user__username=game_params.get(PLAYER_1)).first()
-    user_invitee = Profile.objects.filter(user__username=game_params.get(PLAYER_2)).first()
+    user_owner = Profile.objects.filter(user__username=game_params.get(constants.constants.constants.PLAYER_1)).first()
+    user_invitee = Profile.objects.filter(
+        user__username=game_params.get(constants.constants.constants.PLAYER_2)).first()
 
     time = None
-    if game_params.get(GAME_TIMED) == TIMED:
+    if game_params.get(constants.constants.constants.GAME_TIMED) == constants.constants.constants.TIMED:
         time = {
-            'move_time': int(game_params.get(MOVE_TIME)),
-            'game_time': int(game_params.get(GAME_TIME)),
+            'move_time': int(game_params.get(constants.constants.constants.MOVE_TIME)),
+            'game_time': int(game_params.get(constants.constants.constants.GAME_TIME)),
         }
 
     player_1 = Player.objects.create(
         profile=user_owner,
         is_connected=False,
         time=time,
-        side=game_params.get(SIDE)
+        side=game_params.get(constants.constants.SIDE)
     )
 
     player_2 = Player.objects.create(
         profile=user_invitee,
         is_connected=False,
         time=time,
-        side=BLACK if game_params.get(SIDE) == RED else RED
+        side=constants.constants.BLACK if game_params.get(constants.constants.SIDE) == constants.constants.RED
+        else constants.constants.RED
     ) if user_invitee is not None else None
 
     game = Game.objects.create(
-        is_public=True if game_params.get(GAME_TYPE) == PUBLIC else False,
-        is_rated=True if game_params.get(GAME_RATED) == RATED else False,
-        is_timed=True if game_params.get(GAME_TIMED) == TIMED else False,
-        move_timer=game_params.get(MOVE_TIME),
-        game_timer=game_params.get(GAME_TIME),
-        game_board=game_params.get(GAME_BOARD),
+        is_public=True if game_params.get(constants.GAME_TYPE) == constants.PUBLIC else False,
+        is_rated=True if game_params.get(constants.GAME_RATED) == constants.RATED else False,
+        is_timed=True if game_params.get(constants.GAME_TIMED) == constants.TIMED else False,
+        move_timer=game_params.get(constants.MOVE_TIME),
+        game_timer=game_params.get(constants.GAME_TIME),
+        game_board=game_params.get(constants.GAME_BOARD),
         player_turn=user_owner.user.id,
         player_1=player_1,
         player_2=player_2,
@@ -205,24 +215,24 @@ def create_game(game_params):
 
 @sync_to_async
 def update_game(data, session_user):
-    instance = Game.objects.get(pk=data.get(GAME_ID))
+    instance = Game.objects.get(pk=data.get(constants.GAME_ID))
 
     hit_pieces = instance.hit_pieces
     history = instance.history
     player_turn = instance.player_turn
 
-    instance.game_board = data.get(GAME_BOARD)
+    instance.game_board = data.get(constants.GAME_BOARD)
 
     last_move = instance.last_move
-    time_taken = ((now() - last_move).total_seconds() + WAIT_TIME) / 60
+    time_taken = ((now() - last_move).total_seconds() + constants.WAIT_TIME) / 60
 
     instance.player_turn = instance.player_2.profile.user_id \
         if instance.player_1.profile.user_id == player_turn else instance.player_1.profile.user_id
 
-    hit_pieces.append(data.get(MOVE).get(HIT))
+    hit_pieces.append(data.get(constants.MOVE).get(constants.HIT))
     instance.hit_pieces = list(filter(None, hit_pieces))
 
-    history.append(data.get(MOVE))
+    history.append(data.get(constants.MOVE))
     instance.history = list(filter(None, history))
 
     if instance.is_timed and session_user.pk == instance.player_1.profile.user_id:
@@ -236,37 +246,35 @@ def update_game(data, session_user):
     instance.player_2.save()
     instance.save()
     instance = GameSerializer(instance).data
-    return {'player_turn': instance.get(PLAYER_TURN),
-            'player_1': instance.get(PLAYER_1),
-            'player_2': instance.get(PLAYER_2)}
+    return {'player_turn': instance.get(constants.PLAYER_TURN),
+            'player_1': instance.get(constants.PLAYER_1),
+            'player_2': instance.get(constants.PLAYER_2)}
 
 
 @sync_to_async
 def end_game_update(data):
-    player_1 = data.get(PLAYERS).get(PLAYER_1)
-    player_2 = data.get(PLAYERS).get(PLAYER_2)
-    looser = data.get(LOOSER)
-    points = 25 if data.get(TYPE) == END_TIME and data.get(IS_RATED) else 50 if data.get(IS_RATED) else 0
+    player_1 = data.get(constants.PLAYERS).get(constants.PLAYER_1)
+    player_2 = data.get(constants.PLAYERS).get(constants.PLAYER_2)
+    looser = data.get(constants.LOOSER)
+    points = 25 if data.get(constants.TYPE) == constants.END_TIME and data.get(constants.IS_RATED) else 50 if data.get(constants.IS_RATED) else 0
 
-    winning = player_1.get(PROFILE).get(USER).get(PK) if player_2.get(PROFILE).get(USER).get(PK) == looser \
-        else player_2.get(PROFILE).get(USER).get(PK)
+    winning = player_1.get(constants.PROFILE).get(constants.USER).get(constants.PK) if player_2.get(constants.PROFILE).get(constants.USER).get(constants.PK) == looser \
+        else player_2.get(constants.PROFILE).get(constants.USER).get(constants.PK)
 
     looser_instance = Profile.objects.filter(user_id=looser).first()
 
     looser_instance.games_played_count += 1
     looser_instance.losses_count += 1
     looser_instance.rating -= points
-    looser_instance.winning_percentage = looser_instance.wins_count / looser_instance.games_played_count * 100
     looser_instance.save()
 
     winning_instance = Profile.objects.filter(user_id=winning).first()
     winning_instance.games_played_count += 1
     winning_instance.wins_count += 1
     winning_instance.rating += points
-    winning_instance.winning_percentage = winning_instance.wins_count / winning_instance.games_played_count * 100
     winning_instance.save()
 
-    Game.objects.filter(pk=data.get(GAME_ID)).update(
+    Game.objects.filter(pk=data.get(constants.GAME_ID)).update(
         is_active=False,
         winner=winning_instance.user.username
     )
@@ -283,8 +291,8 @@ def player_in_game(user, type, game_id):
 
         last_move = instance.last_move
 
-        if type == LEAVE_GAME and both_players_connected(instance):
-            time_taken = ((now() - last_move).total_seconds() + WAIT_TIME) / 60
+        if type == constants.LEAVE_GAME and both_players_connected(instance):
+            time_taken = ((now() - last_move).total_seconds() + constants.WAIT_TIME) / 60
 
             if instance.is_timed and instance.player_turn == instance.player_1.profile.user_id:
                 instance.player_1.time['game_time'] -= time_taken
@@ -292,9 +300,9 @@ def player_in_game(user, type, game_id):
                 instance.player_2.time['game_time'] -= time_taken
 
         if instance.player_1.profile.user_id == user.id:
-            instance.player_1.is_connected = False if type == LEAVE_GAME else True
+            instance.player_1.is_connected = False if type == constants.LEAVE_GAME else True
         if instance.player_2 and instance.player_2.profile.user_id == user.id:
-            instance.player_2.is_connected = False if type == LEAVE_GAME else True
+            instance.player_2.is_connected = False if type == constants.LEAVE_GAME else True
 
         instance.last_move = now()
         instance.player_1.save()
