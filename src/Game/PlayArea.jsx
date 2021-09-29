@@ -47,7 +47,6 @@ const PlayArea = () => {
   const historyHandler = (pointer, isNext) => {
     if (pointer < history.length || (isNext && historyMode)) {
       dispatch(toggleHistoryMode(true));
-      // eslint-disable-next-line no-unused-expressions
       isNext ? dispatch(historyMoveForward(history[pointer - 1]))
         : dispatch(historyMoveBack(history[pointer]));
       if (pointer === history.length) {

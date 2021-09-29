@@ -9,7 +9,7 @@ const GameList = ({ type, games, username }) => {
   const getPlayerName = (playerName) => (playerName === username ? 'Me' : playerName);
   const history = useHistory();
   return (
-    <div className="row position-relative m-3 game">
+    <div className={`row position-relative m-3 game ${type === 'All Time' && 'justify-content-center'}`}>
       <h4 className="game-heading">{`My ${type} Games`}</h4>
       {
         games.length !== 0
@@ -22,7 +22,8 @@ const GameList = ({ type, games, username }) => {
             >
               <Link to={`/profile/${player_1.profile.user.username}`} className="profile-link">
                 <p className="text-center">
-                  {`${getPlayerName(player_1.profile.user.username)}(${player_1.profile.rating})`}
+                  {`${getPlayerName(player_1.profile.user.username)}(${player_1.profile.rating}) 
+                  ${!is_active && player_1.profile.user.username === winner ? 'winner' : ''}`}
                 </p>
               </Link>
 
@@ -32,7 +33,8 @@ const GameList = ({ type, games, username }) => {
                 player_2 ? (
                   <Link to={`/profile/${player_2.profile.user.username}`} className="profile-link">
                     <p className="text-center">
-                      {`${getPlayerName(player_2.profile.user.username)}(${player_2.profile.rating})`}
+                      {`${getPlayerName(player_2.profile.user.username)}(${player_2.profile.rating})
+                      ${!is_active && player_2.profile.user.username === winner ? 'winner' : ''}`}
                     </p>
                   </Link>
                 ) : (
@@ -41,7 +43,6 @@ const GameList = ({ type, games, username }) => {
                   </p>
                 )
               }
-
               <div className="d-flex justify-content-between">
                 <p>
                   {`${is_rated ? 'Rated' : 'Unrated'}`}
@@ -50,18 +51,6 @@ const GameList = ({ type, games, username }) => {
                   {`${is_timed ? `${move_timer}/${game_timer}` : '-'}`}
                 </p>
               </div>
-              {
-                !is_active && (
-                  <div className="d-flex justify-content-between">
-                    <p>
-                      <Link to={`/profile/${winner}`} className="profile-link">
-                        {`winner ${getPlayerName(winner)}`}
-                      </Link>
-                    </p>
-                  </div>
-                )
-              }
-
               <button
                 className="game-link"
                 type="button"

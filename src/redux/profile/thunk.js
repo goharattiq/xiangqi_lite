@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import axios from 'axios';
 
 import { GAME_BASE_PATH, PROFILE_BASE_PATH } from '../../utilis/constants';

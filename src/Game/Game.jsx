@@ -22,18 +22,14 @@ const Game = ({ isTablet }) => (
         <Chat />
       </div>
     </div>
-    {
-        isTablet ? (
-          <Button
-            className="custom-btn"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse-coloumn"
-          >
-            <i className="fas fa-comment" />
-          </Button>
-        ) : ''
-      }
+    <Button
+      className="custom-btn"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#collapse-coloumn"
+    >
+      <i className="fas fa-comment" />
+    </Button>
   </>
 );
 

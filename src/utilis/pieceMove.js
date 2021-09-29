@@ -108,7 +108,7 @@ export const advisorElephantMoves = (pieceName, indexLocation, expectedLocations
     && limitedMoves > 0) {
     location = movePiece(location, false);
     // eslint-disable-next-line no-unused-vars
-    Object.entries(location).forEach(([id, direct]) => {
+    Object.entries(location).forEach(([_, direct]) => {
       if ((isValidRange(direct.x, direct.y)) && !(board[direct.x][direct.y].piece
         && whichSide(board[direct.x][direct.y].piece.name) === whichSide(pieceName))) {
         if (PIECE_MAP[pieceName.toLowerCase()] === PIECE_MAP.e && (limitedMoves === 1)

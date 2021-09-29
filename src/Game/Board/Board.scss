@@ -78,197 +78,203 @@
 @media screen and (max-width: 992px) {
   .board {
     top: -42.23rem;
+
+    tr {
+      height: $screen-m;
+    }
+
+    td {
+      height: $screen-m;
+      width: $screen-m;
+    }
   }
 
   .board-background {
     top: -1.5rem;
-  }
 
-  tr {
-    height: $screen-m;
-  }
-
-  td {
-    height: $screen-m;
-    width: $screen-m;
-  }
-
-  rect {
-    width: $rect-width-m;
-    height: $rect-height-m;
-  }
-
-  $yaxis: $cell-heigth-m;
-  @for $i from 1 to 5 {
-    $xaxis: $cell-width-m;
-    @for $j from 1 to 9 {
-      #svg_#{$i}_#{$j} {
-        x: $xaxis;
-        y: $yaxis;
-      }
-      $xaxis: $xaxis + $rect-width-m;
+    rect {
+      width: $rect-width-m;
+      height: $rect-height-m;
     }
-    $yaxis: $yaxis + $rect-height-m;
-  }
 
-  $yaxis: $yaxis + 11%;
-  @for $i from 5 to 9 {
-    $xaxis: $cell-width-m;
-    @for $j from 1 to 9 {
-      #svg_#{$i}_#{$j} {
-        x: $xaxis;
-        y: $yaxis;
+    $yaxis: $cell-heigth-m;
+    @for $i from 1 to 5 {
+      $xaxis: $cell-width-m;
+      @for $j from 1 to 9 {
+        #svg_#{$i}_#{$j} {
+          x: $xaxis;
+          y: $yaxis;
+        }
+        $xaxis: $xaxis + $rect-width-m;
       }
-      $xaxis: $xaxis + $rect-width-m;
+      $yaxis: $yaxis + $rect-height-m;
     }
-    $yaxis: $yaxis + $rect-height-m;
-  }
-  #borad-heading {
-    transform: translate(150px, 280px);
-  }
-  #svg_s1,
-  #svg_s2 {
-    transform: translate(-13px, -11px) scale(0.89);
+
+    $yaxis: $yaxis + 11%;
+    @for $i from 5 to 9 {
+      $xaxis: $cell-width-m;
+      @for $j from 1 to 9 {
+        #svg_#{$i}_#{$j} {
+          x: $xaxis;
+          y: $yaxis;
+        }
+        $xaxis: $xaxis + $rect-width-m;
+      }
+      $yaxis: $yaxis + $rect-height-m;
+    }
+    #borad-heading {
+      transform: translate(150px, 280px);
+    }
+    #svg_s1,
+    #svg_s2 {
+      transform: translate(-13px, -11px) scale(0.89);
+    }
+
+    #svg_s3,
+    #svg_s4 {
+      transform: translate(-13px, -59px) scale(0.89);
+    }
   }
 
-  #svg_s3,
-  #svg_s4 {
-    transform: translate(-13px, -59px) scale(0.89);
-  }
-}
+  @media screen and (max-width: 540px) {
+    .board-background {
+      width: 460px;
+      transform: translate(-55%, 0);
 
-@media screen and (max-width: 540px) {
-  .board-background {
-    width: 460px;
-    transform: translate(-55%, 0);
-  }
-  #borad-heading {
-    transform: translate(120px, 280px);
+      #borad-heading {
+        transform: translate(120px, 280px);
+      }
+    }
   }
 }
 
 @media screen and (max-width: 500px) {
+  .board {
+    tr {
+      height: $screen-sm;
+    }
+
+    td {
+      height: $screen-sm;
+      width: $screen-sm;
+    }
+  }
+
   .board-background {
     width: 430px;
     transform: translate(-50%, 1%);
-  }
 
-  tr {
-    height: $screen-sm;
-  }
-
-  td {
-    height: $screen-sm;
-    width: $screen-sm;
-  }
-
-  rect {
-    width: $rect-width-sm;
-    height: $rect-height-sm;
-  }
-
-  $yaxis: $cell-heigth-sm;
-  @for $i from 1 to 5 {
-    $xaxis: $cell-width-sm;
-    @for $j from 1 to 9 {
-      #svg_#{$i}_#{$j} {
-        x: $xaxis;
-        y: $yaxis;
-      }
-      $xaxis: $xaxis + $rect-width-sm;
+    rect {
+      width: $rect-width-sm;
+      height: $rect-height-sm;
     }
-    $yaxis: $yaxis + $rect-height-sm;
-  }
 
-  $yaxis: $yaxis + 9.5%;
-  @for $i from 5 to 9 {
-    $xaxis: $cell-width-sm;
-    @for $j from 1 to 9 {
-      #svg_#{$i}_#{$j} {
-        x: $xaxis;
-        y: $yaxis;
+    $yaxis: $cell-heigth-sm;
+    @for $i from 1 to 5 {
+      $xaxis: $cell-width-sm;
+      @for $j from 1 to 9 {
+        #svg_#{$i}_#{$j} {
+          x: $xaxis;
+          y: $yaxis;
+        }
+        $xaxis: $xaxis + $rect-width-sm;
       }
-      $xaxis: $xaxis + $rect-width-sm;
+      $yaxis: $yaxis + $rect-height-sm;
     }
-    $yaxis: $yaxis + $rect-height-sm;
-  }
-  #borad-heading {
-    transform: translate(90px, 225px);
-  }
-  #svg_s1,
-  #svg_s2 {
-    transform: translate(7px, -6px) scale(0.68);
+
+    $yaxis: $yaxis + 9.5%;
+    @for $i from 5 to 9 {
+      $xaxis: $cell-width-sm;
+      @for $j from 1 to 9 {
+        #svg_#{$i}_#{$j} {
+          x: $xaxis;
+          y: $yaxis;
+        }
+        $xaxis: $xaxis + $rect-width-sm;
+      }
+      $yaxis: $yaxis + $rect-height-sm;
+    }
+    #borad-heading {
+      transform: translate(90px, 225px);
+    }
+    #svg_s1,
+    #svg_s2 {
+      transform: translate(7px, -6px) scale(0.68);
+    }
+
+    #svg_s3,
+    #svg_s4 {
+      transform: translate(7px, -26px) scale(0.68);
+    }
   }
 
-  #svg_s3,
-  #svg_s4 {
-    transform: translate(7px, -26px) scale(0.68);
-  }
-}
-
-@media screen and (max-width: 430px) {
-  .board-background {
-    width: 376px;
-    transform: translate(-57%, 1%);
+  @media screen and (max-width: 430px) {
+    .board-background {
+      width: 376px;
+      transform: translate(-57%, 1%);
+    }
   }
 }
 
 @media screen and (max-width: 380px) {
+  .board {
+    tr {
+      height: $screen-xsm;
+    }
+
+    td {
+      height: $screen-xsm;
+      width: $screen-xsm;
+    }
+  }
+
   .board-background {
     width: 310px;
-  }
-  tr {
-    height: $screen-xsm;
-  }
 
-  td {
-    height: $screen-xsm;
-    width: $screen-xsm;
-  }
-
-  rect {
-    width: $rect-width-xsm;
-    height: $rect-height-xsm;
-  }
-
-  $yaxis: $cell-heigth-xsm;
-  @for $i from 1 to 5 {
-    $xaxis: $cell-width-xsm;
-    @for $j from 1 to 9 {
-      #svg_#{$i}_#{$j} {
-        x: $xaxis;
-        y: $yaxis;
-      }
-      $xaxis: $xaxis + $rect-width-xsm;
+    rect {
+      width: $rect-width-xsm;
+      height: $rect-height-xsm;
     }
-    $yaxis: $yaxis + $rect-height-xsm;
-  }
 
-  $yaxis: $yaxis + 8.5%;
-  @for $i from 5 to 9 {
-    $xaxis: $cell-width-xsm;
-    @for $j from 1 to 9 {
-      #svg_#{$i}_#{$j} {
-        x: $xaxis;
-        y: $yaxis;
+    $yaxis: $cell-heigth-xsm;
+    @for $i from 1 to 5 {
+      $xaxis: $cell-width-xsm;
+      @for $j from 1 to 9 {
+        #svg_#{$i}_#{$j} {
+          x: $xaxis;
+          y: $yaxis;
+        }
+        $xaxis: $xaxis + $rect-width-xsm;
       }
-      $xaxis: $xaxis + $rect-width-xsm;
+      $yaxis: $yaxis + $rect-height-xsm;
     }
-    $yaxis: $yaxis + $rect-height-xsm;
-  }
 
-  #borad-heading {
-    transform: translate(90px, 180px) scale(0.6);
-  }
+    $yaxis: $yaxis + 8.5%;
+    @for $i from 5 to 9 {
+      $xaxis: $cell-width-xsm;
+      @for $j from 1 to 9 {
+        #svg_#{$i}_#{$j} {
+          x: $xaxis;
+          y: $yaxis;
+        }
+        $xaxis: $xaxis + $rect-width-xsm;
+      }
+      $yaxis: $yaxis + $rect-height-xsm;
+    }
 
-  #svg_s1,
-  #svg_s2 {
-    transform: translate(29px, 5px) scale(0.49);
-  }
+    #borad-heading {
+      transform: translate(90px, 180px) scale(0.6);
+    }
 
-  #svg_s3,
-  #svg_s4 {
-    transform: translate(29px, -3px) scale(0.49);
+    #svg_s1,
+    #svg_s2 {
+      transform: translate(29px, 5px) scale(0.49);
+    }
+
+    #svg_s3,
+    #svg_s4 {
+      transform: translate(29px, -3px) scale(0.49);
+    }
   }
 }
 

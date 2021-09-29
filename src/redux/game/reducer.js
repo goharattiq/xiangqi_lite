@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-nested-ternary */
-/* eslint-disable no-case-declarations */
 import { getHintMoves } from '../../utilis/game';
 import {
   CLEAR_HINT_MOVE,

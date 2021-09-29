@@ -32,7 +32,6 @@ const Timer = ({
       if (!isPause && (moveInterval === 0 || gameInterval === 0)) {
         pauseTimer(timeInterval);
         if (gameParams.player_turn === userID) {
-        // eslint-disable-next-line camelcase
           const { player_1, player_2 } = gameParams;
           socketEndGame(gameParams.id, {
             player_1,

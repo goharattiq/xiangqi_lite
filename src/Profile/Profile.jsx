@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useCallback, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
@@ -18,7 +17,7 @@ import './Profile.scss';
 const Profile = ({
   userFullName, user, statList, games, photo, bio, isSessionUser,
 }) => (
-  <Container className="bg-white w-75 mt-5 pb-5 rounded-3">
+  <Container className="bg-white w-75 mt-3 pb-5 rounded-3">
     <>
       <Avatar name={user.username} src={photo} size={200} className="profile-avatar m-3" color="#815752" />
       <div className="d-inline-flex flex-column user-detail ms-5">
@@ -35,7 +34,7 @@ const Profile = ({
         }
       </div>
     </>
-    <ul className="list-group list-group-horizontal position-relative start-50 mt-5 mb-3 user-stats">
+    <ul className="list-group position-relative start-50 mt-5 mb-3 user-stats">
       {
           statList.map((state) => (
             <li key={state.name} className="list-group-item score m-2">
