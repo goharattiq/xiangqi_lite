@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 
 import { Draggable, Droppable } from 'react-beautiful-dnd';
@@ -42,24 +39,33 @@ const Row = ({
     && (playerOne.is_connected && playerTwo.is_connected);
 
   const getCoords = (str) => {
-    const newStr = str.slice(11, str.length - 1);
+    const newStr = str.slice(10, str.length - 1);
     return newStr.split(',');
   };
   const getStyle = (style, snapshot) => {
+    const x = `${-50}%`;
+    const y = `${8.4}rem`;
+    let coords;
     if (!snapshot.isDropAnimating) {
       if (!style.transform) {
         return style;
       }
-      const coords = getCoords(style.transform);
+      coords = getCoords(style.transform);
+      const calcX = `calc(${coords[0]} - ${x})`;
+      const calcY = `calc(${coords[1].trim()} - ${y})`;
       return {
         ...style,
-        transform: `translate(${-1 * parseInt(coords[0], 10) - 100}px, ${parseInt(coords[1], 10) - 150}px)`,
+        left: '50%',
+        transform: `translate(${calcX}, ${calcY})`,
       };
     }
     const { moveTo } = snapshot.dropAnimation;
-    const translate = `translate(${moveTo.x - 100}px, ${moveTo.y - 150}px)`;
+    const moveCalcX = `calc(${moveTo.x}px - ${x})`;
+    const moveCalcY = `calc(${moveTo.y}px - ${y})`;
+    const translate = `translate(${moveCalcX}, ${moveCalcY})`;
     return {
       ...style,
+      left: '50%',
       transform: `${translate}`,
     };
   };
