@@ -9,9 +9,19 @@ class Profile(models.Model):
     games_played_count = models.FloatField(default=0)
     wins_count = models.IntegerField(default=0)
     losses_count = models.IntegerField(default=0)
-    draw_count = models.IntegerField(default=0)
-    winning_percentage = models.FloatField(default=0)
-    photo = models.ImageField(upload_to='media/images/', null=True, blank=True)
+    photo = models.ImageField(upload_to='media/images/', null=True)
+
+    @property
+    def draw_count(self):
+        return self.games_played_count - self.wins_count - self.losses_count
+
+    @property
+    def winning_percentage(self):
+        try:
+            percentage = self.wins_count / self.games_played_count * 100
+        except ZeroDivisionError:
+            percentage = 0
+        return int(percentage)
 
     def __str__(self):
         return self.user.username
