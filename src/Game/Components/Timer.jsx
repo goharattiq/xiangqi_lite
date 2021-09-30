@@ -44,6 +44,7 @@ const Timer = ({
       if (isPause) {
         setTimer({
           ...timer,
+          gameInterval: game_time * 60,
           moveInterval: move_time < game_time ? move_time * 60 : game_time * 60,
         });
         pauseTimer(timeInterval);
@@ -54,11 +55,12 @@ const Timer = ({
         pauseTimer(timeInterval);
       }
     };
-  }, [moveInterval, isPause, move_time]);
+  }, [moveInterval, isPause, move_time, game_time]);
   useEffect(() => {
     setTimer({
       ...timer,
       gameInterval: game_time * 60,
+      moveInterval: move_time < game_time ? move_time * 60 : game_time * 60,
     });
   }, [game_time]);
 

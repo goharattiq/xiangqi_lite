@@ -67,7 +67,7 @@ const PlayArea = () => {
     ? gameParams.player_1 : gameParams.player_2);
   let blackPlayer = gameParams && (gameParams.player_1.side === BLACK
     ? gameParams.player_1 : gameParams.player_2);
-  const isRotated = redPlayer && user.pk === redPlayer.profile.user.pk;
+  const isRotated = !!(redPlayer && user.pk === redPlayer.profile.user.pk);
   if (isRotated) {
     [blackPlayer, redPlayer] = [redPlayer, blackPlayer];
     [blackHitPieces, redHitPieces] = [redHitPieces, blackHitPieces];

@@ -60,6 +60,7 @@ async def send_game_params(sid, game_params):
         'gameID': instance.get(constants.ID),
         'creator': instance.get(constants.PLAYER_1).get(constants.PROFILE).get(constants.USER).get(constants.USERNAME),
         'invitee': instance.get(constants.PLAYER_2).get(constants.PROFILE).get(constants.USER).get(constants.USERNAME)
+            if instance.get(constants.PLAYER_2) else None
     })
 
 
@@ -173,30 +174,30 @@ def update_player_game(user, game_id):
 
 @sync_to_async
 def create_game(game_params):
-    user_owner = Profile.objects.filter(user__username=game_params.get(constants.constants.constants.PLAYER_1)).first()
+    user_owner = Profile.objects.filter(user__username=game_params.get(constants.PLAYER_1)).first()
     user_invitee = Profile.objects.filter(
-        user__username=game_params.get(constants.constants.constants.PLAYER_2)).first()
+        user__username=game_params.get(constants.PLAYER_2)).first()
 
     time = None
-    if game_params.get(constants.constants.constants.GAME_TIMED) == constants.constants.constants.TIMED:
+    if game_params.get(constants.GAME_TIMED) == constants.TIMED:
         time = {
-            'move_time': int(game_params.get(constants.constants.constants.MOVE_TIME)),
-            'game_time': int(game_params.get(constants.constants.constants.GAME_TIME)),
+            'move_time': int(game_params.get(constants.MOVE_TIME)),
+            'game_time': int(game_params.get(constants.GAME_TIME)),
         }
 
     player_1 = Player.objects.create(
         profile=user_owner,
         is_connected=False,
         time=time,
-        side=game_params.get(constants.constants.SIDE)
+        side=game_params.get(constants.SIDE)
     )
 
     player_2 = Player.objects.create(
         profile=user_invitee,
         is_connected=False,
         time=time,
-        side=constants.constants.BLACK if game_params.get(constants.constants.SIDE) == constants.constants.RED
-        else constants.constants.RED
+        side=constants.BLACK if game_params.get(constants.SIDE) == constants.RED
+        else constants.RED
     ) if user_invitee is not None else None
 
     game = Game.objects.create(
