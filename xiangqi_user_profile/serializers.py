@@ -34,7 +34,6 @@ class ProfileUpdateSerializer(ModelSerializer):
     def update(self, instance, validated_data, photo):
         user = {}
         profile = {}
-        print(photo)
         for field in validated_data:
             value = validated_data.get(field)
             if field in USER_FIELDS_UPDATE and value:
