@@ -8,7 +8,7 @@ from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_202_ACCEPTED
 
 from .models import Profile
 from .permissions import CustomRetrieveProfilePermission
-from .serializers import ProfileSerializer, UserSearchSerializer
+from .serializers import ProfileSerializer, UserSearchSerializer, ProfileUpdateSerializer
 
 
 class RetrieveProfile(RetrieveUpdateAPIView):
@@ -20,10 +20,12 @@ class RetrieveProfile(RetrieveUpdateAPIView):
 
     def update(self, request, *args, **kwargs):
         instance = Profile.objects.get(user__username=self.kwargs['username'])
-        if ProfileSerializer().update(instance, validated_data=request.data):
+        serializer = ProfileUpdateSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.update(instance=instance, validated_data=serializer.data, photo=request.data.get('photo'))
             return HttpResponse(status=HTTP_202_ACCEPTED)
-        else:
-            return HttpResponse(status=HTTP_204_NO_CONTENT)
+
+        return HttpResponse(status=HTTP_204_NO_CONTENT)
 
 
 class SearchUser(ListAPIView):

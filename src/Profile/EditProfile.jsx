@@ -107,6 +107,9 @@ const EditProfileContainer = () => {
   });
   const {
     photo,
+    bio,
+    first_name,
+    last_name,
   } = profile;
 
   useEffect(() => {
@@ -152,7 +155,16 @@ const EditProfileContainer = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(clearProfile());
-    dispatch(updateProfile(user.username, profile, history));
+    dispatch(updateProfile(user.username, typeof (photo) === 'string' ? {
+      bio,
+      first_name,
+      last_name,
+    } : {
+      bio,
+      first_name,
+      last_name,
+      photo,
+    }, history));
   };
   return (
     <EditProfileWithSpinner
