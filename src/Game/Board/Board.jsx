@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import spin from 'spinatrix';
 
 import { hintMove, pieceMove, clearHintMove } from '../../redux/game/actions';
+import { setToast } from '../../redux/toast/actions';
 import hitAudio from '../../static/audio/hit.ogg';
 import moveAudio from '../../static/audio/move.ogg';
 import { ReactComponent as Background } from '../../static/img/background/board.svg';
@@ -21,8 +22,10 @@ const Board = ({ historyMode, isRotate }) => {
     pieceId: null,
   });
   const dispatch = useDispatch();
-  let { board } = useSelector(({ game }) => ({
+  // eslint-disable-next-line prefer-const
+  let { board, inCheck } = useSelector(({ game }) => ({
     board: game.board,
+    inCheck: game.inCheck,
   }));
   const onDragUpdate = (expectedMove) => {
     if (!expectedMove.destination) return;
@@ -53,7 +56,11 @@ const Board = ({ historyMode, isRotate }) => {
       setSelectedPiece({ pieceName, location, pieceId });
     }
   };
-
+  useEffect(() => {
+    if (inCheck) {
+      dispatch(setToast('You are in Check', 'danger', dispatch));
+    }
+  }, [inCheck]);
   if (isRotate) {
     board = spin.x180(board);
   }

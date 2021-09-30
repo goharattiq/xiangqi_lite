@@ -1,13 +1,15 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-mixed-operators */
 import { socketSendMoves, socketEndGame } from '../../socketio/gameSocketio';
 import {
   GAME_RATED, GAME_TIMED, GAME_TIMER, GAME_TYPE, SIDE,
 } from '../../utilis/constants';
-import { isValidMove } from '../../utilis/game';
+import { inCheck, isValidMove } from '../../utilis/game';
 import { matrixPosition, whichSide } from '../../utilis/pieceMove';
 import { HISTORY_MOVE_BACK } from './type';
 
 export const onPieceMove = (move, previousState, history, fromSockets) => {
+  let checked = false;
   const {
     board, hints, params, historyMode,
   } = previousState;
@@ -27,7 +29,7 @@ export const onPieceMove = (move, previousState, history, fromSockets) => {
 
   if (historyMode && fromSockets) {
     return {
-      board, hitPiece: move.hit, history: move, turnChanged: true,
+      board, hitPiece: move.hit, history: move, turnChanged: true, inCheck: checked,
     };
   }
 
@@ -59,12 +61,19 @@ export const onPieceMove = (move, previousState, history, fromSockets) => {
         ? player_1.profile.user.pk : player_2.profile.user.pk;
       socketEndGame(params.id, { player_1, player_2 }, looser, 'KING_DIED', params.is_rated);
     }
+    if (fromSockets) {
+      checked = inCheck(board, whichSide(board[destI][destJ].piece.name));
+      // if (checked) {
+      //   // inCheckMate(board, checked);
+      //   // console.log('IN CHEKCED');
+      // }
+    }
     return {
-      board, hitPiece, history: move, turnChanged: true,
+      board, hitPiece, history: move, turnChanged: true, inCheck: checked,
     };
   }
   return {
-    board, hitPiece: null, history: null, turnChanged: false,
+    board, hitPiece: null, history: null, turnChanged: false, inCheck: checked,
   };
 };
 

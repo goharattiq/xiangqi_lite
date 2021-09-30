@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-param-reassign */
 import {
-  numCols, PIECE_MAP, numRows, RED,
+  numCols, PIECE_MAP, numRows, RED, BLACK,
 } from './constants';
 import {
   cannonMoves,
@@ -39,6 +40,64 @@ export const initMatrix = (row, col) => {
 export const isValidMove = (move, hints) => {
   const cellLocation = move.destination.droppableId.split('-')[1];
   return hints.includes(parseInt(cellLocation, 10));
+};
+
+export const inCheck = (board, side) => {
+  const pieces = avaiablePieces(board)[side];
+  let checked = false;
+  Object.keys(pieces).forEach((key) => {
+    const nextPossibleMoves = getHintMoves(pieces[key].name, key, board);
+    nextPossibleMoves.forEach((nextMoveLocatoion) => {
+      const [x, y] = matrixPosition(nextMoveLocatoion);
+      if (board[x][y].piece && PIECE_MAP[board[x][y].piece.name.toLowerCase()] === PIECE_MAP.k) {
+        checked = {
+          side: whichSide(board[x][y].piece.name),
+          who: {
+            locaton: nextMoveLocatoion,
+            piece: board[x][y].piece,
+          },
+          byWhom: {
+            location: key,
+            piece: pieces[key],
+          },
+        };
+      }
+    });
+  });
+  return checked;
+};
+// export const inCheckMate = (board, checked) => {
+//   // can move other place,
+//   // (pieceName, location, board)
+//   if (getHintMoves(checked.who.piece.name, checked.who.locaton, board).length) {
+//     return false;
+//   }
+//   // other piece block
+//   // other piece hit
+//   // console.log(avaiablePieces(board, side));
+//   { const pieces = avaiablePieces(board)[checked.side]; }
+
+//   console.log(checked);
+//   return false;
+// };
+
+export const avaiablePieces = (board) => {
+  const redPieces = {};
+  const blackPieces = {};
+  for (let i = 0; i < numRows; i++) {
+    for (let j = 0; j < numCols; j++) {
+      const cell = board[i][j];
+      if (cell.piece && whichSide(cell.piece.name) === RED) {
+        redPieces[cell.id] = cell.piece;
+      } else if (cell.piece && whichSide(cell.piece.name) === BLACK) {
+        blackPieces[cell.id] = cell.piece;
+      }
+    }
+  }
+  return {
+    [RED]: redPieces,
+    [BLACK]: blackPieces,
+  };
 };
 
 export const setPiecePositions = (board) => {

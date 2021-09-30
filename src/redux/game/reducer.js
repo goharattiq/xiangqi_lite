@@ -27,6 +27,7 @@ const initialState = {
   winner: null,
   waitTime: false,
   historyMode: false,
+  inCheck: false,
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -42,7 +43,7 @@ const gameReducer = (state = initialState, action) => {
       };
     case PIECE_MOVE:
       const {
-        board, hitPiece, history, turnChanged,
+        board, hitPiece, history, turnChanged, inCheck,
       } = onPieceMove(
         payload.move, state, { mode: false }, payload.fromSockets,
       );
@@ -65,6 +66,7 @@ const gameReducer = (state = initialState, action) => {
               ? player_1.profile.user.pk : state.params.player_turn,
 
         },
+        inCheck,
       };
     case HINT_MOVE:
       const { pieceName, location } = payload;

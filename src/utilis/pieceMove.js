@@ -61,10 +61,10 @@ export const cannonMoves = (pieceName, indexLocation, expectedLocations, board) 
   const [sourceI, sourceJ] = matrixPosition(indexLocation);
   let location = setInitalPosition(sourceI, sourceJ);
   const directionJump = {
-    [UP]: true,
-    [DOWN]: true,
-    [RIGHT]: true,
-    [LEFT]: true,
+    [UP]: 0,
+    [DOWN]: 0,
+    [RIGHT]: 0,
+    [LEFT]: 0,
   };
   const hit = {
     [UP]: false,
@@ -77,11 +77,11 @@ export const cannonMoves = (pieceName, indexLocation, expectedLocations, board) 
     Object.entries(location).forEach(([id, direct]) => {
       if (isValidRange(direct.x, direct.y)) {
         // can landed empty cell before jump
-        if (directionJump[id] && location[id] && !board[direct.x][direct.y].piece) {
+        if (!directionJump[id] && location[id] && !board[direct.x][direct.y].piece) {
           expectedLocations.push(indexPosition(direct.x, direct.y));
         }
         // cannot hit direct and if jump than cannot landed if jump can only hit once
-        if (!directionJump[id] && location[id] && (board[direct.x][direct.y].piece
+        if (directionJump[id] === 1 && location[id] && (board[direct.x][direct.y].piece
           && whichSide(board[direct.x][direct.y].piece.name) !== whichSide(pieceName))
           && !hit[id]) {
           expectedLocations.push(indexPosition(direct.x, direct.y));
@@ -89,7 +89,7 @@ export const cannonMoves = (pieceName, indexLocation, expectedLocations, board) 
         }
         // if any piece than can jump
         if (board[direct.x][direct.y].piece) {
-          directionJump[id] = false;
+          directionJump[id] += 1;
         }
       } else {
         location[id] = false;
