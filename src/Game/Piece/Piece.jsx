@@ -12,15 +12,17 @@ import './Piece.scss';
 const Piece = ({
   name, id, hitStyle,
 }) => {
-  const selectPiece = {
-    p: <Pawn className="piece-svg" />,
-    r: <Chariot className="piece-svg" />,
-    h: <Horse className="piece-svg" />,
-    e: <Elephant className="piece-svg" />,
-    a: <Advisor className="piece-svg" />,
-    k: <King className="piece-svg" />,
-    c: <Cannon className="piece-svg" />,
+  const pieceMap = {
+    p: Pawn,
+    r: Chariot,
+    h: Horse,
+    e: Elephant,
+    a: Advisor,
+    k: King,
+    c: Cannon,
   };
+  const key = name.toLowerCase();
+  const SelectedPiece = pieceMap[key];
   return (
     <div
       className="piece"
@@ -28,7 +30,7 @@ const Piece = ({
       style={hitStyle}
     >
       <img src={whichSide(name) === RED ? red : black} alt="Piece Background" />
-      {selectPiece[name.toLowerCase()]}
+      <SelectedPiece className="piece-svg" />
       <span className="piece-name">{PIECE_MAP[name.toLowerCase()]}</span>
     </div>
   );

@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 from xiangqi_user_profile.models import Profile
 
+
 class TestView(APITestCase):
     @classmethod
     def setUpTestData(cls):
@@ -35,7 +36,7 @@ class TestView(APITestCase):
 
     def test_search_username(self):
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token.access_token}')
-        response = self.client.get(self.search_username_url,**{'QUERY_STRING': 'username=test2'})
+        response = self.client.get(self.search_username_url, **{'QUERY_STRING': 'username=test2'})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data[0]['username'], 'test2')
 
@@ -67,11 +68,11 @@ class TestView(APITestCase):
     def test_put_session_user_profile_without_data(self):
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token.access_token}')
         response = self.client.put(self.session_user_profile_url)
-        self.assertEqual(response.status_code, 204)
+        self.assertEqual(response.status_code, 400)
 
     def test_put_other_user_profile(self):
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token.access_token}')
-        response = self.client.put(self.other_user_profile_url,{
+        response = self.client.put(self.other_user_profile_url, {
             'bio': 'Hello Man',
             'last_name': 'khan'
         })
@@ -79,7 +80,7 @@ class TestView(APITestCase):
 
     def test_put_user_profile_notfound(self):
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token.access_token}')
-        response = self.client.put(self.user_profile_notfound_url,{
+        response = self.client.put(self.user_profile_notfound_url, {
             'bio': 'Hello Man',
             'last_name': 'khan'
         })

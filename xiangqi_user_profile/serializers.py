@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from rest_framework.serializers import ModelSerializer, CharField
+from rest_framework.serializers import ModelSerializer, CharField, ValidationError
 
 from .constants import USER_FIELDS_UPDATE, PROFILE_FIELDS_UPDATE
 from .models import Profile
@@ -31,7 +31,12 @@ class ProfileUpdateSerializer(ModelSerializer):
         model = Profile
         fields = ['bio', 'photo', 'first_name', 'last_name']
 
-    def update(self, instance, validated_data, photo):
+    def validate(self, data):
+        if not len(data.keys()):
+            raise ValidationError({"empty object": "There is nothing to update"})
+        return data
+
+    def update(self, instance, validated_data, photo=None):
         user = {}
         profile = {}
         for field in validated_data:
