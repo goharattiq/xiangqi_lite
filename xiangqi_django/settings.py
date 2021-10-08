@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'channels',
     'storages',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
