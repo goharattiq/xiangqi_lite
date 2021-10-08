@@ -26,11 +26,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('dj_rest_auth.urls')),
     path('api/auth/signup/', include('dj_rest_auth.registration.urls')),
-    path('api/profile/', include('xiangqi_user_profile.urls', namespace='profile')),
-    path('api/game/', include('xiangqi_game.urls', namespace='game')),
+    path('api/profile/', include('apps.user_profile.urls', namespace='profile')),
+    path('api/game/', include('apps.game.urls', namespace='game')),
+
+    re_path('(^(?!(api|admin|media|swagger)).*$)', index, name='index'),
+
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    re_path('(^(?!(api|admin|media|swagger)).*$)', index, name='index'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,

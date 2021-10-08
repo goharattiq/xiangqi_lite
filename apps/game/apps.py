@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class GameConfig(AppConfig):
-    name = 'xiangqi_game'
+    name = 'apps.game'

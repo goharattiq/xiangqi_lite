@@ -1,8 +1,8 @@
 from hashids import Hashids
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
-from xiangqi_user_profile.serializers import ProfileGameSerializer
-from xiangqi_django.settings import SECRET_KEY
+from apps.user_profile.serializers import ProfileGameSerializer
+from xiangqi_lite.settings import SECRET_KEY
 from .models import Game, Player
 
 hashids = Hashids(SECRET_KEY, min_length=8)

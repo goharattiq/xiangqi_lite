@@ -4,7 +4,6 @@ from rest_framework.test import APITestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
-from xiangqi_user_profile.models import Profile
 
 
 class TestView(APITestCase):

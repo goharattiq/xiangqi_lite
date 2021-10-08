@@ -1,12 +1,12 @@
 from channels.routing import ProtocolTypeRouter, URLRouter
 
-import xiangqi_game.routing
-from xiangqi_django.middleware import TokenAuthMiddlewareStack
+import apps.game.routing
+from xiangqi_lite.middleware import TokenAuthMiddlewareStack
 
 application = ProtocolTypeRouter({
     "websocket": TokenAuthMiddlewareStack(
         URLRouter(
-            xiangqi_game.routing.websocket_urlpatterns
+            apps.game.routing.websocket_urlpatterns
         ),
     ),
 

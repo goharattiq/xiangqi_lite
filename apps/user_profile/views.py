@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import HttpResponse
-from rest_framework.generics import RetrieveUpdateAPIView, ListAPIView
-from rest_framework.generics import get_object_or_404
+from rest_framework.generics import get_object_or_404, RetrieveUpdateAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_202_ACCEPTED
 

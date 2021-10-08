@@ -5,11 +5,11 @@ from asgiref.sync import sync_to_async
 from django.utils.timezone import now
 from hashids import Hashids
 
-from xiangqi_django.settings import SECRET_KEY
-from xiangqi_game.models import Game, Player
-from xiangqi_game.serializers import GameSerializer
-from xiangqi_user_profile.models import Profile
-import xiangqi_game.constants as constants
+from xiangqi_lite.settings import SECRET_KEY
+from apps.game.models import Game, Player
+from apps.game.serializers import GameSerializer
+from apps.user_profile.models import Profile
+import apps.game.constants as constants
 
 sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
 app = socketio.ASGIApp(sio)
