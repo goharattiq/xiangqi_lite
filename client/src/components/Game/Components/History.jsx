@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
-import './History.scss';
+import './styles/History.scss';
 
 const History = ({ history, clickHandler, historyMode }) => {
   const [historyManager, setHistoryManager] = useState({

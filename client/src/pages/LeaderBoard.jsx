@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { LeaderCard } from '../components/Leaderboard';
+import Spinner from '../components/shared/Spinner';
 import { fetechLeaders } from '../redux/leaderboard/thunk';
-import Spinner from '../shared/Spinner';
 import { BACKGROUND } from '../utilis/constants';
-import './LeaderBoard.scss';
+import './styles/LeaderBoard.scss';
 
 const LeaderBoard = ({ leaders }) => (
   <div className="row justify-content-center w-100 leaderboard">

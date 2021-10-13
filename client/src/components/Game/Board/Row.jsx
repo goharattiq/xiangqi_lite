@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { whichSide } from '../../../utilis/pieceMove';
 import Spot from '../Components/Spot';
 import { Piece } from '../Piece';
-import './Row.scss';
+import './styles/Row.scss';
 
 const Row = ({
   row, clickHandler, selectedPiece,

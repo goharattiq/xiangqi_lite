@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { GameParams } from '../Lobby';
+import { GameParams } from '../components/Lobby';
+import GameList from '../components/shared/GameList';
+import Spinner from '../components/shared/Spinner';
 import { fetechActiveGames, fetechSpectateGames } from '../redux/lobby/thunk';
-import GameList from '../shared/GameList';
-import Spinner from '../shared/Spinner';
 import { BACKGROUND } from '../utilis/constants';
-import './Lobby.scss';
+import './styles/Lobby.scss';
 
 const Lobby = ({ activeGames, spectateGames, username }) => {
   const [overlayDiv, setOverlayDiv] = useState(false);

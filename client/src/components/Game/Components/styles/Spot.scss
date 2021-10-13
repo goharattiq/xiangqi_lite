@@ -1,0 +1,20 @@
+@import "../../../../styles/variables";
+
+.spot {
+  background-color: $primary;
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
+  border-radius: 10px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 660px) {
+  .spot {
+    width: 15px;
+    height: 15px;
+  }
+}

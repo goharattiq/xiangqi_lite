@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Nav } from 'react-bootstrap';
 
 import { SIGNIN, SIGNUP } from '../../utilis/constants';
-import './AuthTab.scss';
+import './styles/AuthTab.scss';
 
 const AuthTab = ({ clickTabHandler, activeTab }) => (
   <Nav fill variant="tabs">

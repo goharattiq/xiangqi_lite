@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import './Chat.scss';
+import './styles/Chat.scss';
 
 const ChatHistory = () => {
   const chat = useSelector((state) => state.chat);

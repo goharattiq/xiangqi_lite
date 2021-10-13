@@ -13,7 +13,7 @@ import HitPiece from './Components/HitPiece';
 import Player from './Components/Player';
 import Timer from './Components/Timer';
 import WaitTimer from './Components/WaitTimer';
-import './PlayArea.scss';
+import './styles/PlayArea.scss';
 
 const PlayArea = () => {
   const dispatch = useDispatch();

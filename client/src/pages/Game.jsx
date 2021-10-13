@@ -7,9 +7,9 @@ import { useMediaQuery } from 'react-responsive';
 import { useParams, useHistory } from 'react-router-dom';
 
 import { PlayArea, Chat } from '../components/Game';
-import Spinner from '../shared/Spinner';
+import Spinner from '../components/shared/Spinner';
 import { socketEnterGame } from '../socketio/gameSocketio';
-import './Game.scss';
+import './styles/Game.scss';
 
 const Game = ({ isTablet }) => (
   <>

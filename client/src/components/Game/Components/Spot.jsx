@@ -1,10 +1,10 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import './Spot.scss';
 import { useDispatch } from 'react-redux';
 
 import { clearHintMove, pieceMove } from '../../../redux/game/actions';
+import './styles/Spot.scss';
 
 const Spot = ({ visiblity, id, selectedPiece }) => {
   const disptach = useDispatch();

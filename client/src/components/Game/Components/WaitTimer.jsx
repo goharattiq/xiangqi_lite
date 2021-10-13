@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { waitTimer } from '../../../redux/game/actions';
 import { GAME_RESTART_TIMEOUT_MINUTES } from '../../../utilis/constants';
-import './WaitTimer.scss';
+import './styles/WaitTimer.scss';
 
 const WaitTimer = ({ waitTimeOn }) => {
   const dispatch = useDispatch();

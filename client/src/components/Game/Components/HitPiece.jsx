@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Piece from '../Piece/Piece';
-import './HitPiece.scss';
+import './styles/HitPiece.scss';
 
 const HitPiece = ({ hitPieces }) => (
   <ul className="list-group list-group-horizontal position-relative hit-piece">

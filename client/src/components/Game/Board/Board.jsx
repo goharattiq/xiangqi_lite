@@ -12,7 +12,7 @@ import moveAudio from '../../../static/audio/move.ogg';
 import { ReactComponent as Background } from '../../../static/img/background/board.svg';
 import { changeDroppableStyle, pieceAnimationEnd, pieceAnimationStart } from '../../../utilis/game';
 import Row from './Row';
-import './Board.scss';
+import './styles/Board.scss';
 
 const Board = ({ historyMode, isRotate }) => {
   const [previousExpectedMove, setPreviousExpectedMove] = useState(null);

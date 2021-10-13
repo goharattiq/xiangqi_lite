@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './AnnounceWinner.scss';
+import './styles/AnnounceWinner.scss';
 
 const AnnounceWinner = ({ player, username, announce }) => (
   announce

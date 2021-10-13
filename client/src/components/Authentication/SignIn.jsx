@@ -4,7 +4,7 @@ import { Form, FloatingLabel, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
 import { signinUser } from '../../redux/auth/thunk';
-import './SignUpIn.scss';
+import './styles/SignUpIn.scss';
 
 const SignIn = () => {
   const dispatch = useDispatch();

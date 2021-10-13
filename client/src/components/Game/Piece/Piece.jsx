@@ -7,7 +7,7 @@ import { whichSide } from '../../../utilis/pieceMove';
 import {
   red, black, Advisor, Cannon, Chariot, Elephant, Horse, King, Pawn,
 } from './PiecesImport';
-import './Piece.scss';
+import './styles/Piece.scss';
 
 const Piece = ({
   name, id, hitStyle,

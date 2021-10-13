@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sendMessage } from '../../../redux/chat/actions';
 import { socketSendMessage } from '../../../socketio/chatSocketio';
 import ChatHistory from './ChatHistory';
-import './Chat.scss';
+import './styles/Chat.scss';
 
 const Chat = () => {
   const dispatch = useDispatch();

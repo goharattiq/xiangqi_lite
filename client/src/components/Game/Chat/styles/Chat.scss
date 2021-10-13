@@ -1,0 +1,55 @@
+@import "../../../../styles/variables";
+
+p {
+  margin: 0;
+}
+
+.profile-link {
+  color: $compliment;
+}
+
+.profile-link:hover {
+  color: rgba($color: $compliment, $alpha: 0.7);
+}
+
+.chat {
+  background-color: $background;
+  border-radius: 10px;
+  height: 93vh;
+}
+
+.type_msg {
+  position: absolute;
+  bottom: 0;
+}
+
+.message-history {
+  height: 685px;
+  overflow-y: scroll;
+}
+
+.author {
+  color: #573b38b0;
+}
+
+.content {
+  color: rgba($color: #5f342f, $alpha: 1);
+}
+
+.btn-send {
+  background-color: rgba($color: $background, $alpha: 0.9);
+  color: $compliment;
+}
+
+@media screen and (max-width: 800px) {
+  .chat {
+    top: 55%;
+    left: 50%;
+    height: 400px;
+    background-color: rgba($color: $background, $alpha: 0.9);
+  }
+  .message-history {
+    height: 340px;
+    overflow-y: scroll;
+  }
+}

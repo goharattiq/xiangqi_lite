@@ -14,7 +14,7 @@ import { fetchUserProfile, updateProfile } from '../../redux/profile/thunk';
 import { setToast } from '../../redux/toast/actions';
 import { ALLOWED_EXTENSTIONS, BACKGROUND } from '../../utilis/constants';
 import Spinner from '../shared/Spinner';
-import './EditProfile.scss';
+import './styles/EditProfile.scss';
 
 const EditProfile = ({
   profile, handleChange, handleFileChange, handleSubmit,

@@ -2,7 +2,7 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 import Avatar from 'react-avatar';
-import './Player.scss';
+import './styles/Player.scss';
 import { Link } from 'react-router-dom';
 
 const Player = ({ player }) => (

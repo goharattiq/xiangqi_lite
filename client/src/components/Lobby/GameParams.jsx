@@ -11,7 +11,7 @@ import { socketSetGameParams } from '../../socketio/gameSocketio';
 import { MOVE_TIMER, GAME_TIMER, SIDE } from '../../utilis/constants';
 import { GAME_PARAMETERS } from '../../utilis/paramsData';
 import Field from './Field';
-import './GameParams.scss';
+import './styles/GameParams.scss';
 
 let searchTimeOut;
 const GameParams = ({ setOverlayDiv }) => {

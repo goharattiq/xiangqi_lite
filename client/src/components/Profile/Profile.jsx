@@ -12,7 +12,7 @@ import { PRIMARY } from '../../utilis/constants';
 import GameList from '../shared/GameList';
 import Spinner from '../shared/Spinner';
 
-import './Profile.scss';
+import './styles/Profile.scss';
 
 const Profile = ({
   userFullName, user, statList, games, photo, bio, isSessionUser,

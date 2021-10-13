@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import Routes from './Components/Routes';
+import Routes from './components/shared/Routes';
 
 const App = () => (
   <Router>

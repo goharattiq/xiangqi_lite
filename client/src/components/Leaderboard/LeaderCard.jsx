@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Avatar from 'react-avatar';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './LeaderCard.scss';
+import './styles/LeaderCard.scss';
 
 const LeaderCard = ({ leader }) => {
   const statList = {

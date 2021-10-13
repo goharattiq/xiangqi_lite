@@ -1,0 +1,14 @@
+@import "../../../styles/variables";
+
+.active {
+  background-color: $primary !important;
+  color: $background !important;
+}
+
+.tabs,
+.tabs:hover {
+  background-color: $background;
+  color: $compliment;
+  padding-top: 16px;
+  height: 60px;
+}

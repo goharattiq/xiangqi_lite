@@ -1,0 +1,93 @@
+@import "../../../styles/variables";
+
+.overlay-div {
+  color: $compliment;
+  background-color: rgba(150, 142, 142, 0.521);
+  z-index: 1000;
+
+  .game-params {
+    width: 315px;
+    border-radius: 10px;
+    transform: translate(-50%, 0);
+    top: 5%;
+
+    .close-button {
+      position: relative;
+      top: -50px;
+    }
+
+    .form-scroll {
+      overflow-y: scroll;
+      max-height: 70vh;
+
+      .radio-div {
+        height: 40px;
+        margin-bottom: 20px;
+      }
+
+      .form-check-input[type="radio"] {
+        height: 40px;
+        width: 90px;
+        border-radius: 0px;
+        margin: 0;
+        cursor: pointer;
+      }
+
+      .form-check-input:checked[type="radio"] {
+        background-image: none;
+      }
+
+      .radio-buttons {
+        width: 90px;
+      }
+
+      input[type="radio"]:checked + label {
+        background-color: $primary;
+        color: $background;
+        cursor: pointer;
+      }
+
+      input[type="radio"] + label {
+        position: relative;
+        top: -31px;
+        cursor: pointer;
+      }
+
+      input[name="moveTime"],
+      input[name="gameTimer"] {
+        width: 60px !important;
+      }
+
+      input[name="moveTime"] + label,
+      input[name="gameTimer"] + label {
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 20px;
+      }
+
+      .form-check {
+        padding-left: 0;
+      }
+
+      .form-check-input:checked {
+        background-color: $primary;
+        color: $background;
+      }
+
+      .time {
+        width: 60px;
+      }
+
+      .form-button,
+      .form-button:hover,
+      .form-button:focus {
+        transform: translate(-50%, 0);
+        background-color: $primary;
+      }
+
+      .form-button:focus {
+        box-shadow: 0 0 0 0.25rem rgb(190, 52, 45/10%);
+      }
+    }
+  }
+}

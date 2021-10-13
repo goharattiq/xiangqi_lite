@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { SignIn, SignUp, AuthTab } from '../Authentication';
-import ToastMessage from '../shared/ToastMessage';
+import { SignIn, SignUp, AuthTab } from '../components/Authentication';
+import ToastMessage from '../components/shared/ToastMessage';
 import { BACKGROUND, SIGNIN } from '../utilis/constants';
 
 const Authentication = () => {

@@ -1,0 +1,21 @@
+@import "../../../../styles/variables";
+
+.winner {
+  width: 315px;
+  border-radius: 10px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.back-button,
+.back-button:hover,
+.back-button:focus {
+  background-color: $primary;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.back-button:focus {
+  box-shadow: 0 0 0 0.25rem rgb(190, 52, 45/10%);
+}
