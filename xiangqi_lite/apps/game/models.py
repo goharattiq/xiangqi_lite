@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models import JSONField
 from django.utils.timezone import now
 
-from apps.user_profile.models import Profile
+from xiangqi_lite.apps.user_profile.models import Profile
 
 
 class Player(models.Model):

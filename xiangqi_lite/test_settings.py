@@ -11,8 +11,8 @@ DEBUG = True
 
 
 INSTALLED_APPS = [
-    'apps.user_profile',
-    'apps.game',
+    'xiangqi_lite.apps.user_profile',
+    'xiangqi_lite.apps.game',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

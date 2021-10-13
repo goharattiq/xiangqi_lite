@@ -1,7 +1,7 @@
 from hashids import Hashids
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
-from apps.user_profile.serializers import ProfileGameSerializer
+from xiangqi_lite.apps.user_profile.serializers import ProfileGameSerializer
 from xiangqi_lite.settings import SECRET_KEY
 from .models import Game, Player
 

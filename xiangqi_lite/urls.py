@@ -26,8 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('dj_rest_auth.urls')),
     path('api/auth/signup/', include('dj_rest_auth.registration.urls')),
-    path('api/profile/', include('apps.user_profile.urls', namespace='profile')),
-    path('api/game/', include('apps.game.urls', namespace='game')),
+    path('api/profile/', include('xiangqi_lite.apps.user_profile.urls', namespace='profile')),
+    path('api/game/', include('xiangqi_lite.apps.game.urls', namespace='game')),
 
     re_path('(^(?!(api|admin|media|swagger)).*$)', index, name='index'),
 

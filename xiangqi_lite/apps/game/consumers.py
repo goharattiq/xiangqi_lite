@@ -6,10 +6,10 @@ from django.utils.timezone import now
 from hashids import Hashids
 
 from xiangqi_lite.settings import SECRET_KEY
-from apps.game.models import Game, Player
-from apps.game.serializers import GameSerializer
-from apps.user_profile.models import Profile
-import apps.game.constants as constants
+from xiangqi_lite.apps.game.models import Game, Player
+from xiangqi_lite.apps.game.serializers import GameSerializer
+from xiangqi_lite.apps.user_profile.models import Profile
+import xiangqi_lite.apps.game.constants as constants
 
 sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
 app = socketio.ASGIApp(sio)
