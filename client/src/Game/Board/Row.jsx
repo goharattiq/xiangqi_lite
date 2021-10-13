@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 import { whichSide } from '../../utilis/pieceMove';
 import Spot from '../Components/Spot';
-import Piece from '../Piece/Piece';
+import { Piece } from '../Piece';
 import './Row.scss';
 
 const Row = ({

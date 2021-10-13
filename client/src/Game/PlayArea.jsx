@@ -6,7 +6,7 @@ import { historyMoveBack, historyMoveForward, toggleHistoryMode } from '../redux
 import { socketLeaveGame } from '../socketio/gameSocketio';
 import { BLACK, RED } from '../utilis/constants';
 import { whichSide } from '../utilis/pieceMove';
-import Board from './Board/Board';
+import { Board } from './Board';
 import AnnounceWinner from './Components/AnnounceWinner';
 import History from './Components/History';
 import HitPiece from './Components/HitPiece';

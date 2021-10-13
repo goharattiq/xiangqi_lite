@@ -5,12 +5,11 @@ import {
   Redirect, Switch, useHistory, useLocation, Route,
 } from 'react-router-dom';
 
-import Authentication from '../Authentication/Authentication';
-import Game from '../Game/Game';
-import LeaderBoard from '../Leaderboard/LeaderBoard';
-import Lobby from '../Lobby/Lobby';
-import EditProfile from '../Profile/EditProfile';
-import Profile from '../Profile/Profile';
+import { Authentication } from '../Authentication';
+import { Game } from '../Game';
+import { LeaderBoard } from '../Leaderboard';
+import { Lobby } from '../Lobby';
+import { Profile, EditProfile } from '../Profile';
 import { fetechUser } from '../redux/auth/thunk';
 import { subscribeChatSocketEvents } from '../socketio/chatSocketio';
 import { socketLeaveGame, subscribeGameSocketEvents } from '../socketio/gameSocketio';
