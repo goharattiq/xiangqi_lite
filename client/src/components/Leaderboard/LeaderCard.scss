@@ -1,0 +1,32 @@
+@import "../../variables";
+
+.leaderboard {
+  margin-top: 5%;
+  color: $compliment;
+
+  .profile-link {
+    color: $compliment;
+    &:hover {
+      color: rgba($color: $compliment, $alpha: 0.7);
+    }
+  }
+
+  .leader-avatar {
+    border-radius: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  table {
+    background-color: #fff;
+    position: inherit;
+  }
+
+  tr {
+    height: $screen-xl;
+  }
+
+  td {
+    height: $screen-xl;
+    width: $screen-xl;
+  }
+}

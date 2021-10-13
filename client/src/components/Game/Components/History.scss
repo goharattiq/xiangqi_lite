@@ -1,0 +1,28 @@
+@import "../../../variables";
+
+.custom-color {
+  background-color: rgba($color: $background, $alpha: 0);
+  color: $compliment;
+  border: 0;
+}
+
+.custom-color:active,
+.custom-color:focus,
+.custom-color:hover {
+  background-color: $background;
+  box-shadow: $background;
+  border-color: $background;
+  color: $compliment;
+  box-shadow: 0 0 0 0.25rem rgba($color: $compliment, $alpha: 10);
+}
+
+.history {
+  height: 35px;
+  top: -43rem;
+}
+
+@media screen and (max-width: 400px) {
+  .history {
+    top: -41rem;
+  }
+}
