@@ -18,7 +18,5 @@ export const NOTIFICATION_PLAYER_LEAVE = 'notification.player_leave';
 export const CONNECT = 'connect';
 export const DISCONNECT = 'disconnect';
 
-// const WS_SCHEME = window.location.protocol === 'https:' ? 'wss' : 'ws';
-// export const SOCKET_URL = `${WS_SCHEME}://${window.location.host}`;
-const HOST = '192.168.1.4:8000';
-export const SOCKET_URL = `http://${HOST}`;
+const WS_SCHEME = window.location.protocol === 'https:' ? 'wss' : 'ws';
+export const SOCKET_URL = `${WS_SCHEME}://${window.location.host}`;

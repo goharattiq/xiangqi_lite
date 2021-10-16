@@ -58,7 +58,7 @@ const Board = ({ historyMode, isRotate }) => {
   };
   useEffect(() => {
     if (inCheck) {
-      dispatch(setToast('You are in Check', 'danger', dispatch));
+      dispatch(setToast('You are in Check', 'danger'));
     }
   }, [inCheck]);
   if (isRotate) {

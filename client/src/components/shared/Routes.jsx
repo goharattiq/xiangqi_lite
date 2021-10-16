@@ -30,11 +30,11 @@ const Routes = () => {
   const dispatch = useDispatch();
   const [urlState, setUrlState] = useState('');
   useEffect(() => {
-    const subscirbeSockets = async () => {
+    const subscirbeSockets = () => {
       if (authUser && Object.keys(authUser).length) {
-        await connectSockets(accessToken, dispatch);
-        await subscribeGameSocketEvents(authUser.username, dispatch);
-        await subscribeChatSocketEvents(dispatch);
+        dispatch(connectSockets());
+        dispatch(subscribeGameSocketEvents());
+        dispatch(subscribeChatSocketEvents());
         if (urlState.match('game')) {
           history.push(urlState);
           setUrlState('');
@@ -45,7 +45,7 @@ const Routes = () => {
       }
 
       if (authUser && Object.keys(authUser).length && !gameParams && localStorage.getItem('gameID')) {
-        socketLeaveGame(localStorage.getItem('gameID'), dispatch);
+        dispatch(socketLeaveGame(localStorage.getItem('gameID')));
       }
     };
     if (!authUser && localStorage.getItem('access_token')) {

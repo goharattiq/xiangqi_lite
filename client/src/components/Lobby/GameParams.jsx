@@ -62,12 +62,12 @@ const GameParams = ({ setOverlayDiv }) => {
     event.preventDefault();
     if (isValidGameParams(gameParams, searchNames)) {
       if (owner === username) {
-        dispatch(setToast('You cannot play with yourself', 'danger', dispatch));
+        dispatch(setToast('You cannot play with yourself', 'danger'));
         return;
       }
       socketSetGameParams(gameParams, owner);
     } else {
-      dispatch(setToast('Please choose complete game params', 'danger', dispatch));
+      dispatch(setToast('Please choose complete game params', 'danger'));
     }
   };
   const selectedValue = [gameType, gameRated, gameTimed];

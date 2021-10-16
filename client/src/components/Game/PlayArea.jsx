@@ -41,7 +41,7 @@ const PlayArea = () => {
       localStorage.setItem('gameID', gameParams.id);
     }
     return () => {
-      socketLeaveGame(gameParams.id, dispatch);
+      dispatch(socketLeaveGame(gameParams.id));
     };
   }, []);
   const historyHandler = (pointer, isNext) => {
