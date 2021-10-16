@@ -1,14 +1,15 @@
 import React from 'react';
 
 import { useSelector } from 'react-redux';
-import { Route, useHistory } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+
+import history from '../../utilis/history';
 
 const PrivateRoute = ({
   // eslint-disable-next-line react/prop-types
   component: Component,
   ...rest
 }) => {
-  const history = useHistory();
   const auth = useSelector((state) => state.auth);
   if (!auth) {
     history.push('/auth');

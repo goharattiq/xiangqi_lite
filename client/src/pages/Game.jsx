@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { PlayArea, Chat } from '../components/Game';
 import Spinner from '../components/shared/Spinner';
 import { socketEnterGame } from '../socketio/gameSocketio';
+import history from '../utilis/history';
 import './styles/Game.scss';
 
 const Game = ({ isTablet }) => (
@@ -36,7 +37,6 @@ const GameWithContainer = Spinner(Game);
 
 const GameContainer = () => {
   const { gameId } = useParams();
-  const history = useHistory();
   const isTablet = useMediaQuery({ query: '(max-width: 992px)' });
   const { gameParams } = useSelector(({ game }) => ({ gameParams: game.params }));
   document.body.style.backgroundColor = '#be342d';
