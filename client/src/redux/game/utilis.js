@@ -63,10 +63,6 @@ export const onPieceMove = (move, previousState, history, fromSockets) => {
     }
     if (fromSockets) {
       checked = inCheck(board, whichSide(board[destI][destJ].piece.name));
-      // if (checked) {
-      //   // inCheckMate(board, checked);
-      //   // console.log('IN CHEKCED');
-      // }
     }
     return {
       board, hitPiece, history: move, turnChanged: true, inCheck: checked,
