@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import { clearChat } from '../redux/chat/actions';
 import {
@@ -15,6 +17,7 @@ import {
 import {
   boardOptimize, initMatrix, loadBoard, setPiecePositions,
 } from '../utilis/game';
+import history from '../utilis/history';
 import {
   DISCONNECT,
   GAME_CREATE,
@@ -32,7 +35,7 @@ import {
 } from './constants';
 import { socket } from './socketio';
 
-export const socketEnterGame = (gameID, history) => {
+export const socketEnterGame = (gameID) => {
   if (!socket) {
     history.push('/lobby');
     return;
@@ -79,7 +82,7 @@ export const socketLeaveGame = (game_id, dispatch) => {
   dispatch(clearChat());
 };
 
-export const subscribeGameSocketEvents = (history, username, dispatch) => {
+export const subscribeGameSocketEvents = (username, dispatch) => {
   if (socket) {
     socket.on(GAME_SEND_PARAMS, (gameParams) => {
       initGame(gameParams, dispatch);

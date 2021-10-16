@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import { signOutUser } from '../../redux/auth/thunk';
 import './styles/Navigation.scss';
@@ -21,25 +21,41 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Link id="play" to="/lobby" className="nav-link-custom">
+            <NavLink
+              id="play"
+              to="/lobby"
+              className="nav-link-custom"
+              activeClassName="selected"
+            >
               Play
-            </Link>
-            <Link id="leaderboard" to="/leaderboard" className="nav-link-custom">
+            </NavLink>
+            <NavLink
+              id="leaderboard"
+              to="/leaderboard"
+              className="nav-link-custom"
+              activeClassName="selected"
+            >
               LeaderBoard
-            </Link>
-            <Link id="profile" to={`/profile/${auth.user ? auth.user.username : ''}`} className="nav-link-custom">
+            </NavLink>
+            <NavLink
+              id="profile"
+              to={`/profile/${auth.user ? auth.user.username : ''}`}
+              className="nav-link-custom"
+              activeClassName="selected"
+            >
               {`Profile${auth.user && `-${auth.user.username}`}`}
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               id="logout"
-              to="/"
+              activeClassName="selected"
+              to="/logout"
               className="nav-link-custom"
               onClick={() => {
                 dispatch(signOutUser());
               }}
             >
               Logout
-            </Link>
+            </NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -7,7 +7,7 @@ import {
   Button, FloatingLabel, Form, Row,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { clearProfile } from '../../redux/profile/actions';
 import { fetchUserProfile, updateProfile } from '../../redux/profile/thunk';
@@ -91,7 +91,6 @@ const EditProfileWithSpinner = Spinner(EditProfile);
 const EditProfileContainer = () => {
   document.body.style.backgroundColor = BACKGROUND;
   const dispatch = useDispatch();
-  const history = useHistory();
   const { profileUsername } = useParams();
   const { user, player_bio, player_photo } = useSelector(({ profile }) => ({
     user: profile.user,
@@ -164,7 +163,7 @@ const EditProfileContainer = () => {
       first_name,
       last_name,
       photo,
-    }, history));
+    }));
   };
   return (
     <EditProfileWithSpinner

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { GAME_BASE_PATH, PROFILE_BASE_PATH } from '../../utilis/constants';
+import history from '../../utilis/history';
 import { setToast } from '../toast/actions';
 import { dispatchErrors } from '../toast/utilis';
 import { editProfile, getGames, getProfile } from './actions';
@@ -29,7 +30,7 @@ export const fetchAllTimeGames = (username) => (dispatch) => {
     });
 };
 
-export const updateProfile = (username, updatedProfile, history) => (dispatch) => {
+export const updateProfile = (username, updatedProfile) => (dispatch) => {
   const data = new FormData();
   Object.entries(updatedProfile).forEach(([name, value]) => {
     if (value) {

@@ -2,12 +2,13 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
+import history from '../../utilis/history';
 import './styles/GameList.scss';
-import { Link, useHistory } from 'react-router-dom';
 
 const GameList = ({ type, games, username }) => {
   const getPlayerName = (playerName) => (playerName === username ? 'Me' : playerName);
-  const history = useHistory();
   return (
     <div className={`row position-relative m-3 game ${type === 'All Time' && 'justify-content-center'}`}>
       <h4 className="game-heading">{`My ${type} Games`}</h4>
