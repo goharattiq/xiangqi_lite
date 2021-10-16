@@ -41,7 +41,7 @@ export const updateProfile = (username, updatedProfile) => (dispatch) => {
     .put(`${PROFILE_BASE_PATH}/${username}/`, data)
     .then((res) => {
       dispatch(editProfile(res.data));
-      dispatch(setToast('Profile Edit SuccessFully', 'light', dispatch));
+      dispatch(setToast('Profile Edit SuccessFully', 'light'));
       history.push(`/profile/${username}`);
     })
     .catch((err) => {

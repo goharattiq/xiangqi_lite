@@ -148,7 +148,7 @@ const EditProfileContainer = () => {
         photo: event.target.files[0],
       });
     } else {
-      dispatch(setToast('This file is not allowed', 'danger', dispatch));
+      dispatch(setToast('This file is not allowed', 'danger'));
     }
   };
   const handleSubmit = (event) => {

@@ -18,7 +18,7 @@ export const signinUser = (credentials) => (dispatch) => {
     })
     .then((res) => {
       dispatch(signInSuccess(res.data));
-      dispatch(setToast('Signin Successfully', 'light', dispatch));
+      dispatch(setToast('Signin Successfully', 'light'));
     })
     .catch((err) => {
       const errors = err.response.data;
@@ -35,7 +35,7 @@ export const signupUser = ({ username, email, password }) => (dispatch) => {
     })
     .then(() => {
       dispatch(signUpSuccess());
-      dispatch(setToast('Sigup Successfully', 'light', dispatch));
+      dispatch(setToast('Sigup Successfully', 'light'));
     })
     .catch((err) => {
       const errors = err.response.data;
@@ -48,7 +48,7 @@ export const signOutUser = () => (dispatch) => {
     .post(`${AUTH_BASE_PATH}/logout/`, null)
     .then(() => {
       dispatch(signOutSuccess());
-      dispatch(setToast('Logout Successfully', 'light', dispatch));
+      dispatch(setToast('Logout Successfully', 'light'));
     })
     .catch((err) => {
       const errors = err.response.data;
