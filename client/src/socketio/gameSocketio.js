@@ -1,5 +1,4 @@
 /* eslint-disable no-shadow */
-/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import { clearChat } from '../redux/chat/actions';
 import {
@@ -10,6 +9,8 @@ import {
   pieceMove,
   waitTimer,
 } from '../redux/game/actions';
+// eslint-disable-next-line import/no-cycle
+import store from '../redux/store';
 import { setToast } from '../redux/toast/actions';
 import {
   BLACK, numCols, numRows, RANDOM, RED,
@@ -75,14 +76,16 @@ export const socketEndGame = (game_id, players, looser, type, isRated) => {
   });
 };
 
-export const socketLeaveGame = (game_id, dispatch) => {
+export const socketLeaveGame = (game_id) => (dispatch) => {
   localStorage.removeItem('gameID');
   socket.emit(GAME_LEAVE, game_id);
   dispatch(clearGame());
   dispatch(clearChat());
 };
 
-export const subscribeGameSocketEvents = (username, dispatch) => {
+export const subscribeGameSocketEvents = () => (dispatch) => {
+  const { auth } = store.getState();
+  const { username } = auth.user;
   if (socket) {
     socket.on(GAME_SEND_PARAMS, (gameParams) => {
       initGame(gameParams, dispatch);
@@ -104,23 +107,23 @@ export const subscribeGameSocketEvents = (username, dispatch) => {
     });
 
     socket.on(NOTIFICATION_GAME_CREATED, (data) => {
-      dispatch(setToast('Game Create Successfully', 'light', dispatch, data));
+      dispatch(setToast('Game Create Successfully', 'light', data));
     });
 
     socket.on(NOTIFICATION_PLAYERS_READY, (data) => {
       if (username === data.creator || username === data.invitee) {
-        dispatch(setToast('Opposition join the game', 'light', dispatch));
+        dispatch(setToast('Opposition join the game', 'light'));
       }
     });
 
     socket.on(NOTIFICATION_PLAYER_LEAVE, (data) => {
       if (username === data.creator || username === data.invitee) {
-        dispatch(setToast('Opposition leave the game', 'light', dispatch));
+        dispatch(setToast('Opposition leave the game', 'light'));
       }
     });
 
     socket.on(DISCONNECT, () => {
-      socketLeaveGame(localStorage.getItem('gameID'), dispatch);
+      dispatch(socketLeaveGame(localStorage.getItem('gameID')));
     });
   }
 };
